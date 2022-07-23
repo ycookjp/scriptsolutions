@@ -1,0 +1,10 @@
+################################################################################
+# Building :
+#   1. Place this file to working directory, and rename to "Dockerfile".
+#   2. Copy image file(s) to import-files/archive directory.
+#   2. Run following command.
+# Usage : docker build -t <image-name> .
+################################################################################
+FROM scratch
+ADD import-files/archive/* /
+CMD ["/bin/bash"]

@@ -1,0 +1,1662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>awsutils.aws_resource_operator API documentation</title>
+<meta name="description" content="AwsResourceOperator module …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>awsutils.aws_resource_operator</code></h1>
+</header>
+<section id="section-intro">
+<p>AwsResourceOperator module.</p>
+<p>Copyright ycookjp
+<a href="https://github.com/ycookjp/">https://github.com/ycookjp/</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- config: utf8 -*-
+&#39;&#39;&#39;AwsResourceOperator module.
+
+Copyright ycookjp
+https://github.com/ycookjp/
+
+&#39;&#39;&#39;
+
+import boto3
+
+class AwsResourceOperator:
+    &#39;&#39;&#39;Base class for operating AWS resource.
+    
+    &#39;&#39;&#39;
+    def get_status(self, resource_id: str):
+        &#39;&#39;&#39;Gets resource status.
+        
+        Args:
+            resource_id (str): Resource id.
+        
+        Returns:
+            Returns resource status.
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def _get_client(self, service_name: str, region_name: str,
+                    access_key_id: str=None, secret_access_key: str=None):
+        &#39;&#39;&#39;Gets boto3 client.
+        
+        Args:
+            seervice_name (str): service name such as ec2, rds ...
+            aws_access_key_id (str): access key id.
+            aws_secret_access_key (str): secret access key.
+            region_name (str): region name.
+        
+        Returns:
+            Returns boto3&#39;s client instance.
+        
+        &#39;&#39;&#39;
+        client = boto3.client(service_name, aws_access_key_id=access_key_id,
+                aws_secret_access_key=secret_access_key, region_name=region_name)
+        
+        return client
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts AWS service instance.
+        
+        Starts AWS service instance. This method is a abstruct method.
+        
+        Args:
+            instance_id (str): Instance ID.
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts AWS resources.
+        
+        Starts AWS resources. This method is a abstruct method.
+        
+        Args:
+            instance_ids (str ...): Instance IDs
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops AWS resource instance.
+        
+        Stops AWS resource instance. This method is a abstruct method.
+        
+        Args:
+            instance_id (str): Instance ID
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops AWS resources.
+        
+        Stops AWS resources. This method is a abstruct method.
+        
+        Args:
+            instance_ids (str ...): Instance IDs
+        
+        &#39;&#39;&#39;
+        pass
+
+class AwsEc2InstanceOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for EC2 instance.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 ec2 client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;ec2&#39;, region_name, access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, ec2_instance_id: str):
+        &#39;&#39;&#39;Gets EC2 instance status.
+        
+        Args:
+            ec2_instance_id (str): EC2 instance id.
+        
+        Returns:
+            Returns EC2 instance id status name.
+            Status name is one of &#39;pending&#39;, &#39;running&#39;, &#39;shutting-down&#39;,
+            &#39;terminated&#39;, &#39;stopping&#39;, &#39;stopped&#39;.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_instance_status(InstanceIds=[ec2_instance_id])
+        
+        status = None
+        if len(response[&#39;InstanceStatuses&#39;]) &gt; 0:
+            status = response[&#39;InstanceStatuses&#39;][0][&#39;InstanceState&#39;][&#39;Name&#39;]
+        
+        return status
+
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts EC2 instance.
+        
+        Args:
+            instance_id (str): EC2 instance id.
+        
+        &#39;&#39;&#39;
+        self.start_resources([instance_id])
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts EC2 instances.
+        
+        Args:
+            instance_ids (str ...): EC2 instance IDs
+        
+        &#39;&#39;&#39;
+        self._client.start_instances(InstanceIds=instance_ids)
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops EC2 instance.
+        
+        Args:
+            instance_id (str): EC2 instance ID.
+        
+        &#39;&#39;&#39;
+        self.stop_resources([instance_id])
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops EC2 instances.
+        
+        Args:
+            instance_ids (str ...): EC2 instance IDs.
+        
+        &#39;&#39;&#39;
+        self._client.stop_instances(InstanceIds=instance_ids)
+
+class AwsRdsDbClusterOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for RDS DB cluster.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 rds client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;rds&#39;, region_name, access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, db_cluster_id: str):
+        &#39;&#39;&#39;Gets RDS DB cluster status.
+        
+        Args:
+            db_cluster_id (str): RDS DB cluster id.
+        
+        Returns:
+            Returns RDS DB cluster status.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
+        
+        status = None
+        if len(response[&#39;DBClusters&#39;]) &gt; 0:
+            status = response[&#39;DBClusters&#39;][0][&#39;Status&#39;]
+        
+        return status
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts RDS cluster.
+        
+        Args:
+            instance_id (str): RDS cluster ID.
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is stopped
+        if status == &#39;stopped&#39;:
+            self._client.start_db_cluster(DBClusterIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts RDS clusters.
+        
+        Args:
+            instance_ids (list): RDS cluster IDs
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        
+        for instance_id in instance_ids:
+            result = self.start(instance_id)
+            count = count + result
+        
+        return count
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops RDS cluster.
+        
+        Args:
+            instance_id (str): RDS cluster ID.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # Stops cluster instance only if status is available
+        if status == &#39;available&#39;:
+            self._client.stop_db_cluster(DBClusterIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops RDS clusters.
+        
+        Args:
+            instance_ids (str ...): RDS cluster IDs.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        
+        for instance_id in instance_ids:
+            result = self.stop(instance_id)
+            count = count + result
+            
+        return count
+
+class AwsRdsDbInstanceOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for RDS instance.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 rds client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;rds&#39;, region_name,access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, db_instance_id: str):
+        &#39;&#39;&#39;Gets RDS DB instance status.
+        
+        Args:
+            db_instance_id (str): RDS DB instance id.
+        
+        Returns:
+            Returns RDS DB instance status.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
+        
+        status = None
+        if len(response[&#39;DBInstances&#39;]) &gt; 0:
+            status = response[&#39;DBInstances&#39;][0][&#39;DBInstanceStatus&#39;]
+        
+        return status
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts RDS instance.
+        
+        Args:
+            instance_id (str): RDS instance ID.
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is stopped
+        if status == &#39;stopped&#39;:
+            self._client.start_db_instance(DBInstanceIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts RDS instances.
+        
+        Args:
+            instance_ids (list): RDS instance IDs
+        
+        &#39;&#39;&#39;
+        for instance_id in instance_ids:
+            self.start(instance_id)
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops RDS instance.
+        
+        Args:
+            instance_id (str): RDS instance ID.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is available
+        if status == &#39;available&#39;:
+            self._client.stop_db_instance(DBInstanceIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops RDS instances.
+        
+        Args:
+            instance_ids (str ...): RDS instance IDs.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        for instance_id in instance_ids:
+            self.stop(instance_id)
+
+class AwsResourceOperatorFactory:
+    &#39;&#39;&#39;Factory class for generating AwsResourceOperator instance.
+    
+    &#39;&#39;&#39;
+    
+    @staticmethod
+    def create(resource_type: str, region_name: str,
+               access_key_id: str=None, secret_access_key: str=None):
+        &#39;&#39;&#39;Creates AWS instance operator&#39;s instance.
+        
+        Args:
+            service_name (str): AWS service name. Available service names
+                are followings things.
+                - ec2.instance
+                - rds.db_cluster
+                - rds.db_instance
+        
+        &#39;&#39;&#39;
+        
+        operator: AwsResourceOperator = None
+        
+        if resource_type == &#39;ec2.instance&#39;:
+            operator = AwsEc2InstanceOperator(
+                    region_name, access_key_id, secret_access_key)
+        elif resource_type == &#39;rds.db_cluster&#39;:
+            operator = AwsRdsDbClusterOperator(
+                    region_name, access_key_id,secret_access_key)
+        elif resource_type == &#39;rds.db_instance&#39;:
+            operator = AwsRdsDbInstanceOperator(
+                    region_name, access_key_id,secret_access_key)
+        else:
+            raise RuntimeError(f&#39;Cloud not create AwsResourceOperator class from class name:{resource_type}&#39;)
+
+        return operator</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator"><code class="flex name class">
+<span>class <span class="ident">AwsEc2InstanceOperator</span></span>
+<span>(</span><span>region_name: str, access_key_id: str = None, secret_access_key: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Operator class for EC2 instance.</p>
+<p>Constructor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsEc2InstanceOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for EC2 instance.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 ec2 client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;ec2&#39;, region_name, access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, ec2_instance_id: str):
+        &#39;&#39;&#39;Gets EC2 instance status.
+        
+        Args:
+            ec2_instance_id (str): EC2 instance id.
+        
+        Returns:
+            Returns EC2 instance id status name.
+            Status name is one of &#39;pending&#39;, &#39;running&#39;, &#39;shutting-down&#39;,
+            &#39;terminated&#39;, &#39;stopping&#39;, &#39;stopped&#39;.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_instance_status(InstanceIds=[ec2_instance_id])
+        
+        status = None
+        if len(response[&#39;InstanceStatuses&#39;]) &gt; 0:
+            status = response[&#39;InstanceStatuses&#39;][0][&#39;InstanceState&#39;][&#39;Name&#39;]
+        
+        return status
+
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts EC2 instance.
+        
+        Args:
+            instance_id (str): EC2 instance id.
+        
+        &#39;&#39;&#39;
+        self.start_resources([instance_id])
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts EC2 instances.
+        
+        Args:
+            instance_ids (str ...): EC2 instance IDs
+        
+        &#39;&#39;&#39;
+        self._client.start_instances(InstanceIds=instance_ids)
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops EC2 instance.
+        
+        Args:
+            instance_id (str): EC2 instance ID.
+        
+        &#39;&#39;&#39;
+        self.stop_resources([instance_id])
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops EC2 instances.
+        
+        Args:
+            instance_ids (str ...): EC2 instance IDs.
+        
+        &#39;&#39;&#39;
+        self._client.stop_instances(InstanceIds=instance_ids)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="awsutils.aws_resource_operator.AwsResourceOperator" href="#awsutils.aws_resource_operator.AwsResourceOperator">AwsResourceOperator</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator.get_status"><code class="name flex">
+<span>def <span class="ident">get_status</span></span>(<span>self, ec2_instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets EC2 instance status.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ec2_instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>EC2 instance id.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Returns EC2 instance id status name.
+Status name is one of 'pending', 'running', 'shutting-down',
+'terminated', 'stopping', 'stopped'.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_status(self, ec2_instance_id: str):
+    &#39;&#39;&#39;Gets EC2 instance status.
+    
+    Args:
+        ec2_instance_id (str): EC2 instance id.
+    
+    Returns:
+        Returns EC2 instance id status name.
+        Status name is one of &#39;pending&#39;, &#39;running&#39;, &#39;shutting-down&#39;,
+        &#39;terminated&#39;, &#39;stopping&#39;, &#39;stopped&#39;.
+    
+    &#39;&#39;&#39;
+    response = self._client.describe_instance_status(InstanceIds=[ec2_instance_id])
+    
+    status = None
+    if len(response[&#39;InstanceStatuses&#39;]) &gt; 0:
+        status = response[&#39;InstanceStatuses&#39;][0][&#39;InstanceState&#39;][&#39;Name&#39;]
+    
+    return status</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts EC2 instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>EC2 instance id.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self, instance_id: str):
+    &#39;&#39;&#39;Starts EC2 instance.
+    
+    Args:
+        instance_id (str): EC2 instance id.
+    
+    &#39;&#39;&#39;
+    self.start_resources([instance_id])</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator.start_resources"><code class="name flex">
+<span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts EC2 instances.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>EC2 instance IDs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Starts EC2 instances.
+    
+    Args:
+        instance_ids (str ...): EC2 instance IDs
+    
+    &#39;&#39;&#39;
+    self._client.start_instances(InstanceIds=instance_ids)</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops EC2 instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>EC2 instance ID.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(self, instance_id: str):
+    &#39;&#39;&#39;Stops EC2 instance.
+    
+    Args:
+        instance_id (str): EC2 instance ID.
+    
+    &#39;&#39;&#39;
+    self.stop_resources([instance_id])</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop_resources"><code class="name flex">
+<span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops EC2 instances.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>EC2 instance IDs.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Stops EC2 instances.
+    
+    Args:
+        instance_ids (str ...): EC2 instance IDs.
+    
+    &#39;&#39;&#39;
+    self._client.stop_instances(InstanceIds=instance_ids)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator"><code class="flex name class">
+<span>class <span class="ident">AwsRdsDbClusterOperator</span></span>
+<span>(</span><span>region_name: str, access_key_id: str = None, secret_access_key: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Operator class for RDS DB cluster.</p>
+<p>Constructor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsRdsDbClusterOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for RDS DB cluster.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 rds client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;rds&#39;, region_name, access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, db_cluster_id: str):
+        &#39;&#39;&#39;Gets RDS DB cluster status.
+        
+        Args:
+            db_cluster_id (str): RDS DB cluster id.
+        
+        Returns:
+            Returns RDS DB cluster status.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
+        
+        status = None
+        if len(response[&#39;DBClusters&#39;]) &gt; 0:
+            status = response[&#39;DBClusters&#39;][0][&#39;Status&#39;]
+        
+        return status
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts RDS cluster.
+        
+        Args:
+            instance_id (str): RDS cluster ID.
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is stopped
+        if status == &#39;stopped&#39;:
+            self._client.start_db_cluster(DBClusterIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts RDS clusters.
+        
+        Args:
+            instance_ids (list): RDS cluster IDs
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        
+        for instance_id in instance_ids:
+            result = self.start(instance_id)
+            count = count + result
+        
+        return count
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops RDS cluster.
+        
+        Args:
+            instance_id (str): RDS cluster ID.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # Stops cluster instance only if status is available
+        if status == &#39;available&#39;:
+            self._client.stop_db_cluster(DBClusterIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops RDS clusters.
+        
+        Args:
+            instance_ids (str ...): RDS cluster IDs.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        
+        for instance_id in instance_ids:
+            result = self.stop(instance_id)
+            count = count + result
+            
+        return count</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="awsutils.aws_resource_operator.AwsResourceOperator" href="#awsutils.aws_resource_operator.AwsResourceOperator">AwsResourceOperator</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.get_status"><code class="name flex">
+<span>def <span class="ident">get_status</span></span>(<span>self, db_cluster_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets RDS DB cluster status.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>db_cluster_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS DB cluster id.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Returns RDS DB cluster status.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_status(self, db_cluster_id: str):
+    &#39;&#39;&#39;Gets RDS DB cluster status.
+    
+    Args:
+        db_cluster_id (str): RDS DB cluster id.
+    
+    Returns:
+        Returns RDS DB cluster status.
+    
+    &#39;&#39;&#39;
+    response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
+    
+    status = None
+    if len(response[&#39;DBClusters&#39;]) &gt; 0:
+        status = response[&#39;DBClusters&#39;][0][&#39;Status&#39;]
+    
+    return status</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts RDS cluster.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS cluster ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of started instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self, instance_id: str):
+    &#39;&#39;&#39;Starts RDS cluster.
+    
+    Args:
+        instance_id (str): RDS cluster ID.
+    
+    Returns:
+        Number of started instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    status = self.get_status(instance_id)
+    
+    # starts cluster instance only if status is stopped
+    if status == &#39;stopped&#39;:
+        self._client.start_db_cluster(DBClusterIdentifier=instance_id)
+        count = count + 1
+    
+    return count</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start_resources"><code class="name flex">
+<span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts RDS clusters.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>list</code></dt>
+<dd>RDS cluster IDs</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of started instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Starts RDS clusters.
+    
+    Args:
+        instance_ids (list): RDS cluster IDs
+    
+    Returns:
+        Number of started instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    
+    for instance_id in instance_ids:
+        result = self.start(instance_id)
+        count = count + result
+    
+    return count</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops RDS cluster.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS cluster ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of stopped instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(self, instance_id: str):
+    &#39;&#39;&#39;Stops RDS cluster.
+    
+    Args:
+        instance_id (str): RDS cluster ID.
+    
+    Returns:
+        Number of stopped instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    status = self.get_status(instance_id)
+    
+    # Stops cluster instance only if status is available
+    if status == &#39;available&#39;:
+        self._client.stop_db_cluster(DBClusterIdentifier=instance_id)
+        count = count + 1
+    
+    return count</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop_resources"><code class="name flex">
+<span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops RDS clusters.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>RDS cluster IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of stopped instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Stops RDS clusters.
+    
+    Args:
+        instance_ids (str ...): RDS cluster IDs.
+    
+    Returns:
+        Number of stopped instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    
+    for instance_id in instance_ids:
+        result = self.stop(instance_id)
+        count = count + result
+        
+    return count</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator"><code class="flex name class">
+<span>class <span class="ident">AwsRdsDbInstanceOperator</span></span>
+<span>(</span><span>region_name: str, access_key_id: str = None, secret_access_key: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Operator class for RDS instance.</p>
+<p>Constructor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsRdsDbInstanceOperator(AwsResourceOperator):
+    &#39;&#39;&#39;Operator class for RDS instance.
+    
+    &#39;&#39;&#39;
+    _client = None
+    &#39;&#39;&#39;Boto3 rds client.
+    &#39;&#39;&#39;
+    
+    def __init__(self, region_name: str, access_key_id: str=None,
+                 secret_access_key: str=None):
+        &#39;&#39;&#39;Constructor.
+        
+        &#39;&#39;&#39;
+        self._client = self._get_client(&#39;rds&#39;, region_name,access_key_id,
+                                        secret_access_key)
+    
+    def get_status(self, db_instance_id: str):
+        &#39;&#39;&#39;Gets RDS DB instance status.
+        
+        Args:
+            db_instance_id (str): RDS DB instance id.
+        
+        Returns:
+            Returns RDS DB instance status.
+        
+        &#39;&#39;&#39;
+        response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
+        
+        status = None
+        if len(response[&#39;DBInstances&#39;]) &gt; 0:
+            status = response[&#39;DBInstances&#39;][0][&#39;DBInstanceStatus&#39;]
+        
+        return status
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts RDS instance.
+        
+        Args:
+            instance_id (str): RDS instance ID.
+        
+        Returns:
+            Number of started instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is stopped
+        if status == &#39;stopped&#39;:
+            self._client.start_db_instance(DBInstanceIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts RDS instances.
+        
+        Args:
+            instance_ids (list): RDS instance IDs
+        
+        &#39;&#39;&#39;
+        for instance_id in instance_ids:
+            self.start(instance_id)
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops RDS instance.
+        
+        Args:
+            instance_id (str): RDS instance ID.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        count = 0
+        status = self.get_status(instance_id)
+        
+        # starts cluster instance only if status is available
+        if status == &#39;available&#39;:
+            self._client.stop_db_instance(DBInstanceIdentifier=instance_id)
+            count = count + 1
+        
+        return count
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops RDS instances.
+        
+        Args:
+            instance_ids (str ...): RDS instance IDs.
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        &#39;&#39;&#39;
+        for instance_id in instance_ids:
+            self.stop(instance_id)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="awsutils.aws_resource_operator.AwsResourceOperator" href="#awsutils.aws_resource_operator.AwsResourceOperator">AwsResourceOperator</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.get_status"><code class="name flex">
+<span>def <span class="ident">get_status</span></span>(<span>self, db_instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets RDS DB instance status.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>db_instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS DB instance id.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Returns RDS DB instance status.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_status(self, db_instance_id: str):
+    &#39;&#39;&#39;Gets RDS DB instance status.
+    
+    Args:
+        db_instance_id (str): RDS DB instance id.
+    
+    Returns:
+        Returns RDS DB instance status.
+    
+    &#39;&#39;&#39;
+    response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
+    
+    status = None
+    if len(response[&#39;DBInstances&#39;]) &gt; 0:
+        status = response[&#39;DBInstances&#39;][0][&#39;DBInstanceStatus&#39;]
+    
+    return status</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts RDS instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS instance ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of started instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self, instance_id: str):
+    &#39;&#39;&#39;Starts RDS instance.
+    
+    Args:
+        instance_id (str): RDS instance ID.
+    
+    Returns:
+        Number of started instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    status = self.get_status(instance_id)
+    
+    # starts cluster instance only if status is stopped
+    if status == &#39;stopped&#39;:
+        self._client.start_db_instance(DBInstanceIdentifier=instance_id)
+        count = count + 1
+    
+    return count</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start_resources"><code class="name flex">
+<span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts RDS instances.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>list</code></dt>
+<dd>RDS instance IDs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Starts RDS instances.
+    
+    Args:
+        instance_ids (list): RDS instance IDs
+    
+    &#39;&#39;&#39;
+    for instance_id in instance_ids:
+        self.start(instance_id)</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops RDS instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>RDS instance ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of stopped instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(self, instance_id: str):
+    &#39;&#39;&#39;Stops RDS instance.
+    
+    Args:
+        instance_id (str): RDS instance ID.
+    
+    Returns:
+        Number of stopped instance(s).
+    
+    &#39;&#39;&#39;
+    count = 0
+    status = self.get_status(instance_id)
+    
+    # starts cluster instance only if status is available
+    if status == &#39;available&#39;:
+        self._client.stop_db_instance(DBInstanceIdentifier=instance_id)
+        count = count + 1
+    
+    return count</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop_resources"><code class="name flex">
+<span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops RDS instances.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>RDS instance IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of stopped instance(s).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Stops RDS instances.
+    
+    Args:
+        instance_ids (str ...): RDS instance IDs.
+    
+    Returns:
+        Number of stopped instance(s).
+    
+    &#39;&#39;&#39;
+    for instance_id in instance_ids:
+        self.stop(instance_id)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator"><code class="flex name class">
+<span>class <span class="ident">AwsResourceOperator</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for operating AWS resource.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsResourceOperator:
+    &#39;&#39;&#39;Base class for operating AWS resource.
+    
+    &#39;&#39;&#39;
+    def get_status(self, resource_id: str):
+        &#39;&#39;&#39;Gets resource status.
+        
+        Args:
+            resource_id (str): Resource id.
+        
+        Returns:
+            Returns resource status.
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def _get_client(self, service_name: str, region_name: str,
+                    access_key_id: str=None, secret_access_key: str=None):
+        &#39;&#39;&#39;Gets boto3 client.
+        
+        Args:
+            seervice_name (str): service name such as ec2, rds ...
+            aws_access_key_id (str): access key id.
+            aws_secret_access_key (str): secret access key.
+            region_name (str): region name.
+        
+        Returns:
+            Returns boto3&#39;s client instance.
+        
+        &#39;&#39;&#39;
+        client = boto3.client(service_name, aws_access_key_id=access_key_id,
+                aws_secret_access_key=secret_access_key, region_name=region_name)
+        
+        return client
+    
+    def start(self, instance_id: str):
+        &#39;&#39;&#39;Starts AWS service instance.
+        
+        Starts AWS service instance. This method is a abstruct method.
+        
+        Args:
+            instance_id (str): Instance ID.
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def start_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Starts AWS resources.
+        
+        Starts AWS resources. This method is a abstruct method.
+        
+        Args:
+            instance_ids (str ...): Instance IDs
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def stop(self, instance_id: str):
+        &#39;&#39;&#39;Stops AWS resource instance.
+        
+        Stops AWS resource instance. This method is a abstruct method.
+        
+        Args:
+            instance_id (str): Instance ID
+        
+        &#39;&#39;&#39;
+        pass
+    
+    def stop_resources(self, instance_ids: list):
+        &#39;&#39;&#39;Stops AWS resources.
+        
+        Stops AWS resources. This method is a abstruct method.
+        
+        Args:
+            instance_ids (str ...): Instance IDs
+        
+        &#39;&#39;&#39;
+        pass</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator">AwsEc2InstanceOperator</a></li>
+<li><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator">AwsRdsDbClusterOperator</a></li>
+<li><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator">AwsRdsDbInstanceOperator</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator.get_status"><code class="name flex">
+<span>def <span class="ident">get_status</span></span>(<span>self, resource_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets resource status.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>resource_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>Resource id.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Returns resource status.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_status(self, resource_id: str):
+    &#39;&#39;&#39;Gets resource status.
+    
+    Args:
+        resource_id (str): Resource id.
+    
+    Returns:
+        Returns resource status.
+    
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts AWS service instance.</p>
+<p>Starts AWS service instance. This method is a abstruct method.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>Instance ID.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self, instance_id: str):
+    &#39;&#39;&#39;Starts AWS service instance.
+    
+    Starts AWS service instance. This method is a abstruct method.
+    
+    Args:
+        instance_id (str): Instance ID.
+    
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator.start_resources"><code class="name flex">
+<span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts AWS resources.</p>
+<p>Starts AWS resources. This method is a abstruct method.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>Instance IDs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Starts AWS resources.
+    
+    Starts AWS resources. This method is a abstruct method.
+    
+    Args:
+        instance_ids (str ...): Instance IDs
+    
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops AWS resource instance.</p>
+<p>Stops AWS resource instance. This method is a abstruct method.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>Instance ID</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(self, instance_id: str):
+    &#39;&#39;&#39;Stops AWS resource instance.
+    
+    Stops AWS resource instance. This method is a abstruct method.
+    
+    Args:
+        instance_id (str): Instance ID
+    
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperator.stop_resources"><code class="name flex">
+<span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops AWS resources.</p>
+<p>Stops AWS resources. This method is a abstruct method.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
+<dd>Instance IDs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop_resources(self, instance_ids: list):
+    &#39;&#39;&#39;Stops AWS resources.
+    
+    Stops AWS resources. This method is a abstruct method.
+    
+    Args:
+        instance_ids (str ...): Instance IDs
+    
+    &#39;&#39;&#39;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperatorFactory"><code class="flex name class">
+<span>class <span class="ident">AwsResourceOperatorFactory</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Factory class for generating AwsResourceOperator instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsResourceOperatorFactory:
+    &#39;&#39;&#39;Factory class for generating AwsResourceOperator instance.
+    
+    &#39;&#39;&#39;
+    
+    @staticmethod
+    def create(resource_type: str, region_name: str,
+               access_key_id: str=None, secret_access_key: str=None):
+        &#39;&#39;&#39;Creates AWS instance operator&#39;s instance.
+        
+        Args:
+            service_name (str): AWS service name. Available service names
+                are followings things.
+                - ec2.instance
+                - rds.db_cluster
+                - rds.db_instance
+        
+        &#39;&#39;&#39;
+        
+        operator: AwsResourceOperator = None
+        
+        if resource_type == &#39;ec2.instance&#39;:
+            operator = AwsEc2InstanceOperator(
+                    region_name, access_key_id, secret_access_key)
+        elif resource_type == &#39;rds.db_cluster&#39;:
+            operator = AwsRdsDbClusterOperator(
+                    region_name, access_key_id,secret_access_key)
+        elif resource_type == &#39;rds.db_instance&#39;:
+            operator = AwsRdsDbInstanceOperator(
+                    region_name, access_key_id,secret_access_key)
+        else:
+            raise RuntimeError(f&#39;Cloud not create AwsResourceOperator class from class name:{resource_type}&#39;)
+
+        return operator</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="awsutils.aws_resource_operator.AwsResourceOperatorFactory.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>resource_type: str, region_name: str, access_key_id: str = None, secret_access_key: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates AWS instance operator's instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>service_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>AWS service name. Available service names
+are followings things.
+- ec2.instance
+- rds.db_cluster
+- rds.db_instance</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(resource_type: str, region_name: str,
+           access_key_id: str=None, secret_access_key: str=None):
+    &#39;&#39;&#39;Creates AWS instance operator&#39;s instance.
+    
+    Args:
+        service_name (str): AWS service name. Available service names
+            are followings things.
+            - ec2.instance
+            - rds.db_cluster
+            - rds.db_instance
+    
+    &#39;&#39;&#39;
+    
+    operator: AwsResourceOperator = None
+    
+    if resource_type == &#39;ec2.instance&#39;:
+        operator = AwsEc2InstanceOperator(
+                region_name, access_key_id, secret_access_key)
+    elif resource_type == &#39;rds.db_cluster&#39;:
+        operator = AwsRdsDbClusterOperator(
+                region_name, access_key_id,secret_access_key)
+    elif resource_type == &#39;rds.db_instance&#39;:
+        operator = AwsRdsDbInstanceOperator(
+                region_name, access_key_id,secret_access_key)
+    else:
+        raise RuntimeError(f&#39;Cloud not create AwsResourceOperator class from class name:{resource_type}&#39;)
+
+    return operator</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="awsutils" href="index.html">awsutils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator">AwsEc2InstanceOperator</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator.get_status" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator.get_status">get_status</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator.start" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator.start">start</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator.start_resources" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator.start_resources">start_resources</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop">stop</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop_resources" href="#awsutils.aws_resource_operator.AwsEc2InstanceOperator.stop_resources">stop_resources</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator">AwsRdsDbClusterOperator</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.get_status" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator.get_status">get_status</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start">start</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start_resources" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator.start_resources">start_resources</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop">stop</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop_resources" href="#awsutils.aws_resource_operator.AwsRdsDbClusterOperator.stop_resources">stop_resources</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator">AwsRdsDbInstanceOperator</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.get_status" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.get_status">get_status</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start">start</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start_resources" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.start_resources">start_resources</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop">stop</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop_resources" href="#awsutils.aws_resource_operator.AwsRdsDbInstanceOperator.stop_resources">stop_resources</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="awsutils.aws_resource_operator.AwsResourceOperator" href="#awsutils.aws_resource_operator.AwsResourceOperator">AwsResourceOperator</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperator.get_status" href="#awsutils.aws_resource_operator.AwsResourceOperator.get_status">get_status</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperator.start" href="#awsutils.aws_resource_operator.AwsResourceOperator.start">start</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperator.start_resources" href="#awsutils.aws_resource_operator.AwsResourceOperator.start_resources">start_resources</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperator.stop" href="#awsutils.aws_resource_operator.AwsResourceOperator.stop">stop</a></code></li>
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperator.stop_resources" href="#awsutils.aws_resource_operator.AwsResourceOperator.stop_resources">stop_resources</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="awsutils.aws_resource_operator.AwsResourceOperatorFactory" href="#awsutils.aws_resource_operator.AwsResourceOperatorFactory">AwsResourceOperatorFactory</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_operator.AwsResourceOperatorFactory.create" href="#awsutils.aws_resource_operator.AwsResourceOperatorFactory.create">create</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

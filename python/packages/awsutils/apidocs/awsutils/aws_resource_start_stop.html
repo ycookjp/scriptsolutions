@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>awsutils.aws_resource_start_stop API documentation</title>
+<meta name="description" content="aws_resource_start_stop module …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>awsutils.aws_resource_start_stop</code></h1>
+</header>
+<section id="section-intro">
+<p>aws_resource_start_stop module.</p>
+<p>Copyright ycookjp
+<a href="https://github.com/ycookjp/">https://github.com/ycookjp/</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#39;&#39;&#39;aws_resource_start_stop module.
+
+Copyright ycookjp
+https://github.com/ycookjp/
+
+&#39;&#39;&#39;
+
+import logging
+import os
+import yaml
+
+from .aws_resource_operator import AwsResourceOperatorFactory
+
+class AwsResourceStartStopConfig():
+    region_name = &#39;&#39;
+    &#39;&#39;&#39;
+    Region name
+    &#39;&#39;&#39;
+    resource_groups = []
+    &#39;&#39;&#39;
+    Array of EC2 instance id
+    &#39;&#39;&#39;
+    access_key_id = None
+    &#39;&#39;&#39;
+    IAM user&#39;s access key id
+    &#39;&#39;&#39;
+    secret_access_key = None
+    &#39;&#39;&#39;
+    IAM user&#39;s secret access key
+    &#39;&#39;&#39;
+
+def _load_config(script_path: str, configkey: str):
+    &#39;&#39;&#39;
+    
+    Loads configuration file with YAMS format. 
+    Configuration file should be located at same directory of specified
+    script path, and name should be base name of this script except for
+    extension is &#39;.yml&#39;.
+    
+    Args:
+        script_path (str): script path
+        configkey (str): configuration key name or list of that
+    
+    Returns:
+        AwsResourceStartStopConfig: Returns configuration object.
+    
+    &#39;&#39;&#39;
+    config_path = os.path.splitext(script_path)[0] + &#39;.yml&#39;
+    with open(config_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
+        yaml_conf = yaml.load(file, Loader=yaml.SafeLoader)
+        
+        config = AwsResourceStartStopConfig()
+        config.region_name = yaml_conf[&#39;region_name&#39;]
+        config.access_key_id = yaml_conf.get(&#39;access_key_id&#39;)
+        config.secret_access_key = yaml_conf.get(&#39;secret_access_key&#39;)
+
+        if isinstance(configkey, list):
+            config.resource_groups = []
+            config_dict = {}
+            for key in configkey:
+                for resource_group in yaml_conf[key]:
+                    type_name = resource_group.get(&#39;type&#39;)
+                    instance_ids = resource_group.get(&#39;ids&#39;)
+                    dict_instance_ids = config_dict.get(type_name)
+                    if dict_instance_ids == None:
+                        config_dict[type_name] = instance_ids
+                    else:
+                        for instance_id in instance_ids:
+                            if dict_instance_ids.count(instance_id) == 0:
+                                dict_instance_ids.append(instance_id)
+            for key in list(config_dict):
+                config.resource_groups.append({&#39;type&#39;: key, &#39;ids&#39;: config_dict.get(key)})
+        elif isinstance(configkey, str):
+            config.resource_groups = yaml_conf[configkey]
+
+        return config
+
+def _get_action_from_context(context):
+    &#39;&#39;&#39;
+    
+    Lambda関数contextオブジェクトからLambda関数の名前を取得し、それを&#34;_&#34;で
+    区切って分割して2番目の文字列を取得してEC2の開始、取得を区別する文字列
+    (start/stop)を取得します。
+    
+    Args:
+        context: Lambda関数のcontextオブジェクト
+    
+    Returns:
+        str: EC2の開始、取得を区別する文字列(start/stop)を取得します。
+                Lambda関数の名前によっては別の文字列が返されることがあります。
+    
+    &#39;&#39;&#39;
+    funcname = context.function_name
+    info = funcname.split(&#39;_&#39;, maxsplit=2)
+    action_name = info[1]
+    
+    return action_name
+
+def _get_configkey_from_context(context):
+    &#39;&#39;&#39;
+    
+    Lambda関数contextオブジェクトからLambda関数の名前を取得し、それを&#34;_&#34;で
+    区切って分割して3番目の文字列を取得して設定ファイルのキー名を取得します。
+    
+    Args:
+        context: Lambda関数のcontextオブジェクト
+    
+    Returns:
+        str: 設定ファイルのキー名を返します。
+    
+    &#39;&#39;&#39;
+    funcname = context.function_name
+    info = funcname.split(&#39;_&#39;, maxsplit=2)
+    configkey = info[2]
+    
+    return configkey
+
+def _get_action_from_event(event):
+    action_name = event[&#39;action&#39;];
+    
+    return action_name
+
+def _get_configkey_from_event(event):
+    configkey = event[&#39;configKey&#39;]
+    
+    return configkey
+
+def start_stop_aws_resources(event, context, use_event=True, script_path=__file__,
+        access_key_id=None, secret_access_key=None):
+    &#39;&#39;&#39;
+
+    event または context から action (&#34;start&#34; または &#34;stop&#34;) と configKey
+    (インスタンスIDの配列を取得するための設定ファイルのキー、またはキーの配列)
+    を取得して、インスタンスの開始／停止をします。
+    
+    use_event 引数が True の場合は、event から action と configKey を取得
+    します。use_event 引数が False の場合は、context から Lambda 関数の名前を
+    取得し、そこから action と configKey を取得します。このときは、Lambda関数の
+    名前は、「ec2_&lt;action&gt;_&lt;configKey&gt;」の形式である必要があります。
+    
+    引数 access_key_id を指定しない（Noneを指定した）場合は、設定ファイルの
+    「access_key_id」に設定された値をIAMユーザーのアクセスキーに使用します。
+    同様に引数 secret_access_key を指定しない（Noneを指定した）場合は、設定ファイルの
+    「secret_access_key」に指定された値をIAMユーザーのシークレットキーに庄します。
+    
+    Args:
+        event: Lambda関数のeventオブジェクトを指定します。
+        context: Lambda関数のcontextオブジェクトを指定します。
+        use_event (boolean, optional): event から情報を取得する場合は
+                True、context から情報を取得する場合は False を指定する
+        script_path (str, optional): スクリプトのパス
+        access_key_id (str, optional): IAMユーザーのアクセスキー
+        secret_access_key (str, optional): IAMユーザーのシークレットキー
+        client (object, optional): low-lebel client
+    
+    &#39;&#39;&#39;
+
+    try:
+        if use_event:
+            action_name = _get_action_from_event(event)
+            configkey = _get_configkey_from_event(event)
+        else:
+            action_name = _get_action_from_context(context)
+            configkey = _get_configkey_from_context(context)
+        
+        config = _load_config(script_path, configkey)
+        
+        if access_key_id == None:
+            access_key_id = config.access_key_id
+        if secret_access_key == None:
+            secret_access_key = config.secret_access_key
+        
+        for resource_group in config.resource_groups:
+            operator = AwsResourceOperatorFactory.create(
+                    resource_group[&#39;type&#39;], config.region_name,
+                    access_key_id, secret_access_key)
+            resource_type_name = resource_group[&#39;type&#39;]
+            instance_ids = resource_group[&#39;ids&#39;]
+            if action_name == &#39;start&#39;:
+                operator.start_resources(instance_ids)
+                for instance_id in instance_ids:
+                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; started.&#39;)
+            elif action_name == &#39;stop&#39;:
+                operator.stop_resources(instance_ids)
+                for instance_id in instance_ids:
+                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; stopped.&#39;)
+            else:
+                raise Exception(&#39;Lambda function name error&#39;)
+    except Exception:
+        raise</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="awsutils.aws_resource_start_stop.start_stop_aws_resources"><code class="name flex">
+<span>def <span class="ident">start_stop_aws_resources</span></span>(<span>event, context, use_event=True, script_path='src/main/awsutils/aws_resource_start_stop.py', access_key_id=None, secret_access_key=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>event または context から action ("start" または "stop") と configKey
+(インスタンスIDの配列を取得するための設定ファイルのキー、またはキーの配列)
+を取得して、インスタンスの開始／停止をします。</p>
+<p>use_event 引数が True の場合は、event から action と configKey を取得
+します。use_event 引数が False の場合は、context から Lambda 関数の名前を
+取得し、そこから action と configKey を取得します。このときは、Lambda関数の
+名前は、「ec2_<action>_<configKey>」の形式である必要があります。</p>
+<p>引数 access_key_id を指定しない（Noneを指定した）場合は、設定ファイルの
+「access_key_id」に設定された値をIAMユーザーのアクセスキーに使用します。
+同様に引数 secret_access_key を指定しない（Noneを指定した）場合は、設定ファイルの
+「secret_access_key」に指定された値をIAMユーザーのシークレットキーに庄します。</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>event</code></strong></dt>
+<dd>Lambda関数のeventオブジェクトを指定します。</dd>
+<dt><strong><code>context</code></strong></dt>
+<dd>Lambda関数のcontextオブジェクトを指定します。</dd>
+<dt><strong><code>use_event</code></strong> :&ensp;<code>boolean</code>, optional</dt>
+<dd>event から情報を取得する場合は
+True、context から情報を取得する場合は False を指定する</dd>
+<dt><strong><code>script_path</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>スクリプトのパス</dd>
+<dt><strong><code>access_key_id</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>IAMユーザーのアクセスキー</dd>
+<dt><strong><code>secret_access_key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>IAMユーザーのシークレットキー</dd>
+<dt><strong><code>client</code></strong> :&ensp;<code>object</code>, optional</dt>
+<dd>low-lebel client</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_stop_aws_resources(event, context, use_event=True, script_path=__file__,
+        access_key_id=None, secret_access_key=None):
+    &#39;&#39;&#39;
+
+    event または context から action (&#34;start&#34; または &#34;stop&#34;) と configKey
+    (インスタンスIDの配列を取得するための設定ファイルのキー、またはキーの配列)
+    を取得して、インスタンスの開始／停止をします。
+    
+    use_event 引数が True の場合は、event から action と configKey を取得
+    します。use_event 引数が False の場合は、context から Lambda 関数の名前を
+    取得し、そこから action と configKey を取得します。このときは、Lambda関数の
+    名前は、「ec2_&lt;action&gt;_&lt;configKey&gt;」の形式である必要があります。
+    
+    引数 access_key_id を指定しない（Noneを指定した）場合は、設定ファイルの
+    「access_key_id」に設定された値をIAMユーザーのアクセスキーに使用します。
+    同様に引数 secret_access_key を指定しない（Noneを指定した）場合は、設定ファイルの
+    「secret_access_key」に指定された値をIAMユーザーのシークレットキーに庄します。
+    
+    Args:
+        event: Lambda関数のeventオブジェクトを指定します。
+        context: Lambda関数のcontextオブジェクトを指定します。
+        use_event (boolean, optional): event から情報を取得する場合は
+                True、context から情報を取得する場合は False を指定する
+        script_path (str, optional): スクリプトのパス
+        access_key_id (str, optional): IAMユーザーのアクセスキー
+        secret_access_key (str, optional): IAMユーザーのシークレットキー
+        client (object, optional): low-lebel client
+    
+    &#39;&#39;&#39;
+
+    try:
+        if use_event:
+            action_name = _get_action_from_event(event)
+            configkey = _get_configkey_from_event(event)
+        else:
+            action_name = _get_action_from_context(context)
+            configkey = _get_configkey_from_context(context)
+        
+        config = _load_config(script_path, configkey)
+        
+        if access_key_id == None:
+            access_key_id = config.access_key_id
+        if secret_access_key == None:
+            secret_access_key = config.secret_access_key
+        
+        for resource_group in config.resource_groups:
+            operator = AwsResourceOperatorFactory.create(
+                    resource_group[&#39;type&#39;], config.region_name,
+                    access_key_id, secret_access_key)
+            resource_type_name = resource_group[&#39;type&#39;]
+            instance_ids = resource_group[&#39;ids&#39;]
+            if action_name == &#39;start&#39;:
+                operator.start_resources(instance_ids)
+                for instance_id in instance_ids:
+                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; started.&#39;)
+            elif action_name == &#39;stop&#39;:
+                operator.stop_resources(instance_ids)
+                for instance_id in instance_ids:
+                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; stopped.&#39;)
+            else:
+                raise Exception(&#39;Lambda function name error&#39;)
+    except Exception:
+        raise</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig"><code class="flex name class">
+<span>class <span class="ident">AwsResourceStartStopConfig</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AwsResourceStartStopConfig():
+    region_name = &#39;&#39;
+    &#39;&#39;&#39;
+    Region name
+    &#39;&#39;&#39;
+    resource_groups = []
+    &#39;&#39;&#39;
+    Array of EC2 instance id
+    &#39;&#39;&#39;
+    access_key_id = None
+    &#39;&#39;&#39;
+    IAM user&#39;s access key id
+    &#39;&#39;&#39;
+    secret_access_key = None
+    &#39;&#39;&#39;
+    IAM user&#39;s secret access key
+    &#39;&#39;&#39;</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.access_key_id"><code class="name">var <span class="ident">access_key_id</span></code></dt>
+<dd>
+<div class="desc"><p>IAM user's access key id</p></div>
+</dd>
+<dt id="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.region_name"><code class="name">var <span class="ident">region_name</span></code></dt>
+<dd>
+<div class="desc"><p>Region name</p></div>
+</dd>
+<dt id="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.resource_groups"><code class="name">var <span class="ident">resource_groups</span></code></dt>
+<dd>
+<div class="desc"><p>Array of EC2 instance id</p></div>
+</dd>
+<dt id="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.secret_access_key"><code class="name">var <span class="ident">secret_access_key</span></code></dt>
+<dd>
+<div class="desc"><p>IAM user's secret access key</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="awsutils" href="index.html">awsutils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_start_stop.start_stop_aws_resources" href="#awsutils.aws_resource_start_stop.start_stop_aws_resources">start_stop_aws_resources</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig" href="#awsutils.aws_resource_start_stop.AwsResourceStartStopConfig">AwsResourceStartStopConfig</a></code></h4>
+<ul class="">
+<li><code><a title="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.access_key_id" href="#awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.access_key_id">access_key_id</a></code></li>
+<li><code><a title="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.region_name" href="#awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.region_name">region_name</a></code></li>
+<li><code><a title="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.resource_groups" href="#awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.resource_groups">resource_groups</a></code></li>
+<li><code><a title="awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.secret_access_key" href="#awsutils.aws_resource_start_stop.AwsResourceStartStopConfig.secret_access_key">secret_access_key</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
