@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/main/awsutils/aws_resource_operator.py=utf-8
+encoding//src/main/awsutils/aws_resource_start_stop.py=utf-8
+encoding//tests/aws_test_utils.py=utf-8
+encoding//tests/test_all.py=utf-8

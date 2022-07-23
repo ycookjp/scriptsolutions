@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>320</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+aws_resource_operator::AwsResourceOperator
+--
+--
+-_get_client(service_name: str, region_name: str,
+              access_key_id: str=None,
+              secret_access_key: str=None): obj
+/+get_status(resource_id: str): str/
+/+start(instance_id: str): int/
+/+start_resources(instance_ids: array): int/
+/+stop(instance_id: str): int/
+/+stop_resources(instance_ids: array): int/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>20</y>
+      <w>320</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+aws_resource_operator::AwsEc2InstanceOperator
+--
+--
+#get_status(resource_id: str): str
+#start(instance_id: str): int
+#start_resources(instance_ids: array): int
+#stop(instance_id: str): int
+#stop_resources(instance_ids: array): int2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>170</y>
+      <w>340</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+aws_resource_operator::AwsRdsDbClusterOperator
+--
+--
+#get_status(resource_id: str): str
+#start(instance_id: str): int
+#start_resources(instance_ids: array): int
+#stop(instance_id: str): int
+#stop_resources(instance_ids: array): int2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>320</y>
+      <w>340</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+aws_resource_operator::AwsRdsDbInstanceOperator
+--
+--
+#get_status(resource_id: str): str
+#start(instance_id: str): int
+#start_resources(instance_ids: array): int
+#stop(instance_id: str): int
+#stop_resources(instance_ids: array): int2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>90</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>120</y>
+      <w>120</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>160</y>
+      <w>120</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>320</y>
+      <w>360</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+aws_resource_operator::AwsResourceOperatorFactory
+--
+--
+#create(resource_type: str, region_name: str,
+        access_key_id: str=None,
+        secret_access_key: str=None): obj
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>110</y>
+      <w>80</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>260</y>
+      <w>80</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>380</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

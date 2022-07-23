@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^27.0.4",
+    "jest-html-reporter": "^3.4.1"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//packages/nymodule/src/mymodule/MyClass.py=utf-8
+encoding//packages/nymodule/src/mymodule/mymodule.py=utf-8
+encoding//packages/nymodule/tests/MyModuleTest.py=utf-8
+encoding//packages/nymodule/tests/test_all.py=utf-8

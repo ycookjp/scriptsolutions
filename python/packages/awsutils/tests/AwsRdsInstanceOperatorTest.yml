@@ -1,0 +1,7 @@
+region_name: ap-northeast-1
+access_key_id: my_access_key
+secret_access_key: my_secret_key
+db_instance_resources:
+  - type: rds.db_instance
+    ids:
+      - myrds_instance01

@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ycookjp.myproject.nodejs</groupId>
+  <artifactId>packages</artifactId>
+  <packaging>pom</packaging>
+  <description>Node.js Packages</description>
+  <parent>
+  	<groupId>ycookjp.myproject</groupId>
+  	<artifactId>nodejs</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../pom.xml</relativePath>
+  </parent>
+  <modules>
+  	<module>mypackage</module>
+  </modules>
+  <name>Node.js Packages</name>
+  <!-- 
+   - To generate test report, run "mvn clean test site"
+   -->
+  <build>
+    <plugins>
+      <!-- Archiving source script files -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly.var}</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assenbly/distribution.xml</descriptor>
+          </descriptors>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <outputDirectory>${project.build.directory}/site</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>site</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

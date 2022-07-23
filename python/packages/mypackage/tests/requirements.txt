@@ -1,0 +1,11 @@
+#
+####### requirements.txt #######
+#
+###### Requirements without Version Specifiers ######
+html-testRunner
+coverage
+pdoc3
+pyyaml
+
+###### Requirements with Version Specifiers ######
+#   See https://www.python.org/dev/peps/pep-0440/#version-specifiers

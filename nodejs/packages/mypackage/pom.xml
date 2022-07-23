@@ -1,0 +1,318 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ycookjp.myproject.nodejs.packages</groupId>
+  <artifactId>mypackage</artifactId>
+  <!-- inheritated from parent
+  <version>0.0.1-SNAPSHOT</version>
+  -->
+  <packaging>pom</packaging>
+  <description>Node.js My Package</description>
+  <parent>
+    <groupId>ycookjp.myproject.nodejs</groupId>
+    <artifactId>packages</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>Node.js My Package</name>
+  <properties>
+    <!-- Inheritated from parent project.
+    <p.sep>${path.separator}</p.sep>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-site.ver>3.7.1</maven-site.ver>
+    <maven-project-info-reports.ver>2.8</maven-project-info-reports.ver>
+    <maven-assembly.var>3.1.1</maven-assembly.var>
+    <maven-resources.ver>3.1.0</maven-resources.ver>
+    <maven-antrun.ver>1.8</maven-antrun.ver>
+    <exec-maven-plugin.ver>1.6.0</exec-maven-plugin.ver>
+    <maven-clean.ver>3.1.0</maven-clean.ver>
+    -->
+    <NPMEXE>npm</NPMEXE>
+    <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
+    <MAIN_PATH>${project.build.directory}/build-tmp/main</MAIN_PATH>
+    <TEMP_PATH>${project.build.directory}/build-tmp/tests</TEMP_PATH>
+  </properties>
+  <!-- 
+   - To generate test report, run "mvn clean test site"
+   -->
+  <build>
+    <!-- Inheritated from parent project.
+    <pluginManagement>
+      <plugins>
+        <!- - Basic report creation.  - ->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site.ver}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${maven-project-info-reports.ver}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    -->
+    <plugins>
+
+      <!-- cleaning files -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven-clean.ver}</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/src/main</directory>
+              <includes>
+                <include>**/__tests__/coverage/</include>
+                <include>**/__tests__/test-reports/</include>
+                <include>**/node_modules/</include>
+                <include>**/test-report.html</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <!-- copying scriptss -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources.ver}</version>
+        <executions>
+
+          <!-- copying main files -->
+          <execution>
+            <id>copy-main-files</id>
+            <phase>test</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${MAIN_PATH}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/${PROJECT_NAME}</directory>
+                  <excludes>
+                    <exclude>**/node_modules/**</exclude>
+                    <exclude>**/package-lock.json</exclude>
+                    <exclude>**/__tests__/coverage/**</exclude>
+                    <exclude>**/__tests__/test-reports/**</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+
+          <!-- copying test files for generting api docs -->
+          <execution>
+            <id>copy-test-files</id>
+            <phase>test</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${TEMP_PATH}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/${PROJECT_NAME}/__tests__</directory>
+                  <excludes>
+                    <exclude>coverage/**</exclude>
+                    <exclude>test-reports/**</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Generating test reports -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.ver}</version>
+        <executions>
+          <!-- Installing main dependency modules -->
+          <execution>
+            <id>install-packages</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${NPMEXE}</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>install</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Installing jsdoc and license-checker package -->
+          <execution>
+            <id>install-jsdoc</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${NPMEXE}</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>install --save-dev jsdoc license-checker</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating API document -->
+          <execution>
+            <id>nodejs-apidocs</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>. -d ${project.build.directory}/site/apidocs</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating test spec document -->
+          <execution>
+            <id>nodejs-testspecs</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc</executable>
+              <workingDirectory>${TEMP_PATH}</workingDirectory>
+              <commandlineArgs>. -d ${project.build.directory}/site/testspecs</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating licenses -->
+          <execution>
+            <id>nodejs-dependencies</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${MAIN_PATH}/node_modules/.bin/license-checker</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>--production --out ${project.build.directory}/site/node-dependencies</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating test result and coverage report -->
+          <execution>
+            <id>nodejs-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${NPMEXE}</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <arguments>
+                <argument>test</argument>
+              </arguments>
+              <successCodes>
+                <!-- 
+                  Continue generating reports even if unit test fails.
+                 -->
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources.ver}</version>
+        <executions>
+
+          <!-- copuing test reports to site directory -->
+          <execution>
+            <id>copy-reports</id>
+            <phase>site</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/site</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${MAIN_PATH}/__tests__</directory>
+                  <includes>
+                    <include>coverage/**</include>
+                    <include>test-reports/**</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Replace file path in coverage report -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun.ver}</version>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{}\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*main[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
+                  <fileset dir="${project.build.directory}/site/coverage" includes="**/*"/>
+                  <fileset dir="${project.build.directory}/site/test-reports" includes="**/*"/>
+                  <fileset file="${project.build.directory}/site/node-dependencies"/>
+                </replaceregexp>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Archiving source script files -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly.var}</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assenbly/distribution.xml</descriptor>
+          </descriptors>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <outputDirectory>${project.build.directory}/site</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>site</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <!-- Inheritated from parent project.
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven-project-info-reports.ver}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  -->
+</project>

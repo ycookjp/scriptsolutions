@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ycookjp.myproject.python</groupId>
+  <artifactId>packages</artifactId>
+  <packaging>pom</packaging>
+  <description>Python Packages</description>
+  <parent>
+  	<groupId>ycookjp.myproject</groupId>
+  	<artifactId>python</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../pom.xml</relativePath>
+  </parent>
+  <modules>
+  	<module>awsutils</module>
+  	<module>mypackage</module>
+  </modules>
+  <name>Python Packages</name>
+  <!-- 
+   - To generate test report, run "mvn clean test site"
+   -->
+  <build>
+  </build>
+</project>

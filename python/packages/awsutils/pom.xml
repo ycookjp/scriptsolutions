@@ -1,0 +1,368 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ycookjp.myproject.python.packages</groupId>
+  <artifactId>awsutils</artifactId>
+  <!-- inheritated from parent
+  <version>0.0.1-SNAPSHOT</version>
+  -->
+  <packaging>pom</packaging>
+  <description>Starts and stops AWS resources.</description>
+  <parent>
+    <groupId>ycookjp.myproject.python</groupId>
+    <artifactId>packages</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>Python AWS Utils</name>
+  <properties>
+    <!-- Inheritated from parent project.
+    <p.sep>${path.separator}</p.sep>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-site.ver>3.7.1</maven-site.ver>
+    <maven-project-info-reports.ver>2.8</maven-project-info-reports.ver>
+    <maven-assembly.var>3.1.1</maven-assembly.var>
+    <maven-resources.ver>3.1.0</maven-resources.ver>
+    <maven-antrun.ver>1.8</maven-antrun.ver>
+    <exec-maven-plugin.ver>1.6.0</exec-maven-plugin.ver>
+    <maven-clean.ver>3.1.0</maven-clean.ver>
+    -->
+    <PYTHONEXE>/opt/python3/bin/python3</PYTHONEXE>
+    <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
+    <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
+    <TEST_PATH>${project.build.directory}/build-tmp</TEST_PATH>
+    <TEST_PY>test_all.py</TEST_PY>
+  </properties>
+  <!-- 
+   - To generate test report, run "mvn clean test site"
+   -->
+  <build>
+    <!-- Inheritated from parent project.
+    <pluginManagement>
+      <plugins>
+        <!- - Basic report creation.  - ->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site.ver}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${maven-project-info-reports.ver}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    -->
+    <plugins>
+      <!-- cleaning files -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven-clean.ver}</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/</directory>
+              <includes>
+                <include>src/main/${PROJECT_NAME}/**/__pycache__/</include>
+                <include>src/main/${PROJECT_NAME}/**/site-packages/</include>
+                <include>tests/**/__pycache__/</include>
+                <include>tests/**/site-packages/</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <!-- copying main files -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources.ver}</version>
+        <executions>
+
+          <!-- copying main files -->
+          <execution>
+            <id>copy-main-files</id>
+            <phase>test</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/build-tmp/src/main</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- copying test files -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources.ver}</version>
+        <executions>
+          <execution>
+            <id>copy-test-files</id>
+            <phase>test</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/build-tmp/tests</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/tests</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Generating test reports -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+
+          <!-- Installing main dependency modules -->
+          <execution>
+            <id>install-main-dependencies</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>-m pip install -t site-packages -r ${PROJECT_NAME}/requirements.txt</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Installing test dependency modules and pdoc3 -->
+          <execution>
+            <id>install-test-dependencies</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <commandlineArgs>-m pip install -t site-packages -r tests/requirements.txt pdoc3</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating API document -->
+          <execution>
+            <id>python-apidocs</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --force ${PROJECT_NAME}</commandlineArgs>
+              <environmentVariables>
+                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}</PYTHONPATH>
+              </environmentVariables>
+            </configuration>
+          </execution>
+
+          <!-- Generating test spec document -->
+          <execution>
+            <id>python-testspecs</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --force tests</commandlineArgs>
+              <environmentVariables>
+                <PYTHONPATH>site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests</PYTHONPATH>
+              </environmentVariables>
+            </configuration>
+          </execution>
+
+          <!-- Installing pip-licenses and generating dependencies -->
+          <execution>
+            <id>install-piplicenses</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <commandlineArgs>-m pip install -t piplicenses-packages pip-licenses</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>python-dependencies</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${MAIN_PATH}/${PROJECT_NAME}</workingDirectory>
+              <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
+              <environmentVariables>
+                <PYTHONPATH>${TEST_PATH}/piplicenses-packages${p.sep}${MAIN_PATH}/site-packages</PYTHONPATH>
+              </environmentVariables>
+            </configuration>
+          </execution>
+
+          <!-- Generating test result report -->
+          <execution>
+            <id>python-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <arguments>
+                <argument>tests/${TEST_PY}</argument>
+              </arguments>
+              <environmentVariables>
+                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+              </environmentVariables>
+              <successCodes>
+                <!-- 
+                  Continue generating reports even if unit test fails.
+                 -->
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
+            </configuration>
+          </execution>
+
+          <!-- Collecting coverage data -->
+          <execution>
+            <id>python-coverage</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
+              <workingDirectory>${project.build.directory}/site</workingDirectory>
+               <arguments>
+                <argument>run</argument>
+                <argument>--source</argument>
+                <argument>${MAIN_PATH}</argument>
+                <argument>${TEST_PATH}/tests/${TEST_PY}</argument>
+              </arguments>
+              <environmentVariables>
+                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+              </environmentVariables>
+              <successCodes>
+                <!-- 
+                  Continue generating reports even if unit test fails.
+                 -->
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
+            </configuration>
+          </execution>
+
+          <!-- Generating coverage report -->
+          <execution>
+            <id>python-coverage-html</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
+              <workingDirectory>${project.build.directory}/site</workingDirectory>
+              <arguments>
+                <argument>html</argument>
+              </arguments>
+              <environmentVariables>
+                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+              </environmentVariables>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Replace file path in coverage report -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun.ver}</version>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{};:\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
+                  <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
+                  <fileset dir="${project.build.directory}/site/test-report" includes="**/*"/>
+                  <fileset dir="${project.build.directory}/site/apidocs" includes="**/*"/>
+                  <fileset dir="${project.build.directory}/site/testspecs" includes="**/*"/>
+                </replaceregexp>
+                <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{}]*_target_build-tmp_' replace="" encoding="UTF-8" byline="true" flags="g">
+                  <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
+                </replaceregexp>
+                <move todir="${project.build.directory}/site/htmlcov">
+                  <fileset dir="${project.build.directory}/site/htmlcov" />
+                  <mapper type="regexp" from="^.*_target_build-tmp_(.*)" to="\1" />
+                </move>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Archiving source script files -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly.var}</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assenbly/distribution.xml</descriptor>
+          </descriptors>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <outputDirectory>${project.build.directory}/site</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>site</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <!-- Inheritated from parent project.
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven-project-info-reports.ver}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  -->
+</project>

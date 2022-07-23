@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>installing</artifactId>
+  <packaging>pom</packaging>
+  <parent>
+    <groupId>ycookjp.myproject</groupId>
+    <artifactId>scriptsolutions</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>installing</name>
+  <description>varius install scripts.</description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly.var}</version>
+        <configuration>
+          <filters>
+            <filter>src/assembly/filter.properties</filter>
+          </filters>
+          <descriptors>
+            <descriptor>src/assembly/distribution.xml</descriptor>
+          </descriptors>
+          <finalName>installing-scripts</finalName>
+          <outputDirectory>${project.build.directory}/site</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>site</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources.ver}</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>site</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/site/scripts</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/scripts</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun.ver}</version>
+        <executions>
+          <execution>
+            <!-- rename *.sh to *.txt -->
+            <id>rename-suffix</id>
+            <phase>site</phase>
+            <configuration>
+              <target>
+                <!-- rename file suffix *.sh to *.sh.txt -->
+                <move todir="target/site/scripts" includeemptydirs="false">
+                  <fileset dir="target/site/scripts"/>
+                  <mapper type="glob" from="*.sh" to="*.sh.txt"/>
+                </move>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

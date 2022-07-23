@@ -1,0 +1,2 @@
+module_patterns:
+  - 'Aws*Test.py'

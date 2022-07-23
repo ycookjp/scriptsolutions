@@ -1,0 +1,49 @@
+region_name: ap-northeast-1
+access_key_id: my_access_key
+secret_access_key: my_secret_key
+resources01_test_ok:
+  - type: ec2.instance
+    ids:
+      - i-355f9e6a189be11c8
+  - type: rds.db_cluster
+    ids:
+      - myrds_cluster01
+  - type: rds.db_instance
+    instance_ids:
+      - myrds_instance01
+resources02_test_ok:
+  - type: ec2.instance
+    ids:
+      - i-355f9e6a189be11c8
+      - i-3ec0382c7f8117e3c
+  - type: rds.db_cluster
+    ids:
+      - myrds_cluster01
+      - myrds_cluster02
+  - type: rds.db_instance
+    ids:
+      - myrds_instance01
+      - myrds_instance02
+resources01_test_ng:
+  - type: ec2.instance
+    ids:
+      - i-xxxxxxxxxxxxxxxxx
+  - type: rds.db_cluster
+    ids:
+      - myrds_clusterxx
+  - type: rds.db_instance
+    ids:
+      - myrds_instancexx
+resources02_test_ng:
+  - type: ec2.instance
+    ids:
+      - i-yyyyyyyyyyyyyyyyy
+      - i-zzzzzzzzzzzzzzzzz
+  - type: rds.db_cluster
+    ids:
+      - myrds_clusterxx
+      - myrds_clusteryy
+  - type: rds.db_instance
+    ids:
+      - myrds_instancexx
+      - myrds_instanceyy

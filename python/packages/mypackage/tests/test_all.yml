@@ -1,0 +1,3 @@
+module_patterns:
+#  - FailErrorTest.py
+  - MyPackageTest.py
