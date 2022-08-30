@@ -54,6 +54,9 @@
               <resources>
                 <resource>
                   <directory>src/main/scripts</directory>
+                  <excludes>
+                    <exclude>eclipse-plugins-download/**</exclude>
+                  </excludes>
                 </resource>
               </resources>
             </configuration>
