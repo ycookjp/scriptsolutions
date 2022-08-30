@@ -10,7 +10,7 @@
       <directory>${basedir}/src/main/scripts</directory>
       <outputDirectory>scripts</outputDirectory>
       <includes>
-        <include>*/fedora35/**</include>
+        <include>*/fedora36/**</include>
         <include>*/centos7/**</include>
         <include>dockerfiles/*_Dockerfile</include>
       </includes>

@@ -2,18 +2,18 @@
 
 ################################################################################
 # Name    : eclipse-<desktop_env>
-# Usage   : DESKTOP_ENV={lxde|mate|xfce} fedora35-eclipse.sh
-# Depends : fedora35-desktop.sh, fedora35-container-base.sh, dnf.conf
+# Usage   : DESKTOP_ENV={lxde|mate|xfce} fedora36-eclipse.sh
+# Depends : fedora36-desktop.sh, fedora36-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 35 and login as root.
+#   1. Start Fedora 36 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
 #     --------------------------------------------------------------------------
 #     import-files
-#     |-- fedora35-eclipse
+#     |-- fedora36-eclipse
 #     |   |-- archives
-#     |   |   `-- eclipse-dropins-2021-12.tar.gz
+#     |   |   `-- eclipse-dropins.tar.gz
 #     |   `-- files
 #     |       `-- etc
 #     |           |-- pki
@@ -27,7 +27,7 @@
 #     `-- download (Optional)
 #         |-- Windows.10.Dark.v0.9.9.SP1.tar.gz
 #         |-- Windows.10.Icons.v0.5.tar.gz
-#         |-- eclipse-jee-2021-12-R-linux-gtk-x86_64.tar.gz
+#         |-- eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz
 #         `-- migu-1m-20150712.zip
 #     --------------------------------------------------------------------------
 #     * eclipse-dropins.tar.gz : archiving eclipse dropins plug-in(s).
@@ -55,7 +55,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=35
+  export RELEASE_VER=36
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -77,7 +77,7 @@ fi
 `dirname $0`/fedora${RELEASE_VER}-desktop.sh
 
 # Eclispe IDE for Enterprise Java Developers
-ECLIPSE_URL=http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-linux-gtk-x86_64.tar.gz
+ECLIPSE_URL=http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/technology/epp/downloads/release/2022-06/R/eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz
 
 # migu font
 MIGU_URL=https://osdn.jp/projects/mix-mplus-ipa/downloads/63545/migu-1m-20150712.zip
