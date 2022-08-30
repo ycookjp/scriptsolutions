@@ -1,24 +1,24 @@
 #!/bin/sh
 
 ################################################################################
-# Name    : fedora35-container-base
-# Usage   : fedora35-container-base.sh
+# Name    : fedora36-container-base
+# Usage   : fedora36-container-base.sh
 # Run CMD : /bin/bash
 # Depends : dnf.conf
 # Creating image :
-#   1. Start Fedora 35 and login as root.
+#   1. Start Fedora 36 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
-#   5. Move to docker-images/fedora35-container-base directory and run
-#      "tar -c . | docker import - fedora35-container-base" command.
+#   5. Move to docker-images/fedora36-container-base directory and run
+#      "tar -c . | docker import - fedora36-container-base" command.
 ################################################################################
 
 if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=35
+  export RELEASE_VER=36
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64

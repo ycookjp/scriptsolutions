@@ -6,7 +6,7 @@
 #     --------------------------------------------------------------------------
 #     import-files/
 #     |-- archives
-#     |   `-- eclipse-dropins-2021-12.tar.gz
+#     |   `-- eclipse-dropins.tar.gz
 #     |-- files
 #     |   `-- etc
 #     |       |-- pki
@@ -20,7 +20,7 @@
 #     `-- download (Optional)
 #         |-- Windows.10.Dark.v0.9.9.SP1.tar.gz
 #         |-- Windows.10.Icons.v0.5.tar.gz
-#         |-- eclipse-jee-2021-12-R-linux-gtk-x86_64.tar.gz
+#         |-- eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz
 #         `-- migu-1m-20150712.zip
 #     --------------------------------------------------------------------------
 #     * eclipse-dropins.tar.gz : archiving eclipse dropins plug-in(s).
@@ -41,7 +41,7 @@
 #   * <container-workspace-path> directory owner/group shuld be specified
 #     user ID / group ID defined at container's /etc/passwd, /etc/group files.
 ################################################################################
-FROM fedora35-container-base
+FROM fedora36-container-base
 #FROM fedora
 ARG DESKTOP_ENV=lxde
 ARG GROUP_ID=1000
@@ -54,7 +54,7 @@ RUN echo "######################################################################
  && : Installation settings \
  && export BASE_PACKAGES="--exclude=elementary-greeter @base-x lightdm im-chooser google-noto-sans-cjk-ttc-fonts google-noto-serif-cjk-ttc-fonts langpacks-ja ibus-kkc net-tools xrdp" \
  && export BUILD_PACKAGES="tar unzip passwd" \
- && export RELEASE_VER=35 \
+ && export RELEASE_VER=36 \
  && export DOWNLOAD_DIR=/var/tmp/import-files/download \
  && export WIN10THEME_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Dark.v0.9.9.SP1.tar.gz \
  && export WIN10ICON_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Icons.v0.5.tar.gz \
@@ -125,7 +125,7 @@ exit\n'\
  && echo "##### Installing Eclipse IDE #####" \
  && echo "################################################################################" \
  && : Eclipse settings \
- && export ECLIPSE_URL=http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-linux-gtk-x86_64.tar.gz \
+ && export ECLIPSE_URL=http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/technology/epp/downloads/release/2022-06/R/eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz \
  && export MIGU_URL=https://osdn.jp/projects/mix-mplus-ipa/downloads/63545/migu-1m-20150712.zip \
  && : Installing openjdk \
  && dnf install -y java-11-openjdk-devel webkit2gtk3 \

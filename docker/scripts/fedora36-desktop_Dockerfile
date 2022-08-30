@@ -18,7 +18,7 @@
 #   docker run --name=<container-name> --restart={always|unless-stopped} \
 #   -p <host-port>:3389 -it <image-name>
 ################################################################################
-FROM fedora35-container-base
+FROM fedora36-container-base
 #FROM fedora
 ARG DESKTOP_ENV=lxde
 ARG GROUP_ID=1000
@@ -31,7 +31,7 @@ RUN echo "######################################################################
  && : Installation settings \
  && export BASE_PACKAGES="--exclude=elementary-greeter @base-x lightdm im-chooser google-noto-sans-cjk-ttc-fonts google-noto-serif-cjk-ttc-fonts langpacks-ja ibus-kkc net-tools xrdp" \
  && export BUILD_PACKAGES="tar unzip passwd" \
- && export RELEASE_VER=35 \
+ && export RELEASE_VER=36 \
  && export DOWNLOAD_DIR=/var/tmp/import-files/download \
  && export WIN10THEME_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Dark.v0.9.9.SP1.tar.gz \
  && export WIN10ICON_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Icons.v0.5.tar.gz \
