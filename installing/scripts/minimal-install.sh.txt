@@ -113,7 +113,7 @@ fi
 xfce_packages='xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 
     xfce4-terminal Thunar xfce4-screensaver'
 if [ $distroname = fc -o $distroname == el -a $distrover -le 8 ]; then
-  xfce_packages="xfce_packages xfce4-notifyd"
+  xfce_packages="$xfce_packages xfce4-notifyd"
 fi
 lxde_packages='lxde-common lxpanel lxsession lxpolkit lxappearance lxrandr 
     lxterminal lxdm pcmanfm xscreensaver-base notification-daemon'
