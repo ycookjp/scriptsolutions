@@ -37,7 +37,6 @@ https://github.com/ycookjp/
 
 &#39;&#39;&#39;
 
-import logging
 import os
 import yaml
 
@@ -188,6 +187,8 @@ def start_stop_aws_resources(event, context, use_event=True, script_path=__file_
     &#39;&#39;&#39;
 
     try:
+        error = None
+        
         if use_event:
             action_name = _get_action_from_event(event)
             configkey = _get_configkey_from_event(event)
@@ -206,18 +207,24 @@ def start_stop_aws_resources(event, context, use_event=True, script_path=__file_
             operator = AwsResourceOperatorFactory.create(
                     resource_group[&#39;type&#39;], config.region_name,
                     access_key_id, secret_access_key)
-            resource_type_name = resource_group[&#39;type&#39;]
             instance_ids = resource_group[&#39;ids&#39;]
             if action_name == &#39;start&#39;:
-                operator.start_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; started.&#39;)
+                try:
+                    operator.start_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             elif action_name == &#39;stop&#39;:
-                operator.stop_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; stopped.&#39;)
+                try:
+                    operator.stop_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             else:
                 raise Exception(&#39;Lambda function name error&#39;)
+        
+        if error != None:
+            raise error
     except Exception:
         raise</code></pre>
 </details>
@@ -297,6 +304,8 @@ True、context から情報を取得する場合は False を指定する</dd>
     &#39;&#39;&#39;
 
     try:
+        error = None
+        
         if use_event:
             action_name = _get_action_from_event(event)
             configkey = _get_configkey_from_event(event)
@@ -315,18 +324,24 @@ True、context から情報を取得する場合は False を指定する</dd>
             operator = AwsResourceOperatorFactory.create(
                     resource_group[&#39;type&#39;], config.region_name,
                     access_key_id, secret_access_key)
-            resource_type_name = resource_group[&#39;type&#39;]
             instance_ids = resource_group[&#39;ids&#39;]
             if action_name == &#39;start&#39;:
-                operator.start_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; started.&#39;)
+                try:
+                    operator.start_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             elif action_name == &#39;stop&#39;:
-                operator.stop_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f&#39;{resource_type_name}: \&#39;{instance_id}\&#39; stopped.&#39;)
+                try:
+                    operator.stop_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             else:
                 raise Exception(&#39;Lambda function name error&#39;)
+        
+        if error != None:
+            raise error
     except Exception:
         raise</code></pre>
 </details>
