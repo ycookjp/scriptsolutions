@@ -287,7 +287,15 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
             db_cluster_id (str): RDS DB cluster id.
         
         Returns:
-            Returns RDS DB cluster status.
+            Returns RDS DB cluster status name.
+            Status name is on of 'available', 'backing-up', 'backtracking',
+            'cloning-failed', 'creating', 'deleting', 'failing-over',
+            'inaccessible-encryption-credentials'.
+            'inaccessible-encryption-credentials-recoverable', 'maintenance',
+            'migrating', 'migration-failed', 'modifying', 'promoting',
+            'renaming', 'resetting-master-credentials', 'starting', 'stopped',
+            'stopping', 'storage-optimization', 'update-iam-db-auth',
+            'upgrading'.
         
         '''
         response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
@@ -445,7 +453,18 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
             db_instance_id (str): RDS DB instance id.
         
         Returns:
-            Returns RDS DB instance status.
+            Returns RDS DB instance status name.
+            Status name is one of 'available', 'backing-up',
+            'configuring-enhanced-monitoring', 'configuring-iam-database-auth',
+            'configuring-log-exports', 'converting-to-vpc', 'creating',
+            'deleting', 'failed', 'inaccessible-encryption-credentials',
+            'inaccessible-encryption-credentials-recoverable',
+            'incompatible-network', 'incompatible-option-group',
+            'incompatible-parameters', 'incompatible-restore',
+            'insufficient-capacity', 'maintenance', 'modifying',
+            'moving-to-vpc', 'rebooting', 'resetting-master-credentials',
+            'renaming', 'restore-error', 'starting', 'stopped', 'stopping',
+            'storage-full', 'storage-optimization', 'upgrading'.
         
         '''
         response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
