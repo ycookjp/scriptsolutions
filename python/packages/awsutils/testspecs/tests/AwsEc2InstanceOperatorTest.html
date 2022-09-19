@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>tests.AwsEc2InstanceOperatorTest API documentation</title>
-<meta name="description" content="AwsEc2StartStopTest module …" />
+<meta name="description" content="AwsEc2InstanceOperatorTest module …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,14 +22,13 @@
 <h1 class="title">Module <code>tests.AwsEc2InstanceOperatorTest</code></h1>
 </header>
 <section id="section-intro">
-<p>AwsEc2StartStopTest module.</p>
+<p>AwsEc2InstanceOperatorTest module.</p>
 <p>Copyright: ycookjp</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python"># -*- config: utf-8 -*-
-&#39;&#39;&#39;AwsEc2StartStopTest module.
+<pre><code class="python">&#39;&#39;&#39;AwsEc2InstanceOperatorTest module.
 
 Copyright: ycookjp
 
@@ -44,14 +43,13 @@ import shutil
 import sys
 import traceback
 
-from awsutils import aws_resource_start_stop
+from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 import aws_test_utils
 import boto3
 from moto import mock_ec2
 from unittest.case import TestCase
 import time
 import yaml
-from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 
 root = logging.getLogger()
 if root.handlers:
@@ -59,43 +57,27 @@ if root.handlers:
         root.removeHandler(handler)
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-class MyContext():
-    &#39;&#39;&#39;
-    
-    テスト用の context オブジェクト
-    
-    &#39;&#39;&#39;
-    function_name = None
 
 class AwsEc2InstanceOperatorTest(unittest.TestCase):
-    &#39;&#39;&#39;
-    
-    aws_resource_start_stop モジュール用のテストクラス
+    &#39;&#39;&#39;AwsEc2InstanceOperator クラス用のテストクラス
     
     &#39;&#39;&#39;
-    # event から情報を取得するかどうかの定数
-    _use_event = True
-    
     @classmethod
     def setUpClass(cls):
-        &#39;&#39;&#39;
-        
-        テストクラスの set up を実行します。
+        &#39;&#39;&#39;テストクラスの set up を実行します。
         
         Args:
-            cls: テストクラスのインスタンス
+            cls: テストクラス
         
         &#39;&#39;&#39;
         logging.info(&#39;Set up test class.&#39;)
 
     @classmethod
     def tearDownClass(cls):
-        &#39;&#39;&#39;
-        
-        テストクラスの tear down を実行します。
+        &#39;&#39;&#39;テストクラスの tear down を実行します。
         
         Args:
-            cls: テストクラスのインスタンス
+            cls: テストクラス
         
         &#39;&#39;&#39;
         logging.info(&#39;Tear down test class.&#39;)
@@ -107,612 +89,184 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
                 os.remove(name_path)
             elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
-    
-    def _set_use_event(self, use_event):
-        &#39;&#39;&#39;
-        aws_resource_start_stop モジュールの start_stop_aws_resources 関数実行に
-        情報を event から取得するかどうかの設定をします。
-        
-        Args:
-            use_event (boolean): インスタンスの銃砲取得元が event の場合は
-                    True、contextの場合は False を指定します
-        &#39;&#39;&#39;
-        self._use_event = use_event
-    
+
     @mock_ec2
-    def _run_instances(self, ami_id, region_name, count=1):
-        &#39;&#39;&#39;
+    def test_start_stop(self):
+        &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
         
-        EC2インスタンスを起動します。
+        テストの内容は以下のとおりです。
         
-        Args:
-            ami_id (str): AMI ID を指定します
-            regopm_name (str): リージョン名を指定します
-            count (:obj:`int`, optional): 作成するEC2の個数を指定します
-        
-        Retunrs:
-            Instanceオブジェクトの配列を返します
-        
-        &#39;&#39;&#39;
-        ec2 = boto3.client(&#39;ec2&#39;, region_name=region_name)
-        ec2.run_instances(ImageId=ami_id, MinCount=count, MaxCount=count)
-        instances = ec2.describe_instances()[&#39;Reservations&#39;][0][&#39;Instances&#39;]
-        
-        return instances
-
-    def _get_instance(self, instance_id, instances):
-        &#39;&#39;&#39;
-        
-        インスタンスIDを指定して、インスタンスを取得します。
-        
-        Args:
-            instance_id (str): インスタンスIDを指定します
-            instances: EC2インスタンスオブジェクトの配列を指定します
-        
-        Returns:
-            Instanceオブジェクトを返します。
+        * 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が1であること。
+            * =&gt; インスタンスのステータスが「stopped」であること。
+        * 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+            * =&gt; 開始操作したインスタンスの数が1であること。
+            * =&gt; インスタンスのステータスが「running」であること。
+        * 
         
         &#39;&#39;&#39;
-        instance = None
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop start&#39;)
         
-        for instance in instances:
-            if instance[&#39;InstanceId&#39;] == instance_id:
-                break
-        
-        return instance
-    
-    def setUp(self):
-        &#39;&#39;&#39;
-        
-        テスト関数の set up を実行します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;Set up test.&#39;)
-    
-    def tearDown(self):
-        &#39;&#39;&#39;
-        
-        テストクラスの tear down を実行します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;Tear down test.&#39;)
-    
-    def test_load_config(self):
-        &#39;&#39;&#39;
-        
-        _load_config 関数のテストを実行します。
-        
-        * 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-          オブジェクトの内容が設定ファイルの内容と一致すること
-        
-        * 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-          オブジェクトの内容が設定ファイルの内容と一致すること
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_load_config start&#39;)
-        
-        # 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-        # オブジェクトの内容が設定ファイルの内容と一致すること
-        config = aws_resource_start_stop._load_config(__file__, &#39;resources02_test_ng&#39;)
-        self.assertEqual(config.region_name, &#39;ap-northeast-1&#39;)
-        # 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-        # オブジェクトの内容が設定ファイルの内容と一致すること
-        resource_types = config.resource_groups
-        ## ec2.instance
-        self.assertEqual(resource_types[0].get(&#39;type&#39;), &#39;ec2.instance&#39;)
-        self.assertEqual(resource_types[0].get(&#39;ids&#39;), [&#39;i-yyyyyyyyyyyyyyyyy&#39;, &#39;i-zzzzzzzzzzzzzzzzz&#39;])
-        ## rds.db_cluster
-        self.assertEqual(resource_types[1].get(&#39;type&#39;), &#39;rds.db_cluster&#39;)
-        self.assertEqual(resource_types[1].get(&#39;ids&#39;), [&#39;myrds_clusterxx&#39;, &#39;myrds_clusteryy&#39;])
-        ## rds.db_instance
-        self.assertEqual(resource_types[2].get(&#39;type&#39;), &#39;rds.db_instance&#39;)
-        self.assertEqual(resource_types[2].get(&#39;ids&#39;), [&#39;myrds_instancexx&#39;, &#39;myrds_instanceyy&#39;])
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_load_config end&#39;)
-    
-    def test_error_load_config(self):
-        &#39;&#39;&#39;
-        
-        _load_config 関数のエラーが発生する場合のテストを実行します。
-        
-        * 設定ファイルに存在しないキー名を指定するとエラーとなること
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_load_config start&#39;)
-        
-        # 設定ファイルに存在しないキー名を指定するとエラーとなること
-        with self.assertRaises(Exception):
-            config = aws_resource_start_stop._load_config(__file__, &#39;key_not_exists&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_load_config end&#39;)
-    
-    def test_get_action_from_context(self):
-        &#39;&#39;&#39;
-        
-        _get_action_from_context 関数をテストします。
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources01_test_ok&#39; を指定すると、&#39;start&#39;が返される
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_stop_resources_test_ok&#39; を指定すると、&#39;stop&#39;が返される
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_context start&#39;)
-        
-        context = MyContext()
-        
-        # Lambda関数名に&#39;start&#39;を指定
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        action_name = aws_resource_start_stop._get_action_from_context(context)
-        self.assertEqual(action_name, &#39;start&#39;)
-        
-        # Lambda関数名にstopを指定
-        context.function_name = &#39;ec2_stop_resources_test_ok&#39;
-        action_name = aws_resource_start_stop._get_action_from_context(context)
-        self.assertEqual(action_name, &#39;stop&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_context end&#39;)
-    
-    def test_get_action_from_event(self):
-        &#39;&#39;&#39;
-        
-        _get_action_from_event 関数をテストします。
-        
-        * event dictionary のキー：action の値 に &#39;start&#39; を指定すると、
-          &#39;start&#39;が返される
-        
-        * event dictionary のキー：action の値に &#39;stop&#39; を指定すると、
-          &#39;stop&#39;が返される
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_event start&#39;)
-        
-        # event dictionary のキー：action の値に&#39;start&#39;を指定
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        action_name = aws_resource_start_stop._get_action_from_event(event)
-        self.assertEqual(action_name, &#39;start&#39;)
-        
-        # event dictionary のキー：action の値に&#39;stop&#39;を指定
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources_test_ok&#34;}
-        action_name = aws_resource_start_stop._get_action_from_event(event)
-        self.assertEqual(action_name, &#39;stop&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_event end&#39;)
-
-    def test_get_configkey_from_context(self):
-        &#39;&#39;&#39;
-
-        _get_configkey_from_context 関数をテストします。
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources01&#39; を指定すると、&#39;resources01&#39;が返される
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources_test_ok&#39; を指定すると、&#39;resources_test_ok&#39;が
-          返される
-  
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_context start&#39;)
-        
-        context = MyContext()
-        
-        # Lambda関数名のキー名に「resources01」を指定
-        context.function_name = &#39;ec2_start_resources01&#39;
-        configkey = aws_resource_start_stop._get_configkey_from_context(context)
-        self.assertEqual(configkey, &#39;resources01&#39;)
-        
-        # Lambda関数名のキー名に「resources01_test_ok」を指定
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        configkey = aws_resource_start_stop._get_configkey_from_context(context)
-        self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_context end&#39;)
-
-    def test_get_configkey_from_event(self):
-        &#39;&#39;&#39;
-
-        _get_configkey_from_event 関数をテストします。
-        
-        * event dictionary の キー：configKey の値に &#39;resources01&#39; を
-          設定すると、&#39;resources01&#39;が返される
-        
-        * event dictionary の キー：configKey の値に &#39;resources_test_ok&#39; を
-          指定すると、&#39;resources_test_ok&#39;が返される
-  
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_event start&#39;)
-        
-        # event dictionary のキー：configKey の値に「resources01」を指定
-        event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01&#34;}
-        configkey = aws_resource_start_stop._get_configkey_from_event(event)
-        self.assertEqual(configkey, &#39;resources01&#39;)
-        
-        # event dictionary のキー：configKey の値に「resources01_test_ok」を
-        # 指定
-        event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        configkey = aws_resource_start_stop._get_configkey_from_event(event)
-        self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_event end&#39;)
-    
-    @mock_ec2
-    def _test_start_stop_aws_resources(self):
-        &#39;&#39;&#39;
-        
-        start_stop_aws_resources 関数のテストを実行します。
-        
-        * 規定値を使用して1つのインスタンスを開始できること
-        * 規定値を使用して2つのインスタンスを開始できること
-        * 規定値を使用して1つのインスタンスを停止できること
-        * 規定値を使用して2つのインスタンスを停止できること
-        * event の configKey に 設定値のキーの配列を指定して、既定値を使用して
-          関数を実行すると複数のインスタンスを開始できること
-        * event の configKey に 設定値のキーの配列を指定して、既定値を使用して
-          関数を実行すると複数のインスタンスを停止できること
-        * アクセスキーその他を指定して1つのインスタンスを開始できること
-        * アクセスキーその他を指定して2つのインスタンスを開始できること
-        * アクセスキーその他を指定して1つのインスタンスを停止できること
-        * アクセスキーその他を指定して2つのインスタンスを停止できること
-        * event の configKey に 設定値のキーの配列を指定して、アクセスキー
-          その他を使用して関数を実行すると複数のインスタンスを開始できること
-        * event の configKey に 設定値のキーの配列を指定して、アクセスキー
-          その他を使用して関数を実行すると複数のインスタンスを停止できること
-        
-        &#39;&#39;&#39;
-        resource_type = &#39;ec2.instance&#39;
         region_name = &#39;ap-northeast-1&#39;
-        operator = AwsResourceOperatorFactory.create(resource_type, region_name)
-        
-        # EC2インスタンスを作成してYAML形式の設定ファイルを更新する
-        ami = &#39;ami-1234abcd&#39;
-        yaml_config = aws_test_utils.load_yaml(__file__)
-        region_name = yaml_config[&#39;region_name&#39;]
-        access_key = yaml_config[&#39;access_key_id&#39;]
-        secret_key = yaml_config[&#39;secret_access_key&#39;]
-        
-        instances = self._run_instances(ami, region_name, 2)
-        instance_id_01 = instances[0][&#39;InstanceId&#39;]
-        instance_id_02 = instances[1][&#39;InstanceId&#39;]
-        yaml_config[&#39;resources01_test_ok&#39;].clear()
-        yaml_config[&#39;resources02_test_ok&#39;].clear()
-        yaml_config[&#39;resources01_test_ok&#39;].append({&#39;type&#39;:&#39;ec2.instance&#39;, &#39;ids&#39;:[instance_id_01]})
-        yaml_config[&#39;resources02_test_ok&#39;].append({&#39;type&#39;:&#39;ec2.instance&#39;, &#39;ids&#39;:[instance_id_01, instance_id_02]})
-        temp_file = os.path.join(os.path.dirname(__file__), &#39;work&#39;,
-                                 os.path.basename(__file__))
-        aws_test_utils.dump_yaml(yaml_config, temp_file)
-        
-        context = MyContext()
-        
-        # 規定値を使用して1つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources01_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # 規定値を使用して2つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources02_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # 規定値を使用して1つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 規定値を使用して2つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # event に 複数の設定ファイルのキーを指定して、規定値を使用して関数を
-        # 呼び出して、複数のインスタンスを開始する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-            # インスタンスの状態を確認する
-            config = aws_resource_start_stop._load_config(temp_file, [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;])
-            for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-                self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # event に 複数の設定ファイルのキーを指定して、規定値を使用して関数を
-        # 呼び出して、複数のインスタンスを停止する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # アクセスキーその他を指定して1つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources01_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # アクセスキーその他を指定して2つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources02_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-             self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-       
-        # アクセスキーその他を指定して1つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        
-        # アクセスキーその他を指定して2つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        
-        # event に 複数の設定ファイルのキーを指定して、アクセスキーその他を
-        # 使用して関数を呼び出して、複数のインスタンスを開始する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event)
-                + &#39;, access_key=&#39; + access_key
-                + &#39;, secret_key=&#39; + secret_key
-                + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-            # インスタンスの状態を確認する
-            config = aws_resource_start_stop._load_config(temp_file, [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;])
-            for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-                self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-       
-        # event に 複数の設定ファイルのキーを指定して、アクセスキーその他を
-        # 使用して関数を呼び出して、複数のインスタンスを停止する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event)
-                + &#39;, access_key=&#39; + access_key
-                + &#39;, secret_key=&#39; + secret_key
-                + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-    
-    def test_start_stop_ec2_instance_use_event(self):
-        &#39;&#39;&#39;
-        
-        Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_event start&#39;)
-        
-        self._set_use_event(True)
-        self._test_start_stop_aws_resources()
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
 
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_event end&#39;)
-    
-    def test_start_stop_ec2_instance_use_context(self):
-        &#39;&#39;&#39;
-        
-        Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_context start&#39;)
-        
-        self._set_use_event(False)
-        self._test_start_stop_aws_resources()
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 1)
+        instance_id = instances[0][&#39;InstanceId&#39;]
 
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_context end&#39;)
+        # 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        count = operator.stop(instance_id)
+        status = operator.get_status(instance_id)
+        # =&gt; 停止操作したインスタンスの数が1であること。
+        self.assertEqual(count, 1)
+        # =&gt; インスタンスのステータスが「stopped」であること。
+        self.assertEqual(status, &#39;stopped&#39;)
+
+        # 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+        count = operator.start(instance_id)
+        status = operator.get_status(instance_id)
+        # =&gt; 開始操作したインスタンスの数が1であること。
+        self.assertEqual(count, 1)
+        # =&gt; インスタンスのステータスが「running」であること。
+        self.assertEqual(status, &#39;running&#39;)
+        
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop end&#39;)
     
     @mock_ec2
-    def _test_error_start_stop_aws_resources(self):
-        &#39;&#39;&#39;
+    def test_start_stop_resources(self):
+        &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
         
-        start_stop_aws_resources 関数のエラーが発生する場合のテストを実行
-        します。
+        テストの内容は、以下のとおりです。
         
-        * Lambda関数名のコマンド、キー名が&#39;_&#39;で区切られていない場合はエラーが
-          発生すること
-        * Lambda関数名のコマンドがstart、stop以外である場合はエラーが発生する
-          こと
-        * Lambda関数名のキー名が設定ファイルに存在しない場合はエラーが発生する
-          こと
-        * 設定ファイルに存在しないインスタンスIDが設定されている場合はエラーが
-          発生すること
-        * 設定ファイルにEC2インスタンスとは別のリージョンを指定した場合は
-          エラーが発生すること
+        * 起動している２つのEC2インスタンスのIDのリストを指定して、
+          stop_resourcesメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が2であること。
+            * =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+        * 停止している２つのEC2インスタンスのIDのリストを指定して、
+          start_resourcesメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が2であること。
+            * =&gt; 停止操作したインスタンスの数が2であること。
         
         &#39;&#39;&#39;
-        # テスト用のスクリプトと設定ファイルのパス
-        script_temp_path = os.path.splitext(__file__)[0] + &#39;_temp.py&#39;
-        config_temp_path = os.path.splitext(__file__)[0] + &#39;_temp.yml&#39;
-        
-        # EC2インスタンスを作成してテスト用のYAML形式の設定ファイルに反映する
-        ami = &#39;ami-1234abcd&#39;
-        yaml_config = aws_test_utils.load_yaml(__file__)
-        region_name = yaml_config[&#39;region_name&#39;]
-        access_key = yaml_config[&#39;access_key_id&#39;]
-        secret_key = yaml_config[&#39;secret_access_key&#39;]
-        
-        instances = self._run_instances(ami, region_name, 2)
-        instance_id_01 = instances[0][&#39;InstanceId&#39;]
-        instance_id_02 = instances[1][&#39;InstanceId&#39;]
-        yaml_config[&#39;resources01_test_ok&#39;] = [instance_id_01]
-        yaml_config[&#39;resources02_test_ok&#39;] = [instance_id_01, instance_id_02]
-        temp_file = os.path.join(os.path.dirname(__file__), &#39;work&#39;,
-                                 os.path.basename(__file__))
-        aws_test_utils.dump_yaml(yaml_config, temp_file)
-        
-        context = MyContext()
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_resources start&#39;)
 
-        # 例外処理を実装して関数を呼び出す。
-        event = {&#34;action&#34;: &#34;test&#34;, &#34;configKey&#34;: &#34;ok&#34;}
-        context.function_name = &#39;ec2startresources01_test_ok&#39;
-        try:
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        except Exception as e:
-            logging.error(str(e.__class__) + &#39;: &#39; +  str(e))
-            traceback.print_stack(file=sys.stdout)
- 
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 2)
+        instance_ids = []
+        for instance in instances:
+            instance_ids.append(instance[&#39;InstanceId&#39;])
         
-        # evemt dictionary の action、configKey の値が間違っている       
-        # Lambda関数名のコマンド、キー名が&#39;_&#39;で区切られていない
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;test&#34;, &#34;configKey&#34;: &#34;ok&#34;}
-        context.function_name = &#39;ec2startresources01_test_ok&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
+        # 起動している２つのEC2インスタンスのIDのリストを指定して、
+        # stop_resourcesメソッドを実行する。
+        count = operator.stop_resources(instance_ids)
+        # =&gt; 停止操作したインスタンスの数が2であること。
+        self.assertEqual(count, 2)
+        # =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+        for instance_id in instance_ids:
+            status = operator.get_status(instance_id)
+            self.assertEqual(status, &#39;stopped&#39;)
         
-        # event dictionary の leu の値が がstart、stop以外である
-        # Lambda関数名のコマンドがstart、stop以外である
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;foo&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_foo_resources01_test_ok&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
+        # 停止している２つのEC2インスタンスのIDのリストを指定して、
+        # start_resourcesメソッドを実行する。
+        count = operator.start_resources(instance_ids)
+        # =&gt; 停止操作したインスタンスの数が2であること。
+        self.assertEquals(count, 2)
+        # =&gt;それぞれのEC2インスタンスのステータスが「running」であること。
+        for instance_id in instance_ids:
+            status = operator.get_status(instance_id)
+            self.assertEqual(status, &#39;running&#39;)
         
-        # event dictionary の configKey の値が設定ファイルに存在しないものである
-        # Lambda関数名のキー名が設定ファイルに存在しないものである
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources_not_exists&#34;}
-        context.function_name = &#39;ec2_start_resources_not_exists&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 設定ファイルに存在しないインスタンスIDが設定されている
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ng&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ng&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 設定ファイルにEC2インスタンスとは別のリージョンを指定した
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        yaml_config = aws_test_utils.load_yaml(temp_file)
-        yaml_config[&#39;region_name&#39;] = &#39;us-east-1&#39;
-        aws_test_utils.dump_yaml(yaml_config, script_temp_path)
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                script_temp_path)
-        os.remove(config_temp_path)
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_resources end&#39;)
     
-    def test_error_start_stop_aws_resources_use_event(self):
+    @mock_ec2
+    def test_error_start_stop(self):
+        &#39;&#39;&#39;存在しないEC2インスタンスのIDを指定して、start、stopメソッドの
+            テストを実行します。
+            
+        テストの内容は、以下のとおりです。
+            
+        * 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+            * =&gt; 例外が発生すること。
+        * 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+            * =&gt; 例外が発生すること。
+        
         &#39;&#39;&#39;
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop start&#39;)
         
-        Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-        呼び出します。
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+        instance_id = &#39;i-xxxxxxxxxxxxxxxxx&#39;
         
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_event start&#39;)
+        # 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.stop(instance_id)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
         
-        self._set_use_event(True)
-        self._test_error_start_stop_aws_resources()
+        # 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.start(instance_id)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
         
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_event end&#39;)
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop end&#39;)
     
-    def test_error_start_stop_aws_resources_use_context(self):
+    @mock_ec2
+    def test_error_start_stop_resources(self):
+        &#39;&#39;&#39;存在しないEC2インスタンスのIDを含むインスタンスIDの配列を指定して、
+            start_resources、stop_resourcesメソッドのテストを実行します。
+        
+        テストの内容は、以下のとおりです。
+        
+        * 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+          インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+            * =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+            * =&gt; 例外が発生すること。
+        * 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+          インスタンスIDを指定して、start_resourcesメソッドを実行する。
+            * =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+            * =&gt; 例外が発生すること。
+        
         &#39;&#39;&#39;
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_resources start&#39;)
         
-        Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-        呼び出します。
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 1)
+        running_ids = []
+        for instance in instances:
+            running_ids.append(instance[&#39;InstanceId&#39;])
+        instance_ids = [&#39;i-xxxxxxxxxxxxxxxxx&#39;]
+        instance_ids.extend(running_ids)
         
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_context start&#39;)
+        # 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+        # インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.stop_resources(instance_ids)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
+        # =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+        for instance_id in running_ids:
+            status = operator.get_status(instance_id)
+            self.assertEquals(status, &#39;stopped&#39;)
         
-        self._set_use_event(False)
-        self._test_error_start_stop_aws_resources()
+        # 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+        # インスタンスIDを指定して、start_resourcesメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.start_resources(instance_ids)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
+        # =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+        for instance_id in running_ids:
+            status = operator.get_status(instance_id)
+            self.assertEquals(status, &#39;running&#39;)
         
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_context end&#39;)
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_resources end&#39;)
 
 if __name__ == &#39;__main__&#39;:
     html_runner = HtmlTestRunner.HTMLTestRunner(
@@ -735,7 +289,7 @@ if __name__ == &#39;__main__&#39;:
 <span>(</span><span>methodName='runTest')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>aws_resource_start_stop モジュール用のテストクラス</p>
+<div class="desc"><p>AwsEc2InstanceOperator クラス用のテストクラス</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
@@ -744,34 +298,25 @@ not have a method with the specified name.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class AwsEc2InstanceOperatorTest(unittest.TestCase):
-    &#39;&#39;&#39;
-    
-    aws_resource_start_stop モジュール用のテストクラス
+    &#39;&#39;&#39;AwsEc2InstanceOperator クラス用のテストクラス
     
     &#39;&#39;&#39;
-    # event から情報を取得するかどうかの定数
-    _use_event = True
-    
     @classmethod
     def setUpClass(cls):
-        &#39;&#39;&#39;
-        
-        テストクラスの set up を実行します。
+        &#39;&#39;&#39;テストクラスの set up を実行します。
         
         Args:
-            cls: テストクラスのインスタンス
+            cls: テストクラス
         
         &#39;&#39;&#39;
         logging.info(&#39;Set up test class.&#39;)
 
     @classmethod
     def tearDownClass(cls):
-        &#39;&#39;&#39;
-        
-        テストクラスの tear down を実行します。
+        &#39;&#39;&#39;テストクラスの tear down を実行します。
         
         Args:
-            cls: テストクラスのインスタンス
+            cls: テストクラス
         
         &#39;&#39;&#39;
         logging.info(&#39;Tear down test class.&#39;)
@@ -783,612 +328,184 @@ not have a method with the specified name.</p></div>
                 os.remove(name_path)
             elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
-    
-    def _set_use_event(self, use_event):
-        &#39;&#39;&#39;
-        aws_resource_start_stop モジュールの start_stop_aws_resources 関数実行に
-        情報を event から取得するかどうかの設定をします。
-        
-        Args:
-            use_event (boolean): インスタンスの銃砲取得元が event の場合は
-                    True、contextの場合は False を指定します
-        &#39;&#39;&#39;
-        self._use_event = use_event
-    
+
     @mock_ec2
-    def _run_instances(self, ami_id, region_name, count=1):
-        &#39;&#39;&#39;
+    def test_start_stop(self):
+        &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
         
-        EC2インスタンスを起動します。
+        テストの内容は以下のとおりです。
         
-        Args:
-            ami_id (str): AMI ID を指定します
-            regopm_name (str): リージョン名を指定します
-            count (:obj:`int`, optional): 作成するEC2の個数を指定します
-        
-        Retunrs:
-            Instanceオブジェクトの配列を返します
-        
-        &#39;&#39;&#39;
-        ec2 = boto3.client(&#39;ec2&#39;, region_name=region_name)
-        ec2.run_instances(ImageId=ami_id, MinCount=count, MaxCount=count)
-        instances = ec2.describe_instances()[&#39;Reservations&#39;][0][&#39;Instances&#39;]
-        
-        return instances
-
-    def _get_instance(self, instance_id, instances):
-        &#39;&#39;&#39;
-        
-        インスタンスIDを指定して、インスタンスを取得します。
-        
-        Args:
-            instance_id (str): インスタンスIDを指定します
-            instances: EC2インスタンスオブジェクトの配列を指定します
-        
-        Returns:
-            Instanceオブジェクトを返します。
+        * 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が1であること。
+            * =&gt; インスタンスのステータスが「stopped」であること。
+        * 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+            * =&gt; 開始操作したインスタンスの数が1であること。
+            * =&gt; インスタンスのステータスが「running」であること。
+        * 
         
         &#39;&#39;&#39;
-        instance = None
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop start&#39;)
         
-        for instance in instances:
-            if instance[&#39;InstanceId&#39;] == instance_id:
-                break
-        
-        return instance
-    
-    def setUp(self):
-        &#39;&#39;&#39;
-        
-        テスト関数の set up を実行します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;Set up test.&#39;)
-    
-    def tearDown(self):
-        &#39;&#39;&#39;
-        
-        テストクラスの tear down を実行します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;Tear down test.&#39;)
-    
-    def test_load_config(self):
-        &#39;&#39;&#39;
-        
-        _load_config 関数のテストを実行します。
-        
-        * 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-          オブジェクトの内容が設定ファイルの内容と一致すること
-        
-        * 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-          オブジェクトの内容が設定ファイルの内容と一致すること
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_load_config start&#39;)
-        
-        # 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-        # オブジェクトの内容が設定ファイルの内容と一致すること
-        config = aws_resource_start_stop._load_config(__file__, &#39;resources02_test_ng&#39;)
-        self.assertEqual(config.region_name, &#39;ap-northeast-1&#39;)
-        # 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-        # オブジェクトの内容が設定ファイルの内容と一致すること
-        resource_types = config.resource_groups
-        ## ec2.instance
-        self.assertEqual(resource_types[0].get(&#39;type&#39;), &#39;ec2.instance&#39;)
-        self.assertEqual(resource_types[0].get(&#39;ids&#39;), [&#39;i-yyyyyyyyyyyyyyyyy&#39;, &#39;i-zzzzzzzzzzzzzzzzz&#39;])
-        ## rds.db_cluster
-        self.assertEqual(resource_types[1].get(&#39;type&#39;), &#39;rds.db_cluster&#39;)
-        self.assertEqual(resource_types[1].get(&#39;ids&#39;), [&#39;myrds_clusterxx&#39;, &#39;myrds_clusteryy&#39;])
-        ## rds.db_instance
-        self.assertEqual(resource_types[2].get(&#39;type&#39;), &#39;rds.db_instance&#39;)
-        self.assertEqual(resource_types[2].get(&#39;ids&#39;), [&#39;myrds_instancexx&#39;, &#39;myrds_instanceyy&#39;])
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_load_config end&#39;)
-    
-    def test_error_load_config(self):
-        &#39;&#39;&#39;
-        
-        _load_config 関数のエラーが発生する場合のテストを実行します。
-        
-        * 設定ファイルに存在しないキー名を指定するとエラーとなること
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_load_config start&#39;)
-        
-        # 設定ファイルに存在しないキー名を指定するとエラーとなること
-        with self.assertRaises(Exception):
-            config = aws_resource_start_stop._load_config(__file__, &#39;key_not_exists&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_load_config end&#39;)
-    
-    def test_get_action_from_context(self):
-        &#39;&#39;&#39;
-        
-        _get_action_from_context 関数をテストします。
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources01_test_ok&#39; を指定すると、&#39;start&#39;が返される
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_stop_resources_test_ok&#39; を指定すると、&#39;stop&#39;が返される
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_context start&#39;)
-        
-        context = MyContext()
-        
-        # Lambda関数名に&#39;start&#39;を指定
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        action_name = aws_resource_start_stop._get_action_from_context(context)
-        self.assertEqual(action_name, &#39;start&#39;)
-        
-        # Lambda関数名にstopを指定
-        context.function_name = &#39;ec2_stop_resources_test_ok&#39;
-        action_name = aws_resource_start_stop._get_action_from_context(context)
-        self.assertEqual(action_name, &#39;stop&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_context end&#39;)
-    
-    def test_get_action_from_event(self):
-        &#39;&#39;&#39;
-        
-        _get_action_from_event 関数をテストします。
-        
-        * event dictionary のキー：action の値 に &#39;start&#39; を指定すると、
-          &#39;start&#39;が返される
-        
-        * event dictionary のキー：action の値に &#39;stop&#39; を指定すると、
-          &#39;stop&#39;が返される
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_event start&#39;)
-        
-        # event dictionary のキー：action の値に&#39;start&#39;を指定
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        action_name = aws_resource_start_stop._get_action_from_event(event)
-        self.assertEqual(action_name, &#39;start&#39;)
-        
-        # event dictionary のキー：action の値に&#39;stop&#39;を指定
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources_test_ok&#34;}
-        action_name = aws_resource_start_stop._get_action_from_event(event)
-        self.assertEqual(action_name, &#39;stop&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_event end&#39;)
-
-    def test_get_configkey_from_context(self):
-        &#39;&#39;&#39;
-
-        _get_configkey_from_context 関数をテストします。
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources01&#39; を指定すると、&#39;resources01&#39;が返される
-        
-        * contextオブジェクトのfunction_nameプロパティに
-          &#39;ec2_start_resources_test_ok&#39; を指定すると、&#39;resources_test_ok&#39;が
-          返される
-  
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_context start&#39;)
-        
-        context = MyContext()
-        
-        # Lambda関数名のキー名に「resources01」を指定
-        context.function_name = &#39;ec2_start_resources01&#39;
-        configkey = aws_resource_start_stop._get_configkey_from_context(context)
-        self.assertEqual(configkey, &#39;resources01&#39;)
-        
-        # Lambda関数名のキー名に「resources01_test_ok」を指定
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        configkey = aws_resource_start_stop._get_configkey_from_context(context)
-        self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_context end&#39;)
-
-    def test_get_configkey_from_event(self):
-        &#39;&#39;&#39;
-
-        _get_configkey_from_event 関数をテストします。
-        
-        * event dictionary の キー：configKey の値に &#39;resources01&#39; を
-          設定すると、&#39;resources01&#39;が返される
-        
-        * event dictionary の キー：configKey の値に &#39;resources_test_ok&#39; を
-          指定すると、&#39;resources_test_ok&#39;が返される
-  
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_event start&#39;)
-        
-        # event dictionary のキー：configKey の値に「resources01」を指定
-        event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01&#34;}
-        configkey = aws_resource_start_stop._get_configkey_from_event(event)
-        self.assertEqual(configkey, &#39;resources01&#39;)
-        
-        # event dictionary のキー：configKey の値に「resources01_test_ok」を
-        # 指定
-        event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        configkey = aws_resource_start_stop._get_configkey_from_event(event)
-        self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
-        
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_event end&#39;)
-    
-    @mock_ec2
-    def _test_start_stop_aws_resources(self):
-        &#39;&#39;&#39;
-        
-        start_stop_aws_resources 関数のテストを実行します。
-        
-        * 規定値を使用して1つのインスタンスを開始できること
-        * 規定値を使用して2つのインスタンスを開始できること
-        * 規定値を使用して1つのインスタンスを停止できること
-        * 規定値を使用して2つのインスタンスを停止できること
-        * event の configKey に 設定値のキーの配列を指定して、既定値を使用して
-          関数を実行すると複数のインスタンスを開始できること
-        * event の configKey に 設定値のキーの配列を指定して、既定値を使用して
-          関数を実行すると複数のインスタンスを停止できること
-        * アクセスキーその他を指定して1つのインスタンスを開始できること
-        * アクセスキーその他を指定して2つのインスタンスを開始できること
-        * アクセスキーその他を指定して1つのインスタンスを停止できること
-        * アクセスキーその他を指定して2つのインスタンスを停止できること
-        * event の configKey に 設定値のキーの配列を指定して、アクセスキー
-          その他を使用して関数を実行すると複数のインスタンスを開始できること
-        * event の configKey に 設定値のキーの配列を指定して、アクセスキー
-          その他を使用して関数を実行すると複数のインスタンスを停止できること
-        
-        &#39;&#39;&#39;
-        resource_type = &#39;ec2.instance&#39;
         region_name = &#39;ap-northeast-1&#39;
-        operator = AwsResourceOperatorFactory.create(resource_type, region_name)
-        
-        # EC2インスタンスを作成してYAML形式の設定ファイルを更新する
-        ami = &#39;ami-1234abcd&#39;
-        yaml_config = aws_test_utils.load_yaml(__file__)
-        region_name = yaml_config[&#39;region_name&#39;]
-        access_key = yaml_config[&#39;access_key_id&#39;]
-        secret_key = yaml_config[&#39;secret_access_key&#39;]
-        
-        instances = self._run_instances(ami, region_name, 2)
-        instance_id_01 = instances[0][&#39;InstanceId&#39;]
-        instance_id_02 = instances[1][&#39;InstanceId&#39;]
-        yaml_config[&#39;resources01_test_ok&#39;].clear()
-        yaml_config[&#39;resources02_test_ok&#39;].clear()
-        yaml_config[&#39;resources01_test_ok&#39;].append({&#39;type&#39;:&#39;ec2.instance&#39;, &#39;ids&#39;:[instance_id_01]})
-        yaml_config[&#39;resources02_test_ok&#39;].append({&#39;type&#39;:&#39;ec2.instance&#39;, &#39;ids&#39;:[instance_id_01, instance_id_02]})
-        temp_file = os.path.join(os.path.dirname(__file__), &#39;work&#39;,
-                                 os.path.basename(__file__))
-        aws_test_utils.dump_yaml(yaml_config, temp_file)
-        
-        context = MyContext()
-        
-        # 規定値を使用して1つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources01_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # 規定値を使用して2つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources02_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # 規定値を使用して1つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 規定値を使用して2つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # event に 複数の設定ファイルのキーを指定して、規定値を使用して関数を
-        # 呼び出して、複数のインスタンスを開始する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-            # インスタンスの状態を確認する
-            config = aws_resource_start_stop._load_config(temp_file, [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;])
-            for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-                self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # event に 複数の設定ファイルのキーを指定して、規定値を使用して関数を
-        # 呼び出して、複数のインスタンスを停止する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event) + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # アクセスキーその他を指定して1つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources01_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-            self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-        
-        # アクセスキーその他を指定して2つのインスタンスを開始する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        # インスタンスの状態を確認する
-        config = aws_resource_start_stop._load_config(temp_file, &#39;resources02_test_ok&#39;)
-        for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-             self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-       
-        # アクセスキーその他を指定して1つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        
-        # アクセスキーその他を指定して2つのインスタンスを停止する
-        event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_stop_resources01_test_ok&#39;
-        if self._use_event:
-            logging.info(&#39;*** start_stop_aws_resources(&#39;+ &#39;event=&#39; + str(event)
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        else:
-            logging.info(&#39;*** start_stop_aws_resources(context.function_name=&#39; + context.function_name
-                    + &#39;, access_key=&#39; + access_key
-                    + &#39;, secret_key=&#39; + secret_key
-                    + &#39;) ***&#39;)
-        aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                temp_file, access_key, secret_key)
-        
-        # event に 複数の設定ファイルのキーを指定して、アクセスキーその他を
-        # 使用して関数を呼び出して、複数のインスタンスを開始する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event)
-                + &#39;, access_key=&#39; + access_key
-                + &#39;, secret_key=&#39; + secret_key
-                + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-            # インスタンスの状態を確認する
-            config = aws_resource_start_stop._load_config(temp_file, [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;])
-            for instance_id in config.resource_groups[0][&#39;ids&#39;]:
-                self.assertEqual(operator.get_status(instance_id), &#39;running&#39;)
-       
-        # event に 複数の設定ファイルのキーを指定して、アクセスキーその他を
-        # 使用して関数を呼び出して、複数のインスタンスを停止する
-        if self._use_event:
-            event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: [&#34;resources01_test_ok&#34;, &#34;resources02_test_ok&#34;]}
-            logging.info(&#39;*** start_stop_aws_resources(event=&#39; + str(event)
-                + &#39;, access_key=&#39; + access_key
-                + &#39;, secret_key=&#39; + secret_key
-                + &#39;) ***&#39;)
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-    
-    def test_start_stop_ec2_instance_use_event(self):
-        &#39;&#39;&#39;
-        
-        Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_event start&#39;)
-        
-        self._set_use_event(True)
-        self._test_start_stop_aws_resources()
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
 
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_event end&#39;)
-    
-    def test_start_stop_ec2_instance_use_context(self):
-        &#39;&#39;&#39;
-        
-        Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-        
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_context start&#39;)
-        
-        self._set_use_event(False)
-        self._test_start_stop_aws_resources()
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 1)
+        instance_id = instances[0][&#39;InstanceId&#39;]
 
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_context end&#39;)
+        # 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        count = operator.stop(instance_id)
+        status = operator.get_status(instance_id)
+        # =&gt; 停止操作したインスタンスの数が1であること。
+        self.assertEqual(count, 1)
+        # =&gt; インスタンスのステータスが「stopped」であること。
+        self.assertEqual(status, &#39;stopped&#39;)
+
+        # 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+        count = operator.start(instance_id)
+        status = operator.get_status(instance_id)
+        # =&gt; 開始操作したインスタンスの数が1であること。
+        self.assertEqual(count, 1)
+        # =&gt; インスタンスのステータスが「running」であること。
+        self.assertEqual(status, &#39;running&#39;)
+        
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop end&#39;)
     
     @mock_ec2
-    def _test_error_start_stop_aws_resources(self):
-        &#39;&#39;&#39;
+    def test_start_stop_resources(self):
+        &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
         
-        start_stop_aws_resources 関数のエラーが発生する場合のテストを実行
-        します。
+        テストの内容は、以下のとおりです。
         
-        * Lambda関数名のコマンド、キー名が&#39;_&#39;で区切られていない場合はエラーが
-          発生すること
-        * Lambda関数名のコマンドがstart、stop以外である場合はエラーが発生する
-          こと
-        * Lambda関数名のキー名が設定ファイルに存在しない場合はエラーが発生する
-          こと
-        * 設定ファイルに存在しないインスタンスIDが設定されている場合はエラーが
-          発生すること
-        * 設定ファイルにEC2インスタンスとは別のリージョンを指定した場合は
-          エラーが発生すること
+        * 起動している２つのEC2インスタンスのIDのリストを指定して、
+          stop_resourcesメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が2であること。
+            * =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+        * 停止している２つのEC2インスタンスのIDのリストを指定して、
+          start_resourcesメソッドを実行する。
+            * =&gt; 停止操作したインスタンスの数が2であること。
+            * =&gt; 停止操作したインスタンスの数が2であること。
         
         &#39;&#39;&#39;
-        # テスト用のスクリプトと設定ファイルのパス
-        script_temp_path = os.path.splitext(__file__)[0] + &#39;_temp.py&#39;
-        config_temp_path = os.path.splitext(__file__)[0] + &#39;_temp.yml&#39;
-        
-        # EC2インスタンスを作成してテスト用のYAML形式の設定ファイルに反映する
-        ami = &#39;ami-1234abcd&#39;
-        yaml_config = aws_test_utils.load_yaml(__file__)
-        region_name = yaml_config[&#39;region_name&#39;]
-        access_key = yaml_config[&#39;access_key_id&#39;]
-        secret_key = yaml_config[&#39;secret_access_key&#39;]
-        
-        instances = self._run_instances(ami, region_name, 2)
-        instance_id_01 = instances[0][&#39;InstanceId&#39;]
-        instance_id_02 = instances[1][&#39;InstanceId&#39;]
-        yaml_config[&#39;resources01_test_ok&#39;] = [instance_id_01]
-        yaml_config[&#39;resources02_test_ok&#39;] = [instance_id_01, instance_id_02]
-        temp_file = os.path.join(os.path.dirname(__file__), &#39;work&#39;,
-                                 os.path.basename(__file__))
-        aws_test_utils.dump_yaml(yaml_config, temp_file)
-        
-        context = MyContext()
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_resources start&#39;)
 
-        # 例外処理を実装して関数を呼び出す。
-        event = {&#34;action&#34;: &#34;test&#34;, &#34;configKey&#34;: &#34;ok&#34;}
-        context.function_name = &#39;ec2startresources01_test_ok&#39;
-        try:
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        except Exception as e:
-            logging.error(str(e.__class__) + &#39;: &#39; +  str(e))
-            traceback.print_stack(file=sys.stdout)
- 
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 2)
+        instance_ids = []
+        for instance in instances:
+            instance_ids.append(instance[&#39;InstanceId&#39;])
         
-        # evemt dictionary の action、configKey の値が間違っている       
-        # Lambda関数名のコマンド、キー名が&#39;_&#39;で区切られていない
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;test&#34;, &#34;configKey&#34;: &#34;ok&#34;}
-        context.function_name = &#39;ec2startresources01_test_ok&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
+        # 起動している２つのEC2インスタンスのIDのリストを指定して、
+        # stop_resourcesメソッドを実行する。
+        count = operator.stop_resources(instance_ids)
+        # =&gt; 停止操作したインスタンスの数が2であること。
+        self.assertEqual(count, 2)
+        # =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+        for instance_id in instance_ids:
+            status = operator.get_status(instance_id)
+            self.assertEqual(status, &#39;stopped&#39;)
         
-        # event dictionary の leu の値が がstart、stop以外である
-        # Lambda関数名のコマンドがstart、stop以外である
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;foo&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_foo_resources01_test_ok&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
+        # 停止している２つのEC2インスタンスのIDのリストを指定して、
+        # start_resourcesメソッドを実行する。
+        count = operator.start_resources(instance_ids)
+        # =&gt; 停止操作したインスタンスの数が2であること。
+        self.assertEquals(count, 2)
+        # =&gt;それぞれのEC2インスタンスのステータスが「running」であること。
+        for instance_id in instance_ids:
+            status = operator.get_status(instance_id)
+            self.assertEqual(status, &#39;running&#39;)
         
-        # event dictionary の configKey の値が設定ファイルに存在しないものである
-        # Lambda関数名のキー名が設定ファイルに存在しないものである
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources_not_exists&#34;}
-        context.function_name = &#39;ec2_start_resources_not_exists&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 設定ファイルに存在しないインスタンスIDが設定されている
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources02_test_ng&#34;}
-        context.function_name = &#39;ec2_start_resources02_test_ng&#39;
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event, temp_file)
-        
-        # 設定ファイルにEC2インスタンスとは別のリージョンを指定した
-        # =&gt; 例外が発生する
-        event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-        context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-        yaml_config = aws_test_utils.load_yaml(temp_file)
-        yaml_config[&#39;region_name&#39;] = &#39;us-east-1&#39;
-        aws_test_utils.dump_yaml(yaml_config, script_temp_path)
-        if (self._use_event):
-            logging.info(&#39;event: &#39; + str(event))
-        else:
-            logging.info(&#39;function name: &#39; + context.function_name)
-        with self.assertRaises(Exception):
-            aws_resource_start_stop.start_stop_aws_resources(event, context, self._use_event,
-                script_temp_path)
-        os.remove(config_temp_path)
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_resources end&#39;)
     
-    def test_error_start_stop_aws_resources_use_event(self):
+    @mock_ec2
+    def test_error_start_stop(self):
+        &#39;&#39;&#39;存在しないEC2インスタンスのIDを指定して、start、stopメソッドの
+            テストを実行します。
+            
+        テストの内容は、以下のとおりです。
+            
+        * 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+            * =&gt; 例外が発生すること。
+        * 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+            * =&gt; 例外が発生すること。
+        
         &#39;&#39;&#39;
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop start&#39;)
         
-        Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-        呼び出します。
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+        instance_id = &#39;i-xxxxxxxxxxxxxxxxx&#39;
         
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_event start&#39;)
+        # 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.stop(instance_id)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
         
-        self._set_use_event(True)
-        self._test_error_start_stop_aws_resources()
+        # 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.start(instance_id)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
         
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_event end&#39;)
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop end&#39;)
     
-    def test_error_start_stop_aws_resources_use_context(self):
+    @mock_ec2
+    def test_error_start_stop_resources(self):
+        &#39;&#39;&#39;存在しないEC2インスタンスのIDを含むインスタンスIDの配列を指定して、
+            start_resources、stop_resourcesメソッドのテストを実行します。
+        
+        テストの内容は、以下のとおりです。
+        
+        * 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+          インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+            * =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+            * =&gt; 例外が発生すること。
+        * 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+          インスタンスIDを指定して、start_resourcesメソッドを実行する。
+            * =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+            * =&gt; 例外が発生すること。
+        
         &#39;&#39;&#39;
+        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_resources start&#39;)
         
-        Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-        start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-        呼び出します。
+        region_name = &#39;ap-northeast-1&#39;
+        operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+
+        instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+                region_name, 1)
+        running_ids = []
+        for instance in instances:
+            running_ids.append(instance[&#39;InstanceId&#39;])
+        instance_ids = [&#39;i-xxxxxxxxxxxxxxxxx&#39;]
+        instance_ids.extend(running_ids)
         
-        &#39;&#39;&#39;
-        logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_context start&#39;)
+        # 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+        # インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.stop_resources(instance_ids)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
+        # =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+        for instance_id in running_ids:
+            status = operator.get_status(instance_id)
+            self.assertEquals(status, &#39;stopped&#39;)
         
-        self._set_use_event(False)
-        self._test_error_start_stop_aws_resources()
+        # 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+        # インスタンスIDを指定して、start_resourcesメソッドを実行する。
+        with self.assertRaises(Exception) as cm:
+            operator.start_resources(instance_ids)
+        # =&gt; 例外が発生すること。
+        logging.info(str(cm.exception))
+        # =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+        for instance_id in running_ids:
+            status = operator.get_status(instance_id)
+            self.assertEquals(status, &#39;running&#39;)
         
-        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_context end&#39;)</code></pre>
+        logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_resources end&#39;)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1404,7 +521,7 @@ not have a method with the specified name.</p></div>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>cls</code></strong></dt>
-<dd>テストクラスのインスタンス</dd>
+<dd>テストクラス</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1412,12 +529,10 @@ not have a method with the specified name.</p></div>
 </summary>
 <pre><code class="python">@classmethod
 def setUpClass(cls):
-    &#39;&#39;&#39;
-    
-    テストクラスの set up を実行します。
+    &#39;&#39;&#39;テストクラスの set up を実行します。
     
     Args:
-        cls: テストクラスのインスタンス
+        cls: テストクラス
     
     &#39;&#39;&#39;
     logging.info(&#39;Set up test class.&#39;)</code></pre>
@@ -1431,7 +546,7 @@ def setUpClass(cls):
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>cls</code></strong></dt>
-<dd>テストクラスのインスタンス</dd>
+<dd>テストクラス</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1439,12 +554,10 @@ def setUpClass(cls):
 </summary>
 <pre><code class="python">@classmethod
 def tearDownClass(cls):
-    &#39;&#39;&#39;
-    
-    テストクラスの tear down を実行します。
+    &#39;&#39;&#39;テストクラスの tear down を実行します。
     
     Args:
-        cls: テストクラスのインスタンス
+        cls: テストクラス
     
     &#39;&#39;&#39;
     logging.info(&#39;Tear down test class.&#39;)
@@ -1461,443 +574,280 @@ def tearDownClass(cls):
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.setUp"><code class="name flex">
-<span>def <span class="ident">setUp</span></span>(<span>self)</span>
+<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop"><code class="name flex">
+<span>def <span class="ident">test_error_start_stop</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>テスト関数の set up を実行します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def setUp(self):
-    &#39;&#39;&#39;
-    
-    テスト関数の set up を実行します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;Set up test.&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.tearDown"><code class="name flex">
-<span>def <span class="ident">tearDown</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>テストクラスの tear down を実行します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def tearDown(self):
-    &#39;&#39;&#39;
-    
-    テストクラスの tear down を実行します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;Tear down test.&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_load_config"><code class="name flex">
-<span>def <span class="ident">test_error_load_config</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>_load_config 関数のエラーが発生する場合のテストを実行します。</p>
+<div class="desc"><p>存在しないEC2インスタンスのIDを指定して、start、stopメソッドの
+テストを実行します。</p>
+<p>テストの内容は、以下のとおりです。</p>
 <ul>
-<li>設定ファイルに存在しないキー名を指定するとエラーとなること</li>
-</ul></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_error_load_config(self):
-    &#39;&#39;&#39;
-    
-    _load_config 関数のエラーが発生する場合のテストを実行します。
-    
-    * 設定ファイルに存在しないキー名を指定するとエラーとなること
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_load_config start&#39;)
-    
-    # 設定ファイルに存在しないキー名を指定するとエラーとなること
-    with self.assertRaises(Exception):
-        config = aws_resource_start_stop._load_config(__file__, &#39;key_not_exists&#39;)
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_load_config end&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_context"><code class="name flex">
-<span>def <span class="ident">test_error_start_stop_aws_resources_use_context</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-呼び出します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_error_start_stop_aws_resources_use_context(self):
-    &#39;&#39;&#39;
-    
-    Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-    start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-    呼び出します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_context start&#39;)
-    
-    self._set_use_event(False)
-    self._test_error_start_stop_aws_resources()
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_context end&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_event"><code class="name flex">
-<span>def <span class="ident">test_error_start_stop_aws_resources_use_event</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-呼び出します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_error_start_stop_aws_resources_use_event(self):
-    &#39;&#39;&#39;
-    
-    Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-    start_stop_aws_resources 関数のエラー発生テストを実行する関数を
-    呼び出します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_aws_resources_use_event start&#39;)
-    
-    self._set_use_event(True)
-    self._test_error_start_stop_aws_resources()
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_aws_resources_use_event end&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_context"><code class="name flex">
-<span>def <span class="ident">test_get_action_from_context</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>_get_action_from_context 関数をテストします。</p>
-<ul>
-<li>
-<p>contextオブジェクトのfunction_nameプロパティに
-'ec2_start_resources01_test_ok' を指定すると、'start'が返される</p>
+<li>存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。<ul>
+<li>=&gt; 例外が発生すること。</li>
+</ul>
 </li>
-<li>
-<p>contextオブジェクトのfunction_nameプロパティに
-'ec2_stop_resources_test_ok' を指定すると、'stop'が返される</p>
+<li>存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。<ul>
+<li>=&gt; 例外が発生すること。</li>
+</ul>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_action_from_context(self):
+<pre><code class="python">@mock_ec2
+def test_error_start_stop(self):
+    &#39;&#39;&#39;存在しないEC2インスタンスのIDを指定して、start、stopメソッドの
+        テストを実行します。
+        
+    テストの内容は、以下のとおりです。
+        
+    * 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        * =&gt; 例外が発生すること。
+    * 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+        * =&gt; 例外が発生すること。
+    
     &#39;&#39;&#39;
+    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop start&#39;)
     
-    _get_action_from_context 関数をテストします。
+    region_name = &#39;ap-northeast-1&#39;
+    operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+    instance_id = &#39;i-xxxxxxxxxxxxxxxxx&#39;
     
-    * contextオブジェクトのfunction_nameプロパティに
-      &#39;ec2_start_resources01_test_ok&#39; を指定すると、&#39;start&#39;が返される
+    # 存在しないEC2インスタンスのIDを指定して、stopメソッドを実行する。
+    with self.assertRaises(Exception) as cm:
+        operator.stop(instance_id)
+    # =&gt; 例外が発生すること。
+    logging.info(str(cm.exception))
     
-    * contextオブジェクトのfunction_nameプロパティに
-      &#39;ec2_stop_resources_test_ok&#39; を指定すると、&#39;stop&#39;が返される
+    # 存在しないEC2インスタンスのIDを指定して、startメソッドを実行する。
+    with self.assertRaises(Exception) as cm:
+        operator.start(instance_id)
+    # =&gt; 例外が発生すること。
+    logging.info(str(cm.exception))
     
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_context start&#39;)
-    
-    context = MyContext()
-    
-    # Lambda関数名に&#39;start&#39;を指定
-    context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-    action_name = aws_resource_start_stop._get_action_from_context(context)
-    self.assertEqual(action_name, &#39;start&#39;)
-    
-    # Lambda関数名にstopを指定
-    context.function_name = &#39;ec2_stop_resources_test_ok&#39;
-    action_name = aws_resource_start_stop._get_action_from_context(context)
-    self.assertEqual(action_name, &#39;stop&#39;)
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_context end&#39;)</code></pre>
+    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop end&#39;)</code></pre>
 </details>
 </dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_event"><code class="name flex">
-<span>def <span class="ident">test_get_action_from_event</span></span>(<span>self)</span>
+<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_resources"><code class="name flex">
+<span>def <span class="ident">test_error_start_stop_resources</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>_get_action_from_event 関数をテストします。</p>
+<div class="desc"><p>存在しないEC2インスタンスのIDを含むインスタンスIDの配列を指定して、
+start_resources、stop_resourcesメソッドのテストを実行します。</p>
+<p>テストの内容は、以下のとおりです。</p>
 <ul>
-<li>
-<p>event dictionary のキー：action の値 に 'start' を指定すると、
-'start'が返される</p>
+<li>存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+インスタンスIDを指定して、stop_resourcesメソッドを実行する。<ul>
+<li>=&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。</li>
+<li>=&gt; 例外が発生すること。</li>
+</ul>
 </li>
-<li>
-<p>event dictionary のキー：action の値に 'stop' を指定すると、
-'stop'が返される</p>
+<li>存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+インスタンスIDを指定して、start_resourcesメソッドを実行する。<ul>
+<li>=&gt; 停止中だったEC2インスタンスのステータスが「running」となること；</li>
+<li>=&gt; 例外が発生すること。</li>
+</ul>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_action_from_event(self):
+<pre><code class="python">@mock_ec2
+def test_error_start_stop_resources(self):
+    &#39;&#39;&#39;存在しないEC2インスタンスのIDを含むインスタンスIDの配列を指定して、
+        start_resources、stop_resourcesメソッドのテストを実行します。
+    
+    テストの内容は、以下のとおりです。
+    
+    * 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+      インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+        * =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+        * =&gt; 例外が発生すること。
+    * 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+      インスタンスIDを指定して、start_resourcesメソッドを実行する。
+        * =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+        * =&gt; 例外が発生すること。
+    
     &#39;&#39;&#39;
+    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_error_start_stop_resources start&#39;)
     
-    _get_action_from_event 関数をテストします。
+    region_name = &#39;ap-northeast-1&#39;
+    operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
+
+    instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+            region_name, 1)
+    running_ids = []
+    for instance in instances:
+        running_ids.append(instance[&#39;InstanceId&#39;])
+    instance_ids = [&#39;i-xxxxxxxxxxxxxxxxx&#39;]
+    instance_ids.extend(running_ids)
     
-    * event dictionary のキー：action の値 に &#39;start&#39; を指定すると、
-      &#39;start&#39;が返される
+    # 存在しないEC2インスタンス１つと、実行中のEC2インスタンス１つの
+    # インスタンスIDを指定して、stop_resourcesメソッドを実行する。
+    with self.assertRaises(Exception) as cm:
+        operator.stop_resources(instance_ids)
+    # =&gt; 例外が発生すること。
+    logging.info(str(cm.exception))
+    # =&gt; 実行中だったEC2インスタンスのステータスが「stopped」となること。
+    for instance_id in running_ids:
+        status = operator.get_status(instance_id)
+        self.assertEquals(status, &#39;stopped&#39;)
     
-    * event dictionary のキー：action の値に &#39;stop&#39; を指定すると、
-      &#39;stop&#39;が返される
+    # 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
+    # インスタンスIDを指定して、start_resourcesメソッドを実行する。
+    with self.assertRaises(Exception) as cm:
+        operator.start_resources(instance_ids)
+    # =&gt; 例外が発生すること。
+    logging.info(str(cm.exception))
+    # =&gt; 停止中だったEC2インスタンスのステータスが「running」となること；
+    for instance_id in running_ids:
+        status = operator.get_status(instance_id)
+        self.assertEquals(status, &#39;running&#39;)
     
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_action_from_event start&#39;)
-    
-    # event dictionary のキー：action の値に&#39;start&#39;を指定
-    event = {&#34;action&#34;: &#34;start&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-    action_name = aws_resource_start_stop._get_action_from_event(event)
-    self.assertEqual(action_name, &#39;start&#39;)
-    
-    # event dictionary のキー：action の値に&#39;stop&#39;を指定
-    event = {&#34;action&#34;: &#34;stop&#34;, &#34;configKey&#34;: &#34;resources_test_ok&#34;}
-    action_name = aws_resource_start_stop._get_action_from_event(event)
-    self.assertEqual(action_name, &#39;stop&#39;)
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_action_from_event end&#39;)</code></pre>
+    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_error_start_stop_resources end&#39;)</code></pre>
 </details>
 </dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_context"><code class="name flex">
-<span>def <span class="ident">test_get_configkey_from_context</span></span>(<span>self)</span>
+<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop"><code class="name flex">
+<span>def <span class="ident">test_start_stop</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>_get_configkey_from_context 関数をテストします。</p>
+<div class="desc"><p>startメソッド、stopメソッドのテストを実行します。</p>
+<p>テストの内容は以下のとおりです。</p>
 <ul>
-<li>
-<p>contextオブジェクトのfunction_nameプロパティに
-'ec2_start_resources01' を指定すると、'resources01'が返される</p>
+<li>起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。<ul>
+<li>=&gt; 停止操作したインスタンスの数が1であること。</li>
+<li>=&gt; インスタンスのステータスが「stopped」であること。</li>
+</ul>
 </li>
-<li>
-<p>contextオブジェクトのfunction_nameプロパティに
-'ec2_start_resources_test_ok' を指定すると、'resources_test_ok'が
-返される</p>
+<li>停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。<ul>
+<li>=&gt; 開始操作したインスタンスの数が1であること。</li>
+<li>=&gt; インスタンスのステータスが「running」であること。
+*</li>
+</ul>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_configkey_from_context(self):
+<pre><code class="python">@mock_ec2
+def test_start_stop(self):
+    &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
+    
+    テストの内容は以下のとおりです。
+    
+    * 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+        * =&gt; 停止操作したインスタンスの数が1であること。
+        * =&gt; インスタンスのステータスが「stopped」であること。
+    * 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+        * =&gt; 開始操作したインスタンスの数が1であること。
+        * =&gt; インスタンスのステータスが「running」であること。
+    * 
+    
     &#39;&#39;&#39;
+    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop start&#39;)
+    
+    region_name = &#39;ap-northeast-1&#39;
+    operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
 
-    _get_configkey_from_context 関数をテストします。
-    
-    * contextオブジェクトのfunction_nameプロパティに
-      &#39;ec2_start_resources01&#39; を指定すると、&#39;resources01&#39;が返される
-    
-    * contextオブジェクトのfunction_nameプロパティに
-      &#39;ec2_start_resources_test_ok&#39; を指定すると、&#39;resources_test_ok&#39;が
-      返される
+    instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+            region_name, 1)
+    instance_id = instances[0][&#39;InstanceId&#39;]
 
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_context start&#39;)
+    # 起動しているEC2インスタンスのIDを指定して、stopメソッドを実行する。
+    count = operator.stop(instance_id)
+    status = operator.get_status(instance_id)
+    # =&gt; 停止操作したインスタンスの数が1であること。
+    self.assertEqual(count, 1)
+    # =&gt; インスタンスのステータスが「stopped」であること。
+    self.assertEqual(status, &#39;stopped&#39;)
+
+    # 停止しているEC2インスタンスのIDを指定して、startメソッドを実行する。
+    count = operator.start(instance_id)
+    status = operator.get_status(instance_id)
+    # =&gt; 開始操作したインスタンスの数が1であること。
+    self.assertEqual(count, 1)
+    # =&gt; インスタンスのステータスが「running」であること。
+    self.assertEqual(status, &#39;running&#39;)
     
-    context = MyContext()
-    
-    # Lambda関数名のキー名に「resources01」を指定
-    context.function_name = &#39;ec2_start_resources01&#39;
-    configkey = aws_resource_start_stop._get_configkey_from_context(context)
-    self.assertEqual(configkey, &#39;resources01&#39;)
-    
-    # Lambda関数名のキー名に「resources01_test_ok」を指定
-    context.function_name = &#39;ec2_start_resources01_test_ok&#39;
-    configkey = aws_resource_start_stop._get_configkey_from_context(context)
-    self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_context end&#39;)</code></pre>
+    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop end&#39;)</code></pre>
 </details>
 </dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_event"><code class="name flex">
-<span>def <span class="ident">test_get_configkey_from_event</span></span>(<span>self)</span>
+<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_resources"><code class="name flex">
+<span>def <span class="ident">test_start_stop_resources</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>_get_configkey_from_event 関数をテストします。</p>
+<div class="desc"><p>startメソッド、stopメソッドのテストを実行します。</p>
+<p>テストの内容は、以下のとおりです。</p>
 <ul>
-<li>
-<p>event dictionary の キー：configKey の値に 'resources01' を
-設定すると、'resources01'が返される</p>
+<li>起動している２つのEC2インスタンスのIDのリストを指定して、
+stop_resourcesメソッドを実行する。<ul>
+<li>=&gt; 停止操作したインスタンスの数が2であること。</li>
+<li>=&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。</li>
+</ul>
 </li>
-<li>
-<p>event dictionary の キー：configKey の値に 'resources_test_ok' を
-指定すると、'resources_test_ok'が返される</p>
+<li>停止している２つのEC2インスタンスのIDのリストを指定して、
+start_resourcesメソッドを実行する。<ul>
+<li>=&gt; 停止操作したインスタンスの数が2であること。</li>
+<li>=&gt; 停止操作したインスタンスの数が2であること。</li>
+</ul>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_configkey_from_event(self):
+<pre><code class="python">@mock_ec2
+def test_start_stop_resources(self):
+    &#39;&#39;&#39;startメソッド、stopメソッドのテストを実行します。
+    
+    テストの内容は、以下のとおりです。
+    
+    * 起動している２つのEC2インスタンスのIDのリストを指定して、
+      stop_resourcesメソッドを実行する。
+        * =&gt; 停止操作したインスタンスの数が2であること。
+        * =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+    * 停止している２つのEC2インスタンスのIDのリストを指定して、
+      start_resourcesメソッドを実行する。
+        * =&gt; 停止操作したインスタンスの数が2であること。
+        * =&gt; 停止操作したインスタンスの数が2であること。
+    
     &#39;&#39;&#39;
+    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_resources start&#39;)
 
-    _get_configkey_from_event 関数をテストします。
-    
-    * event dictionary の キー：configKey の値に &#39;resources01&#39; を
-      設定すると、&#39;resources01&#39;が返される
-    
-    * event dictionary の キー：configKey の値に &#39;resources_test_ok&#39; を
-      指定すると、&#39;resources_test_ok&#39;が返される
+    region_name = &#39;ap-northeast-1&#39;
+    operator = AwsResourceOperatorFactory.create(&#39;ec2.instance&#39;, region_name)
 
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_get_configkey_from_event start&#39;)
+    instances = aws_test_utils.run_instances(&#39;ami-xxxxxxxxxxxxxxxxx&#39;,
+            region_name, 2)
+    instance_ids = []
+    for instance in instances:
+        instance_ids.append(instance[&#39;InstanceId&#39;])
     
-    # event dictionary のキー：configKey の値に「resources01」を指定
-    event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01&#34;}
-    configkey = aws_resource_start_stop._get_configkey_from_event(event)
-    self.assertEqual(configkey, &#39;resources01&#39;)
+    # 起動している２つのEC2インスタンスのIDのリストを指定して、
+    # stop_resourcesメソッドを実行する。
+    count = operator.stop_resources(instance_ids)
+    # =&gt; 停止操作したインスタンスの数が2であること。
+    self.assertEqual(count, 2)
+    # =&gt; それぞれのEC2インスタンスのステータスが「stopped」であること。
+    for instance_id in instance_ids:
+        status = operator.get_status(instance_id)
+        self.assertEqual(status, &#39;stopped&#39;)
     
-    # event dictionary のキー：configKey の値に「resources01_test_ok」を
-    # 指定
-    event = {&#34;action&#34;: &#34;sstart&#34;, &#34;configKey&#34;: &#34;resources01_test_ok&#34;}
-    configkey = aws_resource_start_stop._get_configkey_from_event(event)
-    self.assertEqual(configkey, &#39;resources01_test_ok&#39;)
+    # 停止している２つのEC2インスタンスのIDのリストを指定して、
+    # start_resourcesメソッドを実行する。
+    count = operator.start_resources(instance_ids)
+    # =&gt; 停止操作したインスタンスの数が2であること。
+    self.assertEquals(count, 2)
+    # =&gt;それぞれのEC2インスタンスのステータスが「running」であること。
+    for instance_id in instance_ids:
+        status = operator.get_status(instance_id)
+        self.assertEqual(status, &#39;running&#39;)
     
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_get_configkey_from_event end&#39;)</code></pre>
+    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_resources end&#39;)</code></pre>
 </details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_load_config"><code class="name flex">
-<span>def <span class="ident">test_load_config</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>_load_config 関数のテストを実行します。</p>
-<ul>
-<li>
-<p>設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-オブジェクトの内容が設定ファイルの内容と一致すること</p>
-</li>
-<li>
-<p>設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-オブジェクトの内容が設定ファイルの内容と一致すること</p>
-</li>
-</ul></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_load_config(self):
-    &#39;&#39;&#39;
-    
-    _load_config 関数のテストを実行します。
-    
-    * 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-      オブジェクトの内容が設定ファイルの内容と一致すること
-    
-    * 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-      オブジェクトの内容が設定ファイルの内容と一致すること
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_load_config start&#39;)
-    
-    # 設定ファイルのキーを指定して読み込んだ AwsResourceStartStopConfig
-    # オブジェクトの内容が設定ファイルの内容と一致すること
-    config = aws_resource_start_stop._load_config(__file__, &#39;resources02_test_ng&#39;)
-    self.assertEqual(config.region_name, &#39;ap-northeast-1&#39;)
-    # 設定ファイルのキー配列を指定して読み込んだ AwsResourceStartStopConfig
-    # オブジェクトの内容が設定ファイルの内容と一致すること
-    resource_types = config.resource_groups
-    ## ec2.instance
-    self.assertEqual(resource_types[0].get(&#39;type&#39;), &#39;ec2.instance&#39;)
-    self.assertEqual(resource_types[0].get(&#39;ids&#39;), [&#39;i-yyyyyyyyyyyyyyyyy&#39;, &#39;i-zzzzzzzzzzzzzzzzz&#39;])
-    ## rds.db_cluster
-    self.assertEqual(resource_types[1].get(&#39;type&#39;), &#39;rds.db_cluster&#39;)
-    self.assertEqual(resource_types[1].get(&#39;ids&#39;), [&#39;myrds_clusterxx&#39;, &#39;myrds_clusteryy&#39;])
-    ## rds.db_instance
-    self.assertEqual(resource_types[2].get(&#39;type&#39;), &#39;rds.db_instance&#39;)
-    self.assertEqual(resource_types[2].get(&#39;ids&#39;), [&#39;myrds_instancexx&#39;, &#39;myrds_instanceyy&#39;])
-    
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_load_config end&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_context"><code class="name flex">
-<span>def <span class="ident">test_start_stop_ec2_instance_use_context</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-start_stop_aws_resources 関数のテストを実行する関数を呼び出します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_start_stop_ec2_instance_use_context(self):
-    &#39;&#39;&#39;
-    
-    Lambda 関数の context から開始、停止するインスタンスの情報を取得して、
-    start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_context start&#39;)
-    
-    self._set_use_event(False)
-    self._test_start_stop_aws_resources()
-
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_context end&#39;)</code></pre>
-</details>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_event"><code class="name flex">
-<span>def <span class="ident">test_start_stop_ec2_instance_use_event</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-start_stop_aws_resources 関数のテストを実行する関数を呼び出します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_start_stop_ec2_instance_use_event(self):
-    &#39;&#39;&#39;
-    
-    Lambda 関数の event から開始、停止するインスタンスの情報を取得して、
-    start_stop_aws_resources 関数のテストを実行する関数を呼び出します。
-    
-    &#39;&#39;&#39;
-    logging.info(&#39;&gt;&gt;&gt;&gt;&gt; test_start_stop_aws_resources_use_event start&#39;)
-    
-    self._set_use_event(True)
-    self._test_start_stop_aws_resources()
-
-    logging.info(&#39;&lt;&lt;&lt;&lt;&lt; test_start_stop_aws_resources_use_event end&#39;)</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-<dt id="tests.AwsEc2InstanceOperatorTest.MyContext"><code class="flex name class">
-<span>class <span class="ident">MyContext</span></span>
-</code></dt>
-<dd>
-<div class="desc"><p>テスト用の context オブジェクト</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class MyContext():
-    &#39;&#39;&#39;
-    
-    テスト用の context オブジェクト
-    
-    &#39;&#39;&#39;
-    function_name = None</code></pre>
-</details>
-<h3>Class variables</h3>
-<dl>
-<dt id="tests.AwsEc2InstanceOperatorTest.MyContext.function_name"><code class="name">var <span class="ident">function_name</span></code></dt>
-<dd>
-<div class="desc"></div>
 </dd>
 </dl>
 </dd>
@@ -1920,26 +870,12 @@ start_stop_aws_resources 関数のテストを実行する関数を呼び出し�
 <li>
 <h4><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest">AwsEc2InstanceOperatorTest</a></code></h4>
 <ul class="">
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.setUp" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.setUp">setUp</a></code></li>
 <li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.setUpClass" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.setUpClass">setUpClass</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.tearDown" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.tearDown">tearDown</a></code></li>
 <li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.tearDownClass" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.tearDownClass">tearDownClass</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_load_config" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_load_config">test_error_load_config</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_context" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_context">test_error_start_stop_aws_resources_use_context</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_event" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_aws_resources_use_event">test_error_start_stop_aws_resources_use_event</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_context" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_context">test_get_action_from_context</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_event" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_action_from_event">test_get_action_from_event</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_context" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_context">test_get_configkey_from_context</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_event" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_get_configkey_from_event">test_get_configkey_from_event</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_load_config" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_load_config">test_load_config</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_context" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_context">test_start_stop_ec2_instance_use_context</a></code></li>
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_event" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_ec2_instance_use_event">test_start_stop_ec2_instance_use_event</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="tests.AwsEc2InstanceOperatorTest.MyContext" href="#tests.AwsEc2InstanceOperatorTest.MyContext">MyContext</a></code></h4>
-<ul class="">
-<li><code><a title="tests.AwsEc2InstanceOperatorTest.MyContext.function_name" href="#tests.AwsEc2InstanceOperatorTest.MyContext.function_name">function_name</a></code></li>
+<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop">test_error_start_stop</a></code></li>
+<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_resources" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_error_start_stop_resources">test_error_start_stop_resources</a></code></li>
+<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop">test_start_stop</a></code></li>
+<li><code><a title="tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_resources" href="#tests.AwsEc2InstanceOperatorTest.AwsEc2InstanceOperatorTest.test_start_stop_resources">test_start_stop_resources</a></code></li>
 </ul>
 </li>
 </ul>

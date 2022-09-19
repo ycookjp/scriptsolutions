@@ -86,6 +86,9 @@ class AwsResourceOperator:
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to start service instance.
+        
         &#39;&#39;&#39;
         pass
     
@@ -99,6 +102,10 @@ class AwsResourceOperator:
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start service instance
+                at latest time.
         
         &#39;&#39;&#39;
         pass
@@ -114,6 +121,9 @@ class AwsResourceOperator:
         Returns:
             Number of stopped instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to stop service instance.
+        
         &#39;&#39;&#39;
         pass
     
@@ -127,6 +137,10 @@ class AwsResourceOperator:
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop service instance
+                at latest time.
         
         &#39;&#39;&#39;
         pass
@@ -142,6 +156,13 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 ec2 client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;ec2&#39;, region_name, access_key_id,
@@ -176,6 +197,9 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to start EC2 instance.
+        
         &#39;&#39;&#39;
         count = 0
 
@@ -194,6 +218,10 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: raises exception if fail to start EC2 instance
+                at latest time.
+        
         &#39;&#39;&#39;
         count = 0
         error = None
@@ -203,8 +231,7 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -219,6 +246,9 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -238,6 +268,10 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Returns:
             Number of stopped instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance
+                at latest time.
+        
         &#39;&#39;&#39;
         count = 0
         error = None
@@ -247,8 +281,7 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -266,6 +299,13 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 rds client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;rds&#39;, region_name, access_key_id,
@@ -290,13 +330,19 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         return status
     
     def start(self, instance_id: str):
-        &#39;&#39;&#39;Starts RDS cluster.
+        &#39;&#39;&#39;Starts RDS DB cluster.
+        
+        If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
             Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster.
         
         &#39;&#39;&#39;
         count = 0
@@ -311,13 +357,20 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         return count
     
     def start_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Starts RDS clusters.
+        &#39;&#39;&#39;Starts RDS DB clusters.
+        
+        If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS cluster IDs
+            instance_ids (list): RDS DB cluster IDs
         
         Returns:
             Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster at
+                latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -328,8 +381,7 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -337,13 +389,19 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         return count
     
     def stop(self, instance_id: str):
-        &#39;&#39;&#39;Stops RDS cluster.
+        &#39;&#39;&#39;Stops RDS DB cluster.
+        
+        If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
-            Number of stopped cluster(s).
+            Number of stopped RDS DB cluster.
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster.
         
         &#39;&#39;&#39;
         count = 0
@@ -358,13 +416,19 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         return count
     
     def stop_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Stops RDS clusters.
+        &#39;&#39;&#39;Stops RDS DB clusters.
+        
+        If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (str ...): RDS cluster IDs.
+            instance_ids (str ...): RDS DB cluster IDs.
         
         Returns:
-            Number of stopped cluster(s).
+            Number of stopped RDS DB cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -375,8 +439,7 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -394,6 +457,13 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 rds client to _client instance variable.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;rds&#39;, region_name,access_key_id,
@@ -418,13 +488,19 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         return status
     
     def start(self, instance_id: str):
-        &#39;&#39;&#39;Starts RDS instance.
+        &#39;&#39;&#39;Starts RDS DB instance.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -439,13 +515,20 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         return count
     
     def start_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Starts RDS instances.
+        &#39;&#39;&#39;Starts RDS DB instances.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS instance IDs
+            instance_ids (list): RDS DB instance IDs
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS DB instance
+                at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -456,8 +539,7 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -465,13 +547,19 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         return count
     
     def stop(self, instance_id: str):
-        &#39;&#39;&#39;Stops RDS instance.
+        &#39;&#39;&#39;Stops RDS DB instance.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -486,13 +574,20 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         return count
     
     def stop_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Stops RDS instances.
+        &#39;&#39;&#39;Stops RDS DB instances.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
             instance_ids (str ...): RDS instance IDs.
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance
+                at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -503,8 +598,7 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -527,6 +621,13 @@ class AwsResourceOperatorFactory:
                 - ec2.instance
                 - rds.db_cluster
                 - rds.db_instance
+        
+        Returns:
+            AwsResourceOperator: Returns created AWS instance operator&#39;s
+                instance.
+        
+        Raises:
+            RuntimeError: If service_name is incorrect.
         
         &#39;&#39;&#39;
         
@@ -562,7 +663,17 @@ class AwsResourceOperatorFactory:
 </code></dt>
 <dd>
 <div class="desc"><p>Operator class for EC2 instance.</p>
-<p>Constructor.</p></div>
+<p>Constructor.</p>
+<p>Sets boto3 ec2 client to _client field.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>region_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>regian name.</dd>
+<dt><strong><code>access_key_id</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>access key id.</dd>
+<dt><strong><code>secret_access_key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>secret access key.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -578,6 +689,13 @@ class AwsResourceOperatorFactory:
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 ec2 client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;ec2&#39;, region_name, access_key_id,
@@ -612,6 +730,9 @@ class AwsResourceOperatorFactory:
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to start EC2 instance.
+        
         &#39;&#39;&#39;
         count = 0
 
@@ -630,6 +751,10 @@ class AwsResourceOperatorFactory:
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: raises exception if fail to start EC2 instance
+                at latest time.
+        
         &#39;&#39;&#39;
         count = 0
         error = None
@@ -639,8 +764,7 @@ class AwsResourceOperatorFactory:
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -655,6 +779,9 @@ class AwsResourceOperatorFactory:
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -674,6 +801,10 @@ class AwsResourceOperatorFactory:
         Returns:
             Number of stopped instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance
+                at latest time.
+        
         &#39;&#39;&#39;
         count = 0
         error = None
@@ -683,8 +814,7 @@ class AwsResourceOperatorFactory:
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -747,7 +877,12 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>EC2 instance id.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start EC2 instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -760,6 +895,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of started instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start EC2 instance.
     
     &#39;&#39;&#39;
     count = 0
@@ -782,7 +920,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>EC2 instance IDs</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>raises exception if fail to start EC2 instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -796,6 +940,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
     Returns:
         Number of started instance(s).
     
+    Raises:
+        Exception: raises exception if fail to start EC2 instance
+            at latest time.
+    
     &#39;&#39;&#39;
     count = 0
     error = None
@@ -805,8 +953,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.start(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -825,7 +972,12 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>EC2 instance ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop EC2 instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -838,6 +990,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of stopped instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop EC2 instance.
     
     &#39;&#39;&#39;
     count = 0
@@ -860,7 +1015,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>EC2 instance IDs.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop EC2 instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -874,6 +1035,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
     Returns:
         Number of stopped instance(s).
     
+    Raises:
+        Exception: Raises exception if fail to stop EC2 instance
+            at latest time.
+    
     &#39;&#39;&#39;
     count = 0
     error = None
@@ -883,8 +1048,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.stop(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -900,7 +1064,17 @@ Status name is one of 'pending', 'running', 'shutting-down',
 </code></dt>
 <dd>
 <div class="desc"><p>Operator class for RDS DB cluster.</p>
-<p>Constructor.</p></div>
+<p>Constructor.</p>
+<p>Sets boto3 rds client to _client field.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>region_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>regian name.</dd>
+<dt><strong><code>access_key_id</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>access key id.</dd>
+<dt><strong><code>secret_access_key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>secret access key.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -916,6 +1090,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 rds client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;rds&#39;, region_name, access_key_id,
@@ -940,13 +1121,19 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return status
     
     def start(self, instance_id: str):
-        &#39;&#39;&#39;Starts RDS cluster.
+        &#39;&#39;&#39;Starts RDS DB cluster.
+        
+        If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
             Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster.
         
         &#39;&#39;&#39;
         count = 0
@@ -961,13 +1148,20 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def start_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Starts RDS clusters.
+        &#39;&#39;&#39;Starts RDS DB clusters.
+        
+        If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS cluster IDs
+            instance_ids (list): RDS DB cluster IDs
         
         Returns:
             Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster at
+                latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -978,8 +1172,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -987,13 +1180,19 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def stop(self, instance_id: str):
-        &#39;&#39;&#39;Stops RDS cluster.
+        &#39;&#39;&#39;Stops RDS DB cluster.
+        
+        If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
-            Number of stopped cluster(s).
+            Number of stopped RDS DB cluster.
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster.
         
         &#39;&#39;&#39;
         count = 0
@@ -1008,13 +1207,19 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def stop_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Stops RDS clusters.
+        &#39;&#39;&#39;Stops RDS DB clusters.
+        
+        If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (str ...): RDS cluster IDs.
+            instance_ids (str ...): RDS DB cluster IDs.
         
         Returns:
-            Number of stopped cluster(s).
+            Number of stopped RDS DB cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -1025,8 +1230,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -1078,26 +1282,39 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Starts RDS cluster.</p>
+<div class="desc"><p>Starts RDS DB cluster.</p>
+<p>If RDS DB cluster status is 'stopped', then starts RDS DB cluster.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>RDS cluster ID.</dd>
+<dd>RDS DB cluster ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started cluster(s).</p></div>
+<p>Number of started cluster(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start RDS cluster.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def start(self, instance_id: str):
-    &#39;&#39;&#39;Starts RDS cluster.
+    &#39;&#39;&#39;Starts RDS DB cluster.
+    
+    If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+    Else do nothing.
     
     Args:
-        instance_id (str): RDS cluster ID.
+        instance_id (str): RDS DB cluster ID.
     
     Returns:
         Number of started cluster(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start RDS cluster.
     
     &#39;&#39;&#39;
     count = 0
@@ -1116,26 +1333,41 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Starts RDS clusters.</p>
+<div class="desc"><p>Starts RDS DB clusters.</p>
+<p>If RDS DB cluster status is 'stopped', then starts RDS DB cluster.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_ids</code></strong> :&ensp;<code>list</code></dt>
-<dd>RDS cluster IDs</dd>
+<dd>RDS DB cluster IDs</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started cluster(s).</p></div>
+<p>Number of started cluster(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start RDS cluster at
+latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def start_resources(self, instance_ids: list):
-    &#39;&#39;&#39;Starts RDS clusters.
+    &#39;&#39;&#39;Starts RDS DB clusters.
+    
+    If RDS DB cluster status is &#39;stopped&#39;, then starts RDS DB cluster.
+    Else do nothing.
     
     Args:
-        instance_ids (list): RDS cluster IDs
+        instance_ids (list): RDS DB cluster IDs
     
     Returns:
         Number of started cluster(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start RDS cluster at
+            latest time.
     
     &#39;&#39;&#39;
     count = 0
@@ -1146,8 +1378,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.start(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -1159,26 +1390,39 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Stops RDS cluster.</p>
+<div class="desc"><p>Stops RDS DB cluster.</p>
+<p>If RDS DB instance status is 'available', then stops RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>RDS cluster ID.</dd>
+<dd>RDS DB cluster ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped cluster(s).</p></div>
+<p>Number of stopped RDS DB cluster.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop RDS cluster.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def stop(self, instance_id: str):
-    &#39;&#39;&#39;Stops RDS cluster.
+    &#39;&#39;&#39;Stops RDS DB cluster.
+    
+    If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+    Else do nothing.
     
     Args:
-        instance_id (str): RDS cluster ID.
+        instance_id (str): RDS DB cluster ID.
     
     Returns:
-        Number of stopped cluster(s).
+        Number of stopped RDS DB cluster.
+    
+    Raises:
+        Exception: Raises exception if fail to stop RDS cluster.
     
     &#39;&#39;&#39;
     count = 0
@@ -1197,26 +1441,39 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Stops RDS clusters.</p>
+<div class="desc"><p>Stops RDS DB clusters.</p>
+<p>If RDS DB instance status is 'available', then stops RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
-<dd>RDS cluster IDs.</dd>
+<dd>RDS DB cluster IDs.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped cluster(s).</p></div>
+<p>Number of stopped RDS DB cluster(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop RDS cluster at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def stop_resources(self, instance_ids: list):
-    &#39;&#39;&#39;Stops RDS clusters.
+    &#39;&#39;&#39;Stops RDS DB clusters.
+    
+    If RDS DB instance status is &#39;available&#39;, then stops RDS DB instance.
+    Else do nothing.
     
     Args:
-        instance_ids (str ...): RDS cluster IDs.
+        instance_ids (str ...): RDS DB cluster IDs.
     
     Returns:
-        Number of stopped cluster(s).
+        Number of stopped RDS DB cluster(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop RDS cluster at latest time.
     
     &#39;&#39;&#39;
     count = 0
@@ -1227,8 +1484,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.stop(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -1244,7 +1500,17 @@ Status name is one of 'pending', 'running', 'shutting-down',
 </code></dt>
 <dd>
 <div class="desc"><p>Operator class for RDS instance.</p>
-<p>Constructor.</p></div>
+<p>Constructor.</p>
+<p>Sets boto3 rds client to _client instance variable.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>region_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>regian name.</dd>
+<dt><strong><code>access_key_id</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>access key id.</dd>
+<dt><strong><code>secret_access_key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>secret access key.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1260,6 +1526,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         &#39;&#39;&#39;Constructor.
+        
+        Sets boto3 rds client to _client instance variable.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         &#39;&#39;&#39;
         self._client = self._get_client(&#39;rds&#39;, region_name,access_key_id,
@@ -1284,13 +1557,19 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return status
     
     def start(self, instance_id: str):
-        &#39;&#39;&#39;Starts RDS instance.
+        &#39;&#39;&#39;Starts RDS DB instance.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -1305,13 +1584,20 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def start_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Starts RDS instances.
+        &#39;&#39;&#39;Starts RDS DB instances.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS instance IDs
+            instance_ids (list): RDS DB instance IDs
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS DB instance
+                at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -1322,8 +1608,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
                 result = self.start(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -1331,13 +1616,19 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def stop(self, instance_id: str):
-        &#39;&#39;&#39;Stops RDS instance.
+        &#39;&#39;&#39;Stops RDS DB instance.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance.
         
         &#39;&#39;&#39;
         count = 0
@@ -1352,13 +1643,20 @@ Status name is one of 'pending', 'running', 'shutting-down',
         return count
     
     def stop_resources(self, instance_ids: list):
-        &#39;&#39;&#39;Stops RDS instances.
+        &#39;&#39;&#39;Stops RDS DB instances.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
             instance_ids (str ...): RDS instance IDs.
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance
+                at latest time.
         
         &#39;&#39;&#39;
         count = 0
@@ -1369,8 +1667,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
                 result = self.stop(instance_id)
                 count = count + result
             except Exception as e:
-                if error == None:
-                    error = e
+                error = e
         
         if error != None:
             raise error
@@ -1422,26 +1719,39 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">start</span></span>(<span>self, instance_id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Starts RDS instance.</p>
+<div class="desc"><p>Starts RDS DB instance.</p>
+<p>If RDS DB instance status is stopped, then starts RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>RDS instance ID.</dd>
+<dd>RDS DB instance ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start RDS instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def start(self, instance_id: str):
-    &#39;&#39;&#39;Starts RDS instance.
+    &#39;&#39;&#39;Starts RDS DB instance.
+    
+    If RDS DB instance status is stopped, then starts RDS DB instance.
+    Else do nothing.
     
     Args:
-        instance_id (str): RDS instance ID.
+        instance_id (str): RDS DB instance ID.
     
     Returns:
         Number of started instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start RDS instance.
     
     &#39;&#39;&#39;
     count = 0
@@ -1460,26 +1770,41 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">start_resources</span></span>(<span>self, instance_ids: list)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Starts RDS instances.</p>
+<div class="desc"><p>Starts RDS DB instances.</p>
+<p>If RDS DB instance status is stopped, then starts RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_ids</code></strong> :&ensp;<code>list</code></dt>
-<dd>RDS instance IDs</dd>
+<dd>RDS DB instance IDs</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start RDS DB instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def start_resources(self, instance_ids: list):
-    &#39;&#39;&#39;Starts RDS instances.
+    &#39;&#39;&#39;Starts RDS DB instances.
+    
+    If RDS DB instance status is stopped, then starts RDS DB instance.
+    Else do nothing.
     
     Args:
-        instance_ids (list): RDS instance IDs
+        instance_ids (list): RDS DB instance IDs
     
     Returns:
         Number of started instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start RDS DB instance
+            at latest time.
     
     &#39;&#39;&#39;
     count = 0
@@ -1490,8 +1815,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.start(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -1503,26 +1827,39 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">stop</span></span>(<span>self, instance_id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Stops RDS instance.</p>
+<div class="desc"><p>Stops RDS DB instance.</p>
+<p>If RDS DB instance status is available, then stops RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>RDS instance ID.</dd>
+<dd>RDS DB instance ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop RDS DB instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def stop(self, instance_id: str):
-    &#39;&#39;&#39;Stops RDS instance.
+    &#39;&#39;&#39;Stops RDS DB instance.
+    
+    If RDS DB instance status is available, then stops RDS DB instance.
+    Else do nothing.
     
     Args:
-        instance_id (str): RDS instance ID.
+        instance_id (str): RDS DB instance ID.
     
     Returns:
         Number of stopped instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop RDS DB instance.
     
     &#39;&#39;&#39;
     count = 0
@@ -1541,26 +1878,41 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <span>def <span class="ident">stop_resources</span></span>(<span>self, instance_ids: list)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Stops RDS instances.</p>
+<div class="desc"><p>Stops RDS DB instances.</p>
+<p>If RDS DB instance status is available, then stops RDS DB instance.
+Else do nothing.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>instance_ids</code></strong> :&ensp;<code>str &hellip;</code></dt>
 <dd>RDS instance IDs.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop RDS DB instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def stop_resources(self, instance_ids: list):
-    &#39;&#39;&#39;Stops RDS instances.
+    &#39;&#39;&#39;Stops RDS DB instances.
+    
+    If RDS DB instance status is available, then stops RDS DB instance.
+    Else do nothing.
     
     Args:
         instance_ids (str ...): RDS instance IDs.
     
     Returns:
         Number of stopped instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop RDS DB instance
+            at latest time.
     
     &#39;&#39;&#39;
     count = 0
@@ -1571,8 +1923,7 @@ Status name is one of 'pending', 'running', 'shutting-down',
             result = self.stop(instance_id)
             count = count + result
         except Exception as e:
-            if error == None:
-                error = e
+            error = e
     
     if error != None:
         raise error
@@ -1637,6 +1988,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
         Returns:
             Number of started instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to start service instance.
+        
         &#39;&#39;&#39;
         pass
     
@@ -1650,6 +2004,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start service instance
+                at latest time.
         
         &#39;&#39;&#39;
         pass
@@ -1665,6 +2023,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
         Returns:
             Number of stopped instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to stop service instance.
+        
         &#39;&#39;&#39;
         pass
     
@@ -1678,6 +2039,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop service instance
+                at latest time.
         
         &#39;&#39;&#39;
         pass</code></pre>
@@ -1731,7 +2096,12 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>Instance ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start service instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1746,6 +2116,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of started instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start service instance.
     
     &#39;&#39;&#39;
     pass</code></pre>
@@ -1763,7 +2136,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>Instance IDs</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of started instance(s).</p></div>
+<p>Number of started instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to start service instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1778,6 +2157,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of started instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to start service instance
+            at latest time.
     
     &#39;&#39;&#39;
     pass</code></pre>
@@ -1795,7 +2178,12 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>Instance ID</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop service instance.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1810,6 +2198,9 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of stopped instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop service instance.
     
     &#39;&#39;&#39;
     pass</code></pre>
@@ -1827,7 +2218,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
 <dd>Instance IDs</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Number of stopped instance(s).</p></div>
+<p>Number of stopped instance(s).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>Raises exception if fail to stop service instance
+at latest time.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1842,6 +2239,10 @@ Status name is one of 'pending', 'running', 'shutting-down',
     
     Returns:
         Number of stopped instance(s).
+    
+    Raises:
+        Exception: Raises exception if fail to stop service instance
+            at latest time.
     
     &#39;&#39;&#39;
     pass</code></pre>
@@ -1874,6 +2275,13 @@ Status name is one of 'pending', 'running', 'shutting-down',
                 - ec2.instance
                 - rds.db_cluster
                 - rds.db_instance
+        
+        Returns:
+            AwsResourceOperator: Returns created AWS instance operator&#39;s
+                instance.
+        
+        Raises:
+            RuntimeError: If service_name is incorrect.
         
         &#39;&#39;&#39;
         
@@ -1908,6 +2316,17 @@ are followings things.
 - ec2.instance
 - rds.db_cluster
 - rds.db_instance</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="awsutils.aws_resource_operator.AwsResourceOperator" href="#awsutils.aws_resource_operator.AwsResourceOperator">AwsResourceOperator</a></code></dt>
+<dd>Returns created AWS instance operator's
+instance.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>RuntimeError</code></dt>
+<dd>If service_name is incorrect.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1924,6 +2343,13 @@ def create(resource_type: str, region_name: str,
             - ec2.instance
             - rds.db_cluster
             - rds.db_instance
+    
+    Returns:
+        AwsResourceOperator: Returns created AWS instance operator&#39;s
+            instance.
+    
+    Raises:
+        RuntimeError: If service_name is incorrect.
     
     &#39;&#39;&#39;
     

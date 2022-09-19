@@ -60,7 +60,7 @@ class AwsResourceStartStopConfig():
     IAM user&#39;s secret access key
     &#39;&#39;&#39;
 
-def _load_config(script_path: str, configkey: str):
+def _load_config(script_path: str, configkey):
     &#39;&#39;&#39;
     
     Loads configuration file with YAMS format. 
@@ -70,7 +70,8 @@ def _load_config(script_path: str, configkey: str):
     
     Args:
         script_path (str): script path
-        configkey (str): configuration key name or list of that
+        configkey (str): configuration key name or list of configuration key
+            names
     
     Returns:
         AwsResourceStartStopConfig: Returns configuration object.

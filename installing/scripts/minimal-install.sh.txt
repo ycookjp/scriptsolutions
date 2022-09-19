@@ -261,7 +261,12 @@ fi
 
 ## Pulse Audio
 if [ _${__AUDIO_ENABLE} ]; then
-  $pkgcmd install -y pipewire-pulseaudio pavucontrol alsa-firmware
+  if [ $distroname == fc -a $distrover -ge 34 -o \
+       $distroname == el -a $distrover -ge 9 ]; then
+    $pkgcmd install -y pipewire-pulseaudio pavucontrol alsa-firmware
+  else
+    $pkgcmd install -y alsa-plugins-pulseaudio pavucontrol alsa-firmware
+  fi
   if [ _${__USERNAME} != _ ]; then
     usermod -aG audio ${__USERNAME}
   fi
