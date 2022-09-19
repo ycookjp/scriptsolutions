@@ -318,7 +318,15 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
             db_cluster_id (str): RDS DB cluster id.
         
         Returns:
-            Returns RDS DB cluster status.
+            Returns RDS DB cluster status name.
+            Status name is on of &#39;available&#39;, &#39;backing-up&#39;, &#39;backtracking&#39;,
+            &#39;cloning-failed&#39;, &#39;creating&#39;, &#39;deleting&#39;, &#39;failing-over&#39;,
+            &#39;inaccessible-encryption-credentials&#39;.
+            &#39;inaccessible-encryption-credentials-recoverable&#39;, &#39;maintenance&#39;,
+            &#39;migrating&#39;, &#39;migration-failed&#39;, &#39;modifying&#39;, &#39;promoting&#39;,
+            &#39;renaming&#39;, &#39;resetting-master-credentials&#39;, &#39;starting&#39;, &#39;stopped&#39;,
+            &#39;stopping&#39;, &#39;storage-optimization&#39;, &#39;update-iam-db-auth&#39;,
+            &#39;upgrading&#39;.
         
         &#39;&#39;&#39;
         response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
@@ -476,7 +484,18 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
             db_instance_id (str): RDS DB instance id.
         
         Returns:
-            Returns RDS DB instance status.
+            Returns RDS DB instance status name.
+            Status name is one of &#39;available&#39;, &#39;backing-up&#39;,
+            &#39;configuring-enhanced-monitoring&#39;, &#39;configuring-iam-database-auth&#39;,
+            &#39;configuring-log-exports&#39;, &#39;converting-to-vpc&#39;, &#39;creating&#39;,
+            &#39;deleting&#39;, &#39;failed&#39;, &#39;inaccessible-encryption-credentials&#39;,
+            &#39;inaccessible-encryption-credentials-recoverable&#39;,
+            &#39;incompatible-network&#39;, &#39;incompatible-option-group&#39;,
+            &#39;incompatible-parameters&#39;, &#39;incompatible-restore&#39;,
+            &#39;insufficient-capacity&#39;, &#39;maintenance&#39;, &#39;modifying&#39;,
+            &#39;moving-to-vpc&#39;, &#39;rebooting&#39;, &#39;resetting-master-credentials&#39;,
+            &#39;renaming&#39;, &#39;restore-error&#39;, &#39;starting&#39;, &#39;stopped&#39;, &#39;stopping&#39;,
+            &#39;storage-full&#39;, &#39;storage-optimization&#39;, &#39;upgrading&#39;.
         
         &#39;&#39;&#39;
         response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
@@ -1109,7 +1128,15 @@ at latest time.</dd>
             db_cluster_id (str): RDS DB cluster id.
         
         Returns:
-            Returns RDS DB cluster status.
+            Returns RDS DB cluster status name.
+            Status name is on of &#39;available&#39;, &#39;backing-up&#39;, &#39;backtracking&#39;,
+            &#39;cloning-failed&#39;, &#39;creating&#39;, &#39;deleting&#39;, &#39;failing-over&#39;,
+            &#39;inaccessible-encryption-credentials&#39;.
+            &#39;inaccessible-encryption-credentials-recoverable&#39;, &#39;maintenance&#39;,
+            &#39;migrating&#39;, &#39;migration-failed&#39;, &#39;modifying&#39;, &#39;promoting&#39;,
+            &#39;renaming&#39;, &#39;resetting-master-credentials&#39;, &#39;starting&#39;, &#39;stopped&#39;,
+            &#39;stopping&#39;, &#39;storage-optimization&#39;, &#39;update-iam-db-auth&#39;,
+            &#39;upgrading&#39;.
         
         &#39;&#39;&#39;
         response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
@@ -1254,7 +1281,15 @@ at latest time.</dd>
 <dd>RDS DB cluster id.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Returns RDS DB cluster status.</p></div>
+<p>Returns RDS DB cluster status name.
+Status name is on of 'available', 'backing-up', 'backtracking',
+'cloning-failed', 'creating', 'deleting', 'failing-over',
+'inaccessible-encryption-credentials'.
+'inaccessible-encryption-credentials-recoverable', 'maintenance',
+'migrating', 'migration-failed', 'modifying', 'promoting',
+'renaming', 'resetting-master-credentials', 'starting', 'stopped',
+'stopping', 'storage-optimization', 'update-iam-db-auth',
+'upgrading'.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1266,7 +1301,15 @@ at latest time.</dd>
         db_cluster_id (str): RDS DB cluster id.
     
     Returns:
-        Returns RDS DB cluster status.
+        Returns RDS DB cluster status name.
+        Status name is on of &#39;available&#39;, &#39;backing-up&#39;, &#39;backtracking&#39;,
+        &#39;cloning-failed&#39;, &#39;creating&#39;, &#39;deleting&#39;, &#39;failing-over&#39;,
+        &#39;inaccessible-encryption-credentials&#39;.
+        &#39;inaccessible-encryption-credentials-recoverable&#39;, &#39;maintenance&#39;,
+        &#39;migrating&#39;, &#39;migration-failed&#39;, &#39;modifying&#39;, &#39;promoting&#39;,
+        &#39;renaming&#39;, &#39;resetting-master-credentials&#39;, &#39;starting&#39;, &#39;stopped&#39;,
+        &#39;stopping&#39;, &#39;storage-optimization&#39;, &#39;update-iam-db-auth&#39;,
+        &#39;upgrading&#39;.
     
     &#39;&#39;&#39;
     response = self._client.describe_db_clusters(DBClusterIdentifier=db_cluster_id)
@@ -1545,7 +1588,18 @@ Else do nothing.</p>
             db_instance_id (str): RDS DB instance id.
         
         Returns:
-            Returns RDS DB instance status.
+            Returns RDS DB instance status name.
+            Status name is one of &#39;available&#39;, &#39;backing-up&#39;,
+            &#39;configuring-enhanced-monitoring&#39;, &#39;configuring-iam-database-auth&#39;,
+            &#39;configuring-log-exports&#39;, &#39;converting-to-vpc&#39;, &#39;creating&#39;,
+            &#39;deleting&#39;, &#39;failed&#39;, &#39;inaccessible-encryption-credentials&#39;,
+            &#39;inaccessible-encryption-credentials-recoverable&#39;,
+            &#39;incompatible-network&#39;, &#39;incompatible-option-group&#39;,
+            &#39;incompatible-parameters&#39;, &#39;incompatible-restore&#39;,
+            &#39;insufficient-capacity&#39;, &#39;maintenance&#39;, &#39;modifying&#39;,
+            &#39;moving-to-vpc&#39;, &#39;rebooting&#39;, &#39;resetting-master-credentials&#39;,
+            &#39;renaming&#39;, &#39;restore-error&#39;, &#39;starting&#39;, &#39;stopped&#39;, &#39;stopping&#39;,
+            &#39;storage-full&#39;, &#39;storage-optimization&#39;, &#39;upgrading&#39;.
         
         &#39;&#39;&#39;
         response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
@@ -1691,7 +1745,18 @@ Else do nothing.</p>
 <dd>RDS DB instance id.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Returns RDS DB instance status.</p></div>
+<p>Returns RDS DB instance status name.
+Status name is one of 'available', 'backing-up',
+'configuring-enhanced-monitoring', 'configuring-iam-database-auth',
+'configuring-log-exports', 'converting-to-vpc', 'creating',
+'deleting', 'failed', 'inaccessible-encryption-credentials',
+'inaccessible-encryption-credentials-recoverable',
+'incompatible-network', 'incompatible-option-group',
+'incompatible-parameters', 'incompatible-restore',
+'insufficient-capacity', 'maintenance', 'modifying',
+'moving-to-vpc', 'rebooting', 'resetting-master-credentials',
+'renaming', 'restore-error', 'starting', 'stopped', 'stopping',
+'storage-full', 'storage-optimization', 'upgrading'.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1703,7 +1768,18 @@ Else do nothing.</p>
         db_instance_id (str): RDS DB instance id.
     
     Returns:
-        Returns RDS DB instance status.
+        Returns RDS DB instance status name.
+        Status name is one of &#39;available&#39;, &#39;backing-up&#39;,
+        &#39;configuring-enhanced-monitoring&#39;, &#39;configuring-iam-database-auth&#39;,
+        &#39;configuring-log-exports&#39;, &#39;converting-to-vpc&#39;, &#39;creating&#39;,
+        &#39;deleting&#39;, &#39;failed&#39;, &#39;inaccessible-encryption-credentials&#39;,
+        &#39;inaccessible-encryption-credentials-recoverable&#39;,
+        &#39;incompatible-network&#39;, &#39;incompatible-option-group&#39;,
+        &#39;incompatible-parameters&#39;, &#39;incompatible-restore&#39;,
+        &#39;insufficient-capacity&#39;, &#39;maintenance&#39;, &#39;modifying&#39;,
+        &#39;moving-to-vpc&#39;, &#39;rebooting&#39;, &#39;resetting-master-credentials&#39;,
+        &#39;renaming&#39;, &#39;restore-error&#39;, &#39;starting&#39;, &#39;stopped&#39;, &#39;stopping&#39;,
+        &#39;storage-full&#39;, &#39;storage-optimization&#39;, &#39;upgrading&#39;.
     
     &#39;&#39;&#39;
     response = self._client.describe_db_instances(DBInstanceIdentifier=db_instance_id)
