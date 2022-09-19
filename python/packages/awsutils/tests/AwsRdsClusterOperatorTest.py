@@ -3,6 +3,10 @@
 
 Copyright: ycookjp
 
+Note:
+    RDSのAWS clientのモックは、RDSのインスタンス１つしかサポートしないため、
+    テストでは有効なインスタンスが常に１つであるようにシナリオを構成している。
+
 '''
 
 import unittest
@@ -30,16 +34,12 @@ if root.handlers:
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 class AwsRdsClusterOperatorTest(unittest.TestCase):
-    '''
-    
-    AwsRdsClusterOperator クラス用のテストクラス
+    '''AwsRdsClusterOperator クラス用のテストクラス
     
     '''
     @classmethod
     def setUpClass(cls):
-        '''
-        
-        テストクラスの set up を実行します。
+        '''テストクラスの set up を実行します。
         
         Args:
             cls: テストクラスのインスタンス
@@ -49,9 +49,7 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        '''
-        
-        テストクラスの tear down を実行します。
+        '''テストクラスの tear down を実行します。
         
         Args:
             cls: テストクラスのインスタンス
@@ -68,15 +66,27 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
                 shutil.rmtree(name_path)
     
     @mock_rds
-    def _create_db_cluster(self, db_cluster_id, engine_name, username, password,
-                           region_name):
-        rds = boto3.client('rds', region_name=region_name)
-        db_cluster = rds.create_db_cluster(DBClusterIdentifier=db_cluster_id,
-                Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
-        return db_cluster
-    
-    @mock_rds
     def test_start_stop(self):
+        '''startメソッド、stopメソッドのテストを実行します。
+        
+        テストの内容は、以下のとおりです。
+        
+        * 実行中のRDS DB clusterのIDを指定して、stopメソッドを実行する。
+            * => 停止操作したRDS DB clusterの個数が1であること。
+            * => RDS DB clusterのステータスが「stopping」または「stopped」と
+              なること。
+        * 停止中のRDS DB clusterのIDを指定して、stopメソッドを開始する。
+            * => 停止操作したRDS DB clusterの個数が0であること。
+            * => RDS DB clusterのステータスが「stopping」または「stopped」と
+              なること。
+        * 停止中のRDS DB clusterのIDを指定して、startメソッドを開始する。
+            * => 開始操作したRDS DB clusterの個数が1であること。
+            * => RDS DB clusterのステータスが「available」であること。
+        * 実行中のRDS DB clusterのIDを指定して、startメソッドを開始する。
+            * => 開始操作したRDS DB clusterの個数が0であること。
+            * => RDS DB clusterステータスが「available」であること。
+        
+        '''
         logging.info('>>>>> test_start_stop start')
         
         region_name = 'ap-northeast-1'
@@ -88,31 +98,84 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
         engine_name = 'postgres'
         username = 'postgres'
         password = 'password@123'
-        logging.info(f'Creating RDS DB Cluster {db_cluster_id} ...')
-        self._create_db_cluster(db_cluster_id, engine_name,
+        logging.info(f'Creating RDS DB Cluster: {db_cluster_id} ...')
+        aws_test_utils.create_db_cluster(db_cluster_id, engine_name,
                                 username, password, region_name)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
         
-        # RDS DB clusterを停止する
-        logging.info(f'Stopping RDS DB Cluster {db_cluster_id} ...')
-        operator.stop(db_cluster_id)
+        # 実行中のRDS DB clusterのIDを指定して、stopメソッドを実行する。
+        logging.info(f'Stopping RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.stop(db_cluster_id)
+        # => 停止操作したRDS DB clusterの個数が1であること。
+        self.assertEqual(count, 1)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
         statuses = [status]
+        # => RDS DB clusterのステータスが「stopping」または「stopped」と
+        # なること。
         self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
         
-        # RDS DB clusterを開始する
-        logging.info(f'Starting RDS DB Cluster {db_cluster_id} ...')
-        operator.start(db_cluster_id)
+        # 停止中のRDS DB clusterのIDを指定して、stopメソッドを開始する。
+        logging.info(f'Stopping RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.stop(db_cluster_id)
+        # => 停止操作したRDS DB clusterの個数が0であること。
+        self.assertEqual(count, 0)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        statuses = [status]
+        # => RDS DB clusterのステータスが「stopping」または「stopped」と
+        # なること。
+        self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
+         
+        # 停止中のRDS DB clusterのIDを指定して、startメソッドを開始する。
+        logging.info(f'Starting RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.start(db_cluster_id)
+        # => 開始操作したRDS DB clusterの個数が1であること。
+        self.assertEqual(count, 1)
+        status = operator.get_status(db_cluster_id)
+        logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        # => RDS DB clusterのステータスが「available」であること。
+        self.assertEqual(status, 'available')
+        
+        # 実行中のRDS DB clusterのIDを指定して、startメソッドを開始する。
+        logging.info(f'Starting RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.start(db_cluster_id)
+        # => 開始操作したRDS DB clusterの個数が0であること。
+        self.assertEqual(count, 0)
+        status = operator.get_status(db_cluster_id)
+        logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        # => RDS DB clusterのステータスが「available」であること。
         self.assertEqual(status, 'available')
         
         logging.info('<<<<< test_start_stop end')
     
     @mock_rds
     def test_start_stop_resources(self):
+        '''start_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
+        
+        テストの内容は、以下のとおりです。
+        
+        * 実行中のRDS DB cluster１つのIDを指定して、stop_resourcesメソッドを
+          実行する。
+            * => 停止操作したRDS DB cluserの個数は1であること。
+            * => RDS DB instanceのステータスが「stopping」または「stopped」で
+              あること。
+        * 停止中のRDS DB cluster１つのIDを指定して、stop_resourcesメソッドを
+          実行する。
+            * => 停止操作したRDS DB cluserの個数は0であること。
+            * => RDS DB instanceのステータスが「stopping」または「stopped」で
+              あること。
+        * 停止中のRDS DB cluster１つのIDを指定して、start_resourcesメソッドを
+          実行する。
+            * => 開始操作したRDS DB clusterの個数が１であること。
+            * => RDS DB clusterのステータスがavailableであること。
+        * 実行中のRDS DB cluster１つのIDを指定して、start_resourcesメソッドを
+          実行する。
+            * => 開始操作したRDS DB clusterの個数が０であること。
+            * => RDS DB clusterのステータスがavailableであること。
+        
+        '''
         logging.info('>>>>> test_start_stop_resources start')
         
         region_name = 'ap-northeast-1'
@@ -124,61 +187,196 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
         engine_name = 'postgres'
         username = 'postgres'
         password = 'password@123'
-        logging.info(f'Creating RDS DB Cluster {db_cluster_id} ...')
-        self._create_db_cluster(db_cluster_id, engine_name, username, password,
-                                region_name)
+        logging.info(f'Creating RDS DB Cluster: {db_cluster_id} ...')
+        aws_test_utils.create_db_cluster(db_cluster_id, engine_name, username,
+                password, region_name)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
         
-        # RDS DB clusterを停止する
-        logging.info(f'Stopping RDS DB Cluster {db_cluster_id} ...')
-        operator.stop_resources([db_cluster_id])
+        # 実行中のRDS DB cluster１つのIDを指定して、stop_resourcesメソッドを
+        # 実行する。
+        logging.info(f'Stopping RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.stop_resources([db_cluster_id])
+        # => 停止操作したRDS DB cluserの個数は1であること。
+        self.assertEqual(count, 1)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
         statuses = [status]
+        # => RDS DB instanceのステータスが「stopping」または「stopped」で
+        # あること。
         self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
         
-        # RDS DB clusterを開始する
-        logging.info(f'Starting RDS DB Cluster {db_cluster_id} ...')
-        operator.start_resources([db_cluster_id])
+        # 停止中のRDS DB cluster１つのIDを指定して、stop_resourcesメソッドを
+        # 実行する。
+        logging.info(f'Stopping RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.stop_resources([db_cluster_id])
+        # => 停止操作したRDS DB cluserの個数は0であること。
+        self.assertEqual(count, 0)
         status = operator.get_status(db_cluster_id)
         logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        statuses = [status]
+        # => RDS DB instanceのステータスが「stopping」または「stopped」で
+        # あること。
+        self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
+        
+        # 停止中のRDS DB cluster１つのIDを指定して、start_resourcesメソッドを
+        # 実行する。
+        logging.info(f'Starting RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.start_resources([db_cluster_id])
+        # => 開始操作したRDS DB clusterの個数が１であること。
+        self._baseAssertEqual(count, 1)
+        status = operator.get_status(db_cluster_id)
+        logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        # => RDS DB clusterのステータスがavailableであること。
+        self.assertEqual(status, 'available')
+        
+        # 実行中のRDS DB cluster１つのIDを指定して、start_resourcesメソッドを
+        # 実行する。
+        logging.info(f'Starting RDS DB Cluster: {db_cluster_id} ...')
+        count = operator.start_resources([db_cluster_id])
+        # => 開始操作したRDS DB clusterの個数が０であること。
+        self._baseAssertEqual(count, 0)
+        status = operator.get_status(db_cluster_id)
+        logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
+        # => RDS DB clusterのステータスがavailableであること。
         self.assertEqual(status, 'available')
         
         logging.info('<<<<< test_start_stop_resources end')
-
+    
     @mock_rds
-    def test_start_stop_resource_with_config(self):
-        logging.info('>>>>> test_start_stop_resource_with_config start')
+    def test_error_start_stop(self):
+        '''存在しないRDS DB clusterのIDを指定して、startメソッド、stopメソッドのテストを実行します。
+        
+        テスト内容は、以下のとおりです。
+        
+        * 存在しないのRDS DB clusterのIDを指定して、stopメソッドを実行する。
+            * => 例外が発生すること。
+        * 存在しないのRDS DB clusterのIDを指定して、startメソッドを開始する。
+            * => 例外が発生すること。
+        
+        '''
+        logging.info('>>>>> test_error_start_stop start')
+        
+        region_name = 'ap-northeast-1'
+        # AwsRdsDbClusterOperator クラスのインスタンスを作成する
+        operator = AwsResourceOperatorFactory.create('rds.db_cluster', region_name)
+        
+        # 存在しないRDSのDB cluster ID
+        db_cluster_id = 'rds_cluster_error'
+        
+        # 存在しないのRDS DB clusterのIDを指定して、stopメソッドを実行する。
+        logging.info(f'Stopping RDS DB Cluster: {db_cluster_id} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.stop(db_cluster_id)
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        
+        # 存在しないのRDS DB clusterのIDを指定して、startメソッドを開始する。
+        logging.info(f'Starting RDS DB Cluster: {db_cluster_id} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.start(db_cluster_id)
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        
+        logging.info('<<<<< test_error_start_stop end')
+    
+    @mock_rds
+    def test_error_start_stop_resources(self):
+        '''存在しないRDS DB ClusterのIDを含むRDS DB clusterの配列を指定してstart_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
+        
+        テストの内容は、以下のとおりです。
+
+        * 存在しないRDS DB cliuster１つと実行中のRDS DB cluster１つのIDを指定
+          して、stop_resourcesメソッド実行する。
+            * => 例外が発生すること。
+            * => 存在するRDS DB instanceのステータスが「stopping」または「stopped」
+              であること。
+        * 存在しないRDS DB cliuster１つと停止中のRDS DB cluster１つのIDを指定
+          して、stop_resourcesメソッドを実行する。
+            * => 例外が発生すること。
+            * => 存在するRDS DB instanceのステータスが「stopping」または「stopped」
+              であること。
+        * 存在しないRDS DB cliuster１つと停止中のRDS DB cluster１つのIDを指定
+          して、start_resourcesメソッドを実行する。
+            * => 例外が発生すること。
+            * => 存在するRDS DB instanceのステータスがavailableであること。
+        * 存在しないRDS DB cliuster１つと実行中のRDS DB cluster１つのIDを指定
+          して、start_resourcesメソッドを実行する。
+            * => 例外が発生すること。
+            * => RDS DB clusterのステータスがavailableであること。
+        
+        '''
+        logging.info('>>>>> test_error_start_stop_resources start')
+        
+        region_name = 'ap-northeast-1'
+        # AwsRdsDbClusterOperator クラスのインスタンスを作成する
+        operator = AwsResourceOperatorFactory.create('rds.db_cluster', region_name)
         
         # RDSのDB clusterを作成する
-        yaml_config = aws_test_utils.load_yaml(__file__)
-        region_name = yaml_config['region_name']
-        access_key = yaml_config['access_key_id']
-        secret_key = yaml_config['secret_access_key']
-        configkey = 'db_cluster_resources'
-        operator = AwsResourceOperatorFactory.create(
-                yaml_config[configkey][0]['type'], region_name)
+        db_cluster_id_ok = 'rds_cluster_test01'
+        engine_name = 'postgres'
+        username = 'postgres'
+        password = 'password@123'
+        logging.info(f'Creating RDS DB Cluster: {db_cluster_id_ok} ...')
+        aws_test_utils.create_db_cluster(db_cluster_id_ok, engine_name, username,
+                password, region_name)
         
-        db_cluster_ids = yaml_config[configkey][0]['ids']
-        for db_cluster_id in db_cluster_ids:
-            engine_name = 'postgres'
-            username = 'postgres'
-            password = 'password@123'
-            logging.info(f'Creating RDS DB Cluster {db_cluster_id} ...')
-            self._create_db_cluster(db_cluster_id, engine_name,
-                                    username, password, region_name)
-            status = operator.get_status(db_cluster_id)
-            logging.info(f'RDS DB Cluster: {db_cluster_id} {status}')
-
-        # RDSのDB clusterを停止する
-        event = {"action": "stop", "configKey": configkey}
-        aws_resource_start_stop.start_stop_aws_resources(event, None, True, __file__)
-        # DB clusterのステータスが stopping であること
-        for db_cluster_id in db_cluster_ids:
-            self.assertEqual(operator.get_status(db_cluster_id), 'stopped')
+        # 存在しない RDSのDB cluster ID
+        db_cluster_id_ng = 'rds_cluster_error'
         
-        logging.info('<<<<< test_start_stop_resource_with_config end')
+        # 存在しないRDS DB cliuster１つと実行中のRDS DB cluster１つのIDを指定
+        # して、stop_resourcesメソッド実行する。
+        logging.info(f'Stopping RDS DB Cluster: {[db_cluster_id_ng, db_cluster_id_ok]} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.stop_resources([db_cluster_id_ng, db_cluster_id_ok])
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        status = operator.get_status(db_cluster_id_ok)
+        logging.info(f'RDS DB Cluster: {db_cluster_id_ok} {status}')
+        statuses = [status]
+        # => 存在するRDS DB instanceのステータスが「stopping」または「stopped」
+        # であること。
+        self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
+        
+        # 存在しないRDS DB cliuster１つと停止中のRDS DB cluster１つのIDを指定
+        # して、stop_resourcesメソッドを実行する。
+        logging.info(f'Stopping RDS DB Cluster: {[db_cluster_id_ng, db_cluster_id_ok]} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.stop_resources([db_cluster_id_ng, db_cluster_id_ok])
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        status = operator.get_status(db_cluster_id_ok)
+        logging.info(f'RDS DB Cluster: {db_cluster_id_ok} {status}')
+        statuses = [status]
+        # => 存在するRDS DB instanceのステータスが「stopping」または「stopped」
+        # であること。
+        self.assertTrue(statuses.count('stopping') + statuses.count('stopped') > 0)
+        
+        # 存在しないRDS DB cliuster１つと停止中のRDS DB cluster１つのIDを指定
+        # して、start_resourcesメソッドを実行する。
+        logging.info(f'Starting RDS DB Cluster: {[db_cluster_id_ng, db_cluster_id_ok]} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.start_resources([db_cluster_id_ng, db_cluster_id_ok])
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        status = operator.get_status(db_cluster_id_ok)
+        logging.info(f'RDS DB Cluster: {db_cluster_id_ok} {status}')
+        # => 存在するRDS DB instanceのステータスがavailableであること。
+        self.assertEqual(status, 'available')
+        
+        # 存在しないRDS DB cliuster１つと実行中のRDS DB cluster１つのIDを指定
+        # して、start_resourcesメソッドを実行する。
+        logging.info(f'Starting RDS DB Cluster: {[db_cluster_id_ng, db_cluster_id_ok]} ...')
+        with self.assertRaises(Exception) as cm:
+            operator.start_resources([db_cluster_id_ng, db_cluster_id_ok])
+        # => 例外が発生すること。
+        logging.info(str(cm.exception))
+        status = operator.get_status(db_cluster_id_ok)
+        logging.info(f'RDS DB Cluster: {db_cluster_id_ok} {status}')
+        # => RDS DB clusterのステータスがavailableであること。
+        self.assertEqual(status, 'available')
+        
+        logging.info('<<<<< test_error_start_stop_resources end')
 
 if __name__ == '__main__':
     html_runner = HtmlTestRunner.HTMLTestRunner(

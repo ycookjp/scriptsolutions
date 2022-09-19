@@ -6,7 +6,6 @@ https://github.com/ycookjp/
 
 '''
 
-import logging
 import os
 import yaml
 
@@ -30,7 +29,7 @@ class AwsResourceStartStopConfig():
     IAM user's secret access key
     '''
 
-def _load_config(script_path: str, configkey: str):
+def _load_config(script_path: str, configkey):
     '''
     
     Loads configuration file with YAMS format. 
@@ -40,7 +39,8 @@ def _load_config(script_path: str, configkey: str):
     
     Args:
         script_path (str): script path
-        configkey (str): configuration key name or list of that
+        configkey (str): configuration key name or list of configuration key
+            names
     
     Returns:
         AwsResourceStartStopConfig: Returns configuration object.
@@ -157,6 +157,8 @@ def start_stop_aws_resources(event, context, use_event=True, script_path=__file_
     '''
 
     try:
+        error = None
+        
         if use_event:
             action_name = _get_action_from_event(event)
             configkey = _get_configkey_from_event(event)
@@ -175,17 +177,23 @@ def start_stop_aws_resources(event, context, use_event=True, script_path=__file_
             operator = AwsResourceOperatorFactory.create(
                     resource_group['type'], config.region_name,
                     access_key_id, secret_access_key)
-            resource_type_name = resource_group['type']
             instance_ids = resource_group['ids']
             if action_name == 'start':
-                operator.start_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f'{resource_type_name}: \'{instance_id}\' started.')
+                try:
+                    operator.start_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             elif action_name == 'stop':
-                operator.stop_resources(instance_ids)
-                for instance_id in instance_ids:
-                    logging.info(f'{resource_type_name}: \'{instance_id}\' stopped.')
+                try:
+                    operator.stop_resources(instance_ids)
+                except Exception as e:
+                    if error == None:
+                        error = e
             else:
                 raise Exception('Lambda function name error')
+        
+        if error != None:
+            raise error
     except Exception:
         raise

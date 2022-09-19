@@ -7,11 +7,13 @@ Copyright: ycookjp
 
 import os
 import yaml
+import boto3
+from moto import mock_ec2
+from moto import mock_rds
 
 def load_yaml(script_path):
-    '''
+    '''Loads YAML configuration file.
     
-    Loads YAML configuration file.
     Configuration file should be located at same directory of this
     script, and name should be base name of this script except for
     extension is '.yml'.
@@ -29,9 +31,8 @@ def load_yaml(script_path):
         return config
 
 def dump_yaml(config, script_path):
-    '''
+    '''Saves YAML configuration file.
     
-    Saves YAML configuration file.
     Configuration file should be located at same directory of this
     script, and name should be base name of this script except for
     extension is '.yml'.
@@ -46,9 +47,7 @@ def dump_yaml(config, script_path):
         yaml.dump(config, file, default_flow_style=False)
 
 def list_files_in_dir(dir_path: str):
-    '''
-    
-    Crate file lists which exists under the directory.
+    '''Crate file lists which exists under the directory.
     
     Args:
         dir_path (str): directory path.
@@ -71,9 +70,8 @@ def list_files_in_dir(dir_path: str):
     return file_list
 
 def list_s3keys_in_bucket(s3objects):
-    '''
+    '''S3のバケットに格納されているオブジェクトの Key のリストを取得する。
     
-    S3のバケットに格納されているオブジェクトの Key のリストを取得する。
     Args:
         s3objects (obj): バケット名を指定して、s3 clientの list_objects 関数を
         呼び出いた戻り値を指定する。
@@ -88,4 +86,66 @@ def list_s3keys_in_bucket(s3objects):
         s3key_list.append(content['Key'])
     
     return s3key_list
-
+ 
+@mock_ec2
+def run_instances(ami_id, region_name, count=1):
+    '''EC2インスタンスを起動します。
+    
+    Args:
+        ami_id (str): AMI ID を指定します
+        regopm_name (str): リージョン名を指定します
+        count (:obj:`int`, optional): 作成するEC2の個数を指定します
+    
+    Retunrs:
+        Instanceオブジェクトの配列を返します
+    
+    '''
+    ec2 = boto3.client('ec2', region_name=region_name)
+    ec2.run_instances(ImageId=ami_id, MinCount=count, MaxCount=count)
+    instances = ec2.describe_instances()['Reservations'][0]['Instances']
+    
+    return instances
+    
+@mock_rds
+def create_db_cluster(db_cluster_id, engine_name, username, password,
+                       region_name):
+    '''RDS DB クラスターのインスタンスを起動します。
+    
+    Args:
+        db_cluster_id (str): DBクラスター ID
+        engine_name (str): データベース エンジンの名前
+        username (str): データベース ユーザー名
+        password (str): データベース ユーザーのパスワード
+        region_name (str): リージョン名
+    
+    Returns:
+        RDS DB クラスターのインスタンスを返します。
+    
+    '''
+    rds = boto3.client('rds', region_name=region_name)
+    db_cluster = rds.create_db_cluster(DBClusterIdentifier=db_cluster_id,
+            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
+    return db_cluster
+    
+@mock_rds
+def create_db_instance(db_instance_id, resource_type, engine_name,
+                        username, password, region_name):
+    '''RDS DB インスタンスを起動します。
+    
+    Args:
+        db_instance_id (str): DBインスタンス ID
+        resource_type (str): DBインスタンスのリソース タイプ。db.t2.micro など。
+        engine_name (str): データベース エンジンの名前
+        username (str): データベース ユーザー名
+        password (str): データベース ユーザーのパスワード
+        region_name (str): リージョン名
+    
+    Returns:
+        RDS DB インスタンスを返します。
+    
+    '''
+    rds = boto3.client('rds', region_name=region_name)
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+            DBInstanceClass=resource_type,
+            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
+    return db_instance

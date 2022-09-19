@@ -68,7 +68,7 @@ if [ _${__DESKTOP} != _ ]; then
   fi 
 fi
 
-if [ $distroname == el -a $distrover -ge 8 -a _$__DESKTOP == _mate \
+if [ $distroname == el -a $distrover == 8 -a _$__DESKTOP == _mate \
      -o $distroname == el -a $distrover -ge 8 -a _$__DESKTOP == _lxde ]; then
   echo "***** OPTION ERROR *****"
   echo mate or lxde can not install to Redhat EL or CentOS ver $distrover
@@ -102,21 +102,22 @@ fi
 base_packages='rsyslog bash-completion avahi nss-mdns tar bzip2'
 
 # desktop packages
-desktopbase_packages='im-chooser google-noto-*-cjk-*fonts 
+desktopbase_packages='im-chooser ibus-anthy google-noto-*-cjk-*fonts 
     network-manager-applet @networkmanager-submodules xrdp xrdp-selinux 
-    gkrellm python36'
+    gkrellm'
 
-if [ $distroname == fc -o $distroname == el -a $distrover -ge 8 ]; then
-  desktopbase_packages="$desktopbase_packages ibus-mozc"
-else
-  desktopbase_packages="$desktopbase_packages ibus-kkc"
+if [ $distroname == fc -a $distrover -le 35 -o $distroname == el -a $distrover -le 8 ]; then
+  desktopbase_packages="$desktopbase_packages python36"
 fi
 
 xfce_packages='xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 
-    xfce4-terminal Thunar xfce4-screensaver xfce4-notifyd'
+    xfce4-terminal Thunar xfce4-screensaver'
+if [ $distroname = fc -o $distroname == el -a $distrover -le 8 ]; then
+  xfce_packages="$xfce_packages xfce4-notifyd"
+fi
 lxde_packages='lxde-common lxpanel lxsession lxpolkit lxappearance lxrandr 
     lxterminal lxdm pcmanfm xscreensaver-base notification-daemon'
-mate_packages='	mate-panel mate-session-manager mate-terminal marco caja 
+mate_packages='mate-panel mate-session-manager mate-terminal marco caja 
     mate-screensaver mate-notification-daemon'
 
 # VirtualBox Guest Additions
@@ -260,7 +261,12 @@ fi
 
 ## Pulse Audio
 if [ _${__AUDIO_ENABLE} ]; then
-  $pkgcmd install -y alsa-plugins-pulseaudio pavucontrol alsa-firmware
+  if [ $distroname == fc -a $distrover -ge 34 -o \
+       $distroname == el -a $distrover -ge 9 ]; then
+    $pkgcmd install -y pipewire-pulseaudio pavucontrol alsa-firmware
+  else
+    $pkgcmd install -y alsa-plugins-pulseaudio pavucontrol alsa-firmware
+  fi
   if [ _${__USERNAME} != _ ]; then
     usermod -aG audio ${__USERNAME}
   fi

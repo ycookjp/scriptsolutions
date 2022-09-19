@@ -7,6 +7,7 @@ https://github.com/ycookjp/
 '''
 
 import boto3
+import logging
 
 class AwsResourceOperator:
     '''Base class for operating AWS resource.
@@ -51,6 +52,12 @@ class AwsResourceOperator:
         Args:
             instance_id (str): Instance ID.
         
+        Returns:
+            Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start service instance.
+        
         '''
         pass
     
@@ -61,6 +68,13 @@ class AwsResourceOperator:
         
         Args:
             instance_ids (str ...): Instance IDs
+        
+        Returns:
+            Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start service instance
+                at latest time.
         
         '''
         pass
@@ -73,6 +87,12 @@ class AwsResourceOperator:
         Args:
             instance_id (str): Instance ID
         
+        Returns:
+            Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop service instance.
+        
         '''
         pass
     
@@ -83,6 +103,13 @@ class AwsResourceOperator:
         
         Args:
             instance_ids (str ...): Instance IDs
+        
+        Returns:
+            Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop service instance
+                at latest time.
         
         '''
         pass
@@ -98,6 +125,13 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         '''Constructor.
+        
+        Sets boto3 ec2 client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         '''
         self._client = self._get_client('ec2', region_name, access_key_id,
@@ -129,8 +163,20 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Args:
             instance_id (str): EC2 instance id.
         
+        Returns:
+            Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start EC2 instance.
+        
         '''
-        self.start_resources([instance_id])
+        count = 0
+
+        self._client.start_instances(InstanceIds=[instance_id])
+        count = count + 1
+        logging.info(f'ec2: \'{instance_id}\' starting ...')
+        
+        return count
     
     def start_resources(self, instance_ids: list):
         '''Starts EC2 instances.
@@ -138,17 +184,49 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Args:
             instance_ids (str ...): EC2 instance IDs
         
+        Returns:
+            Number of started instance(s).
+        
+        Raises:
+            Exception: raises exception if fail to start EC2 instance
+                at latest time.
+        
         '''
-        self._client.start_instances(InstanceIds=instance_ids)
-    
+        count = 0
+        error = None
+        
+        for instance_id in instance_ids:
+            try:
+                result = self.start(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
+        
+        return count
+
     def stop(self, instance_id: str):
         '''Stops EC2 instance.
         
         Args:
             instance_id (str): EC2 instance ID.
         
+        Returns:
+            Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance.
+        
         '''
-        self.stop_resources([instance_id])
+        count = 0
+        
+        self._client.stop_instances(InstanceIds=[instance_id])
+        count = count + 1
+        logging.info(f'ec2: \'{instance_id}\' stopping ...')
+        
+        return count
     
     def stop_resources(self, instance_ids: list):
         '''Stops EC2 instances.
@@ -156,8 +234,28 @@ class AwsEc2InstanceOperator(AwsResourceOperator):
         Args:
             instance_ids (str ...): EC2 instance IDs.
         
+        Returns:
+            Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop EC2 instance
+                at latest time.
+        
         '''
-        self._client.stop_instances(InstanceIds=instance_ids)
+        count = 0
+        error = None
+        
+        for instance_id in instance_ids:
+            try:
+                result = self.stop(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
+        
+        return count
 
 class AwsRdsDbClusterOperator(AwsResourceOperator):
     '''Operator class for RDS DB cluster.
@@ -170,6 +268,13 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         '''Constructor.
+        
+        Sets boto3 rds client to _client field.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         '''
         self._client = self._get_client('rds', region_name, access_key_id,
@@ -194,13 +299,19 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         return status
     
     def start(self, instance_id: str):
-        '''Starts RDS cluster.
+        '''Starts RDS DB cluster.
+        
+        If RDS DB cluster status is 'stopped', then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
-            Number of started instance(s).
+            Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster.
         
         '''
         count = 0
@@ -210,35 +321,56 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         if status == 'stopped':
             self._client.start_db_cluster(DBClusterIdentifier=instance_id)
             count = count + 1
+            logging.info(f'RDS DB cluster: \'{instance_id}\' starting ...')
         
         return count
     
     def start_resources(self, instance_ids: list):
-        '''Starts RDS clusters.
+        '''Starts RDS DB clusters.
+        
+        If RDS DB cluster status is 'stopped', then starts RDS DB cluster.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS cluster IDs
+            instance_ids (list): RDS DB cluster IDs
         
         Returns:
-            Number of started instance(s).
+            Number of started cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS cluster at
+                latest time.
         
         '''
         count = 0
+        error = None
         
         for instance_id in instance_ids:
-            result = self.start(instance_id)
-            count = count + result
+            try:
+                result = self.start(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
         
         return count
     
     def stop(self, instance_id: str):
-        '''Stops RDS cluster.
+        '''Stops RDS DB cluster.
+        
+        If RDS DB instance status is 'available', then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS cluster ID.
+            instance_id (str): RDS DB cluster ID.
         
         Returns:
-            Number of stopped instance(s).
+            Number of stopped RDS DB cluster.
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster.
         
         '''
         count = 0
@@ -248,25 +380,39 @@ class AwsRdsDbClusterOperator(AwsResourceOperator):
         if status == 'available':
             self._client.stop_db_cluster(DBClusterIdentifier=instance_id)
             count = count + 1
+            logging.info(f'RDS DB cluster: \'{instance_id}\' stopping ...')
         
         return count
     
     def stop_resources(self, instance_ids: list):
-        '''Stops RDS clusters.
+        '''Stops RDS DB clusters.
+        
+        If RDS DB instance status is 'available', then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (str ...): RDS cluster IDs.
+            instance_ids (str ...): RDS DB cluster IDs.
         
         Returns:
-            Number of stopped instance(s).
+            Number of stopped RDS DB cluster(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS cluster at latest time.
         
         '''
         count = 0
+        error = None
         
         for instance_id in instance_ids:
-            result = self.stop(instance_id)
-            count = count + result
-            
+            try:
+                result = self.stop(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
+        
         return count
 
 class AwsRdsDbInstanceOperator(AwsResourceOperator):
@@ -280,6 +426,13 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
     def __init__(self, region_name: str, access_key_id: str=None,
                  secret_access_key: str=None):
         '''Constructor.
+        
+        Sets boto3 rds client to _client instance variable.
+        
+        Args:
+            region_name (str): regian name.
+            access_key_id (str, optional): access key id.
+            secret_access_key (str, optional): secret access key.
         
         '''
         self._client = self._get_client('rds', region_name,access_key_id,
@@ -304,13 +457,19 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         return status
     
     def start(self, instance_id: str):
-        '''Starts RDS instance.
+        '''Starts RDS DB instance.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS instance.
         
         '''
         count = 0
@@ -320,27 +479,56 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         if status == 'stopped':
             self._client.start_db_instance(DBInstanceIdentifier=instance_id)
             count = count + 1
+            logging.info(f'RDS instance: \'{instance_id}\' starting ...')
         
         return count
     
     def start_resources(self, instance_ids: list):
-        '''Starts RDS instances.
+        '''Starts RDS DB instances.
+        
+        If RDS DB instance status is stopped, then starts RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_ids (list): RDS instance IDs
+            instance_ids (list): RDS DB instance IDs
+        
+        Returns:
+            Number of started instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to start RDS DB instance
+                at latest time.
         
         '''
+        count = 0
+        error = None
+        
         for instance_id in instance_ids:
-            self.start(instance_id)
+            try:
+                result = self.start(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
+        
+        return count
     
     def stop(self, instance_id: str):
-        '''Stops RDS instance.
+        '''Stops RDS DB instance.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
-            instance_id (str): RDS instance ID.
+            instance_id (str): RDS DB instance ID.
         
         Returns:
             Number of stopped instance(s).
+        
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance.
         
         '''
         count = 0
@@ -350,11 +538,15 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         if status == 'available':
             self._client.stop_db_instance(DBInstanceIdentifier=instance_id)
             count = count + 1
+            logging.info(f'RDS instance: \'{instance_id}\' stopping ...')
         
         return count
     
     def stop_resources(self, instance_ids: list):
-        '''Stops RDS instances.
+        '''Stops RDS DB instances.
+        
+        If RDS DB instance status is available, then stops RDS DB instance.
+        Else do nothing.
         
         Args:
             instance_ids (str ...): RDS instance IDs.
@@ -362,9 +554,25 @@ class AwsRdsDbInstanceOperator(AwsResourceOperator):
         Returns:
             Number of stopped instance(s).
         
+        Raises:
+            Exception: Raises exception if fail to stop RDS DB instance
+                at latest time.
+        
         '''
+        count = 0
+        error = None
+        
         for instance_id in instance_ids:
-            self.stop(instance_id)
+            try:
+                result = self.stop(instance_id)
+                count = count + result
+            except Exception as e:
+                error = e
+        
+        if error != None:
+            raise error
+        
+        return count
 
 class AwsResourceOperatorFactory:
     '''Factory class for generating AwsResourceOperator instance.
@@ -382,6 +590,13 @@ class AwsResourceOperatorFactory:
                 - ec2.instance
                 - rds.db_cluster
                 - rds.db_instance
+        
+        Returns:
+            AwsResourceOperator: Returns created AWS instance operator's
+                instance.
+        
+        Raises:
+            RuntimeError: If service_name is incorrect.
         
         '''
         
