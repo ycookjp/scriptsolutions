@@ -27,13 +27,13 @@
   <properties>
     <p.sep>${path.separator}</p.sep>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven-site.ver>3.7.1</maven-site.ver>
-    <maven-project-info-reports.ver>2.8</maven-project-info-reports.ver>
-    <maven-assembly.var>3.1.1</maven-assembly.var>
-    <maven-resources.ver>3.1.0</maven-resources.ver>
-    <maven-antrun.ver>1.8</maven-antrun.ver>
-    <exec-maven-plugin.ver>1.6.0</exec-maven-plugin.ver>
-    <maven-clean.ver>3.1.0</maven-clean.ver>
+    <maven-site.ver>3.12.1</maven-site.ver>
+    <maven-project-info-reports.ver>3.4.1</maven-project-info-reports.ver>
+    <maven-assembly.var>3.4.2</maven-assembly.var>
+    <maven-resources.ver>3.3.0</maven-resources.ver>
+    <maven-antrun.ver>3.1.0</maven-antrun.ver>
+    <exec-maven-plugin.ver>3.1.0</exec-maven-plugin.ver>
+    <maven-clean.ver>3.2.0</maven-clean.ver>
   </properties>
   <build>
     <pluginManagement>

@@ -60,7 +60,7 @@ def run_test_all():
         suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
 
     runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + '/../../../target/site/test-report', \
+            output=os.path.dirname(__file__) + '/../target/site/test-report', \
             report_name='python-progs', add_timestamp=False, combine_reports=True)
     
     runner.run(suite)

@@ -20,13 +20,13 @@
     <!-- Inheritated from parent project.
     <p.sep>${path.separator}</p.sep>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven-site.ver>3.7.1</maven-site.ver>
-    <maven-project-info-reports.ver>2.8</maven-project-info-reports.ver>
-    <maven-assembly.var>3.1.1</maven-assembly.var>
-    <maven-resources.ver>3.1.0</maven-resources.ver>
-    <maven-antrun.ver>1.8</maven-antrun.ver>
-    <exec-maven-plugin.ver>1.6.0</exec-maven-plugin.ver>
-    <maven-clean.ver>3.1.0</maven-clean.ver>
+    <maven-site.ver>3.12.1</maven-site.ver>
+    <maven-project-info-reports.ver>3.4.1</maven-project-info-reports.ver>
+    <maven-assembly.var>3.4.2</maven-assembly.var>
+    <maven-resources.ver>3.3.0</maven-resources.ver>
+    <maven-antrun.ver>3.1.0</maven-antrun.ver>
+    <exec-maven-plugin.ver>3.1.0</exec-maven-plugin.ver>
+    <maven-clean.ver>3.2.0</maven-clean.ver>
     -->
     <PYTHONEXE>/opt/python3/bin/python3</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
@@ -299,7 +299,7 @@
         </executions>
       </plugin>
 
-      <!-- Replace file path in coverage report -->
+      <!-- Copying test reports from build-tmp and replacing file path -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${maven-antrun.ver}</version>
@@ -311,6 +311,12 @@
             </goals>
             <configuration>
               <target>
+                <!-- Copying test reports from build-temp directory -->
+                <mkdir dir="${project.build.directory}/site" />
+                <copy todir="${project.build.directory}/site">
+                  <fileset dir="${project.build.directory}/build-tmp/target/site" includes="**/*" />
+                </copy>
+				<!-- Replacing file path in test reports -->
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{};:\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
                   <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
                   <fileset dir="${project.build.directory}/site/test-report" includes="**/*"/>
