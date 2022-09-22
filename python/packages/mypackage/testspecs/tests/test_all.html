@@ -98,7 +98,7 @@ def run_test_all():
         suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
 
     runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + &#39;/../../../target/site/test-report&#39;, \
+            output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;, \
             report_name=&#39;python-progs&#39;, add_timestamp=False, combine_reports=True)
     
     runner.run(suite)
@@ -175,7 +175,7 @@ extension is '.yml'.</p>
         suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
 
     runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + &#39;/../../../target/site/test-report&#39;, \
+            output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;, \
             report_name=&#39;python-progs&#39;, add_timestamp=False, combine_reports=True)
     
     runner.run(suite)</code></pre>
