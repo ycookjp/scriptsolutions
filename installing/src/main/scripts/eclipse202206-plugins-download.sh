@@ -278,13 +278,15 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
   dropins/${PACKAGE_NAME}/eclipse
 
 
-# FindBugs
-URL='https://sourceforge.net/projects/findbugs/files/findbugs%20eclipse%20plugin/3.0.1/edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1.zip/download'
-PACKAGE_NAME=edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1
+# SpotBugs
+URL=https://spotbugs.github.io/eclipse/
+PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.2
 FILE_NAME=${PACKAGE_NAME}.zip
-__unzipfile -f "dropins-archive/${FILE_NAME}" \
-  -u "${URL}" \
-  dropins/${PACKAGE_NAME}/eclipse/plugins
+__archive_updatesite -o dropins-archive/${FILE_NAME} \
+  "${URL}"
+# deploy plugin files
+__unzipfile -f dropins-archive/${FILE_NAME} \
+  dropins/${PACKAGE_NAME}/eclipse
 
 
 # JGit LFS
