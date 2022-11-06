@@ -3,19 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ycookjp.myproject.python.packages</groupId>
-  <artifactId>mypackage</artifactId>
+  <artifactId>django_tutorial</artifactId>
   <!-- inheritated from parent
   <version>0.0.1-SNAPSHOT</version>
   -->
   <packaging>pom</packaging>
-  <description>Python My Package</description>
+  <description>Django tutorial</description>
   <parent>
     <groupId>ycookjp.myproject.python</groupId>
     <artifactId>packages</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <name>Python My Package</name>
+  <name>Django tutorial</name>
   <properties>
     <!-- Inheritated from parent project.
     <p.sep>${path.separator}</p.sep>
@@ -124,14 +124,15 @@
         </executions>
       </plugin>
 
-      <!-- Generating test reports -->
+<!--
+      <!- - Generating test reports - ->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
         <executions>
 
-          <!-- Installing main dependency modules -->
+          <!- - Installing main dependency modules - ->
           <execution>
             <id>install-main-dependencies</id>
             <phase>test</phase>
@@ -145,7 +146,7 @@
             </configuration>
           </execution>
 
-          <!-- Installing test dependency modules and pdoc3 -->
+          <!- - Installing test dependency modules and pdoc3 - ->
           <execution>
             <id>install-test-dependencies</id>
             <phase>test</phase>
@@ -159,7 +160,7 @@
             </configuration>
           </execution>
 
-          <!-- Generating API document -->
+          <!- - Generating API document - ->
           <execution>
             <id>python-apidocs</id>
             <phase>test</phase>
@@ -169,14 +170,14 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --force ${PROJECT_NAME}</commandlineArgs>
+              <commandlineArgs>-m pdoc - -html -o ${project.build.directory}/site/apidocs - -force ${PROJECT_NAME}</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
 
-          <!-- Generating test spec document -->
+          <!- - Generating test spec document - ->
           <execution>
             <id>python-testspecs</id>
             <phase>test</phase>
@@ -186,14 +187,14 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${TEST_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --force tests</commandlineArgs>
+              <commandlineArgs>-m pdoc - -skip-errors - -html -o ${project.build.directory}/site/testspecs - -force tests</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
 
-          <!-- Installing pip-licenses and generating dependencies -->
+          <!- - Installing pip-licenses and generating dependencies - ->
           <execution>
             <id>install-piplicenses</id>
             <phase>test</phase>
@@ -216,14 +217,14 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}/${PROJECT_NAME}</workingDirectory>
-              <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
+              <commandlineArgs>-m piplicenses - -format=html - -output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${TEST_PATH}/piplicenses-packages${p.sep}${MAIN_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
 
-          <!-- Generating test result report -->
+          <!- - Generating test result report - ->
           <execution>
             <id>python-test</id>
             <phase>test</phase>
@@ -240,16 +241,16 @@
                 <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
-                <!-- 
+                <!- - 
                   Continue generating reports even if unit test fails.
-                 -->
+                 - ->
                 <successCode>0</successCode>
                 <successCode>1</successCode>
               </successCodes>
             </configuration>
           </execution>
 
-          <!-- Collecting coverage data -->
+          <!- - Collecting coverage data - ->
           <execution>
             <id>python-coverage</id>
             <phase>test</phase>
@@ -261,7 +262,7 @@
               <workingDirectory>${project.build.directory}/site</workingDirectory>
                <arguments>
                 <argument>run</argument>
-                <argument>--source</argument>
+                <argument>- -source</argument>
                 <argument>${MAIN_PATH}</argument>
                 <argument>${TEST_PATH}/tests/${TEST_PY}</argument>
               </arguments>
@@ -269,16 +270,16 @@
                 <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
-                <!-- 
+                <!- - 
                   Continue generating reports even if unit test fails.
-                 -->
+                 - ->
                 <successCode>0</successCode>
                 <successCode>1</successCode>
               </successCodes>
             </configuration>
           </execution>
 
-          <!-- Generating coverage report -->
+          <!- - Generating coverage report - ->
           <execution>
             <id>python-coverage-html</id>
             <phase>test</phase>
@@ -299,7 +300,7 @@
         </executions>
       </plugin>
 
-      <!-- Copying test reports from build-tmp and replacing file path -->
+      <!- - Copying test reports from build-tmp and replacing file path - ->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${maven-antrun.ver}</version>
@@ -311,12 +312,12 @@
             </goals>
             <configuration>
               <target>
-                <!-- Copying test reports from build-temp directory -->
+                <!- - Copying test reports from build-temp directory - ->
                 <mkdir dir="${project.build.directory}/site" />
                 <copy todir="${project.build.directory}/site">
                   <fileset dir="${project.build.directory}/build-tmp/target/site" includes="**/*" />
                 </copy>
-				<!-- Replacing file path in test reports -->
+				<!- - Replacing file path in test reports - ->
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{};:\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
                   <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
                   <fileset dir="${project.build.directory}/site/test-report" includes="**/*"/>
@@ -336,7 +337,7 @@
         </executions>
       </plugin>
 
-      <!-- Archiving source script files -->
+      <!- - Archiving source script files - ->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>${maven-assembly.var}</version>
@@ -358,6 +359,7 @@
           </execution>
         </executions>
       </plugin>
+-->
     </plugins>
   </build>
   <!-- Inheritated from parent project.
