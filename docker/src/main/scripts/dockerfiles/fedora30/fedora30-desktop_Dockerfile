@@ -1,0 +1,107 @@
+################################################################################
+# desktop-{mate|lxde|xfce}
+# Building :
+#   1. Place this file to working directory, and rename to "Dockerfile".
+#   2. Place following files imported to image.
+#     --------------------------------------------------------------------------
+#     import-files
+#     `-- download (Optional)
+#         |-- Windows.10.Dark.v0.9.9.SP1.tar.gz
+#         `-- Windows.10.Icons.v0.5.tar.gz
+#     --------------------------------------------------------------------------
+#   3. Run following command.
+# Usage : docker build -t <image-name> \
+#         --build-arg DESKTOP_ENV={mate|lxde|xfce} \
+#         [--build-arg PROXY_URL=<proxy_url>] .
+#   * currently, DESKTOP_ENV=mate does not work well.
+# Running :
+#   docker run --name=<container-name> --restart={always|unless-stopped} \
+#   -p <host-port>:3389 -it <image-name>
+################################################################################
+FROM fedora30-container-base
+#FROM fedora
+WORKDIR /var/tmp
+ARG DESKTOP_ENV=lxde
+ARG GROUP_ID=1000
+ARG PROXY_URL
+ENV LANG=ja_JP.UTF-8
+COPY import-files import-files/
+RUN echo "################################################################################" \
+ && echo "##### Installing Desktop Environment #####" \
+ && echo "################################################################################" \
+ && : Installation settings \
+ && export BASE_PACKAGES="--exclude=elementary-greeter @base-x lightdm im-chooser google-noto-sans-cjk-ttc-fonts google-noto-serif-cjk-ttc-fonts langpacks-ja ibus-kkc net-tools xrdp" \
+ && export BUILD_PACKAGES="tar unzip passwd" \
+ && export RELEASE_VER=30 \
+ && export DOWNLOAD_DIR=import-files/download \
+ && export WIN10THEME_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Dark.v0.9.9.SP1.tar.gz \
+ && export WIN10ICON_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Icons.v0.5.tar.gz \
+ && if [ _lxde = _${DESKTOP_ENV} ]; then export DESKTOP_PACKAGES="lxde-common lxpanel lxsession lxpolkit lxappearance lxrandr lxterminal lxdm pcmanfm"; \
+    elif [ _mate = _${DESKTOP_ENV} ]; then export DESKTOP_PACKAGES="mate-panel mate-session-manager mate-terminal marco caja"; \
+    elif [ _xfce = _${DESKTOP_ENV} ]; then export DESKTOP_PACKAGES="xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 xfce4-terminal Thunar"; \
+    else export DESKTOP_PACKAGES="@${DESKTOP_ENV}-desktop"; \
+    fi \
+ && : Proxy settings \
+ && if [ _ != _${PROXY_URL} ]; then export http_proxy=${PROXY_URL} https_proxy=${PROXY_URL}; fi \ 
+ && if [ _ != _${PROXY_URL} ]; then export OPT_CURL_PROXY="-x ${PROXY_URL}"; fi \
+ && : Installing base and desktop environment packages \
+ && dnf -y install ${BASE_PACKAGES} ${DESKTOP_PACKAGES} ${BUILD_PACKAGES} \
+ && : Japanese language settings \
+ && if [ "" != "`echo ${BASE_PACKAGES} ${DESKTOP_PACKAGES} ${BUILD_PACKAGES} | grep 'langpacks-ja'`" ]; then \
+      ln -sf ../usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
+      echo LANG="ja_JP.UTF-8" > /etc/locale.conf; \
+    fi \
+ && : Generating /usr/local/bin/start-xrdp \
+ && echo $'#!/bin/sh\n\
+\n\
+trap "/sbin/xrdp -k; /sbin/xrdp-sesman -k" SIGHUP SIGTERM\n\
+if [ -f /var/run/xrdp.pid ]; then /sbin/xrdp -k; rm -f /var/run/xrdp.pid; fi\n\
+if [ -f /var/run/sesman.pid ]; then /sbin/xrdp-sesman -k; rm -f /var/run/sesman.pid; fi\n\
+/sbin/xrdp-sesman\n\
+/sbin/xrdp\n\
+while [ `ps h -C xrdp-sesman,xrdp | wc -l` -gt 0 ]; do sleep 2; done\n\
+echo xrdp service stopped.\n\
+exit\n\
+: end of file\n'\
+> /usr/local/bin/start-xrdp \
+ && chmod a+x /usr/local/bin/start-xrdp \
+ && : Configuring /etc/xrdp/xrdp.ini \
+ && sed -e 's/^max_bpp=32/max_bpp=24/g' -i /etc/xrdp/xrdp.ini \
+ && : Generating /etc/skel/.Xclients \
+ && if [ _xfce = _${DESKTOP_ENV} ]; then echo "startxfce4" > /etc/skel/.Xclients; \
+      elif [ _kde = _${DESKTOP_ENV} -o _lxde = _${DESKTOP_ENV} ]; then echo "start${DESKTOP_ENV}" > /etc/skel/.Xclients; \
+      elif [ _gnome = _${DESKTOP_ENV} -o _mate = _${DESKTOP_ENV} ]; then echo "${DESKTOP_ENV}-session" > /etc/skel/.Xclients; \
+      else echo "${DESKTOP_ENV}" > /etc/skel/.Xclients; \
+    fi \
+ && chmod +x /etc/skel/.Xclients \
+ && : Downloading Win10 Theme and installing \
+ && if [ ! -f ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}` ]; then \
+      curl ${OPT_CURL_PROXY} --create-dirs -L ${WIN10THEME_URL} -o ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}`; \
+    fi \
+ && tar --overwrite -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}` -C /usr/share/themes \
+ && : Downloading Win10 Icons and installing \
+ && if [ ! -f ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}` ]; then \
+      curl ${OPT_CURL_PROXY} --create-dirs -L ${WIN10ICON_URL} -o ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}`; \
+    fi \
+ && tar --overwrite -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}` -C /usr/share/icons \
+ && : Copying import files \
+ && if [ -d import-files/files ]; then \
+      cp -R import-files/files/* /; \
+      if [ -f /usr/bin/update-ca-trust ]; then \
+        /usr/bin/update-ca-trust extract; \
+      fi \
+    fi \
+ && if [ -d import-files/archives ]; then \
+      for f in `find import-files/archives -name '*.tar.gz'`; do \
+        tar --overwrite -xvz -f $f -C /; \
+      done \
+    fi \
+ && : Creating developers group and developer user with developer password \
+ && groupadd -g ${GROUP_ID} developers \
+ && useradd -G developers -p developer developer \
+ && echo developer | passwd --stdin developer \
+ && : Removing package cache \
+ && dnf clean all \
+ && rm -rf /var/tmp/*
+EXPOSE 3389
+CMD ["/usr/local/bin/start-xrdp"]

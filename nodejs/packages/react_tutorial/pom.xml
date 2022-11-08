@@ -3,22 +3,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ycookjp.myproject.nodejs.packages</groupId>
-  <artifactId>mypackage</artifactId>
+  <artifactId>react_tutorial</artifactId>
   <!-- inheritated from parent
-  <version>0.0.1-SNAPSHOT</version>
   -->
   <!-- end -->
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Node.js My Package</description>
+<!--
   <parent>
     <groupId>ycookjp.myproject.nodejs</groupId>
     <artifactId>packages</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+-->
   <name>Node.js My Package</name>
   <properties>
     <!-- Inheritated from parent project.
+    -->
     <p.sep>${path.separator}</p.sep>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-site.ver>3.12.1</maven-site.ver>
@@ -28,7 +31,6 @@
     <maven-antrun.ver>3.1.0</maven-antrun.ver>
     <exec-maven-plugin.ver>3.1.0</exec-maven-plugin.ver>
     <maven-clean.ver>3.2.0</maven-clean.ver>
-    -->
     <!-- end -->
     <NPMEXE>npm</NPMEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
@@ -40,6 +42,7 @@
    -->
   <build>
     <!-- Inheritated from parent project.
+    -->
     <pluginManagement>
       <plugins>
         <!- - Basic report creation.  - ->
@@ -55,7 +58,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    -->
     <!-- end -->
     <plugins>
 
@@ -308,6 +310,7 @@
     </plugins>
   </build>
   <!-- Inheritated from parent project.
+  -->
   <reporting>
     <plugins>
       <plugin>
@@ -317,6 +320,5 @@
       </plugin>
     </plugins>
   </reporting>
-  -->
   <!-- end -->
 </project>

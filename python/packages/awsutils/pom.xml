@@ -7,6 +7,7 @@
   <!-- inheritated from parent
   <version>0.0.1-SNAPSHOT</version>
   -->
+  <!-- end -->
   <packaging>pom</packaging>
   <description>Starts and stops AWS resources.</description>
   <parent>
@@ -28,10 +29,12 @@
     <exec-maven-plugin.ver>3.1.0</exec-maven-plugin.ver>
     <maven-clean.ver>3.2.0</maven-clean.ver>
     -->
+    <!-- end -->
     <PYTHONEXE>/opt/python3/bin/python3</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
     <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
     <TEST_PATH>${project.build.directory}/build-tmp</TEST_PATH>
+    <PACKAGE_NAME>${PROJECT_NAME}</PACKAGE_NAME>
     <TEST_PY>test_all.py</TEST_PY>
   </properties>
   <!-- 
@@ -55,6 +58,7 @@
       </plugins>
     </pluginManagement>
     -->
+    <!-- end -->
     <plugins>
       <!-- cleaning files -->
       <plugin>
@@ -65,8 +69,8 @@
             <fileset>
               <directory>${basedir}/</directory>
               <includes>
-                <include>src/main/${PROJECT_NAME}/**/__pycache__/</include>
-                <include>src/main/${PROJECT_NAME}/**/site-packages/</include>
+                <include>src/main/${PACKAGE_NAME}/**/__pycache__/</include>
+                <include>src/main/${PACKAGE_NAME}/**/site-packages/</include>
                 <include>tests/**/__pycache__/</include>
                 <include>tests/**/site-packages/</include>
               </includes>
@@ -141,7 +145,7 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pip install -t site-packages -r ${PROJECT_NAME}/requirements.txt</commandlineArgs>
+              <commandlineArgs>-m pip install -t site-packages -r ${PACKAGE_NAME}/requirements.txt</commandlineArgs>
             </configuration>
           </execution>
 
@@ -169,7 +173,7 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --force ${PROJECT_NAME}</commandlineArgs>
+              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --force ${PACKAGE_NAME}</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}</PYTHONPATH>
               </environmentVariables>
@@ -215,7 +219,7 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}/${PROJECT_NAME}</workingDirectory>
+              <workingDirectory>${MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
               <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${TEST_PATH}/piplicenses-packages${p.sep}${MAIN_PATH}/site-packages</PYTHONPATH>
@@ -224,6 +228,7 @@
           </execution>
 
           <!-- Generating test result report -->
+<!--
           <execution>
             <id>python-test</id>
             <phase>test</phase>
@@ -240,16 +245,17 @@
                 <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
-                <!-- 
+                <!- - 
                   Continue generating reports even if unit test fails.
-                 -->
+                 - ->
                 <successCode>0</successCode>
                 <successCode>1</successCode>
               </successCodes>
             </configuration>
           </execution>
+-->
 
-          <!-- Collecting coverage data -->
+          <!-- Collecting coverage data and generating test result report -->
           <execution>
             <id>python-coverage</id>
             <phase>test</phase>
@@ -266,7 +272,7 @@
                 <argument>${TEST_PATH}/tests/${TEST_PY}</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
                 <!-- 
@@ -292,7 +298,7 @@
                 <argument>html</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -310,6 +316,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
+              <failOnError>false</failOnError>
               <target>
                 <!-- Copying test reports from build-temp directory -->
                 <mkdir dir="${project.build.directory}/site" />
@@ -371,4 +378,5 @@
     </plugins>
   </reporting>
   -->
+  <!-- end -->
 </project>

@@ -7,14 +7,14 @@
       <![CDATA[<link rel="shortcut icon" href="images/favicon.ico" />]]>
     </head>
     <menu name="Contents">
-      <item name="Test Report" href="./test-report/python-progs.html" />
-      <item name="Coverage Report" href="./htmlcov/index.html" />
-      <item name="Dependencies" href="./python-dependencies.html" />
+      <item name="Test Report" href="./test-reports/test-report.html" />
+      <item name="Coverage Report" href="./coverage/lcov-report/index.html" />
+      <item name="Dependencies" href="./node-dependencies" />
       <item name="Download site archive" href="./${project.artifactId}-${project.version}.zip" />
     </menu>
     <menu name="APIs">
-      <item name="API Documents"  href="./apidocs/${PACKAGE_NAME}/index.html" />
-      <item name="Test Specifications"  href="./testspecs/${PACKAGE_NAME}/test.html" />
+      <item name="API Documents"  href="./apidocs/index.html" />
+      <item name="Test Specifications"  href="./testspecs/index.html" />
     </menu>
 <!-- 
     <menu ref="parent" />
