@@ -24,162 +24,6 @@
 <section id="section-intro">
 <p>aws_test_utils module.</p>
 <p>Copyright: ycookjp</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- coding: utf-8 -*-
-&#39;&#39;&#39;aws_test_utils module.
-
-Copyright: ycookjp
-
-&#39;&#39;&#39;
-
-import os
-import yaml
-import boto3
-from moto import mock_ec2
-from moto import mock_rds
-
-def load_yaml(script_path):
-    &#39;&#39;&#39;Loads YAML configuration file.
-    
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Args:
-        script_path (str): script path which using config file.
-    
-    Returns:
-        Dictionary: Returns key-value information.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(script_path)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
-        config = yaml.load(file, Loader=yaml.SafeLoader)
-        return config
-
-def dump_yaml(config, script_path):
-    &#39;&#39;&#39;Saves YAML configuration file.
-    
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Args:
-        config (dict): configuration data.
-        script_path (str): script path which using config file.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(script_path)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file:
-        yaml.dump(config, file, default_flow_style=False)
-
-def list_files_in_dir(dir_path: str):
-    &#39;&#39;&#39;Crate file lists which exists under the directory.
-    
-    Args:
-        dir_path (str): directory path.
-    Returns:
-        str: Returns list of relative file path from specified directory.
-    
-    &#39;&#39;&#39;
-    absdir = os.path.abspath(dir_path)
-    file_list = []
-    
-    for dpath, dnames, fnames in os.walk(absdir):
-        fnames.sort()
-        
-        for fname in fnames:
-            file_path = dpath.replace(absdir, &#39;&#39;) + os.sep + fname
-            if file_path[0] == os.sep:
-                file_path = file_path[1:]
-            file_list.append(file_path)
-    
-    return file_list
-
-def list_s3keys_in_bucket(s3objects):
-    &#39;&#39;&#39;S3のバケットに格納されているオブジェクトの Key のリストを取得する。
-    
-    Args:
-        s3objects (obj): バケット名を指定して、s3 clientの list_objects 関数を
-        呼び出いた戻り値を指定する。
-    Returns:
-        S3オブジェクトの Key のリストを返す。
-    
-    &#39;&#39;&#39;
-    s3key_list = []
-    contents = s3objects[&#39;Contents&#39;]
-    
-    for content in contents:
-        s3key_list.append(content[&#39;Key&#39;])
-    
-    return s3key_list
- 
-@mock_ec2
-def run_instances(ami_id, region_name, count=1):
-    &#39;&#39;&#39;EC2インスタンスを起動します。
-    
-    Args:
-        ami_id (str): AMI ID を指定します
-        regopm_name (str): リージョン名を指定します
-        count (:obj:`int`, optional): 作成するEC2の個数を指定します
-    
-    Retunrs:
-        Instanceオブジェクトの配列を返します
-    
-    &#39;&#39;&#39;
-    ec2 = boto3.client(&#39;ec2&#39;, region_name=region_name)
-    ec2.run_instances(ImageId=ami_id, MinCount=count, MaxCount=count)
-    instances = ec2.describe_instances()[&#39;Reservations&#39;][0][&#39;Instances&#39;]
-    
-    return instances
-    
-@mock_rds
-def create_db_cluster(db_cluster_id, engine_name, username, password,
-                       region_name):
-    &#39;&#39;&#39;RDS DB クラスターのインスタンスを起動します。
-    
-    Args:
-        db_cluster_id (str): DBクラスター ID
-        engine_name (str): データベース エンジンの名前
-        username (str): データベース ユーザー名
-        password (str): データベース ユーザーのパスワード
-        region_name (str): リージョン名
-    
-    Returns:
-        RDS DB クラスターのインスタンスを返します。
-    
-    &#39;&#39;&#39;
-    rds = boto3.client(&#39;rds&#39;, region_name=region_name)
-    db_cluster = rds.create_db_cluster(DBClusterIdentifier=db_cluster_id,
-            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
-    return db_cluster
-    
-@mock_rds
-def create_db_instance(db_instance_id, resource_type, engine_name,
-                        username, password, region_name):
-    &#39;&#39;&#39;RDS DB インスタンスを起動します。
-    
-    Args:
-        db_instance_id (str): DBインスタンス ID
-        resource_type (str): DBインスタンスのリソース タイプ。db.t2.micro など。
-        engine_name (str): データベース エンジンの名前
-        username (str): データベース ユーザー名
-        password (str): データベース ユーザーのパスワード
-        region_name (str): リージョン名
-    
-    Returns:
-        RDS DB インスタンスを返します。
-    
-    &#39;&#39;&#39;
-    rds = boto3.client(&#39;rds&#39;, region_name=region_name)
-    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
-            DBInstanceClass=resource_type,
-            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
-    return db_instance</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -208,31 +52,6 @@ def create_db_instance(db_instance_id, resource_type, engine_name,
 </dl>
 <h2 id="returns">Returns</h2>
 <p>RDS DB クラスターのインスタンスを返します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@mock_rds
-def create_db_cluster(db_cluster_id, engine_name, username, password,
-                       region_name):
-    &#39;&#39;&#39;RDS DB クラスターのインスタンスを起動します。
-    
-    Args:
-        db_cluster_id (str): DBクラスター ID
-        engine_name (str): データベース エンジンの名前
-        username (str): データベース ユーザー名
-        password (str): データベース ユーザーのパスワード
-        region_name (str): リージョン名
-    
-    Returns:
-        RDS DB クラスターのインスタンスを返します。
-    
-    &#39;&#39;&#39;
-    rds = boto3.client(&#39;rds&#39;, region_name=region_name)
-    db_cluster = rds.create_db_cluster(DBClusterIdentifier=db_cluster_id,
-            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
-    return db_cluster</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.create_db_instance"><code class="name flex">
 <span>def <span class="ident">create_db_instance</span></span>(<span>db_instance_id, resource_type, engine_name, username, password, region_name)</span>
@@ -256,33 +75,6 @@ def create_db_cluster(db_cluster_id, engine_name, username, password,
 </dl>
 <h2 id="returns">Returns</h2>
 <p>RDS DB インスタンスを返します。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@mock_rds
-def create_db_instance(db_instance_id, resource_type, engine_name,
-                        username, password, region_name):
-    &#39;&#39;&#39;RDS DB インスタンスを起動します。
-    
-    Args:
-        db_instance_id (str): DBインスタンス ID
-        resource_type (str): DBインスタンスのリソース タイプ。db.t2.micro など。
-        engine_name (str): データベース エンジンの名前
-        username (str): データベース ユーザー名
-        password (str): データベース ユーザーのパスワード
-        region_name (str): リージョン名
-    
-    Returns:
-        RDS DB インスタンスを返します。
-    
-    &#39;&#39;&#39;
-    rds = boto3.client(&#39;rds&#39;, region_name=region_name)
-    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
-            DBInstanceClass=resource_type,
-            Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
-    return db_instance</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.dump_yaml"><code class="name flex">
 <span>def <span class="ident">dump_yaml</span></span>(<span>config, script_path)</span>
@@ -299,26 +91,6 @@ extension is '.yml'.</p>
 <dt><strong><code>script_path</code></strong> :&ensp;<code>str</code></dt>
 <dd>script path which using config file.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def dump_yaml(config, script_path):
-    &#39;&#39;&#39;Saves YAML configuration file.
-    
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Args:
-        config (dict): configuration data.
-        script_path (str): script path which using config file.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(script_path)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file:
-        yaml.dump(config, file, default_flow_style=False)</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.list_files_in_dir"><code class="name flex">
 <span>def <span class="ident">list_files_in_dir</span></span>(<span>dir_path: str)</span>
@@ -335,33 +107,6 @@ extension is '.yml'.</p>
 <dt><code>str</code></dt>
 <dd>Returns list of relative file path from specified directory.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def list_files_in_dir(dir_path: str):
-    &#39;&#39;&#39;Crate file lists which exists under the directory.
-    
-    Args:
-        dir_path (str): directory path.
-    Returns:
-        str: Returns list of relative file path from specified directory.
-    
-    &#39;&#39;&#39;
-    absdir = os.path.abspath(dir_path)
-    file_list = []
-    
-    for dpath, dnames, fnames in os.walk(absdir):
-        fnames.sort()
-        
-        for fname in fnames:
-            file_path = dpath.replace(absdir, &#39;&#39;) + os.sep + fname
-            if file_path[0] == os.sep:
-                file_path = file_path[1:]
-            file_list.append(file_path)
-    
-    return file_list</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.list_s3keys_in_bucket"><code class="name flex">
 <span>def <span class="ident">list_s3keys_in_bucket</span></span>(<span>s3objects)</span>
@@ -376,28 +121,6 @@ extension is '.yml'.</p>
 <p>呼び出いた戻り値を指定する。</p>
 <h2 id="returns">Returns</h2>
 <p>S3オブジェクトの Key のリストを返す。</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def list_s3keys_in_bucket(s3objects):
-    &#39;&#39;&#39;S3のバケットに格納されているオブジェクトの Key のリストを取得する。
-    
-    Args:
-        s3objects (obj): バケット名を指定して、s3 clientの list_objects 関数を
-        呼び出いた戻り値を指定する。
-    Returns:
-        S3オブジェクトの Key のリストを返す。
-    
-    &#39;&#39;&#39;
-    s3key_list = []
-    contents = s3objects[&#39;Contents&#39;]
-    
-    for content in contents:
-        s3key_list.append(content[&#39;Key&#39;])
-    
-    return s3key_list</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.load_yaml"><code class="name flex">
 <span>def <span class="ident">load_yaml</span></span>(<span>script_path)</span>
@@ -417,29 +140,6 @@ extension is '.yml'.</p>
 <dt><code>Dictionary</code></dt>
 <dd>Returns key-value information.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def load_yaml(script_path):
-    &#39;&#39;&#39;Loads YAML configuration file.
-    
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Args:
-        script_path (str): script path which using config file.
-    
-    Returns:
-        Dictionary: Returns key-value information.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(script_path)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
-        config = yaml.load(file, Loader=yaml.SafeLoader)
-        return config</code></pre>
-</details>
 </dd>
 <dt id="tests.aws_test_utils.run_instances"><code class="name flex">
 <span>def <span class="ident">run_instances</span></span>(<span>ami_id, region_name, count=1)</span>
@@ -456,29 +156,6 @@ extension is '.yml'.</p>
 <p>count (:obj:<code>int</code>, optional): 作成するEC2の個数を指定します</p>
 <h2 id="retunrs">Retunrs</h2>
 <p>Instanceオブジェクトの配列を返します</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@mock_ec2
-def run_instances(ami_id, region_name, count=1):
-    &#39;&#39;&#39;EC2インスタンスを起動します。
-    
-    Args:
-        ami_id (str): AMI ID を指定します
-        regopm_name (str): リージョン名を指定します
-        count (:obj:`int`, optional): 作成するEC2の個数を指定します
-    
-    Retunrs:
-        Instanceオブジェクトの配列を返します
-    
-    &#39;&#39;&#39;
-    ec2 = boto3.client(&#39;ec2&#39;, region_name=region_name)
-    ec2.run_instances(ImageId=ami_id, MinCount=count, MaxCount=count)
-    instances = ec2.describe_instances()[&#39;Reservations&#39;][0][&#39;Instances&#39;]
-    
-    return instances</code></pre>
-</details>
 </dd>
 </dl>
 </section>

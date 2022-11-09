@@ -22,36 +22,6 @@
 <h1 class="title">Module <code>polls.models</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- config: utf8 -*-
-import datetime
-from django.db import models
-from django.utils import timezone
-
-# Create your models here.
-
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField(&#39;date published&#39;)
-
-    def __str__(self):
-        return self.question_text
-
-    def was_published_recently(self):
-        now = timezone.now()
-        return timezone.now() - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.choice_text</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -68,18 +38,6 @@ class Choice(models.Model):
 </code></dt>
 <dd>
 <div class="desc"><p>Choice(id, question, choice_text, votes)</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.choice_text</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.db.models.base.Model</li>
@@ -105,57 +63,11 @@ class Choice(models.Model):
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Choice.id"><code class="name">var <span class="ident">id</span></code></dt>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Choice.question"><code class="name">var <span class="ident">question</span></code></dt>
 <dd>
@@ -166,117 +78,16 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
     parent = ForeignKey(Parent, related_name='children')
 </code></pre>
 <p><code>Child.parent</code> is a <code>ForwardManyToOneDescriptor</code> instance.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Get the related instance through the forward relation.
-
-    With the example above, when getting ``child.parent``:
-
-    - ``self`` is the descriptor managing the ``parent`` attribute
-    - ``instance`` is the ``child`` instance
-    - ``cls`` is the ``Child`` class (we don&#39;t need it)
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-
-    # The related instance is loaded from the database and then cached
-    # by the field on the model instance state. It can also be pre-cached
-    # by the reverse accessor (ReverseOneToOneDescriptor).
-    try:
-        rel_obj = self.field.get_cached_value(instance)
-    except KeyError:
-        has_value = None not in self.field.get_local_related_value(instance)
-        ancestor_link = (
-            instance._meta.get_ancestor_link(self.field.model)
-            if has_value
-            else None
-        )
-        if ancestor_link and ancestor_link.is_cached(instance):
-            # An ancestor link will exist if this field is defined on a
-            # multi-table inheritance parent of the instance&#39;s class.
-            ancestor = ancestor_link.get_cached_value(instance)
-            # The value might be cached on an ancestor if the instance
-            # originated from walking down the inheritance chain.
-            rel_obj = self.field.get_cached_value(ancestor, default=None)
-        else:
-            rel_obj = None
-        if rel_obj is None and has_value:
-            rel_obj = self.get_object(instance)
-            remote_field = self.field.remote_field
-            # If this is a one-to-one relation, set the reverse accessor
-            # cache on the related object to the current instance to avoid
-            # an extra SQL query if it&#39;s accessed later on.
-            if not remote_field.multiple:
-                remote_field.set_cached_value(rel_obj, instance)
-        self.field.set_cached_value(instance, rel_obj)
-
-    if rel_obj is None and not self.field.null:
-        raise self.RelatedObjectDoesNotExist(
-            &#34;%s has no %s.&#34; % (self.field.model.__name__, self.field.name)
-        )
-    else:
-        return rel_obj</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Choice.question_id"><code class="name">var <span class="ident">question_id</span></code></dt>
 <dd>
 <div class="desc"><p>Retrieve and caches the value from the datastore on the first lookup.
 Return the cached value.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Choice.votes"><code class="name">var <span class="ident">votes</span></code></dt>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -286,21 +97,6 @@ object the first time, the query is executed.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Question(id, question_text, pub_date)</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField(&#39;date published&#39;)
-
-    def __str__(self):
-        return self.question_text
-
-    def was_published_recently(self):
-        now = timezone.now()
-        return timezone.now() - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.db.models.base.Model</li>
@@ -333,109 +129,21 @@ many-to-one relation.</p>
 <p><code>Parent.children</code> is a <code>ReverseManyToOneDescriptor</code> instance.</p>
 <p>Most of the implementation is delegated to a dynamically defined manager
 class built by <code>create_forward_many_to_many_manager()</code> defined below.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Get the related objects through the reverse relation.
-
-    With the example above, when getting ``parent.children``:
-
-    - ``self`` is the descriptor managing the ``children`` attribute
-    - ``instance`` is the ``parent`` instance
-    - ``cls`` is the ``Parent`` class (unused)
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-
-    return self.related_manager_cls(instance)</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Question.id"><code class="name">var <span class="ident">id</span></code></dt>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Question.pub_date"><code class="name">var <span class="ident">pub_date</span></code></dt>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Question.question_text"><code class="name">var <span class="ident">question_text</span></code></dt>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def __get__(self, instance, cls=None):
-    &#34;&#34;&#34;
-    Retrieve and caches the value from the datastore on the first lookup.
-    Return the cached value.
-    &#34;&#34;&#34;
-    if instance is None:
-        return self
-    data = instance.__dict__
-    field_name = self.field.attname
-    if field_name not in data:
-        # Let&#39;s see if the field is part of the parent chain. If so we
-        # might be able to reuse the already loaded value. Refs #18343.
-        val = self._check_parent_chain(instance)
-        if val is None:
-            instance.refresh_from_db(fields=[field_name])
-        else:
-            data[field_name] = val
-    return data[field_name]</code></pre>
-</details>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -445,42 +153,18 @@ object the first time, the query is executed.</p></div>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def _method(cls_or_self, /, *args, **keywords):
-    keywords = {**self.keywords, **keywords}
-    return self.func(cls_or_self, *self.args, *args, **keywords)</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Question.get_previous_by_pub_date"><code class="name flex">
 <span>def <span class="ident">get_previous_by_pub_date</span></span>(<span>self, *, field=&lt;django.db.models.fields.DateTimeField: pub_date&gt;, is_next=False, **kwargs)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def _method(cls_or_self, /, *args, **keywords):
-    keywords = {**self.keywords, **keywords}
-    return self.func(cls_or_self, *self.args, *args, **keywords)</code></pre>
-</details>
 </dd>
 <dt id="polls.models.Question.was_published_recently"><code class="name flex">
 <span>def <span class="ident">was_published_recently</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def was_published_recently(self):
-    now = timezone.now()
-    return timezone.now() - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -493,11 +177,6 @@ object the first time, the query is executed.</p></div>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="polls" href="index.html">polls</a></code></li>
-</ul>
-</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>

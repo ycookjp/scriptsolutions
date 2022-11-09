@@ -22,132 +22,6 @@
 <h1 class="title">Module <code>polls.test</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- config: utf8 -*-
-import datetime
-from django.test import TestCase
-from django.urls import reverse
-from django.utils import timezone
-from .models import Question
-
-def create_question(question_text, days):
-    &#39;&#39;&#39;
-    Create a question with the given &#39;question_text&#39; and published the
-    given number of &#39;days&#39; offset to now (negative for questions published
-    in the past, positive for questions that have yet to be published).
-    &#39;&#39;&#39;
-    time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
-
-class QuestionModelTests(TestCase):
-    def test_was_published_recently_with_future_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns False for questions whose pub_date
-        is in the future.
-        &#39;&#39;&#39;
-        time = timezone.now() + datetime.timedelta(days=30)
-        future_question = Question(pub_date=time)
-        self.assertIs(future_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_old_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns False for questions whose pub_date
-        is older than 1 day.
-        &#39;&#39;&#39;
-        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
-        old_question = Question(pub_date=time)
-        self.assertIs(old_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_recent_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns True for questions whose pub_date
-        is within the last day.
-        &#39;&#39;&#39;
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59,
-                seconds=59)
-        recent_question = Question(pub_date=time)
-        self.assertIs(recent_question.was_published_recently(), True)
-
-class QuestionIndexViewTests(TestCase):
-    def test_no_questions(self):
-        &#39;&#39;&#39;
-        If no question exist, an appropriate message is displayed.
-        &#39;&#39;&#39;
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, &#39;No polls are available.&#39;)
-        self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])
-    
-    def test_past_question(self):
-        &#39;&#39;&#39;
-        Questions with the pub_date in the past are displayed on the index page.
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question],
-        )
-    
-    def test_future_question(self):
-        &#39;&#39;&#39;
-        Question with a pub_date in the future aren&#39;t displayed on
-        the index page. 
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Future question.&#39;, days=30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertContains(response, &#39;No polls are available.&#39;)
-        self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])
-    
-    def test_future_question_and_past_question(self):
-        &#39;&#39;&#39;
-        Even if both past and future questions exist, only past questions are
-        displayed.
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-        create_question(question_text=&#39;Future question.&#39;, days=30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question],
-        )
-    
-    def test_two_past_questions(self):
-        &#39;&#39;&#39;
-        The question index page may display multiple questions.
-        &#39;&#39;&#39;
-        question1 = create_question(question_text=&#39;Past question 1.&#39;, days=-30)
-        question2 = create_question(question_text=&#39;Past question 2.&#39;, days=-5)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question2, question1]
-        )
-
-class QuestionDetailViewTests(TestCase):
-    def test_future_question(self):
-        &#39;&#39;&#39;
-        The detail view of question with a pub_date in the future returns a
-        404 not found.
-        &#39;&#39;&#39;
-        future_question = create_question(question_text=&#39;Future question.&#39;, days=5)
-        url = reverse(&#39;polls:detail&#39;, args=(future_question.id,))
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-    
-    def test_past_question(self):
-        &#39;&#39;&#39;
-        The detail view of question with a pub_date in the past displays the
-        question text.
-        &#39;&#39;&#39;
-        past_question = create_question(question_text=&#39;Past question.&#39;, days=-5)
-        url = reverse(&#39;polls:detail&#39;, args=(past_question.id,))
-        response = self.client.get(url)
-        self.assertContains(response, past_question.question_text)</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -163,19 +37,6 @@ class QuestionDetailViewTests(TestCase):
 <div class="desc"><p>Create a question with the given 'question_text' and published the
 given number of 'days' offset to now (negative for questions published
 in the past, positive for questions that have yet to be published).</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def create_question(question_text, days):
-    &#39;&#39;&#39;
-    Create a question with the given &#39;question_text&#39; and published the
-    given number of &#39;days&#39; offset to now (negative for questions published
-    in the past, positive for questions that have yet to be published).
-    &#39;&#39;&#39;
-    time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)</code></pre>
-</details>
 </dd>
 </dl>
 </section>
@@ -198,31 +59,6 @@ TransactionTestCase.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class QuestionDetailViewTests(TestCase):
-    def test_future_question(self):
-        &#39;&#39;&#39;
-        The detail view of question with a pub_date in the future returns a
-        404 not found.
-        &#39;&#39;&#39;
-        future_question = create_question(question_text=&#39;Future question.&#39;, days=5)
-        url = reverse(&#39;polls:detail&#39;, args=(future_question.id,))
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
-    
-    def test_past_question(self):
-        &#39;&#39;&#39;
-        The detail view of question with a pub_date in the past displays the
-        question text.
-        &#39;&#39;&#39;
-        past_question = create_question(question_text=&#39;Past question.&#39;, days=-5)
-        url = reverse(&#39;polls:detail&#39;, args=(past_question.id,))
-        response = self.client.get(url)
-        self.assertContains(response, past_question.question_text)</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.test.testcases.TestCase</li>
@@ -238,20 +74,6 @@ not have a method with the specified name.</p></div>
 <dd>
 <div class="desc"><p>The detail view of question with a pub_date in the future returns a
 404 not found.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_future_question(self):
-    &#39;&#39;&#39;
-    The detail view of question with a pub_date in the future returns a
-    404 not found.
-    &#39;&#39;&#39;
-    future_question = create_question(question_text=&#39;Future question.&#39;, days=5)
-    url = reverse(&#39;polls:detail&#39;, args=(future_question.id,))
-    response = self.client.get(url)
-    self.assertEqual(response.status_code, 404)</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionDetailViewTests.test_past_question"><code class="name flex">
 <span>def <span class="ident">test_past_question</span></span>(<span>self)</span>
@@ -259,20 +81,6 @@ not have a method with the specified name.</p></div>
 <dd>
 <div class="desc"><p>The detail view of question with a pub_date in the past displays the
 question text.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_past_question(self):
-    &#39;&#39;&#39;
-    The detail view of question with a pub_date in the past displays the
-    question text.
-    &#39;&#39;&#39;
-    past_question = create_question(question_text=&#39;Past question.&#39;, days=-5)
-    url = reverse(&#39;polls:detail&#39;, args=(past_question.id,))
-    response = self.client.get(url)
-    self.assertContains(response, past_question.question_text)</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -292,66 +100,6 @@ TransactionTestCase.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class QuestionIndexViewTests(TestCase):
-    def test_no_questions(self):
-        &#39;&#39;&#39;
-        If no question exist, an appropriate message is displayed.
-        &#39;&#39;&#39;
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, &#39;No polls are available.&#39;)
-        self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])
-    
-    def test_past_question(self):
-        &#39;&#39;&#39;
-        Questions with the pub_date in the past are displayed on the index page.
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question],
-        )
-    
-    def test_future_question(self):
-        &#39;&#39;&#39;
-        Question with a pub_date in the future aren&#39;t displayed on
-        the index page. 
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Future question.&#39;, days=30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertContains(response, &#39;No polls are available.&#39;)
-        self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])
-    
-    def test_future_question_and_past_question(self):
-        &#39;&#39;&#39;
-        Even if both past and future questions exist, only past questions are
-        displayed.
-        &#39;&#39;&#39;
-        question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-        create_question(question_text=&#39;Future question.&#39;, days=30)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question],
-        )
-    
-    def test_two_past_questions(self):
-        &#39;&#39;&#39;
-        The question index page may display multiple questions.
-        &#39;&#39;&#39;
-        question1 = create_question(question_text=&#39;Past question 1.&#39;, days=-30)
-        question2 = create_question(question_text=&#39;Past question 2.&#39;, days=-5)
-        response = self.client.get(reverse(&#39;polls:index&#39;))
-        self.assertQuerysetEqual(
-            response.context[&#39;latest_question_list&#39;],
-            [question2, question1]
-        )</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.test.testcases.TestCase</li>
@@ -367,20 +115,6 @@ not have a method with the specified name.</p></div>
 <dd>
 <div class="desc"><p>Question with a pub_date in the future aren't displayed on
 the index page.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_future_question(self):
-    &#39;&#39;&#39;
-    Question with a pub_date in the future aren&#39;t displayed on
-    the index page. 
-    &#39;&#39;&#39;
-    question = create_question(question_text=&#39;Future question.&#39;, days=30)
-    response = self.client.get(reverse(&#39;polls:index&#39;))
-    self.assertContains(response, &#39;No polls are available.&#39;)
-    self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionIndexViewTests.test_future_question_and_past_question"><code class="name flex">
 <span>def <span class="ident">test_future_question_and_past_question</span></span>(<span>self)</span>
@@ -388,85 +122,24 @@ the index page.</p></div>
 <dd>
 <div class="desc"><p>Even if both past and future questions exist, only past questions are
 displayed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_future_question_and_past_question(self):
-    &#39;&#39;&#39;
-    Even if both past and future questions exist, only past questions are
-    displayed.
-    &#39;&#39;&#39;
-    question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-    create_question(question_text=&#39;Future question.&#39;, days=30)
-    response = self.client.get(reverse(&#39;polls:index&#39;))
-    self.assertQuerysetEqual(
-        response.context[&#39;latest_question_list&#39;],
-        [question],
-    )</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionIndexViewTests.test_no_questions"><code class="name flex">
 <span>def <span class="ident">test_no_questions</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>If no question exist, an appropriate message is displayed.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_no_questions(self):
-    &#39;&#39;&#39;
-    If no question exist, an appropriate message is displayed.
-    &#39;&#39;&#39;
-    response = self.client.get(reverse(&#39;polls:index&#39;))
-    self.assertEqual(response.status_code, 200)
-    self.assertContains(response, &#39;No polls are available.&#39;)
-    self.assertQuerysetEqual(response.context[&#39;latest_question_list&#39;], [])</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionIndexViewTests.test_past_question"><code class="name flex">
 <span>def <span class="ident">test_past_question</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Questions with the pub_date in the past are displayed on the index page.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_past_question(self):
-    &#39;&#39;&#39;
-    Questions with the pub_date in the past are displayed on the index page.
-    &#39;&#39;&#39;
-    question = create_question(question_text=&#39;Past question.&#39;, days=-30)
-    response = self.client.get(reverse(&#39;polls:index&#39;))
-    self.assertQuerysetEqual(
-        response.context[&#39;latest_question_list&#39;],
-        [question],
-    )</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionIndexViewTests.test_two_past_questions"><code class="name flex">
 <span>def <span class="ident">test_two_past_questions</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The question index page may display multiple questions.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_two_past_questions(self):
-    &#39;&#39;&#39;
-    The question index page may display multiple questions.
-    &#39;&#39;&#39;
-    question1 = create_question(question_text=&#39;Past question 1.&#39;, days=-30)
-    question2 = create_question(question_text=&#39;Past question 2.&#39;, days=-5)
-    response = self.client.get(reverse(&#39;polls:index&#39;))
-    self.assertQuerysetEqual(
-        response.context[&#39;latest_question_list&#39;],
-        [question2, question1]
-    )</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -486,39 +159,6 @@ TransactionTestCase.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class QuestionModelTests(TestCase):
-    def test_was_published_recently_with_future_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns False for questions whose pub_date
-        is in the future.
-        &#39;&#39;&#39;
-        time = timezone.now() + datetime.timedelta(days=30)
-        future_question = Question(pub_date=time)
-        self.assertIs(future_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_old_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns False for questions whose pub_date
-        is older than 1 day.
-        &#39;&#39;&#39;
-        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
-        old_question = Question(pub_date=time)
-        self.assertIs(old_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_recent_question(self):
-        &#39;&#39;&#39;
-        was_published_recently() returns True for questions whose pub_date
-        is within the last day.
-        &#39;&#39;&#39;
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59,
-                seconds=59)
-        recent_question = Question(pub_date=time)
-        self.assertIs(recent_question.was_published_recently(), True)</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.test.testcases.TestCase</li>
@@ -534,19 +174,6 @@ not have a method with the specified name.</p></div>
 <dd>
 <div class="desc"><p>was_published_recently() returns False for questions whose pub_date
 is in the future.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_was_published_recently_with_future_question(self):
-    &#39;&#39;&#39;
-    was_published_recently() returns False for questions whose pub_date
-    is in the future.
-    &#39;&#39;&#39;
-    time = timezone.now() + datetime.timedelta(days=30)
-    future_question = Question(pub_date=time)
-    self.assertIs(future_question.was_published_recently(), False)</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionModelTests.test_was_published_recently_with_old_question"><code class="name flex">
 <span>def <span class="ident">test_was_published_recently_with_old_question</span></span>(<span>self)</span>
@@ -554,19 +181,6 @@ is in the future.</p></div>
 <dd>
 <div class="desc"><p>was_published_recently() returns False for questions whose pub_date
 is older than 1 day.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_was_published_recently_with_old_question(self):
-    &#39;&#39;&#39;
-    was_published_recently() returns False for questions whose pub_date
-    is older than 1 day.
-    &#39;&#39;&#39;
-    time = timezone.now() - datetime.timedelta(days=1, seconds=1)
-    old_question = Question(pub_date=time)
-    self.assertIs(old_question.was_published_recently(), False)</code></pre>
-</details>
 </dd>
 <dt id="polls.test.QuestionModelTests.test_was_published_recently_with_recent_question"><code class="name flex">
 <span>def <span class="ident">test_was_published_recently_with_recent_question</span></span>(<span>self)</span>
@@ -574,20 +188,6 @@ is older than 1 day.</p></div>
 <dd>
 <div class="desc"><p>was_published_recently() returns True for questions whose pub_date
 is within the last day.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_was_published_recently_with_recent_question(self):
-    &#39;&#39;&#39;
-    was_published_recently() returns True for questions whose pub_date
-    is within the last day.
-    &#39;&#39;&#39;
-    time = timezone.now() - datetime.timedelta(hours=23, minutes=59,
-            seconds=59)
-    recent_question = Question(pub_date=time)
-    self.assertIs(recent_question.was_published_recently(), True)</code></pre>
-</details>
 </dd>
 </dl>
 </dd>

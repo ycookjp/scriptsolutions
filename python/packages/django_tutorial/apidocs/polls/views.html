@@ -22,79 +22,6 @@
 <h1 class="title">Module <code>polls.views</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- config: utf8 -*-
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.utils import timezone
-from django.views import generic
-from .models import Question, Choice
-
-# Create your views here.
-
-#def index(request):
-#    latest_question_list = Question.objects.order_by(&#39;-pub_date&#39;)[:5]
-#    context = {
-#        &#39;latest_question_list&#39;: latest_question_list
-#    }
-#    return render(request, &#39;polls/index.html&#39;, context)
-class IndexView(generic.ListView):
-    template_name = &#39;polls/index.html&#39;
-    context_object_name = &#39;latest_question_list&#39;
-
-    def get_queryset(self):
-        &#39;&#39;&#39;Return the latest five published questions.
-        Return the last five published questions (not including those set to be
-        published in the future).
-        &#39;&#39;&#39;
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by(&#39;-pub_date&#39;)[:5]
-
-#def detail(request, question_id):
-#    question = get_object_or_404(Question, pk=question_id)
-#    context = {&#39;question&#39;: question}
-#    return render(request, &#39;polls/detail.html&#39;, context)
-class DetailView(generic.DetailView):
-    model = Question
-    template_name = &#39;polls/detail.html&#39;
-
-    def get_queryset(self):
-        &#39;&#39;&#39;
-        Excludes any questions that aren\&#39;t published yet.
-        &#39;&#39;&#39;
-        return Question.objects.filter(pub_date__lte=timezone.now())
-
-#def results(request, question_id):
-#    question = get_object_or_404(Question, pk=question_id)
-#    return render(request, &#39;polls/results.html&#39;, {&#39;question&#39;: question})
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = &#39;polls/results.html&#39;
-
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST[&#39;choice&#39;])
-        
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, &#39;polls/detail.html&#39;, {
-            &#39;question&#39;: question,
-            &#39;error_message&#39;: &#39;You did\&#39;nt select a choice.&#39;,
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing with
-        # POST data. This prevents data from being posted twice if a user
-        # hits Back button.
-        return HttpResponseRedirect(reverse(&#39;polls:results&#39;, args=(question.id,)))</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -108,29 +35,6 @@ def vote(request, question_id):
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST[&#39;choice&#39;])
-        
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, &#39;polls/detail.html&#39;, {
-            &#39;question&#39;: question,
-            &#39;error_message&#39;: &#39;You did\&#39;nt select a choice.&#39;,
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing with
-        # POST data. This prevents data from being posted twice if a user
-        # hits Back button.
-        return HttpResponseRedirect(reverse(&#39;polls:results&#39;, args=(question.id,)))</code></pre>
-</details>
 </dd>
 </dl>
 </section>
@@ -147,20 +51,6 @@ def vote(request, question_id):
 view will support display of <em>any</em> object by overriding <code>self.get_object()</code>.</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DetailView(generic.DetailView):
-    model = Question
-    template_name = &#39;polls/detail.html&#39;
-
-    def get_queryset(self):
-        &#39;&#39;&#39;
-        Excludes any questions that aren\&#39;t published yet.
-        &#39;&#39;&#39;
-        return Question.objects.filter(pub_date__lte=timezone.now())</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.views.generic.detail.DetailView</li>
@@ -189,16 +79,6 @@ keyword arguments, and other things.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Excludes any questions that aren't published yet.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_queryset(self):
-    &#39;&#39;&#39;
-    Excludes any questions that aren\&#39;t published yet.
-    &#39;&#39;&#39;
-    return Question.objects.filter(pub_date__lte=timezone.now())</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -211,23 +91,6 @@ keyword arguments, and other things.</p></div>
 <code>self.queryset</code> can actually be any iterable of items, not just a queryset.</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class IndexView(generic.ListView):
-    template_name = &#39;polls/index.html&#39;
-    context_object_name = &#39;latest_question_list&#39;
-
-    def get_queryset(self):
-        &#39;&#39;&#39;Return the latest five published questions.
-        Return the last five published questions (not including those set to be
-        published in the future).
-        &#39;&#39;&#39;
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by(&#39;-pub_date&#39;)[:5]</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.views.generic.list.ListView</li>
@@ -258,19 +121,6 @@ keyword arguments, and other things.</p></div>
 <div class="desc"><p>Return the latest five published questions.
 Return the last five published questions (not including those set to be
 published in the future).</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_queryset(self):
-    &#39;&#39;&#39;Return the latest five published questions.
-    Return the last five published questions (not including those set to be
-    published in the future).
-    &#39;&#39;&#39;
-    return Question.objects.filter(
-        pub_date__lte=timezone.now()
-    ).order_by(&#39;-pub_date&#39;)[:5]</code></pre>
-</details>
 </dd>
 </dl>
 </dd>
@@ -284,14 +134,6 @@ published in the future).</p></div>
 view will support display of <em>any</em> object by overriding <code>self.get_object()</code>.</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class ResultsView(generic.DetailView):
-    model = Question
-    template_name = &#39;polls/results.html&#39;</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.views.generic.detail.DetailView</li>
@@ -323,11 +165,6 @@ keyword arguments, and other things.</p></div>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="polls" href="index.html">polls</a></code></li>
-</ul>
-</li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="polls.views.vote" href="#polls.views.vote">vote</a></code></li>
