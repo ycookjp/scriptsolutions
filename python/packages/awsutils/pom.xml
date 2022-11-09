@@ -128,6 +128,26 @@
         </executions>
       </plugin>
 
+      <!-- Creating output directory for coverage report -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun.ver}</version>
+        <executions>
+          <execution>
+            <id>mkoutdir-piplicenses</id>
+            <phase>test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <mkdir dir="${project.build.directory}/site" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Generating test reports -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -146,6 +166,37 @@
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
               <commandlineArgs>-m pip install -t site-packages -r ${PACKAGE_NAME}/requirements.txt</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Installing pip-licenses -->
+          <execution>
+            <id>install-piplicenses</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <commandlineArgs>-m pip install -t piplicenses-packages pip-licenses</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Generating dependencies report -->
+          <execution>
+            <id>python-dependencies</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${PYTHONEXE}</executable>
+              <workingDirectory>${MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
+              <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
+              <environmentVariables>
+                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/piplicenses-packages</PYTHONPATH>
+              </environmentVariables>
             </configuration>
           </execution>
 
@@ -173,9 +224,9 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --force ${PACKAGE_NAME}</commandlineArgs>
+              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --config show_source_code=False --force ${PACKAGE_NAME}</commandlineArgs>
               <environmentVariables>
-                <PYTHONPATH>${TEST_PATH}/site-packages${p.sep}${MAIN_PATH}</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -190,70 +241,12 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${TEST_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --force tests</commandlineArgs>
+              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --config show_source_code=False --force tests</commandlineArgs>
               <environmentVariables>
-                <PYTHONPATH>site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/tests</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
-
-          <!-- Installing pip-licenses and generating dependencies -->
-          <execution>
-            <id>install-piplicenses</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${TEST_PATH}</workingDirectory>
-              <commandlineArgs>-m pip install -t piplicenses-packages pip-licenses</commandlineArgs>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>python-dependencies</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
-              <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
-              <environmentVariables>
-                <PYTHONPATH>${TEST_PATH}/piplicenses-packages${p.sep}${MAIN_PATH}/site-packages</PYTHONPATH>
-              </environmentVariables>
-            </configuration>
-          </execution>
-
-          <!-- Generating test result report -->
-<!--
-          <execution>
-            <id>python-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${TEST_PATH}</workingDirectory>
-              <arguments>
-                <argument>tests/${TEST_PY}</argument>
-              </arguments>
-              <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
-              </environmentVariables>
-              <successCodes>
-                <!- - 
-                  Continue generating reports even if unit test fails.
-                 - ->
-                <successCode>0</successCode>
-                <successCode>1</successCode>
-              </successCodes>
-            </configuration>
-          </execution>
--->
 
           <!-- Collecting coverage data and generating test result report -->
           <execution>
@@ -264,15 +257,15 @@
             </goals>
             <configuration>
               <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
-              <workingDirectory>${project.build.directory}/site</workingDirectory>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
                <arguments>
                 <argument>run</argument>
                 <argument>--source</argument>
-                <argument>${MAIN_PATH}</argument>
+                <argument>${MAIN_PATH}/${PACKAGE_NAME}</argument>
                 <argument>${TEST_PATH}/tests/${TEST_PY}</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/site-packages${p.sep}${TEST_PATH}/tests</PYTHONPATH>
               </environmentVariables>
               <successCodes>
                 <!-- 
@@ -293,12 +286,13 @@
             </goals>
             <configuration>
               <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
-              <workingDirectory>${project.build.directory}/site</workingDirectory>
+              <workingDirectory>${MAIN_PATH}</workingDirectory>
               <arguments>
                 <argument>html</argument>
+                <argument>--directory=${project.build.directory}/site/htmlcov</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}${p.sep}${TEST_PATH}/tests${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/site-packages${p.sep}${TEST_PATH}/tests</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -311,6 +305,7 @@
         <version>${maven-antrun.ver}</version>
         <executions>
           <execution>
+            <id>copy-testreports</id>
             <phase>site</phase>
             <goals>
               <goal>run</goal>
