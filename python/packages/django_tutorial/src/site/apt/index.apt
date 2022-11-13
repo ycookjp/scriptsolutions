@@ -1,0 +1,690 @@
+はじめての Django アプリ作成
+
+  このプロジェクトは、Djangoの以下のチュートリアルのページに従って構築した
+  Webアプリケーションである。
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial01/}その 1: リクエストとレスポンス}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial02/}その 2: モデルと管理サイト}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial03/}その 3: ビューとテンプレート}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial04/}その 4: フォームと汎用ビュー}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial05/}その 5: テスト}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial06/}}その 6: 静的ファイル}}
+
+  * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial07/}その 7: 管理サイトのカスタマイズ}}
+
+  []
+
+================================================================================
+
+* {django} - Web Application Framework
+
+
+** インストール
+
++------------------------------------------------------------------------------+
+$ python -m pip install [--user] Django
++------------------------------------------------------------------------------+
+
+** プロジェクトの作成
+
+  まだプロジェクトを作成していない場合は、プロジェクトを作成する。
+  Webアプリケーションは、プロジェクトに配置される。
+
+  [[1]] プロジェクトの作成
+
+    プロジェクトを作成するディレクトリに移動して、以下のコマンドを実行する。
+
++------------------------------------------------------------------------------+
+$ django-admin startproject <サイト名>
++------------------------------------------------------------------------------+
+
+    【注意】
+
+      * <サイト名> は「-」を含む記号を含めないこと
+
+    プロジェクト作成コマンドを実行すると、<サイト名>で指定した名前の
+    ディレクトリが作成され、そこにプロジェクトのディレクトリ、ファイルが
+    作成される。
+
+  [[2]] プロジェクトの設定
+
+    <サイト名>/settings.py に対して以下の設定をする。
+
+    * データベースの設定
+
+      規定では sqlite3 を使用するように設定されている。データベースに sqlite3 を
+      使用する場合は、変更せずに使用可能である。 
+
+      他のRDBを使用する場合は、以下の部分を設定し、データバインド（PostgreSQL
+      の場合は、psycopg2 パッケージ）をインストールする。
+
++------------------------------------------------------------------------------+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
++------------------------------------------------------------------------------+
+      \[PostgreSQLの設定例\]
+
+      * ENGINE - 以下の何れかを指定する。
+
+        * 'django.db.backends.postgresql'
+
+        * 'django.db.backends.mysql'
+
+        * 'django.db.backends.sqlite3'
+
+        * 'django.db.backends.oracle'
+
+      * NAME - データベースの名前
+
+      * USER - データベース作成の権限を持つデータベースユーザー名。
+
+      * PASSWORD - データベースユーザーのパスワード
+
+      * HOST - データベースの名前解決可能なホスト名、またはIPアドレス
+
+      * PORT - データベースサーバーに接続するときのポート番号
+
+      []
+
+      以上の設定を終えたら、<サイト名>のディレクトリに移動して、以下の
+      コマンドを実行してアプリケーションの実行に必要なデータベースのテーブルを
+      作成する。
+
++------------------------------------------------------------------------------+
+$ python manage.py migrate
++------------------------------------------------------------------------------+
+
+  * タイムゾーンの設定
+
+    「TIME_ZONE =」にタイムゾーンの設定をする。
+
++------------------------------------------------------------------------------+
+TIME_ZONE = 'Asia/Tokyo'
++------------------------------------------------------------------------------+
+    \[タイムゾーンの設定例\]
+
+  []
+
+** Django Admin (admin サイト)の設定
+
+  Django Admin は、コンテンツ（アプリケーションのモデル）の追加、変更、削除
+  などを管理するための Webアプリケーションである。利用開始の前のに、以下の
+  設定をする。
+
+  [[1]] 管理ユーザーの作成
+
+    <サイト名>のディレクトリに移動して、以下のコマンドを実行する。
+
++------------------------------------------------------------------------------+
+$ python manage.py createsuperuser
++------------------------------------------------------------------------------+
+
+    以下の入力を要求されるので、それぞれを設定する。
+
+    * Username - 管理者のログイン名を指定する
+
+    * Email address - 管理者のメールアドレスを指定する
+
+    * Password - 管理者のログインパスワードを指定する
+
+  []
+
+** Webアプリケーションの構築
+
+  [[1]] アプリケーションの作成
+
+    プロジェクト作成のコマンドを実行に作成されたディレクトリ（名前は
+    <サイト名>に指定した名前）に移動して、以下のコマンドを実行する。
+
++------------------------------------------------------------------------------+
+$ python manage.py startapp <アプリケーション名>
++------------------------------------------------------------------------------+
+
+    【注意】
+
+      * <アプリケーション名> は「-」を含む記号を含めないこと
+
+    アプリケーション作成コマンドを実行すると、<アプリケーション名>で指定した
+    名前のディレクトリが作成され、そこにアプリケーションのディレクトリ、
+    ファイルが作成される。
+
+  [[2]] アプリケーションの構成クラスの参照設定
+
+    <サイト名>/settings.py のファイルを開き、以下の設定を追加する。
+
++------------------------------------------------------------------------------+
+INSTALLED_APPS = [
+    '<アプリケーション名>.apps.<構成クラス名>',
+    ...
+]
++------------------------------------------------------------------------------+
+
+    * <構成クラス名>は、<アプリケーション名>/apps.py に設定されている AppConfig
+      の継承クラスの名前を指定する。
+
+  [[3]] モデルの作成
+
+    モデルはデータベースのテーブル定義を格納するクラスである。
+    <アプリケーション名>/models.py ファイルにモデルの定義を記述する。
+
+    モデルには、以下の内容を定義する。
+
+    * テーブルのフィールド（項目名、型）
+
+    * __str__ 関数。１つのレコードを表現する文字列
+
+    * モデルに対する操作
+
+    []
+
+    以下に示すものは、Django公式ドキュメントの
+    「はじめてのDjangoアプリ作成、その2」に記載されているモデルの定義である。
+
++------------------------------------------------------------------------------+
+import datetime
+from django.db import models
+from django.utils import timezone
+
+# Create your models here.
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.question_text
+
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.choice_text
++------------------------------------------------------------------------------+
+    \[モデルの定義例\]
+
+    モデルについての説明は以下を参照のこと。
+
+    * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial02/#creating-models}モデルの作成}}
+
+  [[4]] admin サイトへのモデルの登録
+
+    <アプリケーション名>/admin.py ファイルに対して以下の設定をする。
+
++------------------------------------------------------------------------------+
+from django.contrib import admin
+from .models import <モデルクラス名>
+
+# Register your models here.
+admin.site.register(<モデルクラス名>)
++------------------------------------------------------------------------------+
+
+  [[5]] URLディスパッチャ
+
+    URLディスパッチャは、リクエストURLをモデルの関数に紐付ける。リクエスト
+    ディスパッチャの設定は、<アプリケーション名>/urls.py ファイルに対して、
+   urlpatterns に 以下の設定をする。なお、app_name はアプリケーションの名前
+   空間を指定するもので、テンプレートでURLを指定するときに使用する。
+
++------------------------------------------------------------------------------+
+from django.urls import path
+from . import views
+
+app_name = 'polls'
+urlpatterns = [
+    path('<int:question_id>/results/', views.results, name='results'),
+    ...
+}
++------------------------------------------------------------------------------+
+
+    URLのディスパッチは以下のように行われる。
+
+    [[i]] URIからサーバー名の後の「<アプリケーション名>/」までを取り除く。
+      <アプリケーション名>は、apps.py の「name=」に設定されたものを使用する。
+
+
+    [[ii]] 上記の文字列にpath関数の第１引数が最長マッチしたものが適用され、
+      views.py に定義した name パラメータに設定した名前の関数が実行される。
+
+    [[iii]] マッチした文字列の前に中に「\<パラメータ名\>」が含まれている
+      場合は、マッチした文字列の該当部分を「パラメータ名」のパラメータ名で
+      実行される関数に渡す。「パラメータ名」の前に「int:」が指定された場合は
+      整数型に変換してから関数に渡される。
+
+    []
+
+    【例】
+
+    [[i]] ブラウザから「http://localhost:8000/polls/34/results/」にアクセスする
+
+    [[ii]] アプリケーションサーバには、リクエストURIとして「polls/4/results/」が
+      渡される。pollsアプリケーションのapps.pyに「bname = polls」と設定されて
+      いるので、pollsアプリケーションの urls.py の設定を参照する
+
+    [[iii]] URIからアプリケーション名「polls/」を除いた文字列「34/results/」が
+      下記の設定にマッチする。
+
++------------------------------------------------------------------------------+
+path('<int:question_id>/results/', views.results, name='results')
++------------------------------------------------------------------------------+
+
+    [[iv]] 「\<int:question_id\>」がマッチした文字した文字列の「34」に該当する
+      ので、「34」を整数に変換して、パラメータ名 question_id をつけて views.py
+      の results 関数に渡して関数を実行する。
+
+  [[6]] ビューのテンプレートの配置と作成
+
+    [[i]] テンプレートの配置
+
+      テンプレートは、<アプリケーション名>/templates/<アプリケーション名>
+      ディレクトリの下に配置する。
+
+    [[ii]] テンプレートの記述
+
+      * テンプレートの書き方の書き方
+
+        以下のチュートリアルのセクションを参照のこと。
+
+        * {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial03/#write-views-that-actually-do-something}実際に動作するビューを書く}}
+
+      * URL からのハードコーディングの排除
+
+        テンプレートの中で以下のように記述したとする。
+
++------------------------------------------------------------------------------+
+<li><a href="/polls/{{ question_id }}/">{{ question.question_text }}</a></li>
++------------------------------------------------------------------------------+
+
+        この場合、アプリケーションの名前空間が変わったり、urls.py で URL の
+        パスの変更が行われた場合にビューの修正が発生する。以下のように
+        「\{%url%\}」を使用すれば、この問題を避けることができる。
+
++------------------------------------------------------------------------------+
+<li><a href="{% url '<名前空間>:<pathのname>' <パラメータ> ... %}">...</a></li>
++------------------------------------------------------------------------------+
+
+        上記の設定の場合は、以下条件に一致する path関数の第一パラメータの値の
+        前に「<アプリケーション名>/」を加えたものが\{%ul%\}の結果となる。
+
+        * urls.py の app_name に設定された値が<名前空間>と一致する
+          アプリケーションの urls.py が対象
+
+        * 上記の urls.py の urlpatters に設定された path関数の配列の中で、
+          name引数が<pathのname>に一致する
+
+        []
+
+        URLの文字列野中に「\<...\>」が含まれる場合は、\{%url%\}の２番目
+        以降の内容が順番に適用される。
+
+        例えば、テンプレートに以下の記述をした場合は、\{%ur%\}の部分は以下の
+        ように置き換わる。
+
++------------------------------------------------------------------------------+
+<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
++------------------------------------------------------------------------------+
+
+        [[a]] urls.py の app_name に「polls」が設定されているファイル、つまり
+          polls/urls.py の設定を参照する
+
+        [[b]] urlpatterns に設定された path 関数の中で、引数に「name=detail」が
+          設定されたものを探す
+
++------------------------------------------------------------------------------+
+path('<int:question_id>/', views.detail, name='detail'),
++------------------------------------------------------------------------------+
+
+        [[c]] 見つかったpath関数の設定の第１引数の値「\<int:question_id\>/」の
+          前に「<アプリケーション名>/」を加えたもの、つまり
+          「polls/\<int:question_id\>/」が URL となる
+
+        [[d]] 上記の URL に 「\<\>」で囲まれた部分があるので、この部分が
+          \{%url%\}の２番目以降の引数の内容、つまり question.id の値に差し
+          変わる
+
+        [[e]] 最終的に \{%url%\}は、以下のURLに置き換わる。
+        
++------------------------------------------------------------------------------+
+/pols/34/  (question.id の値が 34 の場合)
++------------------------------------------------------------------------------+
+
+      * 参考文献
+
+        * {{{https://docs.djangoproject.com/ja/4.1/topics/templates/}テンプレート作成ガイド}}
+
+  [[7]] ビューの実装
+
+    ビューは、リクエストを受け取ってデータベースの検索や更新等の処理を実行し、
+    何らかの応答を返す処理である。
+
+    * views モジュールのメソッドによるビューの実装
+
+      <アプリケーション名>/views.py のURLディスパッチャから呼び出される関数を
+      作成し、以下のように記述する。
+
++------------------------------------------------------------------------------+
+from django.http import HttpResponse
+from django.template import loader
+
+def index(request):
+    ...
+    template = loader.get_template('<テンプレートファイルのパス>')
+    context = {
+        '<テンプレートの変数名>': <この関数の変数>
+    }
+    return HttpResponse(template.render(context, request))
++------------------------------------------------------------------------------+
+
+      * テンプレートの取得
+
+        loader.get_template 関数を実行してテンプレートをロードする。
+        引数の <テンプレートファイルのパス> にはtemplates ディレクトリからの
+        相対パスを指定する。
+
+      * テンプレートによるレスポンスの作成
+
+        template.render 関数を実行して応答で返すHTMLを作成する。
+        contextにはテンプレートに渡す引数をディクショナリで以下のように設定する。
+
+        * <テンプレートの変数名> - テンプレートの中で使用している変数の名前
+
+        * <この関数の変数> - 関数の中で使用している変数
+
+      * テンプレート取得のショートカット
+
+        django.shortcuts モジュールの render 関数 を使用して、template
+        モジュールの loader.get_template 関数の呼び出しをショートカットする
+        ことが可能である。
+
++------------------------------------------------------------------------------+
+from django.shortcuts import render
+
+def index(request):
+    ...
+    context = {
+        '<テンプレートの変数名>': <この関数の変数>
+    }
+    return render(request, '<テンプレートファイルのパス>', context)
++------------------------------------------------------------------------------+
+
+      * 404例外の送出
+
+        以下のように モデルの objects.get 関数を呼び出す代わりに、
+        django.shortcuts モジュールの get_object_or_404 関数を使用することで、
+        検索条件に該当するデータが見つからない場合に404エラーを簡単に送出する
+        ことができる。
+
++------------------------------------------------------------------------------+
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404, get_list_or_404
+from django.http import HttpResponse
+
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    context = {'question': question}
+    return render(request, 'polls/detail.html', context)
++------------------------------------------------------------------------------+
+
+    * 汎用ビュー
+
+      汎用ビューは、データベースからモデルの一覧や1つのモデルを取得して
+      テンプレートに渡す処理を汎用化したクラスである。これを使用すると、
+      djsnho.shortcuts モジュールの render関数の呼び出しを省略できる。
+
+      汎用ビューを使用する手順は以下のとおり。
+
+      [[i]] <アプリケーション名>/views.py にビューのクラスを作成する。
+
+        * Modelの一覧を表示する場合
+
++------------------------------------------------------------------------------+
+from django.views import generic
+from .models import Question
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        return Question.objects.order_by('-pub_date')[:5]
++------------------------------------------------------------------------------+
+          \[一覧を表示するビュークラスの例\]
+
+          説明
+
+          * django.views.generic モジュールの ListView クラスを継承したクラスを
+            作成する
+
+          * クラスの template_name 属性を上書きして、テンプレートファイルの
+            パスを設定する
+
+          * context_object_name 属性を上書きして、テンプレートに渡す変数名を
+            設定する
+
+          * get_queryset 関数を実装して、テンプレート渡す変数の内容
+            （データベースからの検索結果）を返す
+
+        * モデルの内容を表示する場合
+
++------------------------------------------------------------------------------+
+from django.views import generic
+from .models import Question
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
++------------------------------------------------------------------------------+
+          \[モデルの内容を表示するビュークラスの例\]
+
+          説明
+
+          * model 属性にテンプレート渡すデータのクラスを指定する。テンプレート
+            で参照する変数名は、クラス名を小文字に変換したものになる。
+
+          * template_name 属性をオーバーライドして、テンプレートファイルの
+            パスを指定する。
+
+      [[ii]] urls.py の設定
+
++------------------------------------------------------------------------------+
+from django.urls import path
+from . import views
+
+app_name = 'polls'
+urlpatterns = [
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    ...
+}
++------------------------------------------------------------------------------+
+
+        path 関数の設定内容
+        
+        * 第１引数はリクエストURLの「<アプリケーション名>/」より後ろの部分を
+          指定する。モデルの内容を表示するビューの場合は、パラメータ名が「pk」
+          のパラメータにモデルの id が渡される。
+
+        * 第２引数は、「<ビュークラス>.as_view()」を指定する。
+        
+        * name パラメータにこの設定を識別するための名前を設定する。
+
+  [[7]] フォームの作成
+
+    * フォームの例
+
+      チュートリアルの
+      {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial04/#write-a-minimal-form}簡単なフォームを書く}}
+      に記載されているフォームの例は以下のとおり。
+
++------------------------------------------------------------------------------+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ question.question_text }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+</fieldset>
+<input type="submit" value="Vote">
+</form>
++------------------------------------------------------------------------------+
+
+    * フォームに関するトピックス
+
+      二重送信を防止するためのテクニック。処理が成功したら、リダイレクトで
+      画面遷移する。
+
+      django.urls モジュールの reverse 関数を呼び出すと、テンプレートの
+      \{%url%\}と同様な URL を取得できる。
+
++------------------------------------------------------------------------------+
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    ...
+    return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
++------------------------------------------------------------------------------+
+
+  []
+
+** 自動テストの実行
+
+  Djangoの自動テストには、モデルのテストとビューのテストがある。どちらも
+  <アプリケーション名>/test.py ファイルにテストのコードを記述する。
+
+  * モデルのテストクラスの作成
+
++------------------------------------------------------------------------------+
+import datetime
+from django.test import TestCase
+from django.utils import timezone
+from .models import Question
+
+class QuestionModelTests(TestCase):
+    def test_was_published_recently_with_future_question(self):
+        '''
+        was_published_recently() returns False for questions whose pub_date
+        is in the future.
+        '''
+        time = timezone.now() + datetime.timedelta(days=30)
+        future_question = Question(pub_date=time)
+        self.assertIs(future_question.was_published_recently(), False)
++------------------------------------------------------------------------------+
+    \[モデルのテストクラスの実装例\]
+
+    * テストクラスは django.test.TestCase クラスを継承して作成する。
+
+    * テスト結果の判定は、self.assertXXX メソッドを使用して判定する。
+
+    * モデルのテストクラスの書き方については、以下のチュートリアルの記事を参照
+      すること。
+
+      {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial05/#create-a-test-to-expose-the-bug}バグをあぶり出すためにテストを作成する}}
+
+  * ビューのテストクラスの作成
+
++------------------------------------------------------------------------------+
+import datetime
+from django.test import TestCase
+from django.urls import reverse
+from django.utils import timezone
+from .models import Question
+
+def create_question(question_text, days):
+    '''
+    Create a question with the given 'question_text' and published the
+    given number of 'days' offset to now (negative for questions published
+    in the past, positive for questions that have yet to be published).
+    '''
+    time = timezone.now() + datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text, pub_date=time)
+
+class QuestionModelTests(TestCase):
+    def test_future_question(self):
+        '''
+        Question with a pub_date in the future aren't displayed on
+        the index page. 
+        '''
+        question = create_question(question_text='Future question.', days=30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertContains(response, 'No polls are available.')
+        self.assertQuerysetEqual(response.context['latest_question_list'], [])
++------------------------------------------------------------------------------+
+    \[ビューのテストクラスの実装例\]
+
+    * テストクラスの作成手順は、モデルのテストクラスと同じ
+
+    * self.client.get 関数を実行してビューからの応答を取得して、その内容を
+      テストする。
+
+    * get関数に指定するURLは、django.urls パッケージの reverse関数を使用して、
+      urls.py の設定から URL を取得する。
+
+    * ビューのテストクラスの書き方については、以下のチュートリアルの記事を参照
+      すること。
+
+      {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial05/#testing-our-new-view}新しいビューをテストする}}
+
+  []
+
+** 静的ファイルの配置
+
+  * 詳細は以下のチュートリアルの記事を参照のこと。
+
+    {{{https://docs.djangoproject.com/ja/4.1/intro/tutorial06/}はじめての Django アプリ作成、その 6}}
+
+  * 静的ファイルは、<アプリケーション名>/static/<アプリケーション名>
+    ディレクトリの下に配置する。
+
+  * スタイルシートの配置例
+
+    * スタイルシートは、静的ファイルを配置するディレクトリの下に style.css の
+      名前で配置する。
+
+    * テンプレートからのスタイルシートの参照は、テンプレートファイルの先頭に
+      以下のように記述する。
+
++------------------------------------------------------------------------------+
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}"/>
++------------------------------------------------------------------------------+
+
+  * 背景画像の配置
+
+    * 背景画像は、静的ファイルを配置するディレクトリの下に「images」
+      ディレクトリを作成し、その下に配置する。
+
+    * スタイルシートの記述例
+
++------------------------------------------------------------------------------+
+li a {
+    color: green;	
+}
+
+body {
+    background: white url("images/background.jpg");
+}
++------------------------------------------------------------------------------+
+
+  []
