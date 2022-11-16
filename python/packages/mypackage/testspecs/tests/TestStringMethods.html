@@ -22,33 +22,6 @@
 <h1 class="title">Module <code>tests.TestStringMethods</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- coding: utf-8 -*-
-
-import unittest
-
-class TestStringMethods(unittest.TestCase):
-
-    def test_upper(self):
-        self.assertEqual(&#39;foo&#39;.upper(), &#39;FOO&#39;)
-
-    def test_isupper(self):
-        self.assertTrue(&#39;FOO&#39;.isupper())
-        self.assertFalse(&#39;Foo&#39;.isupper())
-
-    def test_split(self):
-        s = &#39;hello world&#39;
-        self.assertEqual(s.split(), [&#39;hello&#39;, &#39;world&#39;])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
-
-if __name__ == &#39;__main__&#39;:
-    unittest.main()</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -92,26 +65,6 @@ attribute so can be configured by individual tests if required.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class TestStringMethods(unittest.TestCase):
-
-    def test_upper(self):
-        self.assertEqual(&#39;foo&#39;.upper(), &#39;FOO&#39;)
-
-    def test_isupper(self):
-        self.assertTrue(&#39;FOO&#39;.isupper())
-        self.assertFalse(&#39;Foo&#39;.isupper())
-
-    def test_split(self):
-        s = &#39;hello world&#39;
-        self.assertEqual(s.split(), [&#39;hello&#39;, &#39;world&#39;])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>unittest.case.TestCase</li>
@@ -123,44 +76,18 @@ not have a method with the specified name.</p></div>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_isupper(self):
-    self.assertTrue(&#39;FOO&#39;.isupper())
-    self.assertFalse(&#39;Foo&#39;.isupper())</code></pre>
-</details>
 </dd>
 <dt id="tests.TestStringMethods.TestStringMethods.test_split"><code class="name flex">
 <span>def <span class="ident">test_split</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_split(self):
-    s = &#39;hello world&#39;
-    self.assertEqual(s.split(), [&#39;hello&#39;, &#39;world&#39;])
-    # check that s.split fails when the separator is not a string
-    with self.assertRaises(TypeError):
-        s.split(2)</code></pre>
-</details>
 </dd>
 <dt id="tests.TestStringMethods.TestStringMethods.test_upper"><code class="name flex">
 <span>def <span class="ident">test_upper</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_upper(self):
-    self.assertEqual(&#39;foo&#39;.upper(), &#39;FOO&#39;)</code></pre>
-</details>
 </dd>
 </dl>
 </dd>

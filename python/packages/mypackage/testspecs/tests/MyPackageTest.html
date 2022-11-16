@@ -22,90 +22,6 @@
 <h1 class="title">Module <code>tests.MyPackageTest</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- coding: utf-8 -*-
-
-import unittest
-import HtmlTestRunner
-import logging
-import os
-import sys
-
-from datetime import datetime
-from mypackage import  mypackage
-
-class MyPackageTest(unittest.TestCase):
-    
-    def setUp(self):
-        logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-        logging.debug(&#39;Set up test.&#39;)
-    
-    def test_find_repeat(self):
-        # 3文字が11回出現する
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkxyz&#39; and 1 repeat.&#34;)
-        # 3文字の中で1文字が違っていたら、その文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijK&#39;), [-1, 0],
-                         msg=&#34;&#39;ijK&#39; must be found at index:-1 of &#39;abcijkxyz&#39; and 0 repeat.&#34;)
-        # 3文字が連続している場合は、最初に検出した位置と、繰り返し回数：2が返される。
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkijkxyz&#39;, &#39;ijk&#39;), [3, 2],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkijkxyz&#39; and 3 repeat.&#34;)
-        # 検出文字列が1文字で検出対象にそれが3つ連続する場合は、繰り返し回数：3が返される
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxxx&#39;, &#39;x&#39;), [6, 3],
-                         msg=&#34;&#39;x&#39; must be found at index:6  of &#39;abcijkxxx&#39; and 3 repeat.&#34;)
-        
-        # 開始位置を指定するとそれより前の文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;abc&#39;, 1), [-1, 0],
-                         msg=&#34;&#39;abc&#39; must be found at index:-1  of &#39;bcijkxyz&#39; and 0 repeat.&#34;)
-        # 開始位置を指定するとそれより前の文字列は検出される
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijkxyz&#39; and 1 repeat.&#34;)
-        
-        # 終了位置を指定するとそれより後ろの文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;xyz&#39;, 0, 8), [-1, 0],
-                         msg=&#34;&#39;zyz&#39; must be found at index:-1  of &#39;abcijkxy&#39; and 0 repeat.&#34;)
-        # 終了位置を指定するとそれより前の文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3, 7), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijk&#39; and 1 repeat.&#34;)
-    
-    def test_format_date(self):
-
-        # 月日時分が１桁の場合
-        date = datetime(234, 5, 6, 7, 8, 9)
-        # yyyy-MM-dd hh:mm:ss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;0234-05-06 07:08:09&#34;)
-        # yyyyMMddhhmmss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;02340506070809&#34;)
-        # yy-M-d h:m:s
-        self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;34-5-6 7:8:9&#34;)
-        
-        # 月日時分秒が２桁の場合
-        date = datetime(2012, 10, 11, 12, 13, 14)
-        # yyyy-MM-dd hh:mm:ss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;2012-10-11 12:13:14&#34;)
-        # yyyyMMddhhmmss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;20121011121314&#34;)
-        # yy-M-d h:m:s
-        self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;12-10-11 12:13:14&#34;)
-        # 書式文字列に年５桁、月日時分秒に３桁を指定した場合
-        # yyyyy/MMM/ddd hhh:mmm:sss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyy/MMM/ddd hhh:mmm:sss&#34;), &#34;02012/010/011 012:013:014&#34;)
-        
-        # 日本語a-zA-Z0-9YYYYDDHHSS =&gt; No match.
-        self.assertEqual(mypackage.format_date(date, &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;), &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;)
-    
-    def tearDown(self):
-        logging.debug(&#39;Tear down test.&#39;)
-
-if __name__ == &#39;__main__&#39;:
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-             output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;,
-             add_timestamp=False)
-    unittest.main(testRunner=html_runner)</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -149,73 +65,6 @@ attribute so can be configured by individual tests if required.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class MyPackageTest(unittest.TestCase):
-    
-    def setUp(self):
-        logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-        logging.debug(&#39;Set up test.&#39;)
-    
-    def test_find_repeat(self):
-        # 3文字が11回出現する
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkxyz&#39; and 1 repeat.&#34;)
-        # 3文字の中で1文字が違っていたら、その文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijK&#39;), [-1, 0],
-                         msg=&#34;&#39;ijK&#39; must be found at index:-1 of &#39;abcijkxyz&#39; and 0 repeat.&#34;)
-        # 3文字が連続している場合は、最初に検出した位置と、繰り返し回数：2が返される。
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkijkxyz&#39;, &#39;ijk&#39;), [3, 2],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkijkxyz&#39; and 3 repeat.&#34;)
-        # 検出文字列が1文字で検出対象にそれが3つ連続する場合は、繰り返し回数：3が返される
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxxx&#39;, &#39;x&#39;), [6, 3],
-                         msg=&#34;&#39;x&#39; must be found at index:6  of &#39;abcijkxxx&#39; and 3 repeat.&#34;)
-        
-        # 開始位置を指定するとそれより前の文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;abc&#39;, 1), [-1, 0],
-                         msg=&#34;&#39;abc&#39; must be found at index:-1  of &#39;bcijkxyz&#39; and 0 repeat.&#34;)
-        # 開始位置を指定するとそれより前の文字列は検出される
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijkxyz&#39; and 1 repeat.&#34;)
-        
-        # 終了位置を指定するとそれより後ろの文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;xyz&#39;, 0, 8), [-1, 0],
-                         msg=&#34;&#39;zyz&#39; must be found at index:-1  of &#39;abcijkxy&#39; and 0 repeat.&#34;)
-        # 終了位置を指定するとそれより前の文字列は検出されない
-        self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3, 7), [3, 1],
-                         msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijk&#39; and 1 repeat.&#34;)
-    
-    def test_format_date(self):
-
-        # 月日時分が１桁の場合
-        date = datetime(234, 5, 6, 7, 8, 9)
-        # yyyy-MM-dd hh:mm:ss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;0234-05-06 07:08:09&#34;)
-        # yyyyMMddhhmmss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;02340506070809&#34;)
-        # yy-M-d h:m:s
-        self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;34-5-6 7:8:9&#34;)
-        
-        # 月日時分秒が２桁の場合
-        date = datetime(2012, 10, 11, 12, 13, 14)
-        # yyyy-MM-dd hh:mm:ss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;2012-10-11 12:13:14&#34;)
-        # yyyyMMddhhmmss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;20121011121314&#34;)
-        # yy-M-d h:m:s
-        self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;12-10-11 12:13:14&#34;)
-        # 書式文字列に年５桁、月日時分秒に３桁を指定した場合
-        # yyyyy/MMM/ddd hhh:mmm:sss
-        self.assertEqual(mypackage.format_date(date, &#34;yyyyy/MMM/ddd hhh:mmm:sss&#34;), &#34;02012/010/011 012:013:014&#34;)
-        
-        # 日本語a-zA-Z0-9YYYYDDHHSS =&gt; No match.
-        self.assertEqual(mypackage.format_date(date, &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;), &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;)
-    
-    def tearDown(self):
-        logging.debug(&#39;Tear down test.&#39;)</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>unittest.case.TestCase</li>
@@ -227,101 +76,24 @@ not have a method with the specified name.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Hook method for setting up the test fixture before exercising it.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def setUp(self):
-    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-    logging.debug(&#39;Set up test.&#39;)</code></pre>
-</details>
 </dd>
 <dt id="tests.MyPackageTest.MyPackageTest.tearDown"><code class="name flex">
 <span>def <span class="ident">tearDown</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Hook method for deconstructing the test fixture after testing it.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def tearDown(self):
-    logging.debug(&#39;Tear down test.&#39;)</code></pre>
-</details>
 </dd>
 <dt id="tests.MyPackageTest.MyPackageTest.test_find_repeat"><code class="name flex">
 <span>def <span class="ident">test_find_repeat</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_find_repeat(self):
-    # 3文字が11回出現する
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;), [3, 1],
-                     msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkxyz&#39; and 1 repeat.&#34;)
-    # 3文字の中で1文字が違っていたら、その文字列は検出されない
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijK&#39;), [-1, 0],
-                     msg=&#34;&#39;ijK&#39; must be found at index:-1 of &#39;abcijkxyz&#39; and 0 repeat.&#34;)
-    # 3文字が連続している場合は、最初に検出した位置と、繰り返し回数：2が返される。
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkijkxyz&#39;, &#39;ijk&#39;), [3, 2],
-                     msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;abcijkijkxyz&#39; and 3 repeat.&#34;)
-    # 検出文字列が1文字で検出対象にそれが3つ連続する場合は、繰り返し回数：3が返される
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxxx&#39;, &#39;x&#39;), [6, 3],
-                     msg=&#34;&#39;x&#39; must be found at index:6  of &#39;abcijkxxx&#39; and 3 repeat.&#34;)
-    
-    # 開始位置を指定するとそれより前の文字列は検出されない
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;abc&#39;, 1), [-1, 0],
-                     msg=&#34;&#39;abc&#39; must be found at index:-1  of &#39;bcijkxyz&#39; and 0 repeat.&#34;)
-    # 開始位置を指定するとそれより前の文字列は検出される
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3), [3, 1],
-                     msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijkxyz&#39; and 1 repeat.&#34;)
-    
-    # 終了位置を指定するとそれより後ろの文字列は検出されない
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;xyz&#39;, 0, 8), [-1, 0],
-                     msg=&#34;&#39;zyz&#39; must be found at index:-1  of &#39;abcijkxy&#39; and 0 repeat.&#34;)
-    # 終了位置を指定するとそれより前の文字列は検出されない
-    self.assertEqual(mypackage.find_repeat(&#39;abcijkxyz&#39;, &#39;ijk&#39;, 3, 7), [3, 1],
-                     msg=&#34;&#39;ijk&#39; must be found at index:3  of &#39;ijk&#39; and 1 repeat.&#34;)</code></pre>
-</details>
 </dd>
 <dt id="tests.MyPackageTest.MyPackageTest.test_format_date"><code class="name flex">
 <span>def <span class="ident">test_format_date</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_format_date(self):
-
-    # 月日時分が１桁の場合
-    date = datetime(234, 5, 6, 7, 8, 9)
-    # yyyy-MM-dd hh:mm:ss
-    self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;0234-05-06 07:08:09&#34;)
-    # yyyyMMddhhmmss
-    self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;02340506070809&#34;)
-    # yy-M-d h:m:s
-    self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;34-5-6 7:8:9&#34;)
-    
-    # 月日時分秒が２桁の場合
-    date = datetime(2012, 10, 11, 12, 13, 14)
-    # yyyy-MM-dd hh:mm:ss
-    self.assertEqual(mypackage.format_date(date, &#34;yyyy-MM-dd hh:mm:ss&#34;), &#34;2012-10-11 12:13:14&#34;)
-    # yyyyMMddhhmmss
-    self.assertEqual(mypackage.format_date(date, &#34;yyyyMMddhhmmss&#34;), &#34;20121011121314&#34;)
-    # yy-M-d h:m:s
-    self.assertEqual(mypackage.format_date(date, &#34;yy-M-d h:m:s&#34;), &#34;12-10-11 12:13:14&#34;)
-    # 書式文字列に年５桁、月日時分秒に３桁を指定した場合
-    # yyyyy/MMM/ddd hhh:mmm:sss
-    self.assertEqual(mypackage.format_date(date, &#34;yyyyy/MMM/ddd hhh:mmm:sss&#34;), &#34;02012/010/011 012:013:014&#34;)
-    
-    # 日本語a-zA-Z0-9YYYYDDHHSS =&gt; No match.
-    self.assertEqual(mypackage.format_date(date, &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;), &#34;日本語a-zA-Z0-9YYYYDDHHSS&#34;)</code></pre>
-</details>
 </dd>
 </dl>
 </dd>

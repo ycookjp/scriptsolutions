@@ -22,32 +22,6 @@
 <h1 class="title">Module <code>tests.FailErrorTest</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- config: utf-8 -*-
-
-import unittest
-import HtmlTestRunner
-import logging
-import os
-
-from mypackage import failerror
-
-class FailErrorTest(unittest.TestCase):
-    
-    def test_substring(self):
-        self.assertEqual(failerror.substring(&#39;hello world !&#39;, 0, 2), &#39;he&#39;)
-        self.assertEqual(failerror.substring(&#39;hello world !&#39;, 6), &#39;world !&#39;)
-        self.assertEqual(failerror.substring(None, 0, 1), None)
-
-if __name__ == &#39;__main__&#39;:
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-            output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;,
-            add_timestamp=False)
-    unittest.main(testRunner=html_runner)</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -91,17 +65,6 @@ attribute so can be configured by individual tests if required.</p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class FailErrorTest(unittest.TestCase):
-    
-    def test_substring(self):
-        self.assertEqual(failerror.substring(&#39;hello world !&#39;, 0, 2), &#39;he&#39;)
-        self.assertEqual(failerror.substring(&#39;hello world !&#39;, 6), &#39;world !&#39;)
-        self.assertEqual(failerror.substring(None, 0, 1), None)</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>unittest.case.TestCase</li>
@@ -113,15 +76,6 @@ not have a method with the specified name.</p></div>
 </code></dt>
 <dd>
 <div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_substring(self):
-    self.assertEqual(failerror.substring(&#39;hello world !&#39;, 0, 2), &#39;he&#39;)
-    self.assertEqual(failerror.substring(&#39;hello world !&#39;, 6), &#39;world !&#39;)
-    self.assertEqual(failerror.substring(None, 0, 1), None)</code></pre>
-</details>
 </dd>
 </dl>
 </dd>

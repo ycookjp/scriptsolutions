@@ -34,78 +34,6 @@ directory as following.</p>
 <p>$ python test_all.py</p>
 <h2 id="attributes">Attributes</h2>
 <p>None</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># -*- coding: utf-8 -*-
-&#34;&#34;&#34;test-all script summary.
-
-This module runs unittest TestCases under this script&#39;s current directory.
-Before running this script, edit test_all.yml in this script&#39;s current
-directory as following.
-
-    module_patterns:
-      - &#39;&lt;script-name-pattern&gt;&#39;
-      - &#39;&lt;script-name-pattern&gt;&#39;
-
-Example:
-    $ python test_all.py
-
-Attributes:
-    None
-
-&#34;&#34;&#34;
-
-from unittest import TestLoader, TestSuite
-from HtmlTestRunner import HTMLTestRunner
-import io
-import os
-
-import yaml
-
-def load_config():
-    &#39;&#39;&#39;
-    
-    Loads configuration file with YAMS format. 
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Returns:
-        Dictionary: Returns key-value information.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(__file__)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
-        config = yaml.load(file, Loader=yaml.FullLoader)
-        return config
-
-def run_test_all():
-    &#39;&#39;&#39;
-    
-    Runs unittest&#39;s TestCases.
-
-    &#39;&#39;&#39;
-    # Loding config file
-    config = load_config()
-    # Getting test script patterns form config
-    patterns = config[&#39;module_patterns&#39;]
-
-    # Getting test suites from script patterns.
-    suite = TestSuite()
-    for pattern in patterns:
-        suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
-
-    runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;, \
-            report_name=&#39;python-progs&#39;, add_timestamp=False, combine_reports=True)
-    
-    runner.run(suite)
-
-if __name__ == &#39;__main__&#39;:
-    run_test_all()</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -127,59 +55,12 @@ extension is '.yml'.</p>
 <dt><code>Dictionary</code></dt>
 <dd>Returns key-value information.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def load_config():
-    &#39;&#39;&#39;
-    
-    Loads configuration file with YAMS format. 
-    Configuration file should be located at same directory of this
-    script, and name should be base name of this script except for
-    extension is &#39;.yml&#39;.
-    
-    Returns:
-        Dictionary: Returns key-value information.
-    
-    &#39;&#39;&#39;
-    config_path = os.path.splitext(__file__)[0] + &#39;.yml&#39;
-    with open(config_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
-        config = yaml.load(file, Loader=yaml.FullLoader)
-        return config</code></pre>
-</details>
 </dd>
 <dt id="tests.test_all.run_test_all"><code class="name flex">
 <span>def <span class="ident">run_test_all</span></span>(<span>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Runs unittest's TestCases.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def run_test_all():
-    &#39;&#39;&#39;
-    
-    Runs unittest&#39;s TestCases.
-
-    &#39;&#39;&#39;
-    # Loding config file
-    config = load_config()
-    # Getting test script patterns form config
-    patterns = config[&#39;module_patterns&#39;]
-
-    # Getting test suites from script patterns.
-    suite = TestSuite()
-    for pattern in patterns:
-        suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
-
-    runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + &#39;/../target/site/test-report&#39;, \
-            report_name=&#39;python-progs&#39;, add_timestamp=False, combine_reports=True)
-    
-    runner.run(suite)</code></pre>
-</details>
 </dd>
 </dl>
 </section>
