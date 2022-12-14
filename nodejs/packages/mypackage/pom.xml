@@ -271,6 +271,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
+              <failOnError>false</failOnError>
               <target>
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{}\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*main[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
                   <fileset dir="${project.build.directory}/site/coverage" includes="**/*"/>

@@ -14,9 +14,7 @@
   </parent>
   <modules>
   	<module>mypackage</module>
-<!--
   	<module>react_tutorial</module>
--->
   </modules>
   <name>Node.js Packages</name>
   <!-- 

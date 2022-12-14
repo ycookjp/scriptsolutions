@@ -225,7 +225,7 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --config show_source_code=False --force  ${PACKAGE_NAME}.models ${PACKAGE_NAME}.views</commandlineArgs>
+              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --config show_source_code=False --force  ${PACKAGE_NAME}</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>

@@ -13,10 +13,7 @@
       <item name="Download site archive" href="./${project.artifactId}-${project.version}.zip" />
     </menu>
     <menu name="APIs">
-      <item name="API Documents">
-        <item name="models module"  href="./apidocs/${PACKAGE_NAME}/models.html" />
-        <item name="views module"  href="./apidocs/${PACKAGE_NAME}/views.html" />
-      </item>
+      <item name="API Documents" href="./apidocs/${PACKAGE_NAME}/index.html" />
       <item name="Test Specifications"  href="./testspecs/${PACKAGE_NAME}/test.html" />
     </menu>
 <!-- 

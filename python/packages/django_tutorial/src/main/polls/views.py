@@ -15,8 +15,15 @@ from .models import Question, Choice
 #    }
 #    return render(request, 'polls/index.html', context)
 class IndexView(generic.ListView):
+    '''質問の一覧を表示する汎用ビュー。
+    '''
     template_name = 'polls/index.html'
+    '''質問一覧表示テンプレートのパス。'''
     context_object_name = 'latest_question_list'
+    '''コンテキストのオブジェクト名。
+    テンプレートで使用する変数名。テンプレートからこの変数名で質問の一覧を
+    参照する。
+    '''
 
     def get_queryset(self):
         '''Return the latest five published questions.
@@ -32,6 +39,11 @@ class IndexView(generic.ListView):
 #    context = {'question': question}
 #    return render(request, 'polls/detail.html', context)
 class DetailView(generic.DetailView):
+    '''詳細画面の汎用ビュー。
+    
+    質問に対する回答の選択画面を表示する。
+    
+    '''
     model = Question
     template_name = 'polls/detail.html'
 
@@ -45,10 +57,27 @@ class DetailView(generic.DetailView):
 #    question = get_object_or_404(Question, pk=question_id)
 #    return render(request, 'polls/results.html', {'question': question})
 class ResultsView(generic.DetailView):
+    '''回答結果画面の汎用ビュー。
+    
+    質問に対する回答のリストを表示し、それぞれの回答に対する投票数を表示する。
+    
+    '''
     model = Question
     template_name = 'polls/results.html'
 
 def vote(request, question_id):
+    '''回答の選択結果を処理するビュー関数。
+    
+    選択された回答の投票数を１つ増やして、その結果をChoiseモデルに保存する。
+    その後、回答結果画面を表示する。
+    
+    例外処理
+    * リクエストで受け取った question_id が存在しない場合は 404 エラーを表示
+      する。
+    * リクエストで送信された回答が未設定のものだった場合は、詳細画面を表示
+      してエラーメッセージを表示する。
+    
+    '''
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
