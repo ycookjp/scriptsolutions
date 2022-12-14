@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+/**
+ * ３目並べゲームを作成するチュートリアル。
+ */
+
+/**
+ * Squareコンポーネントを描画する。
+ * Squareコンポーネントの中に配置するbuttonタグを描画する。
+ * buttonタグのonClick属性にはpropsのonClick関数を設定する。
+ * @param props Squareコンポーネントのプロパティ。
+ * @return tag buttonタグを返す。
+ */
+function Square(props) {
+  return (
+    &lt;button className="square" onClick={props.onClick}>
+      {props.value}
+    &lt;/button>
+  );
+}
+
+/**
+ * Boardコンポーネント。
+ */
+class Board extends React.Component {
+  /**
+   * インデックスを指定してBoardコンポーネントの上に配置されるSquare
+   * コンポーネントを描画する関数。
+   * &lt;ul>
+   * &lt;li>
+   *   value属性 - Boardコンポーネントのプロパティのsquares配列要素の
+   *   値（'O' または 'X'）を設定する。
+   * &lt;/li>
+   * &lt;li>
+   *   onClick属性 - BoardコンポーネントのプロパティのonClick
+   *   関数を設定する。
+   * &lt;/li>
+   * &lt;/ul>
+   * @param i Squareコンポーネントのインデックス。
+   * @return tag Squareタグを返す。
+   */
+  renderSquare(i) {
+    return (
+      &lt;Square
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+      />
+    );
+  }
+
+  /**
+   * 3 x 3 のSquareコンポーネントが配置されたBoardコンポーネントを描画する。
+   * @return tag 3x3のSquareタグを返す。
+   */
+  render() {
+    return (
+      &lt;div>
+        &lt;div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        &lt;/div>
+        &lt;div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        &lt;/div>
+        &lt;div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        &lt;/div>
+      &lt;/div>
+    );
+  }
+}
+
+/**
+ * Gameコンポーネント。
+ */
+class Game extends React.Component {
+  /**
+   * Gameコンポーネントを構築する。
+   * Gameコンポーネントのプロパティに以下のプロパティを設定する。
+   * &lt;ul>
+   * &lt;li>
+   *   history&lt; - Bordコンポーネントに配置された3x3のSquareコンポーネントの
+   *     表示内容の履歴の初期値として、3x3のSquareすべてにnullを設定する。
+   * &lt;/li>
+   * &lt;li>
+   *   stepNumber - 対局のカウンタとして0を設定する。
+   * &lt;/li>
+   * &lt;li>
+   *   xIsNext - true を設定する。
+   * &lt;/li>
+   * &lt;/ul>
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      stepNumber: 0,
+      xIsNext: true,
+    };
+  }
+
+  /**
+   * 指定されたインデックスのSquareコンポーネントがクリックされたときの処理を
+   * 実行する関数。
+   * TODO 関数の処理内容を記載する
+   * @param i Squareコンポーネントのインデックス。
+   */
+  handleClick(i) {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
+  /**
+   * 指定された対局の履歴まで戻る。
+   * Gameコンポーネントのプロパティを以下のように設定する。
+   * &lt;ul>
+   * &lt;li>
+   *   stepNumber - step引数の値
+   * &lt;/li>
+   * &lt;li>
+   *   xIsNext - step引数が偶数の場合はtrue、そうでない場合はfalse
+   * &lt;/li>
+   * &lt;/ul>
+   * @param step 履歴のインデックスを指定する。
+   */
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step %2) === 0,
+    });
+  }
+
+  /**
+   * Gameコンポーネントを描画する。
+   * TODO 処理内容を記載する。
+   * @return tag Bordコンポーネントと対局履歴を配置したdivタグを返す。
+   */
+  render() {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      return (
+        &lt;li key={move}>
+          &lt;button onClick={() => this.jumpTo(move)}>{desc}&lt;/button>
+        &lt;/li>
+      );
+    });
+
+    let status;
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
+
+    return (
+      &lt;div className="game">
+        &lt;div className="game-board">
+          &lt;Board
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
+        &lt;/div>
+        &lt;div className="game-info">
+          &lt;div>{status}&lt;/div>
+          &lt;ol>{moves}&lt;/ol>
+        &lt;/div>
+      &lt;/div>
+    );
+  }
+}
+
+// ========================================
+/**
+ * 勝者の判定をする関数。
+ * @param suquares 3x3のSquareコンポーネントに表示される記号の配列。
+ * @return String 勝者が判定できた場合は勝者の記号('O'または'X')を返す。
+ *   勝者が判定出来ない場合はnullを返す。
+ */
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i &lt; lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
+// ========================================
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(&lt;Game />);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Square">Square</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Dec 15 2022 02:15:13 GMT+0900 (日本標準時)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

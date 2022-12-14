@@ -171,6 +171,7 @@ __unzipfile () {
 ECLIPSE_URL_BASE=https://ftp.yz.yamagata-u.ac.jp/pub/eclipse
 BABEL_URL_BASE=https://download.eclipse.org/technology/babel/babel_language_packs/I20220514-0200/2021-12
 
+
 # Babel
 PACKAGE_NAME=BabelLanguagePack-ja_4.22.0.v20220514020002
 URL_LIST="
@@ -278,17 +279,6 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
   dropins/${PACKAGE_NAME}/eclipse
 
 
-# SpotBugs
-URL=https://spotbugs.github.io/eclipse/
-PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.2
-FILE_NAME=${PACKAGE_NAME}.zip
-__archive_updatesite -o dropins-archive/${FILE_NAME} \
-  "${URL}"
-# deploy plugin files
-__unzipfile -f dropins-archive/${FILE_NAME} \
-  dropins/${PACKAGE_NAME}/eclipse
-
-
 # JGit LFS
 URL="${ECLIPSE_URL_BASE}/egit/updates-6.2/org.eclipse.egit.repository-6.2.0.202206071550-r.zip"
 PACKAGE_NAME=`basename "${URL}" .zip`
@@ -333,16 +323,6 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
   dropins/${PACKAGE_NAME}/eclipse
 
 
-# VisualVM Eclipse launcher
-URL='https://github.com/oracle/visualvm/releases/download/2.1.2/visualvm_launcher_u3_eclipse_sig.zip'
-PACKAGE_NAME=`basename "${URL}" .zip`
-FILE_NAME=`basename "${URL}"`
-__unzipfile -f dropins-archive/${FILE_NAME} \
-  -u "${URL}" \
-  dropins/${PACKAGE_NAME}
-mv dropins/${PACKAGE_NAME}/${PACKAGE_NAME} dropins/${PACKAGE_NAME}/eclipse
-
-
 # Properties Editor
 URL='https://ja.osdn.net/projects/propedit/downloads/68691/jp.gr.java_conf.ussiy.app.propedit_6.0.5.zip/'
 PACKAGE_NAME=jp.gr.java_conf.ussiy.app.propedit_6.0.5
@@ -359,6 +339,17 @@ FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f dropins-archive/${FILE_NAME} \
   -x '*.source_*' \
   -u "${URL}" \
+  dropins/${PACKAGE_NAME}/eclipse
+
+
+# SpotBugs
+URL=https://spotbugs.github.io/eclipse/
+PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.2
+FILE_NAME=${PACKAGE_NAME}.zip
+__archive_updatesite -o dropins-archive/${FILE_NAME} \
+  "${URL}"
+# deploy plugin files
+__unzipfile -f dropins-archive/${FILE_NAME} \
   dropins/${PACKAGE_NAME}/eclipse
 
 
@@ -422,6 +413,16 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
   -u "${URL}" \
   dropins/${PACKAGE_NAME}
 mv dropins/${PACKAGE_NAME}/repository dropins/${PACKAGE_NAME}/eclipse
+
+
+# VisualVM Eclipse launcher
+URL='https://github.com/oracle/visualvm/releases/download/2.1.2/visualvm_launcher_u3_eclipse_sig.zip'
+PACKAGE_NAME=`basename "${URL}" .zip`
+FILE_NAME=`basename "${URL}"`
+__unzipfile -f dropins-archive/${FILE_NAME} \
+  -u "${URL}" \
+  dropins/${PACKAGE_NAME}
+mv dropins/${PACKAGE_NAME}/${PACKAGE_NAME} dropins/${PACKAGE_NAME}/eclipse
 
 
 # WindowBuilder Pro

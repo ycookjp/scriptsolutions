@@ -34,7 +34,14 @@
 <span>def <span class="ident">vote</span></span>(<span>request, question_id)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>回答の選択結果を処理するビュー関数。</p>
+<p>選択された回答の投票数を１つ増やして、その結果をChoiseモデルに保存する。
+その後、回答結果画面を表示する。</p>
+<p>例外処理
+* リクエストで受け取った question_id が存在しない場合は 404 エラーを表示
+する。
+* リクエストで送信された回答が未設定のものだった場合は、詳細画面を表示
+してエラーメッセージを表示する。</p></div>
 </dd>
 </dl>
 </section>
@@ -46,9 +53,8 @@
 <span>(</span><span>**kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Render a "detail" view of an object.</p>
-<p>By default this is a model instance looked up from <code>self.queryset</code>, but the
-view will support display of <em>any</em> object by overriding <code>self.get_object()</code>.</p>
+<div class="desc"><p>詳細画面の汎用ビュー。</p>
+<p>質問に対する回答の選択画面を表示する。</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
 <h3>Ancestors</h3>
@@ -65,7 +71,7 @@ keyword arguments, and other things.</p></div>
 <dl>
 <dt id="polls.views.DetailView.model"><code class="name">var <span class="ident">model</span></code></dt>
 <dd>
-<div class="desc"><p>Question(id, question_text, pub_date)</p></div>
+<div class="desc"><p>質問クラス。</p></div>
 </dd>
 <dt id="polls.views.DetailView.template_name"><code class="name">var <span class="ident">template_name</span></code></dt>
 <dd>
@@ -87,8 +93,7 @@ keyword arguments, and other things.</p></div>
 <span>(</span><span>**kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Render some list of objects, set by <code>self.model</code> or <code>self.queryset</code>.
-<code>self.queryset</code> can actually be any iterable of items, not just a queryset.</p>
+<div class="desc"><p>質問の一覧を表示する汎用ビュー。</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
 <h3>Ancestors</h3>
@@ -105,11 +110,13 @@ keyword arguments, and other things.</p></div>
 <dl>
 <dt id="polls.views.IndexView.context_object_name"><code class="name">var <span class="ident">context_object_name</span></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>コンテキストのオブジェクト名。
+テンプレートで使用する変数名。テンプレートからこの変数名で質問の一覧を
+参照する。</p></div>
 </dd>
 <dt id="polls.views.IndexView.template_name"><code class="name">var <span class="ident">template_name</span></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>質問一覧表示テンプレートのパス。</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -129,9 +136,8 @@ published in the future).</p></div>
 <span>(</span><span>**kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Render a "detail" view of an object.</p>
-<p>By default this is a model instance looked up from <code>self.queryset</code>, but the
-view will support display of <em>any</em> object by overriding <code>self.get_object()</code>.</p>
+<div class="desc"><p>回答結果画面の汎用ビュー。</p>
+<p>質問に対する回答のリストを表示し、それぞれの回答に対する投票数を表示する。</p>
 <p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p></div>
 <h3>Ancestors</h3>
@@ -148,7 +154,7 @@ keyword arguments, and other things.</p></div>
 <dl>
 <dt id="polls.views.ResultsView.model"><code class="name">var <span class="ident">model</span></code></dt>
 <dd>
-<div class="desc"><p>Question(id, question_text, pub_date)</p></div>
+<div class="desc"><p>質問クラス。</p></div>
 </dd>
 <dt id="polls.views.ResultsView.template_name"><code class="name">var <span class="ident">template_name</span></code></dt>
 <dd>
@@ -165,6 +171,11 @@ keyword arguments, and other things.</p></div>
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="polls" href="index.html">polls</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="polls.views.vote" href="#polls.views.vote">vote</a></code></li>

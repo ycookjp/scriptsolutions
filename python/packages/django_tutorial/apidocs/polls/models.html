@@ -37,7 +37,7 @@
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Choice(id, question, choice_text, votes)</p></div>
+<div class="desc"><p>回答の選択肢のクラス。</p></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.db.models.base.Model</li>
@@ -59,10 +59,9 @@
 </dl>
 <h3>Instance variables</h3>
 <dl>
-<dt id="polls.models.Choice.choice_text"><code class="name">var <span class="ident">choice_text</span></code></dt>
+<dt id="polls.models.Choice.choice_text"><code class="name">var <span class="ident">choice_text</span> : str</code></dt>
 <dd>
-<div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p></div>
+<div class="desc"><p>str: 選択肢の文言。</p></div>
 </dd>
 <dt id="polls.models.Choice.id"><code class="name">var <span class="ident">id</span></code></dt>
 <dd>
@@ -71,13 +70,7 @@ object the first time, the query is executed.</p></div>
 </dd>
 <dt id="polls.models.Choice.question"><code class="name">var <span class="ident">question</span></code></dt>
 <dd>
-<div class="desc"><p>Accessor to the related object on the forward side of a many-to-one or
-one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
-<p>In the example::</p>
-<pre><code>class Child(Model):
-    parent = ForeignKey(Parent, related_name='children')
-</code></pre>
-<p><code>Child.parent</code> is a <code>ForwardManyToOneDescriptor</code> instance.</p></div>
+<div class="desc"><p>選択肢に関連する質問。</p></div>
 </dd>
 <dt id="polls.models.Choice.question_id"><code class="name">var <span class="ident">question_id</span></code></dt>
 <dd>
@@ -86,8 +79,7 @@ Return the cached value.</p></div>
 </dd>
 <dt id="polls.models.Choice.votes"><code class="name">var <span class="ident">votes</span></code></dt>
 <dd>
-<div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p></div>
+<div class="desc"><p>int: 選択肢に対する投票数。</p></div>
 </dd>
 </dl>
 </dd>
@@ -96,7 +88,7 @@ object the first time, the query is executed.</p></div>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Question(id, question_text, pub_date)</p></div>
+<div class="desc"><p>質問クラス。</p></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li>django.db.models.base.Model</li>
@@ -137,13 +129,11 @@ object the first time, the query is executed.</p></div>
 </dd>
 <dt id="polls.models.Question.pub_date"><code class="name">var <span class="ident">pub_date</span></code></dt>
 <dd>
-<div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p></div>
+<div class="desc"><p>質問の公開日</p></div>
 </dd>
-<dt id="polls.models.Question.question_text"><code class="name">var <span class="ident">question_text</span></code></dt>
+<dt id="polls.models.Question.question_text"><code class="name">var <span class="ident">question_text</span> : str</code></dt>
 <dd>
-<div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
-object the first time, the query is executed.</p></div>
+<div class="desc"><p>質問内容</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -164,7 +154,13 @@ object the first time, the query is executed.</p></div>
 <span>def <span class="ident">was_published_recently</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>質問の公開日が過去１日以内かを判定する。</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>boolean</code></dt>
+<dd>質問の公開日が過去１日いないの場合はTrue、そうでない</dd>
+</dl>
+<p>場合はFalseを返す。</p></div>
 </dd>
 </dl>
 </dd>
@@ -177,6 +173,11 @@ object the first time, the query is executed.</p></div>
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="polls" href="index.html">polls</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
