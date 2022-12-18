@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1671038033696" clover="3.2.0">
-  <project timestamp="1671038033697" name="All files">
-    <metrics statements="62" coveredstatements="62" conditionals="33" coveredconditionals="31" methods="4" coveredmethods="4" elements="99" coveredelements="97" complexity="0" loc="62" ncloc="62" packages="1" files="2" classes="2"/>
+<coverage generated="1671395351044" clover="3.2.0">
+  <project timestamp="1671395351044" name="All files">
+    <metrics statements="61" coveredstatements="61" conditionals="33" coveredconditionals="31" methods="4" coveredmethods="4" elements="98" coveredelements="96" complexity="0" loc="61" ncloc="61" packages="1" files="2" classes="2"/>
     <file name="failerror.js" path="failerror.js">
       <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <line num="12" count="1" type="stmt"/>
@@ -11,7 +11,7 @@
       <line num="21" count="1" type="stmt"/>
     </file>
     <file name="stringutil.js" path="stringutil.js">
-      <metrics statements="57" coveredstatements="57" conditionals="32" coveredconditionals="31" methods="3" coveredmethods="3"/>
+      <metrics statements="56" coveredstatements="56" conditionals="32" coveredconditionals="31" methods="3" coveredmethods="3"/>
       <line num="20" count="61" type="cond" truecount="2" falsecount="0"/>
       <line num="21" count="10" type="stmt"/>
       <line num="23" count="61" type="stmt"/>
@@ -66,7 +66,6 @@
       <line num="135" count="47" type="stmt"/>
       <line num="136" count="47" type="stmt"/>
       <line num="140" count="8" type="stmt"/>
-      <line num="143" count="1" type="stmt"/>
       <line num="144" count="1" type="stmt"/>
       <line num="145" count="1" type="stmt"/>
     </file>
