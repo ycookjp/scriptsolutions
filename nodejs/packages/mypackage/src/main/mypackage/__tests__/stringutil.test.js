@@ -2,44 +2,48 @@ stringutil = require('../stringutil');
 
 
 /**
- * stringutil.findStringRepeat 関数のテストを実施します。
+ * export されていない stringutil モジュールの findStringRepeat 関数の
+ * テストを実施します。
  */
-function stringutil_findStringRepeat_test() {
+function test_stringutil_findStringRepeat() {
+    // babel-plugin-rewire を使用して export されていない findStringRepeat
+    // 関数を読み込む
+    findStringRepeat = require('../stringutil').__get__('findStringRepeat');
     target="abbcccddddeeeee";
     // すべての範囲が対象
-    expect(stringutil.findStringRepeat(target, 'a')).toEqual([0, 1]);
-    expect(stringutil.findStringRepeat(target, 'b')).toEqual([1, 2]);
-    expect(stringutil.findStringRepeat(target, 'c')).toEqual([3, 3]);
-    expect(stringutil.findStringRepeat(target, 'd')).toEqual([6, 4]);
-    expect(stringutil.findStringRepeat(target, 'e')).toEqual([10, 5]);
+    expect(findStringRepeat(target, 'a')).toEqual([0, 1]);
+    expect(findStringRepeat(target, 'b')).toEqual([1, 2]);
+    expect(findStringRepeat(target, 'c')).toEqual([3, 3]);
+    expect(findStringRepeat(target, 'd')).toEqual([6, 4]);
+    expect(findStringRepeat(target, 'e')).toEqual([10, 5]);
 
     // 一致する範囲を開始、終了に設定
-    expect(stringutil.findStringRepeat(target, 'a', 0, 1)).toEqual([0, 1]);
-    expect(stringutil.findStringRepeat(target, 'b', 1, 3)).toEqual([1, 2]);
-    expect(stringutil.findStringRepeat(target, 'c', 3, 6)).toEqual([3, 3]);
-    expect(stringutil.findStringRepeat(target, 'd', 6, 10)).toEqual([6, 4]);
-    expect(stringutil.findStringRepeat(target, 'e', 10, 15)).toEqual([10, 5]);
+    expect(findStringRepeat(target, 'a', 0, 1)).toEqual([0, 1]);
+    expect(findStringRepeat(target, 'b', 1, 3)).toEqual([1, 2]);
+    expect(findStringRepeat(target, 'c', 3, 6)).toEqual([3, 3]);
+    expect(findStringRepeat(target, 'd', 6, 10)).toEqual([6, 4]);
+    expect(findStringRepeat(target, 'e', 10, 15)).toEqual([10, 5]);
 
     // 一致する範囲の開始位置＋1を設定
-    expect(stringutil.findStringRepeat(target, 'a', 1)).toEqual([-1, 0]);
-    expect(stringutil.findStringRepeat(target, 'b', 3)).toEqual([-1, 0]);
-    expect(stringutil.findStringRepeat(target, 'c', 7)).toEqual([-1, 0]);
-    expect(stringutil.findStringRepeat(target, 'd', 11)).toEqual([-1, 0]);
-    expect(stringutil.findStringRepeat(target, 'e', 16)).toEqual([-1, 0]);
+    expect(findStringRepeat(target, 'a', 1)).toEqual([-1, 0]);
+    expect(findStringRepeat(target, 'b', 3)).toEqual([-1, 0]);
+    expect(findStringRepeat(target, 'c', 7)).toEqual([-1, 0]);
+    expect(findStringRepeat(target, 'd', 11)).toEqual([-1, 0]);
+    expect(findStringRepeat(target, 'e', 16)).toEqual([-1, 0]);
 
     // 一致する一部分の範囲を開始、終了に設定
-    expect(stringutil.findStringRepeat(target, 'b', 2, 3)).toEqual([2, 1]);
-    expect(stringutil.findStringRepeat(target, 'c', 4, 6)).toEqual([4, 2]);
-    expect(stringutil.findStringRepeat(target, 'd', 7, 10)).toEqual([7, 3]);
-    expect(stringutil.findStringRepeat(target, 'e', 11, 15)).toEqual([11, 4]);
+    expect(findStringRepeat(target, 'b', 2, 3)).toEqual([2, 1]);
+    expect(findStringRepeat(target, 'c', 4, 6)).toEqual([4, 2]);
+    expect(findStringRepeat(target, 'd', 7, 10)).toEqual([7, 3]);
+    expect(findStringRepeat(target, 'e', 11, 15)).toEqual([11, 4]);
 }
-test('stringutil.findStringRepeat test',  stringutil_findStringRepeat_test);
+it('stringutil.findStringRepeat test', test_stringutil_findStringRepeat);
 
 /**
  * stringutil.formatDateSimple 関数のテストを実施します。
  */
-function stringutil_formatDateSimple_test() {
-	date = new Date(1234, 5-1, 6, 12, 34, 56);
+function test_stringutil_formatDateSimple() {
+    date = new Date(1234, 5-1, 6, 12, 34, 56);
     expect(stringutil.formatDateSimple(date, 'yyyy')).toBe("1234");
     expect(stringutil.formatDateSimple(date, 'MM')).toBe("05");
     expect(stringutil.formatDateSimple(date, 'dd')).toBe("06");
@@ -47,13 +51,13 @@ function stringutil_formatDateSimple_test() {
     expect(stringutil.formatDateSimple(date, 'mm')).toBe("34");
     expect(stringutil.formatDateSimple(date, 'ss')).toBe("56");
 }
-test('stringutil.formatDateSimple test', stringutil_formatDateSimple_test);
+it('stringutil.formatDateSimple test', test_stringutil_formatDateSimple);
 
 /**
  * stringutil.formatDate 関数のテストを実施します。
  */
-function stringutil_formatDate_test() {
-    // 月日時分が１桁の場合
+function test_stringutil_formatDate() {
+	// 月日時分が１桁の場合
     date = new Date(234, 5-1, 6, 7, 8, 9);
     // yyyy-MM-dd hh:mm:ss
     expect(stringutil.formatDate(date, "yyyy-MM-dd hh:mm:ss")).toBe("0234-05-06 07:08:09");
@@ -77,4 +81,4 @@ function stringutil_formatDate_test() {
     // 日本語a-zA-Z0-9YYYYDDHHSS => No match.
     expect(stringutil.formatDate(date, "日本語a-zA-Z0-9YYYYDDHHSS")).toBe("日本語a-zA-Z0-9YYYYDDHHSS");
 }
-test('stringutil.formatDate test', stringutil_formatDate_test);
+it('stringutil.formatDate test', test_stringutil_formatDate);

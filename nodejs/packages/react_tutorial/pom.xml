@@ -37,7 +37,7 @@
     <PACKAGE_NAME>${PROJECT_NAME}</PACKAGE_NAME>
   </properties>
   <!-- 
-   - To generate test report, run "mvn clean test site"
+   - To generate test report, run "mvn clean  site"
    -->
   <build>
     <!-- Inheritated from parent project.
@@ -69,7 +69,7 @@
             <fileset>
               <directory>${basedir}/src/main</directory>
               <includes>
-                <include>**/__tests__/coverage/</include>
+                <include>**/coverage/</include>
                 <include>**/__tests__/test-reports/</include>
                 <include>**/node_modules/</include>
                 <include>**/test-report.html</include>
@@ -101,7 +101,7 @@
                   <excludes>
                     <exclude>**/node_modules/**</exclude>
                     <exclude>**/package-lock.json</exclude>
-                    <exclude>**/__tests__/coverage/**</exclude>
+                    <exclude>**/coverage/**</exclude>
                     <exclude>**/__tests__/test-reports/**</exclude>
                   </excludes>
                 </resource>
@@ -120,9 +120,8 @@
               <outputDirectory>${TEMP_PATH}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/src/main/${PACKAGE_NAME}/__tests__</directory>
+                  <directory>${basedir}/src/main/${PACKAGE_NAME}/src/__tests__</directory>
                   <excludes>
-                    <exclude>coverage/**</exclude>
                     <exclude>test-reports/**</exclude>
                   </excludes>
                 </resource>
@@ -249,10 +248,15 @@
               <outputDirectory>${project.build.directory}/site</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${MAIN_PATH}/__tests__</directory>
+                  <directory>${MAIN_PATH}/src/__tests__</directory>
+                  <includes>
+                    <include>test-reports/**</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>${MAIN_PATH}</directory>
                   <includes>
                     <include>coverage/**</include>
-                    <include>test-reports/**</include>
                   </includes>
                 </resource>
               </resources>

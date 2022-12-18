@@ -140,6 +140,6 @@ function formatDate(date, format) {
     return converted;
 }
 
-exports.findStringRepeat = findStringRepeat;
+//exports.findStringRepeat = findStringRepeat;
 exports.formatDateSimple = formatDateSimple;
 exports.formatDate = formatDate;
