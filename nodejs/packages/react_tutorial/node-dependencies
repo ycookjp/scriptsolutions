@@ -1482,7 +1482,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/parse-json
 │  └─ licenseFile: node_modules/@types/parse-json/LICENSE
-├─ @types/prettier@2.7.1
+├─ @types/prettier@2.7.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/prettier
@@ -1587,47 +1587,47 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/yargs
 │  └─ licenseFile: node_modules/@types/yargs/LICENSE
-├─ @typescript-eslint/eslint-plugin@5.46.1
+├─ @typescript-eslint/eslint-plugin@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/eslint-plugin
 │  └─ licenseFile: node_modules/@typescript-eslint/eslint-plugin/LICENSE
-├─ @typescript-eslint/experimental-utils@5.46.1
+├─ @typescript-eslint/experimental-utils@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/experimental-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/experimental-utils/LICENSE
-├─ @typescript-eslint/parser@5.46.1
+├─ @typescript-eslint/parser@5.47.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/parser
 │  └─ licenseFile: node_modules/@typescript-eslint/parser/LICENSE
-├─ @typescript-eslint/scope-manager@5.46.1
+├─ @typescript-eslint/scope-manager@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/scope-manager
 │  └─ licenseFile: node_modules/@typescript-eslint/scope-manager/LICENSE
-├─ @typescript-eslint/type-utils@5.46.1
+├─ @typescript-eslint/type-utils@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/type-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/type-utils/LICENSE
-├─ @typescript-eslint/types@5.46.1
+├─ @typescript-eslint/types@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/types
 │  └─ licenseFile: node_modules/@typescript-eslint/types/LICENSE
-├─ @typescript-eslint/typescript-estree@5.46.1
+├─ @typescript-eslint/typescript-estree@5.47.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/typescript-estree
 │  └─ licenseFile: node_modules/@typescript-eslint/typescript-estree/LICENSE
-├─ @typescript-eslint/utils@5.46.1
+├─ @typescript-eslint/utils@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/utils
 │  └─ licenseFile: node_modules/@typescript-eslint/utils/LICENSE
-├─ @typescript-eslint/visitor-keys@5.46.1
+├─ @typescript-eslint/visitor-keys@5.47.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/visitor-keys
@@ -2313,7 +2313,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001439
+├─ caniuse-lite@1.0.30001441
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -4111,7 +4111,7 @@
 │  ├─ url: http://keya.nz
 │  ├─ path: node_modules/identity-obj-proxy
 │  └─ licenseFile: node_modules/identity-obj-proxy/LICENSE
-├─ ignore@5.2.1
+├─ ignore@5.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kaelzhang/node-ignore
 │  ├─ publisher: kael
@@ -5177,7 +5177,7 @@
 │  ├─ url: http://blog.izs.me
 │  ├─ path: node_modules/minimatch
 │  └─ licenseFile: node_modules/minimatch/LICENSE
-├─ minimatch@5.1.1
+├─ minimatch@5.1.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/minimatch
 │  ├─ publisher: Isaac Z. Schlueter
