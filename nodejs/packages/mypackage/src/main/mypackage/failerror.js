@@ -1,4 +1,10 @@
 /**
+ * @file failerror.js - システムエラーが発生する関数の実装。
+ * @copyright ycook
+ *   [homepage] https://github.com/ycookjp/
+ */
+
+/**
  * 開始、終了インデックスを指定して部分文字列を取得します。
  * @param str {String} 入力文字列
  * @param beginIndex {int} 部分文字列の開始インデックスを指定します。

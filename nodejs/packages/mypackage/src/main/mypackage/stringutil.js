@@ -1,11 +1,12 @@
 /**
- * stringutil.js
- * 
- * Copyright ycookjp
- * https://github.com/ycookjp/
+ * @file stringutil.js - String utilities.
+ * <br/>
+ * @copyright ycookjp
+ *   [homepage] https://github.com/ycookjp/
  */
 
 /**
+ * [No exported function]
  * 部分文字列が最初に出現した位置と連続する出現回数を取得します。
  * @param target {String} 部分文字列を探す対象の文字列を指定します。
  * @param sub {String} 出現を調べる部分文字列を指定します。

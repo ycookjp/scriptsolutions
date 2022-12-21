@@ -1,9 +1,10 @@
+/**
+ * @file ３目並べゲームを作成するチュートリアル。
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-/**
- * ３目並べゲームを作成するチュートリアル。
- */
 
 /**
  * Squareコンポーネントを描画する。
