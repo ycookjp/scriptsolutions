@@ -2,16 +2,16 @@
 
 ################################################################################
 # Name    : eclipse-<desktop_env>
-# Usage   : DESKTOP_ENV={lxde|mate|xfce} fedora36-eclipse.sh
-# Depends : fedora36-desktop.sh, fedora36-container-base.sh, dnf.conf
+# Usage   : DESKTOP_ENV={lxde|mate|xfce} fedora37-eclipse.sh
+# Depends : fedora37-desktop.sh, fedora37-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 36 and login as root.
+#   1. Start Fedora 37 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
 #     --------------------------------------------------------------------------
 #     import-files
-#     |-- fedora36-eclipse
+#     |-- fedora37-eclipse
 #     |   |-- archives
 #     |   |   `-- eclipse-dropins.tar.gz
 #     |   `-- files
@@ -55,7 +55,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=36
+  export RELEASE_VER=37
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64

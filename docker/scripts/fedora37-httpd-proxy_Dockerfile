@@ -11,7 +11,7 @@
 #   docker run --name <container-name> --restart=always -p <host-port>:80 \
 #   -it <image-name>
 ################################################################################
-FROM fedora36-container-base
+FROM fedora37-container-base
 #FROM fedora
 ARG PROXY_ALLOW_FROM
 ARG PROXY_URL
