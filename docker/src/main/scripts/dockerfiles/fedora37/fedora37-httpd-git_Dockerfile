@@ -65,7 +65,7 @@
 #   5. Change to /var/lib/git directory and do following command.
 #        "chown -R apache:apache <repository-name>.git"
 ################################################################################
-FROM fedora36-container-base
+FROM fedora37-container-base
 #FROM fedora
 ARG GIT_ALLOW_FROM
 ARG PROXY_URL

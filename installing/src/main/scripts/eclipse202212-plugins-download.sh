@@ -169,35 +169,54 @@ __unzipfile () {
 
 
 ECLIPSE_URL_BASE=https://ftp.yz.yamagata-u.ac.jp/pub/eclipse
-BABEL_URL_BASE=https://download.eclipse.org/technology/babel/babel_language_packs/I20220514-0200/2021-12
+#BABEL_URL_BASE=https://download.eclipse.org/technology/babel/babel_language_packs/I20220514-0200/2021-12
+BABEL_URL_BASE='https://download.eclipse.org/technology/babel/babel_language_packs/I20221229-1700/2022-12'
 
 
 # Babel
+#PACKAGE_NAME=BabelLanguagePack-ja_4.22.0.v20220514020002
+#URL_LIST="
+#${BABEL_URL_BASE}/BabelLanguagePack-datatools-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-mylyn-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.handly-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_4.22.0.v20220514020002.zip
+#${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_4.22.0.v20220514020002.zip
+#"
 PACKAGE_NAME=BabelLanguagePack-ja_4.22.0.v20220514020002
 URL_LIST="
-${BABEL_URL_BASE}/BabelLanguagePack-datatools-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-mylyn-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.handly-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_4.22.0.v20220514020002.zip
-${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_4.22.0.v20220514020002.zip
+${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-en_AA_.v20221229054513.zip
+${BABEL_URL_BASE}/BabelLanguagePack-webtools-en_AA_.v20221229054513.zip
 "
 for URL in $URL_LIST; do
   FILE_NAME=`basename "${URL}"`
@@ -217,7 +236,7 @@ done
 #    dropins/${PACKAGE_NAME}/eclipse
 # douload archive site
 URL=https://checkstyle.org/eclipse-cs-update-site/
-PACKAGE_NAME=net.sf.eclipsecs.ui_10.0.0
+PACKAGE_NAME=net.sf.eclipsecs.ui_10.4.0
 FILE_NAME=${PACKAGE_NAME}.zip
 __archive_updatesite -o dropins-archive/${FILE_NAME} \
   "${URL}"
@@ -229,7 +248,7 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 
 # Eclipse CDT
-URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/10.7/cdt-10.7.0/cdt-10.7.0.zip"
+URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.0/cdt-11.0.0/cdt-11.0.0.zip"
 PACKAGE_NAME=`basename "${URL}" .zip`
 FILE_NAME=`basename "${URL}"`
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -280,7 +299,7 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
 
 
 # JGit LFS
-URL="${ECLIPSE_URL_BASE}/egit/updates-6.2/org.eclipse.egit.repository-6.2.0.202206071550-r.zip"
+URL="${ECLIPSE_URL_BASE}/egit/updates-6.4/org.eclipse.egit.repository-6.4.0.202211300538-r.zip"
 PACKAGE_NAME=`basename "${URL}" .zip`
 FILE_NAME=`basename "${URL}"`
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -333,7 +352,7 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 
 # PyDev
-URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%209.3.0/PyDev%209.3.0.zip/download'
+URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%2010.0.2/PyDev%2010.0.2.zip/download'
 PACKAGE_NAME=PyDev-9.3.0
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f dropins-archive/${FILE_NAME} \
@@ -344,7 +363,7 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 # SpotBugs
 URL=https://spotbugs.github.io/eclipse/
-PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.2
+PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.3
 FILE_NAME=${PACKAGE_NAME}.zip
 __archive_updatesite -o dropins-archive/${FILE_NAME} \
   "${URL}"
@@ -354,7 +373,7 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 
 # StatET
-URL="${ECLIPSE_URL_BASE}/statet/releases/4.5.0/statet-repository-E202112-incubation-4.5.0-202202030600-r.zip"
+URL="${ECLIPSE_URL_BASE}/statet/releases/4.6.0/statet-repository-E202206-incubation-4.6.0-202209080600-r.zip"
 PACKAGE_NAME=`basename "${URL}" .zip`
 FILE_NAME=`basename "${URL}"`
 __unzipfile -f dropins-archive/${FILE_NAME} \
@@ -406,7 +425,7 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
   dropins/${PACKAGE_NAME}/eclipse
 
 # UMLet
-URL=https://www.umlet.com/download/umlet_15_0/umlet-eclipse-p2-15.0.0.zip
+URL='https://www.umlet.com/download/umlet_15_0/umlet-eclipse-p2-15.0.0.zip'
 PACKAGE_NAME=`basename "${URL}" .zip`
 FILE_NAME=`basename "${URL}"`
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -426,7 +445,7 @@ mv dropins/${PACKAGE_NAME}/${PACKAGE_NAME} dropins/${PACKAGE_NAME}/eclipse
 
 
 # WindowBuilder Pro
-URL="${ECLIPSE_URL_BASE}/windowbuilder/1.9.8/repository.zip"
+URL="${ECLIPSE_URL_BASE}/windowbuilder/1.11.0/repository.zip"
 PACKAGE_NAME=WindowsBuilder_Pro-1.9.8
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f "dropins-archive/${FILE_NAME}" \

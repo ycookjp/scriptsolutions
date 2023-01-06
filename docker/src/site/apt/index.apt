@@ -10,31 +10,31 @@ docker project
 *--------------------------------------------------------------------------+------------------------------------------------------+
 | {{{./scripts/dnf.conf}dnf.conf}}                                         | configuration file for dnf                           |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora36-container-base.sh.txt}fedora36-container-base.sh}} | creating container base for Fedora                   |
+| {{{./scripts/fedora37-container-base.sh.txt}fedora37-container-base.sh}} | creating container base for Fedora                   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora36-desktop.sh.txt}fedora36-desktop.sh}}               | creating desktop environment                         |
+| {{{./scripts/fedora37-desktop.sh.txt}fedora37-desktop.sh}}               | creating desktop environment                         |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora36-eclipse.sh.txt}fedora36-eclipse.sh}}               | creating Eclipse IDE with desktop environment        |
+| {{{./scripts/fedora37-eclipse.sh.txt}fedora37-eclipse.sh}}               | creating Eclipse IDE with desktop environment        |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-proxy.sh.txt}fedora36-httpd-proxy.sh}}       | creating proxy service working on Apache HTTP Server |
+| {{{./scripts/fedora37-httpd-proxy.sh.txt}fedora37-httpd-proxy.sh}}       | creating proxy service working on Apache HTTP Server |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-svn.sh.txt}fedora36-httpd-svn.sh}}           | creating SVN service working on Apache HTTP Server   |
+| {{{./scripts/fedora37-httpd-svn.sh.txt}fedora37-httpd-svn.sh}}           | creating SVN service working on Apache HTTP Server   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
 
 * Dockerfiles
 
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-desktop_Dockerfile}fedora36-desktop_Dockerfile}}                   | creating desktop environment                              |
+| {{{./scripts/fedora37-desktop_Dockerfile}fedora37-desktop_Dockerfile}}                   | creating desktop environment                              |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-eclipse_Dockerfile}fedora36-eclipse_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
+| {{{./scripts/fedora37-eclipse_Dockerfile}fedora37-eclipse_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-git_Dockerfile}fedora36-httpd-git_Dockerfile}}               | creating git repository service working on Apache httpd   |
+| {{{./scripts/fedora37-httpd-git_Dockerfile}fedora37-httpd-git_Dockerfile}}               | creating git repository service working on Apache httpd   |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-proxy_Dockerfile}fedora36-httpd-proxy_Dockerfile}}           | creating proxy service working on Apache httpd            |
+| {{{./scripts/fedora37-httpd-proxy_Dockerfile}fedora37-httpd-proxy_Dockerfile}}           | creating proxy service working on Apache httpd            |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-proxy-mdns_Dockerfile}fedora36-httpd-proxy-mdns_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
+| {{{./scripts/fedora37-httpd-proxy-mdns_Dockerfile}fedora37-httpd-proxy-mdns_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora36-httpd-svn_Dockerfile}fedora36-httpd-svn_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
+| {{{./scripts/fedora37-httpd-svn_Dockerfile}fedora37-httpd-svn_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
 *------------------------------------------------------------------------------------------+-----------------------------------------------------------+
 Fedora based images
 
