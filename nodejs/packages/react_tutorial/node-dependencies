@@ -1420,7 +1420,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/express
 │  └─ licenseFile: node_modules/@types/express/LICENSE
-├─ @types/graceful-fs@4.1.5
+├─ @types/graceful-fs@4.1.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/graceful-fs
@@ -5122,7 +5122,7 @@
 │  ├─ email: doug@somethingdoug.com
 │  ├─ path: node_modules/media-typer
 │  └─ licenseFile: node_modules/media-typer/LICENSE
-├─ memfs@3.4.12
+├─ memfs@3.4.13
 │  ├─ licenses: Unlicense
 │  ├─ repository: https://github.com/streamich/memfs
 │  ├─ path: node_modules/memfs
@@ -7954,7 +7954,7 @@
 │  ├─ url: http://2x.io
 │  ├─ path: node_modules/ws
 │  └─ licenseFile: node_modules/ws/LICENSE
-├─ ws@8.11.0
+├─ ws@8.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/websockets/ws
 │  ├─ publisher: Einar Otto Stangvik
