@@ -242,7 +242,7 @@ __archive_updatesite -o dropins-archive/${FILE_NAME} \
   "${URL}"
 # deploy plugin files
 __unzipfile -f dropins-archive/${FILE_NAME} \
-  -m '*_10.0.0.*' \
+  -m '*_10.4.0.*' \
   -x '*.doc_* *.source_*' \
   dropins/${PACKAGE_NAME}/eclipse
 
@@ -352,8 +352,8 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 
 # PyDev
-URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%2010.0.2/PyDev%2010.0.2.zip/download'
-PACKAGE_NAME=PyDev-9.3.0
+URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%2010.1.0/PyDev%2010.1.0.zip/download'
+PACKAGE_NAME=PyDev-10.1.0
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f dropins-archive/${FILE_NAME} \
   -x '*.source_*' \
@@ -451,6 +451,11 @@ FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
   -u "${URL}" \
   dropins/${PACKAGE_NAME}/eclipse
+
+
+# file/directory permission
+chmod a+r dropins
+chmod a+x `find dropins -type d`
 
 ################################################################################
 # Amateras UML / Amateras Modeler
