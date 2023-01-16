@@ -205,24 +205,24 @@ done
 
 
 # Checkstyle
-#URL='https://sourceforge.net/projects/eclipse-cs/files/Eclipse%20Checkstyle%20Plug-in/8.7.0/net.sf.eclipsecs-updatesite_8.7.0.201801131309.zip/download'
-#PACKAGE_NAME=net.sf.eclipsecs-updatesite_8.7.0.201801131309
-#FILE_NAME=${PACKAGE_NAME}.zip
-#__unzipfile -f "dropins-archive/${FILE_NAME}" \
-#    -x '*.source_*' \
-#    -u "${URL}" \
-#    dropins/${PACKAGE_NAME}/eclipse
-# douload archive site
-URL=https://checkstyle.org/eclipse-cs-update-site/
-PACKAGE_NAME=net.sf.eclipsecs.ui_10.4.0
+VERSION=10.4.0.202211151918
+#URL=https://checkstyle.org/eclipse-cs-update-site/
+URL=https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}
+PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
 FILE_NAME=${PACKAGE_NAME}.zip
 __archive_updatesite -o dropins-archive/${FILE_NAME} \
   "${URL}"
 # deploy plugin files
 __unzipfile -f dropins-archive/${FILE_NAME} \
-  -m '*_10.4.0.*' \
   -x '*.doc_* *.source_*' \
   dropins/${PACKAGE_NAME}/eclipse
+# remove non target version
+for dirpath in dropins/${PACKAGE_NAME}/eclipse/features dropins/${PACKAGE_NAME}/eclipse/plugins; do
+  mkdir ${dirpath}.bak
+  mv ${dirpath}/*_${VERSION}.* ${dirpath}.bak
+  rm -rf ${dirpath}
+  mv ${dirpath}.bak ${dirpath}
+done
 
 
 # Eclipse CDT
@@ -383,12 +383,12 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
 
 
 # Subversive SVN Connector
-URL='http://community.polarion.com/projects/subversive/download/eclipse/6.0/builds/Subversive-connectors-6.0.4.I20161211-1700.zip'
-PACKAGE_NAME=`basename "${URL}" .zip`
-FILE_NAME=`basename "${URL}"`
+URL='https://osspit.org/eclipse/subversive-connectors/'
+PACKAGE_NAME=org.polarion.eclipse.team.svn.connector.svnkit1_10_6.1.0
+FILE_NAME=${PACKAGE_NAME}.zip
+__archive_updatesite -o "dropins-archive/${FILE_NAME}" \
+  "${URL}"
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
-  -x '*.sources_*' \
-  -u "${URL}" \
   dropins/${PACKAGE_NAME}/eclipse
 
 
