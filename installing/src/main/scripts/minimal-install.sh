@@ -5,8 +5,8 @@
 ################################################################################
 
 # distribution name and virsion
-distroname=`uname -r | sed 's/.*\.\([a-zA-Z]*\)[0-9\_]*\.[^\.]*$/\1/'`
-distrover=`uname -r | sed 's/.*\.[a-zA-Z]*\([0-9]*\)[^\.]*\.[^\.]*$/\1/'`
+distroname=`uname -r | sed 's/[^a-z^A-Z]*\.\([a-zA-Z]*\).*$/\1/'`
+distrover=`uname -r | sed 's/[^a-z^A-Z]*[a-zA-Z]*\([0-9]*\).*$/\1/'`
 echo distroname: $distroname
 echo distrover: $distrover
 
