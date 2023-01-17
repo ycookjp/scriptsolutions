@@ -1287,7 +1287,7 @@
 │  ├─ email: berge.greg@gmail.com
 │  ├─ path: node_modules/@svgr/webpack
 │  └─ licenseFile: node_modules/@svgr/webpack/LICENSE
-├─ @testing-library/dom@8.19.1
+├─ @testing-library/dom@8.20.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/testing-library/dom-testing-library
 │  ├─ publisher: Kent C. Dodds
@@ -1580,47 +1580,47 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/yargs
 │  └─ licenseFile: node_modules/@types/yargs/LICENSE
-├─ @typescript-eslint/eslint-plugin@5.48.1
+├─ @typescript-eslint/eslint-plugin@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/eslint-plugin
 │  └─ licenseFile: node_modules/@typescript-eslint/eslint-plugin/LICENSE
-├─ @typescript-eslint/experimental-utils@5.48.1
+├─ @typescript-eslint/experimental-utils@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/experimental-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/experimental-utils/LICENSE
-├─ @typescript-eslint/parser@5.48.1
+├─ @typescript-eslint/parser@5.48.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/parser
 │  └─ licenseFile: node_modules/@typescript-eslint/parser/LICENSE
-├─ @typescript-eslint/scope-manager@5.48.1
+├─ @typescript-eslint/scope-manager@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/scope-manager
 │  └─ licenseFile: node_modules/@typescript-eslint/scope-manager/LICENSE
-├─ @typescript-eslint/type-utils@5.48.1
+├─ @typescript-eslint/type-utils@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/type-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/type-utils/LICENSE
-├─ @typescript-eslint/types@5.48.1
+├─ @typescript-eslint/types@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/types
 │  └─ licenseFile: node_modules/@typescript-eslint/types/LICENSE
-├─ @typescript-eslint/typescript-estree@5.48.1
+├─ @typescript-eslint/typescript-estree@5.48.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/typescript-estree
 │  └─ licenseFile: node_modules/@typescript-eslint/typescript-estree/LICENSE
-├─ @typescript-eslint/utils@5.48.1
+├─ @typescript-eslint/utils@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/utils
 │  └─ licenseFile: node_modules/@typescript-eslint/utils/LICENSE
-├─ @typescript-eslint/visitor-keys@5.48.1
+├─ @typescript-eslint/visitor-keys@5.48.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/visitor-keys
@@ -3312,7 +3312,7 @@
 │  ├─ url: http://gajus.com
 │  ├─ path: node_modules/eslint-plugin-flowtype
 │  └─ licenseFile: node_modules/eslint-plugin-flowtype/LICENSE
-├─ eslint-plugin-import@2.27.4
+├─ eslint-plugin-import@2.27.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/import-js/eslint-plugin-import
 │  ├─ publisher: Ben Mosher
@@ -3338,7 +3338,7 @@
 │  ├─ repository: https://github.com/facebook/react
 │  ├─ path: node_modules/eslint-plugin-react-hooks
 │  └─ licenseFile: node_modules/eslint-plugin-react-hooks/LICENSE
-├─ eslint-plugin-react@7.32.0
+├─ eslint-plugin-react@7.32.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsx-eslint/eslint-plugin-react
 │  ├─ publisher: Yannick Croissant
@@ -4889,7 +4889,7 @@
 │  ├─ url: lukeed.com
 │  ├─ path: node_modules/kleur
 │  └─ licenseFile: node_modules/kleur/license
-├─ klona@2.0.5
+├─ klona@2.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lukeed/klona
 │  ├─ publisher: Luke Edwards
@@ -5198,7 +5198,7 @@
 │  ├─ url: http://blog.izs.me
 │  ├─ path: node_modules/minimatch
 │  └─ licenseFile: node_modules/minimatch/LICENSE
-├─ minimatch@5.1.4
+├─ minimatch@5.1.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/minimatch
 │  ├─ publisher: Isaac Z. Schlueter
