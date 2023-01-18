@@ -373,12 +373,14 @@ cp "dropins-archive/${FILE_NAME}" "dropins/${PACKAGE_NAME}/eclipse/plugins"
 
 
 # Subversive
-URL='http://www.eclipse.org/downloads/download.php?file=/technology/subversive/4.0/builds/Subversive-4.0.5.I20170425-1700.zip'
-PACKAGE_NAME=`basename "${URL}" .zip`
-FILE_NAME=`basename "${URL}"`
-__unzipfile -f "dropins-archive/${FILE_NAME}" \
-  -x '*.sources_* *.gz' \
-  -u "${URL}" \
+URL='https://download.eclipse.org/technology/subversive/4.8/release/latest/'
+PACKAGE_NAME='org.eclipse.team.svn_4.8.0.v20220904-1901'
+FILE_NAME="${PACKAGE_NAME}.zip"
+__archive_updatesite -o dropins-archive/${FILE_NAME} \
+  "${URL}"
+# deploy plugin files
+__unzipfile -f dropins-archive/${FILE_NAME} \
+  -x '*.source_*' \
   dropins/${PACKAGE_NAME}/eclipse
 
 
@@ -433,7 +435,7 @@ __unzipfile -f "dropins-archive/${FILE_NAME}" \
 
 
 # file/directory permission
-chmod a+r dropins
+chmod -R a+r dropins
 chmod a+x `find dropins -type d`
 
 ################################################################################

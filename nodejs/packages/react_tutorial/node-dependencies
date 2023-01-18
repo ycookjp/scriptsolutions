@@ -5198,7 +5198,7 @@
 │  ├─ url: http://blog.izs.me
 │  ├─ path: node_modules/minimatch
 │  └─ licenseFile: node_modules/minimatch/LICENSE
-├─ minimatch@5.1.5
+├─ minimatch@5.1.6
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/minimatch
 │  ├─ publisher: Isaac Z. Schlueter
