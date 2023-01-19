@@ -331,7 +331,7 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 # PyDev
 URL='https://www.pydev.org/update_sites/10.1.1'
-PACKAGE_NAME=org.python.`basename "${URL}"`
+PACKAGE_NAME=org.python.pydev_`basename "${URL}"`
 FILE_NAME=${PACKAGE_NAME}.zip
 __archive_updatesite -o dropins-archive/${FILE_NAME} \
   "${URL}"
