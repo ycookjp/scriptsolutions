@@ -330,8 +330,8 @@ __unzipfile -f dropins-archive/${FILE_NAME} \
 
 
 # PyDev
-URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%2010.1.0/PyDev%2010.1.0.zip/download'
-PACKAGE_NAME=PyDev-10.1.0
+URL='https://sourceforge.net/projects/pydev/files/pydev/PyDev%2010.1.1/PyDev%2010.1.1.zip/download'
+PACKAGE_NAME=PyDev-10.1.1
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f dropins-archive/${FILE_NAME} \
   -x '*.source_*' \
