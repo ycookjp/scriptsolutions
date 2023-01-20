@@ -325,7 +325,7 @@ URL='https://ja.osdn.net/projects/propedit/downloads/68691/jp.gr.java_conf.ussiy
 PACKAGE_NAME=jp.gr.java_conf.ussiy.app.propedit_6.0.5
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f dropins-archive/${FILE_NAME} \
-  -u  \
+  -u "${URL}" \
   dropins/${PACKAGE_NAME}
 
 
@@ -428,7 +428,7 @@ mv dropins/${PACKAGE_NAME}/${PACKAGE_NAME} dropins/${PACKAGE_NAME}/eclipse
 
 # WindowBuilder Pro
 URL="${ECLIPSE_URL_BASE}/windowbuilder/1.11.0/repository.zip"
-PACKAGE_NAME=WindowsBuilder_Pro-1.9.8
+PACKAGE_NAME=WindowBuilder_Pro-1.11.0
 FILE_NAME=${PACKAGE_NAME}.zip
 __unzipfile -f "dropins-archive/${FILE_NAME}" \
   -u "${URL}" \
