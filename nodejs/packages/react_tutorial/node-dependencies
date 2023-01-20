@@ -3743,7 +3743,7 @@
 │  ├─ publisher: Stefan Penner
 │  ├─ path: node_modules/get-caller-file
 │  └─ licenseFile: node_modules/get-caller-file/LICENSE.md
-├─ get-intrinsic@1.1.3
+├─ get-intrinsic@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/get-intrinsic
 │  ├─ publisher: Jordan Harband
@@ -4760,7 +4760,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest
 │  └─ licenseFile: node_modules/jest/LICENSE
-├─ js-sdsl@4.2.0
+├─ js-sdsl@4.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/js-sdsl/js-sdsl
 │  ├─ publisher: ZLY201
