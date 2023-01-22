@@ -221,7 +221,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-wrap-function
 │  └─ licenseFile: node_modules/@babel/helper-wrap-function/LICENSE
-├─ @babel/helpers@7.20.7
+├─ @babel/helpers@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -235,7 +235,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/highlight
 │  └─ licenseFile: node_modules/@babel/highlight/LICENSE
-├─ @babel/parser@7.20.7
+├─ @babel/parser@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -277,7 +277,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-proposal-class-static-block
 │  └─ licenseFile: node_modules/@babel/plugin-proposal-class-static-block/LICENSE
-├─ @babel/plugin-proposal-decorators@7.20.7
+├─ @babel/plugin-proposal-decorators@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -678,7 +678,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-react-jsx-development
 │  └─ licenseFile: node_modules/@babel/plugin-transform-react-jsx-development/LICENSE
-├─ @babel/plugin-transform-react-jsx@7.20.7
+├─ @babel/plugin-transform-react-jsx@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -748,7 +748,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-typeof-symbol
 │  └─ licenseFile: node_modules/@babel/plugin-transform-typeof-symbol/LICENSE
-├─ @babel/plugin-transform-typescript@7.20.7
+├─ @babel/plugin-transform-typescript@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -795,7 +795,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/preset-typescript
 │  └─ licenseFile: node_modules/@babel/preset-typescript/LICENSE
-├─ @babel/runtime@7.20.7
+├─ @babel/runtime@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -809,7 +809,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/template
 │  └─ licenseFile: node_modules/@babel/template/LICENSE
-├─ @babel/traverse@7.20.12
+├─ @babel/traverse@7.20.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
