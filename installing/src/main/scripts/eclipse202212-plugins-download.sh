@@ -9,10 +9,13 @@ DL_INTERVAL=1s
 # Proxy URL
 PROXY_URL=
 
+# curl options
+#CURL_OPTS="-k"
+
 ################################################################################
 
 if [ "x${PROXY_URL}" != "x" ]; then
-  CURL_OPTS="-x ${PROXY_URL}"
+  CURL_OPTS="${CURL_OPTS} -x ${PROXY_URL}"
   ECLIPSE_COMMAND="env http_proxy=${PROXY_URL} https_proxy=${PROXY_URL} ${ECLIPSE_COMMAND}"
 fi
 
@@ -293,7 +296,7 @@ download_enanced_class_decompiler_plugin () {
 # JGit LFS
 download_jgit_plugin () {
   URL="${ECLIPSE_URL_BASE}/egit/updates-6.4/org.eclipse.egit.repository-6.4.0.202211300538-r.zip"
-  PACKAGE_NAME=`basename "${URL}" .zip`
+  PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
     -x '*.source_* *.gz' \
@@ -478,26 +481,47 @@ download_windowsbuilder_plugin () {
 
 
 # Download eclipse plugins
+# BabelLanguagePack-Rx.x.x-ja_vYYYYMMDDHHMMSS
 download_babel_plugin
+# net.sf.eclipsecs.checkstyle_x.x.x.YYYYMMDDHHMM
 download_checkstyle_plugin
+# cdt-x.x.x
 download_cdt_plugin
+# org.eclipse.php_x.x.x.YYYYMMDDHHMM
 download_pdt_plugin
+# dltk-core-R-x.x-YYYYMMDDHHMM
 download_dltk_plugin
+# emonic_x.x.x
 download_emonic_plugin
+# enhanced-class-decompiler-x.x.x.YYYYMMDDHHMM
 download_enanced_class_decompiler_plugin
+# org.eclipse.jgit.repository-x.x.x.YYYYMMDDHHMM-r
 download_jgit_plugin
+# markdown.editor_x.x.x
 download_markdown_editor_plugin
+# org.nodeclipse.site-x.x.x-YYYYMMDDHHMM
 download_nodeclipse_plugin
+# jp.gr.java_conf.ussiy.app.propedit_x.x.x
 download_properties_editor_plugin
+# org.python.pydev_x.x.x
 download_pydev_plugin
+# com.github.spotbugs.plugin.eclipse_x.x.x
 download_spotbugs_plugin
+# statet-repository-EYYYYMM-incubation-x.x.x-YYYYMMDDHHMM-r
 download_statet_plugin
+# jp.sf.amateras.stepcounter_x.x.x.YYYYMMDDHHMM
 download_stepcounter_plugin
+# org.eclipse.team.svn_x.x.x.vYYYYMMDD-HHMM
 download_subversive_plugin
+# org.polarion.eclipse.team.svn.connector.svnkitx_x_x.x.x
 download_svn_connector_plugin
+# mylyn-x.x.x.vYYYYMMDD-HHMM
 download_mylyn_plugin
+# umlet-eclipse-p2-x.x.x
 download_umlet_plugin
+# visualvm_launcher_u3_eclipse
 download_visualvm_plugin
+# WindowBuilder_Pro-x.x.x
 download_windowsbuilder_plugin
 
 
