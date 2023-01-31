@@ -37,7 +37,7 @@
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
     <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
     <TEST_PATH>${project.build.directory}/build-tmp</TEST_PATH>
-    <PACKAGE_NAME>polls</PACKAGE_NAME>
+    <PACKAGE_NAME>mycalender</PACKAGE_NAME>
     <TEST_PY>test_all.py</TEST_PY>
   </properties>
   <!-- 
@@ -72,8 +72,8 @@
             <fileset>
               <directory>${basedir}/</directory>
               <includes>
-                <include>src/main/${PACKAGE_NAME}/**/__pycache__/</include>
-                <include>src/main/${PACKAGE_NAME}/**/site-packages/</include>
+                <include>src/main/**/__pycache__/</include>
+                <include>src/main/**/site-packages/</include>
                 <include>tests/**/__pycache__/</include>
                 <include>tests/**/site-packages/</include>
               </includes>

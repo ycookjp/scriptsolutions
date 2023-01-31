@@ -70,8 +70,8 @@
             <fileset>
               <directory>${basedir}/</directory>
               <includes>
-                <include>src/main/${PACKAGE_NAME}/**/__pycache__/</include>
-                <include>src/main/${PACKAGE_NAME}/**/site-packages/</include>
+                <include>src/main/**/__pycache__/</include>
+                <include>src/main/**/site-packages/</include>
                 <include>tests/**/__pycache__/</include>
                 <include>tests/**/site-packages/</include>
               </includes>
