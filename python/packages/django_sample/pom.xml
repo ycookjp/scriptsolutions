@@ -4,22 +4,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ycookjp.myproject.python.packages</groupId>
-  <artifactId>django_tutorial</artifactId>
+  <artifactId>django_sample</artifactId>
   <!-- inheritated from parent
-  <version>0.0.1-SNAPSHOT</version>
   -->
+  <version>0.0.1-SNAPSHOT</version>
   <!-- end -->
   <packaging>pom</packaging>
-  <description>Django Tutorial source codes.</description>
+  <description>Starts and stops AWS resources.</description>
+<!--
   <parent>
     <groupId>ycookjp.myproject.python</groupId>
     <artifactId>packages</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+-->
   <name>Django Tutorial</name>
   <properties>
     <!-- Inheritated from parent project.
+    -->
     <p.sep>${path.separator}</p.sep>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-site.ver>3.12.1</maven-site.ver>
@@ -29,7 +32,6 @@
     <maven-antrun.ver>3.1.0</maven-antrun.ver>
     <exec-maven-plugin.ver>3.1.0</exec-maven-plugin.ver>
     <maven-clean.ver>3.2.0</maven-clean.ver>
-    -->
     <!-- end -->
     <PYTHONEXE>python3</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
@@ -43,9 +45,10 @@
    -->
   <build>
     <!-- Inheritated from parent project.
+    -->
     <pluginManagement>
       <plugins>
-        <!- - Basic report creation.  - ->
+        <!-- Basic report creation.  -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
@@ -58,7 +61,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    -->
     <!-- end -->
     <plugins>
       <!-- cleaning files -->
@@ -367,6 +369,7 @@
     </plugins>
   </build>
   <!-- Inheritated from parent project.
+  -->
   <reporting>
     <plugins>
       <plugin>
@@ -376,6 +379,5 @@
       </plugin>
     </plugins>
   </reporting>
-  -->
   <!-- end -->
 </project>

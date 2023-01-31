@@ -9,7 +9,7 @@
     <menu name="Contents">
       <item name="Test Report" href="./test-reports/test-report.html" />
       <item name="Coverage Report" href="./coverage/lcov-report/index.html" />
-      <item name="Dependencies" href="./node-dependencies" />
+      <item name="Dependencies" href="./node-dependencies.txt" />
       <item name="Download site archive" href="./${project.artifactId}-${project.version}.zip" />
     </menu>
     <menu name="APIs">

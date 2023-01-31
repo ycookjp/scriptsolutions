@@ -30,7 +30,7 @@
     <maven-clean.ver>3.2.0</maven-clean.ver>
     -->
     <!-- end -->
-    <PYTHONEXE>/opt/python3/bin/python3</PYTHONEXE>
+    <PYTHONEXE>python3</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
     <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
     <TEST_PATH>${project.build.directory}/build-tmp</TEST_PATH>

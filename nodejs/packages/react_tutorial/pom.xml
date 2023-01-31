@@ -203,7 +203,7 @@
             <configuration>
               <executable>${MAIN_PATH}/node_modules/.bin/license-checker</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>--production --out ${project.build.directory}/site/node-dependencies</commandlineArgs>
+              <commandlineArgs>--production --out ${project.build.directory}/site/node-dependencies.txt</commandlineArgs>
             </configuration>
           </execution>
 
@@ -281,7 +281,7 @@
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{}\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*main[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
                   <fileset dir="${project.build.directory}/site/coverage" includes="**/*"/>
                   <fileset dir="${project.build.directory}/site/test-reports" includes="**/*"/>
-                  <fileset file="${project.build.directory}/site/node-dependencies"/>
+                  <fileset file="${project.build.directory}/site/node-dependencies.txt"/>
                 </replaceregexp>
               </target>
             </configuration>
