@@ -432,17 +432,17 @@ download_svn_connector_plugin () {
 }
 
 
-# Mylyn
-# Mylyn is required for installing UMLet
-download_mylyn_plugin () {
-  URL="${ECLIPSE_URL_BASE}/mylyn/drops/3.26.0/v20200731-0526/mylyn-3.26.0.v20200731-0526.zip"
-  PACKAGE_NAME=`basename "${URL}" .zip`
-  FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -x '*.source_* *.tests_*' \
-    -u "${URL}" \
-    dropins/${PACKAGE_NAME}/eclipse
-}
+## Mylyn
+## Mylyn is required for installing UMLet ==> Not required.
+#download_mylyn_plugin () {
+#  URL="${ECLIPSE_URL_BASE}/mylyn/drops/3.26.0/v20200731-0526/mylyn-3.26.0.v20200731-0526.zip"
+#  PACKAGE_NAME=`basename "${URL}" .zip`
+#  FILE_NAME=`basename "${URL}"`
+#  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+#    -x '*.source_* *.tests_*' \
+#    -u "${URL}" \
+#    dropins/${PACKAGE_NAME}/eclipse
+#}
 
 
 # UMLet
@@ -515,8 +515,8 @@ download_stepcounter_plugin
 download_subversive_plugin
 # org.polarion.eclipse.team.svn.connector.svnkitx_x_x.x.x
 download_svn_connector_plugin
-# mylyn-x.x.x.vYYYYMMDD-HHMM
-download_mylyn_plugin
+## mylyn-x.x.x.vYYYYMMDD-HHMM
+#download_mylyn_plugin
 # umlet-eclipse-p2-x.x.x
 download_umlet_plugin
 # visualvm_launcher_u3_eclipse

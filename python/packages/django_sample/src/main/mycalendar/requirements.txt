@@ -4,5 +4,6 @@
 ###### Requirements without Version Specifiers ######
 #
 Django
+pyyaml
 ###### Requirements with Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers

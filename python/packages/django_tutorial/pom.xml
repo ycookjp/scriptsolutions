@@ -10,7 +10,7 @@
   -->
   <!-- end -->
   <packaging>pom</packaging>
-  <description>Django Tutorial source codes.</description>
+  <description>Django Tutorial application (polls).</description>
   <parent>
     <groupId>ycookjp.myproject.python</groupId>
     <artifactId>packages</artifactId>
@@ -242,7 +242,7 @@
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --config show_source_code=False --force ${PACKAGE_NAME}.test</commandlineArgs>
+              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --config show_source_code=False --force ${PACKAGE_NAME}.tests</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
