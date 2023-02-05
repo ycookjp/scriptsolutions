@@ -29,12 +29,12 @@ class MyCalendarModelTest(TestCase):
           user:testuser、year:2020、month:1、day:2 を指定して
           /get_dayly にアクセスする
         
-          * 2020年1月2日のカレンダーを取得するとその月のすべての日のデータが作成されること
-          * 返却されたデータのuserはget_dailyで指定されたユーザーであること
-          * 返却されたデータの年はget_dailyで指定された年であること
-          * 返却されたデータの月はget_dailyで指定された月であること
-          * 返却されたデータの日はget_dailyで指定された日であること
-          * 返却されたコメントは空であること
+            * 2020年1月2日のカレンダーを取得するとその月のすべての日のデータが作成されること
+            * 返却されたデータのuserはget_dailyで指定されたユーザーであること
+            * 返却されたデータの年はget_dailyで指定された年であること
+            * 返却されたデータの月はget_dailyで指定された月であること
+            * 返却されたデータの日はget_dailyで指定された日であること
+            * 返却されたコメントは空であること
           
         '''
         cals = MyCalendar.objects.filter(user='testuser', year=2020, month=1)

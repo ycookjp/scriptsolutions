@@ -13,9 +13,7 @@
   	<relativePath>../pom.xml</relativePath>
   </parent>
   <modules>
-<!--
   	<module>awsutils</module>
--->
   	<module>django_tutorial</module>
   	<module>django_sample</module>
   	<module>mypackage</module>
