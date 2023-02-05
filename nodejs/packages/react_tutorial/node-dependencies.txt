@@ -235,7 +235,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/highlight
 │  └─ licenseFile: node_modules/@babel/highlight/LICENSE
-├─ @babel/parser@7.20.13
+├─ @babel/parser@7.20.15
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -510,7 +510,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-block-scoped-functions
 │  └─ licenseFile: node_modules/@babel/plugin-transform-block-scoped-functions/LICENSE
-├─ @babel/plugin-transform-block-scoping@7.20.14
+├─ @babel/plugin-transform-block-scoping@7.20.15
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -1389,7 +1389,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint-scope
 │  └─ licenseFile: node_modules/@types/eslint-scope/LICENSE
-├─ @types/eslint@8.4.10
+├─ @types/eslint@8.21.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint
@@ -1414,7 +1414,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/express-serve-static-core
 │  └─ licenseFile: node_modules/@types/express-serve-static-core/LICENSE
-├─ @types/express@4.17.16
+├─ @types/express@4.17.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/express
@@ -1471,7 +1471,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/mime
 │  └─ licenseFile: node_modules/@types/mime/LICENSE
-├─ @types/node@18.11.18
+├─ @types/node@18.11.19
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -2305,7 +2305,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001449
+├─ caniuse-lite@1.0.30001450
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3128,7 +3128,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.284
+├─ electron-to-chromium@1.4.286
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -7280,7 +7280,7 @@
 │  ├─ publisher: webpack Contrib Team
 │  ├─ path: node_modules/terser-webpack-plugin
 │  └─ licenseFile: node_modules/terser-webpack-plugin/LICENSE
-├─ terser@5.16.2
+├─ terser@5.16.3
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/terser/terser
 │  ├─ publisher: Mihai Bazon
