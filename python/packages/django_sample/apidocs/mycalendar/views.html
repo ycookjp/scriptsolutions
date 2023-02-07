@@ -51,7 +51,8 @@
 <span>def <span class="ident">get_daily</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int, day: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>年月日を指定してカレンダー情報を取得する。</p>
+<div class="desc"><p>get_daily/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/&lt;int:day&gt;/</p>
+<p>年月日を指定してカレンダー情報を取得する。</p>
 <p>データベースから指定されたユーザー、年月日の MyCalendar オブジェクトを
 取得する。</p>
 <p>データベースに指定されたユーザー、年月日の MyCalendar オブジェクトが存在
@@ -72,23 +73,27 @@
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>dict</code></dt>
-<dd>指定された年月日の MyCalendar オブジェクトの内容を設定した
-ディクショナリを返す。<pre><code>{
-  "user": "&lt;user_name&gt;",
-  "year": &lt;year&gt;,
-  "month": &lt;month&gt;,
-  "day": &lt;day&gt;,
-  "note": "&lt;note&gt;"
+<dd>
+<p>指定された年月日の MyCalendar オブジェクトの内容を設定した
+ディクショナリを返す。</p>
+<p>{
+response_data: {
+"user": "<user_name>",
+"year": <year>,
+"month": <month>,
+"day": <day>,
+"note": "<note>"
 }
-</code></pre>
+}</p>
 </dd>
 </dl></div>
 </dd>
 <dt id="mycalendar.views.get_monthly"><code class="name flex">
-<span>def <span class="ident">get_monthly</span></span>(<span>request: django.http.request.HttpRequest, year: int, month: int)</span>
+<span>def <span class="ident">get_monthly</span></span>(<span>request: django.http.request.HttpRequest, user, year: int, month: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>年月を指定してカレンダー情報を取得する。</p>
+<div class="desc"><p>get_monthly/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/</p>
+<p>年月を指定してカレンダー情報を取得する。</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>

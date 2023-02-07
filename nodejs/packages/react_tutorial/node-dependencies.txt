@@ -984,7 +984,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/environment
 │  └─ licenseFile: node_modules/@jest/environment/LICENSE
-├─ @jest/expect-utils@29.4.1
+├─ @jest/expect-utils@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/expect-utils
@@ -1009,7 +1009,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/@jest/schemas
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/@jest/schemas/LICENSE
-├─ @jest/schemas@29.4.0
+├─ @jest/schemas@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/schemas
@@ -1049,7 +1049,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/@jest/types
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/@jest/types/LICENSE
-├─ @jest/types@29.4.1
+├─ @jest/types@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/types
@@ -1471,7 +1471,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/mime
 │  └─ licenseFile: node_modules/@types/mime/LICENSE
-├─ @types/node@18.11.19
+├─ @types/node@18.13.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -1586,47 +1586,47 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/yargs
 │  └─ licenseFile: node_modules/@types/yargs/LICENSE
-├─ @typescript-eslint/eslint-plugin@5.50.0
+├─ @typescript-eslint/eslint-plugin@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/eslint-plugin
 │  └─ licenseFile: node_modules/@typescript-eslint/eslint-plugin/LICENSE
-├─ @typescript-eslint/experimental-utils@5.50.0
+├─ @typescript-eslint/experimental-utils@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/experimental-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/experimental-utils/LICENSE
-├─ @typescript-eslint/parser@5.50.0
+├─ @typescript-eslint/parser@5.51.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/parser
 │  └─ licenseFile: node_modules/@typescript-eslint/parser/LICENSE
-├─ @typescript-eslint/scope-manager@5.50.0
+├─ @typescript-eslint/scope-manager@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/scope-manager
 │  └─ licenseFile: node_modules/@typescript-eslint/scope-manager/LICENSE
-├─ @typescript-eslint/type-utils@5.50.0
+├─ @typescript-eslint/type-utils@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/type-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/type-utils/LICENSE
-├─ @typescript-eslint/types@5.50.0
+├─ @typescript-eslint/types@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/types
 │  └─ licenseFile: node_modules/@typescript-eslint/types/LICENSE
-├─ @typescript-eslint/typescript-estree@5.50.0
+├─ @typescript-eslint/typescript-estree@5.51.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/typescript-estree
 │  └─ licenseFile: node_modules/@typescript-eslint/typescript-estree/LICENSE
-├─ @typescript-eslint/utils@5.50.0
+├─ @typescript-eslint/utils@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/utils
 │  └─ licenseFile: node_modules/@typescript-eslint/utils/LICENSE
-├─ @typescript-eslint/visitor-keys@5.50.0
+├─ @typescript-eslint/visitor-keys@5.51.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/visitor-keys
@@ -2974,7 +2974,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/diff-sequences
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/diff-sequences/LICENSE
-├─ diff-sequences@29.3.1
+├─ diff-sequences@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/diff-sequences
@@ -3128,7 +3128,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.286
+├─ electron-to-chromium@1.4.288
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3489,7 +3489,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/expect
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/expect/LICENSE
-├─ expect@29.4.1
+├─ expect@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/expect
@@ -4582,7 +4582,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/jest-diff
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/jest-diff/LICENSE
-├─ jest-diff@29.4.1
+├─ jest-diff@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-diff
@@ -4614,7 +4614,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-validate/node_modules/jest-get-type
 │  └─ licenseFile: node_modules/jest-validate/node_modules/jest-get-type/LICENSE
-├─ jest-get-type@29.2.0
+├─ jest-get-type@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-get-type
@@ -4639,7 +4639,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/jest-matcher-utils
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/jest-matcher-utils/LICENSE
-├─ jest-matcher-utils@29.4.1
+├─ jest-matcher-utils@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-matcher-utils
@@ -4654,7 +4654,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/jest-message-util
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/jest-message-util/LICENSE
-├─ jest-message-util@29.4.1
+├─ jest-message-util@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-message-util
@@ -4719,7 +4719,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/jest-util
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/jest-util/LICENSE
-├─ jest-util@29.4.1
+├─ jest-util@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest-util
@@ -5304,7 +5304,7 @@
 │  ├─ email: robert@broofa.com
 │  ├─ path: node_modules/node-int64
 │  └─ licenseFile: node_modules/node-int64/LICENSE
-├─ node-releases@2.0.9
+├─ node-releases@2.0.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chicoxyzzy/node-releases
 │  ├─ publisher: Sergey Rubanov
@@ -6256,7 +6256,7 @@
 │  ├─ email: me@thejameskyle.com
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/pretty-format
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/pretty-format/LICENSE
-├─ pretty-format@29.4.1
+├─ pretty-format@29.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ publisher: James Kyle
