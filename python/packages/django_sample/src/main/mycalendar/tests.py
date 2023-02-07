@@ -44,7 +44,7 @@ class MyCalendarModelTest(TestCase):
         
         response = self.client.get(reverse('mycalendar:get_daily',
                 kwargs={'user':'testuser', 'year':2020, 'month':1, 'day':2}))
-        response_data = json.loads(response.content)
+        response_data = json.loads(response.content).get('response_data')
         cals = MyCalendar.objects.filter(user='testuser', year=2020, month=1)
         max_days = calendar.monthrange(2020, 1)[1]
         # 2020年1月2日のカレンダーを取得するとその月のすべての日のデータが作成されること
@@ -65,3 +65,32 @@ class MyCalendarModelTest(TestCase):
         # 返却されたコメントは空であること
         self.assertEqual(response_data['note'], '',
                 '返却されたコメントは空であること')
+    
+    def test_get_monthly(self):
+        '''get_monthly view関数のテスト。
+        '''
+        cals = MyCalendar.objects.filter(user='testuser', year=2020, month=1)
+        # テスト実行前は2020年1月のデータは設定されていないこと
+        self.assertEqual(len(cals), 0,
+                'テスト実行前は2020年1月のデータは設定されてないこと')
+        
+        response = self.client.get(reverse('mycalendar:get_monthly',
+                kwargs={'user':'testuser', 'year':2020, 'month':2}))
+        response_data = json.loads(response.content).get('response_data')
+        
+        # 取得したデータ数は月の日数と等しいこと
+        last_day = calendar.monthrange(2020, 2)[1]
+        self.assertEqual(len(response_data), last_day,
+                '取得したデータ数は月の日数と等しいこと')
+        for cal in response_data:
+            # ユーザーは引数で指定されたユーザーであること
+            self.assertEqual(cal.get('user'), 'testuser',
+                    'ユーザーは引数で指定されたユーザーであること')
+            # 年は引数で指定された月であること
+            self.assertEqual(cal.get('year'), 2020,
+                    '年は引数で指定された月であること')
+            # 月は引数で指定された月であること
+            self.assertEqual(cal.get('month'), 2,
+                    '月は引数で指定された月であること')
+            # コメントは空であること
+            self.assertEqual(cal.get('note'), '', 'コメントは空であること')
