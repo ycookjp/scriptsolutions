@@ -31,10 +31,11 @@
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="mycalendar.views.delete_monthly"><code class="name flex">
-<span>def <span class="ident">delete_monthly</span></span>(<span>request: django.http.request.HttpRequest, year: int, month: int)</span>
+<span>def <span class="ident">delete_monthly</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>年月を指定してカレンダー情報を削除する。</p>
+<div class="desc"><p>DELETE delete_monthly/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/</p>
+<p>年月を指定してカレンダー情報を削除する。</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
@@ -51,13 +52,15 @@
 <span>def <span class="ident">get_daily</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int, day: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>get_daily/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/&lt;int:day&gt;/</p>
+<div class="desc"><p>GET get_daily/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/&lt;int:day&gt;/</p>
 <p>年月日を指定してカレンダー情報を取得する。</p>
-<p>データベースから指定されたユーザー、年月日の MyCalendar オブジェクトを
-取得する。</p>
-<p>データベースに指定されたユーザー、年月日の MyCalendar オブジェクトが存在
+<ul>
+<li>データベースから指定されたユーザー、年月日の MyCalendar オブジェクトを
+取得する。</li>
+<li>データベースに指定されたユーザー、年月日の MyCalendar オブジェクトが存在
 しない場合は、ユーザーのその月の MyCalendar オブジェクトをデータベースに
-作成した上で、指定された年月日の MyCalendar オブジェクトを返す。</p>
+作成した上で、指定された年月日の MyCalendar オブジェクトを返す。</li>
+</ul>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
@@ -72,27 +75,25 @@
 <p>day(int): 日</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
-<dd>
-<p>指定された年月日の MyCalendar オブジェクトの内容を設定した
-ディクショナリを返す。</p>
-<p>{
-response_data: {
-"user": "<user_name>",
-"year": <year>,
-"month": <month>,
-"day": <day>,
-"note": "<note>"
+<dt><code>JsonResponse</code></dt>
+<dd>指定された年月日の MyCalendar オブジェクトの内容を設定
+したJSONオブジェクトレスポンス・ボディに設定して返す。<pre><code>{
+  "id": ID,
+  "user": "&lt;user_name&gt;",
+  "year": &lt;year&gt;,
+  "month": &lt;month&gt;,
+  "day": &lt;day&gt;,
+  "note": "&lt;note&gt;"
 }
-}</p>
+</code></pre>
 </dd>
 </dl></div>
 </dd>
 <dt id="mycalendar.views.get_monthly"><code class="name flex">
-<span>def <span class="ident">get_monthly</span></span>(<span>request: django.http.request.HttpRequest, user, year: int, month: int)</span>
+<span>def <span class="ident">get_monthly</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>get_monthly/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/</p>
+<div class="desc"><p>GET get_monthly/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/</p>
 <p>年月を指定してカレンダー情報を取得する。</p>
 <h2 id="args">Args</h2>
 <dl>
@@ -104,13 +105,53 @@ response_data: {
 <dd>年</dd>
 <dt><strong><code>month</code></strong> :&ensp;<code>int</code></dt>
 <dd>月</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>JsonResponse</code></dt>
+<dd>指定された年月のカレンダー情報の配列を設定したJSON
+オブジェクトをレスポンス・ボディに設定して返す。<pre><code>[
+  {
+    "id": ID,
+    "user": "&lt;user_name&gt;",
+    "year": &lt;year&gt;,
+    "month": &lt;month&gt;,
+    "day": &lt;day&gt;,
+    "note": "&lt;note&gt;"
+  },
+  ...
+]
+</code></pre>
+</dd>
 </dl></div>
 </dd>
 <dt id="mycalendar.views.save_daily"><code class="name flex">
-<span>def <span class="ident">save_daily</span></span>(<span>request: django.http.request.HttpRequest, year: int, month: int, day: int)</span>
+<span>def <span class="ident">save_daily</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int, day: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>年月日を指定してカレンダー情報を登録・更新する。</p>
+<div class="desc"><p>PUT save_daily/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/&lt;int:day&gt;/</p>
+<p>年月日を指定してカレンダー情報を登録・更新する。</p>
+<ul>
+<li>
+<p>リクエスト・ボディ</p>
+<pre><code>{
+  "id": ID,
+  "user": "&lt;user_name&gt;",
+  "year": &lt;year&gt;,
+  "month": &lt;month&gt;,
+  "day": &lt;day&gt;,
+  "note": "&lt;note&gt;"
+}
+</code></pre>
+<ul>
+<li>登録（レコードのインサート）の場合は、「id」は指定しない（項目なし
+または値が空）</li>
+<li>URLパラメータで指定された年月のカレンダー情報がDBに登録されていない
+場合は、その年月の１ヶ月分のカレンダー情報をDBに登録した後に、
+リクエスト・ボディに設定されたカレンダー情報をDBに更新する</li>
+</ul>
+</li>
+</ul>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
@@ -122,13 +163,47 @@ response_data: {
 <dt><strong><code>month</code></strong> :&ensp;<code>int</code></dt>
 <dd>月</dd>
 </dl>
-<p>day(int): 日</p></div>
+<p>day(int): 日</p>
+<h2 id="raises">Raises</h2>
+<p>ValicationError:</p>
+<ul>
+<li>URLパラメータの user、year、month、day がリクエスト・ボディの
+JSONオブジェクトのそれぞれの同名の属性と一致しないものがある場合</li>
+<li>URLパラメータの month の値が 1 より小さい、または 12 より大きい場合</li>
+<li>URLパラメータの day の値が 1 より大きい、または month で指定された
+月の最終日より大きい場合</li>
+</ul></div>
 </dd>
 <dt id="mycalendar.views.save_monthly"><code class="name flex">
-<span>def <span class="ident">save_monthly</span></span>(<span>request: django.http.request.HttpRequest, year: int, month: int)</span>
+<span>def <span class="ident">save_monthly</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>年月を指定してカレンダー情報を登録・更新する。</p>
+<div class="desc"><p>PUT save_monthly/&lt;str:user&gt;/&lt;int:year&gt;/&lt;int:month&gt;/</p>
+<p>年月を指定してカレンダー情報を登録・更新する。</p>
+<ul>
+<li>
+<p>リクエスト・ボディ</p>
+<pre><code>[
+  {
+    "id": ID,
+    "user": "&lt;user_name&gt;",
+    "year": &lt;year&gt;,
+    "month": &lt;month&gt;,
+    "day": &lt;day&gt;,
+    "note": "&lt;note&gt;"
+  },
+  ...
+]
+</code></pre>
+<ul>
+<li>登録（レコードのインサート）の場合は、「id」は指定しない（項目なし
+または値が空）</li>
+<li>URLパラメータで指定された年月のカレンダー情報がDBに登録されていない
+場合は、その年月の１ヶ月分のカレンダー情報をDBに登録した後に、
+リクエスト・ボディに設定されたカレンダー情報をDBに更新する</li>
+</ul>
+</li>
+</ul>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
@@ -139,7 +214,16 @@ response_data: {
 <dd>年</dd>
 <dt><strong><code>month</code></strong> :&ensp;<code>int</code></dt>
 <dd>月</dd>
-</dl></div>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>ValidationError:</p>
+<ul>
+<li>URLパラメータのmonthの値が1より小さい、または12より大きい場合</li>
+<li>リクエスト・ボディのディクショナリ配列の個々の要素について、
+monthの値が1より小さい、または12より大きい場合</li>
+<li>リクエスト・ボディのディクショナリ配列の個々の要素について、
+dayの値が1より小さい、または月の最終日より大きい場合</li>
+</ul></div>
 </dd>
 </dl>
 </section>

@@ -69,23 +69,55 @@ not have a method with the specified name.</p></div>
 <dd>
 <div class="desc"><p>Hook method for deconstructing the test fixture after testing it.</p></div>
 </dd>
+<dt id="mycalendar.tests.MyCalendarModelTest.test_delete_monthly"><code class="name flex">
+<span>def <span class="ident">test_delete_monthly</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>delete_monthly ビュー関数のテスト。</p>
+<ol>
+<li>get_monthly/testuser/2020/1および2/ にアクセスして2020年1月と2月の
+カレンダー情報を取得してDBに2020年1月と2月のカレンダー情報を作成した
+後、delete_monthly/testuser/2020/2/ にアクセスする<ul>
+<li>2020年2月のカレンダー情報が削除される（件数が0件であ）ること</li>
+<li>2020年1月のカレンダー情報は削除されない（件数が月の日数）であること</li>
+</ul>
+</li>
+<li>delete_monthly/testuser/2020/0/ にアクセスする</li>
+<li>ValidationErrorが発生すること</li>
+<li>delete_monthly/testuser/2020/13/ にアクセスする</li>
+<li>ValidationErrorが発生すること</li>
+</ol></div>
+</dd>
 <dt id="mycalendar.tests.MyCalendarModelTest.test_get_daily"><code class="name flex">
 <span>def <span class="ident">test_get_daily</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>get_daily view関数のテスト。</p>
+<div class="desc"><p>get_daily ビュー関数のテスト。</p>
 <ol>
 <li>
 <p>user：testuser のデータがすべて削除された状態で、
 user:testuser、year:2020、month:1、day:2 を指定して
-/get_dayly にアクセスする</p>
+/get_dayly にアクセスする。</p>
 <ul>
+<li>応答ステータスが正常であること</li>
 <li>2020年1月2日のカレンダーを取得するとその月のすべての日のデータが作成されること</li>
 <li>返却されたデータのuserはget_dailyで指定されたユーザーであること</li>
 <li>返却されたデータの年はget_dailyで指定された年であること</li>
 <li>返却されたデータの月はget_dailyで指定された月であること</li>
 <li>返却されたデータの日はget_dailyで指定された日であること</li>
 <li>返却されたコメントは空であること</li>
+<li>2020年0月1日を指定して get_daily にアクセスする</li>
+<li>ValidationErrorが発生すること</li>
+<li>2020年13月1日を指定して get_daily にアクセスする</li>
+<li>ValidationErrorが発生すること</li>
+<li>user:testuser の2020年2月のカレンダー情報が作成されている状態で、
+user:testuser、year:2020、month:1、day:0 を指定して /get_dayly に
+アクセスする。</li>
+<li>ValidationError 例外が発生すること</li>
+<li>user:testuser の2020年2月のカレンダー情報が作成されている状態で、
+user:testuser、year:2020、month:1、day:32 を指定して /get_dayly に
+アクセスする。</li>
+<li>ValidationError 例外が発生すること</li>
 </ul>
 </li>
 </ol></div>
@@ -94,7 +126,106 @@ user:testuser、year:2020、month:1、day:2 を指定して
 <span>def <span class="ident">test_get_monthly</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>get_monthly view関数のテスト。</p></div>
+<div class="desc"><p>get_monthly ビュー関数のテスト。</p>
+<ol>
+<li>2020年1月のカレンダー情報が登録されていない状態で2020年2年を
+指定して get_monthly にアクセスする<ul>
+<li>取得したデータ数は月の日数と等しいこと</li>
+<li>取得した各レコードのユーザーは引数で指定されたユーザーであること</li>
+<li>取得した各レコードの年は引数で指定された月であること</li>
+<li>取得した各レコードの月は引数で指定された月であること</li>
+<li>取得した各レコードのコメントは空であること</li>
+</ul>
+</li>
+<li>2020年0月を指定して get_monthly にアクセスする<ul>
+<li>ValidationErrorが発生すること</li>
+</ul>
+</li>
+<li>2020年13月を指定して get_monthly にアクセスする<ul>
+<li>ValidationErrorが発生すること</li>
+</ul>
+</li>
+</ol></div>
+</dd>
+<dt id="mycalendar.tests.MyCalendarModelTest.test_save_daily"><code class="name flex">
+<span>def <span class="ident">test_save_daily</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>save_daily関数のテスト</p>
+<ol>
+<li>ユーザー：testuserの2020年2月1日のカレンダー情報を登録する<ul>
+<li>応答ステータスが正常であること</li>
+<li>2020年2月のデータがデータベースに登録されていること</li>
+<li>2020年2月1日のコメントがリクエスト・ボディに指定したものと一致すること</li>
+<li>URLパラメータに指定された年月日以外のデータのコメントは空白であること</li>
+</ul>
+</li>
+<li>get_daily Web APIで2020年2月1日のカレンダー情報を取得し、コメントを
+変更して save_daily にアクセスする<ul>
+<li>応答ステータスが正常であること</li>
+<li>データベースに変更したコメントが反映されること</li>
+</ul>
+</li>
+<li>ユーザー：testuserの2020年2月29日のコメントを修正する
+get_daily Web APIで2020年2月29日の関連だー情報を取得し、コメントを
+変更して save_daily にアクセスする<ul>
+<li>応答ステータスが正常であること</li>
+<li>データベースに変更したコメントが反映されること</li>
+</ul>
+</li>
+<li>2020年2月のカレンダー情報が存在する状態で2020年2月0日を指定して
+/save_daily にアクセスする<ul>
+<li>ValidationError 例外が発生すること</li>
+</ul>
+</li>
+<li>2020年2月のカレンダー情報が存在する状態で2020年2月30日を指定して
+/save_daily にアクセスする<ul>
+<li>ValidationError 例外が発生すること</li>
+</ul>
+</li>
+</ol></div>
+</dd>
+<dt id="mycalendar.tests.MyCalendarModelTest.test_save_monthly"><code class="name flex">
+<span>def <span class="ident">test_save_monthly</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>save_monthly ビュー関数のテスト</p>
+<ol>
+<li>ユーザー：testuserの2020年2月1日、29日のカレンダー情報を登録する<ul>
+<li>応答ステータスが正常であること</li>
+<li>2020年2月のデータがデータベースに登録されていること</li>
+<li>2020年2月1日、29日のコメントがリクエスト・ボディに指定したものと一致すること</li>
+<li>2020年2月1日、29日以外のデータのコメントは空白であること</li>
+</ul>
+</li>
+<li>get_monthly Web APIで2020年2月のカレンダー情報を取得し、1日、29日の
+コメントを変更して save_monthly にアクセスする<ul>
+<li>応答ステータスが正常であること</li>
+<li>データベースに変更したコメントが反映されること</li>
+</ul>
+</li>
+<li>2020年2月のカレンダー情報が存在する状態で2020年2月1日のコメントを
+修正し、2020年2月0日を指定したカレンダー情報を最後に設定した
+レスポンス・データを設定して /save_daily にアクセスする<ul>
+<li>ValidationError 例外が発生すること</li>
+<li>レスポンスデータに設定した2月1日のコメントはDBに登録されていない
+こと</li>
+</ul>
+</li>
+<li>2020年2月のカレンダー情報が存在する状態で2020年2月1日のコメントを
+修正し、2020年2月30日を指定したカレンダー情報を最後に設定した
+レスポンス・データを設定して /save_daily にアクセスする<ul>
+<li>ValidationError 例外が発生すること</li>
+<li>レスポンスデータに設定した2月1日のコメントはDBに登録されていない
+こと</li>
+</ul>
+</li>
+<li>2020年2月のカレンダー情報が存在する状態で2020年2月29日のユーザーを
+'test'に修正し、/save_daily にアクセスする<ul>
+<li>ValidationError 例外が発生すること</li>
+</ul>
+</li>
+</ol></div>
 </dd>
 </dl>
 </dd>
@@ -111,11 +242,14 @@ user:testuser、year:2020、month:1、day:2 を指定して
 <ul>
 <li>
 <h4><code><a title="mycalendar.tests.MyCalendarModelTest" href="#mycalendar.tests.MyCalendarModelTest">MyCalendarModelTest</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="mycalendar.tests.MyCalendarModelTest.setUp" href="#mycalendar.tests.MyCalendarModelTest.setUp">setUp</a></code></li>
 <li><code><a title="mycalendar.tests.MyCalendarModelTest.tearDown" href="#mycalendar.tests.MyCalendarModelTest.tearDown">tearDown</a></code></li>
+<li><code><a title="mycalendar.tests.MyCalendarModelTest.test_delete_monthly" href="#mycalendar.tests.MyCalendarModelTest.test_delete_monthly">test_delete_monthly</a></code></li>
 <li><code><a title="mycalendar.tests.MyCalendarModelTest.test_get_daily" href="#mycalendar.tests.MyCalendarModelTest.test_get_daily">test_get_daily</a></code></li>
 <li><code><a title="mycalendar.tests.MyCalendarModelTest.test_get_monthly" href="#mycalendar.tests.MyCalendarModelTest.test_get_monthly">test_get_monthly</a></code></li>
+<li><code><a title="mycalendar.tests.MyCalendarModelTest.test_save_daily" href="#mycalendar.tests.MyCalendarModelTest.test_save_daily">test_save_daily</a></code></li>
+<li><code><a title="mycalendar.tests.MyCalendarModelTest.test_save_monthly" href="#mycalendar.tests.MyCalendarModelTest.test_save_monthly">test_save_monthly</a></code></li>
 </ul>
 </li>
 </ul>

@@ -40,6 +40,8 @@
 <div class="desc"><p>カレンダークラス</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
+<dt><strong><code>id</code></strong> :&ensp;<code>int</code></dt>
+<dd>ID</dd>
 <dt><strong><code>user</code></strong> :&ensp;<code>str</code></dt>
 <dd>ユーザー名</dd>
 <dt><strong><code>year</code></strong> :&ensp;<code>int</code></dt>
@@ -74,6 +76,25 @@
 <div class="desc"></div>
 </dd>
 </dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="mycalendar.models.MyCalendar.deserialize"><code class="name flex">
+<span>def <span class="ident">deserialize</span></span>(<span>json_data: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>ディクショナリ形式のJSONデータをMyCalendarモデルのインスタンスに変換する。</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>ディクショナリ形式のJSONデータを指定する。</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="mycalendar.models.MyCalendar" href="#mycalendar.models.MyCalendar">MyCalendar</a></code></dt>
+<dd>MyCalendarのインスタンスを返却する。</dd>
+</dl></div>
+</dd>
+</dl>
 <h3>Instance variables</h3>
 <dl>
 <dt id="mycalendar.models.MyCalendar.day"><code class="name">var <span class="ident">day</span></code></dt>
@@ -105,25 +126,6 @@ object the first time, the query is executed.</p></div>
 <dd>
 <div class="desc"><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="mycalendar.models.MyCalendar.deserialize"><code class="name flex">
-<span>def <span class="ident">deserialize</span></span>(<span>self, json_data: dict)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>ディクショナリ形式のJSONデータをMyCalendarモデルのインスタンスに変換する。</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>json_data</code></strong> :&ensp;<code>dict</code></dt>
-<dd>ディクショナリ形式のJSONデータを指定する。</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="mycalendar.models.MyCalendar" href="#mycalendar.models.MyCalendar">MyCalendar</a></code></dt>
-<dd>MyCalendarのインスタンスを返却する。</dd>
-</dl></div>
 </dd>
 </dl>
 </dd>

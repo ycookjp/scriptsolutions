@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Unittest Results</h2>
-                <p class='attribute'><strong>Start Time: </strong>2023-02-08 02:21:59</p>
-                <p class='attribute'><strong>Duration: </strong>1 ms</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 2, Pass: 2</p>
+                <p class='attribute'><strong>Start Time: </strong>2023-02-13 02:00:12</p>
+                <p class='attribute'><strong>Duration: </strong>2 ms</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 3, Pass: 2, Fail: 1</p>
             </div>
         </div>
         <div class="row">
@@ -59,7 +59,58 @@ DEBUG:root:Tear down test.
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 2, Pass: 2 -- Duration: 1 ms
+                                Total: 2, Pass: 2 -- Duration: 0 ms
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>FailErrorTest.FailErrorTest</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_substring</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: 'hel' != 'he'
+- hel
+?   -
++ he
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "tests/FailErrorTest.py", line 13, in test_substring
+    self.assertEqual(failerror.substring('hello world !', 0, 2), 'he')
+  File "/usr/lib64/python3.11/unittest/case.py", line 873, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/usr/lib64/python3.11/unittest/case.py", line 1253, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/usr/lib64/python3.11/unittest/case.py", line 703, in fail
+    raise self.failureException(msg)
+AssertionError: 'hel' != 'he'
+- hel
+?   -
++ he
+
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 1, Pass: 0, Fail: 1 -- Duration: 1 ms
                             </td>
                         </tr>
                     </tbody>
