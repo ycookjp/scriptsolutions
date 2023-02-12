@@ -83,7 +83,7 @@
         </configuration>
       </plugin>
 
-      <!-- copying main files -->
+      <!-- copying resources -->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven-resources.ver}</version>
@@ -105,14 +105,8 @@
               </resources>
             </configuration>
           </execution>
-        </executions>
-      </plugin>
 
-      <!-- copying test files -->
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources.ver}</version>
-        <executions>
+          <!-- copying test files -->
           <execution>
             <id>copy-test-files</id>
             <phase>test</phase>
@@ -214,6 +208,20 @@
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${TEST_PATH}</workingDirectory>
               <commandlineArgs>-m pip install -t site-packages -r tests/requirements.txt pdoc3</commandlineArgs>
+            </configuration>
+          </execution>
+
+          <!-- Patching HtmlTestRunner -->
+          <execution>
+            <id>patching-htmltestrunner</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>sed</executable>
+              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <commandlineArgs>-e 's/^[ \\t]*length = self._count_relevant_tb_levels(tb)$//g' -e 's/msg_lines = traceback.format_exception(exctype, value, tb, length)/msg_lines = traceback.format_exception(exctype, value, tb)/g' -i "${TEST_PATH}/site-packages/HtmlTestRunner/result.py"</commandlineArgs>
             </configuration>
           </execution>
 

@@ -17,7 +17,7 @@ def init_logging(stream:str='stdout', filename:str=None, level:str='INFO'):
             - 'NOTSET'
     '''
     # stream
-    param_stream:str = None
+    param_stream = None
     if stream == 'stdout':
         param_stream = sys.stdout
     elif stream == 'stderr':
@@ -27,7 +27,7 @@ def init_logging(stream:str='stdout', filename:str=None, level:str='INFO'):
     if filename != None:
         param_filename = filename
     # level
-    param_level:str = None
+    param_level = None
     if level == 'CRITICAL':
         param_level = logging.CRITICAL
     elif level == 'ERROR':
