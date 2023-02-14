@@ -1396,7 +1396,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint-scope
 │  └─ licenseFile: node_modules/@types/eslint-scope/LICENSE
-├─ @types/eslint@8.21.0
+├─ @types/eslint@8.21.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint
@@ -1593,47 +1593,47 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/yargs
 │  └─ licenseFile: node_modules/@types/yargs/LICENSE
-├─ @typescript-eslint/eslint-plugin@5.51.0
+├─ @typescript-eslint/eslint-plugin@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/eslint-plugin
 │  └─ licenseFile: node_modules/@typescript-eslint/eslint-plugin/LICENSE
-├─ @typescript-eslint/experimental-utils@5.51.0
+├─ @typescript-eslint/experimental-utils@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/experimental-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/experimental-utils/LICENSE
-├─ @typescript-eslint/parser@5.51.0
+├─ @typescript-eslint/parser@5.52.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/parser
 │  └─ licenseFile: node_modules/@typescript-eslint/parser/LICENSE
-├─ @typescript-eslint/scope-manager@5.51.0
+├─ @typescript-eslint/scope-manager@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/scope-manager
 │  └─ licenseFile: node_modules/@typescript-eslint/scope-manager/LICENSE
-├─ @typescript-eslint/type-utils@5.51.0
+├─ @typescript-eslint/type-utils@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/type-utils
 │  └─ licenseFile: node_modules/@typescript-eslint/type-utils/LICENSE
-├─ @typescript-eslint/types@5.51.0
+├─ @typescript-eslint/types@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/types
 │  └─ licenseFile: node_modules/@typescript-eslint/types/LICENSE
-├─ @typescript-eslint/typescript-estree@5.51.0
+├─ @typescript-eslint/typescript-estree@5.52.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/typescript-estree
 │  └─ licenseFile: node_modules/@typescript-eslint/typescript-estree/LICENSE
-├─ @typescript-eslint/utils@5.51.0
+├─ @typescript-eslint/utils@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/utils
 │  └─ licenseFile: node_modules/@typescript-eslint/utils/LICENSE
-├─ @typescript-eslint/visitor-keys@5.51.0
+├─ @typescript-eslint/visitor-keys@5.52.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typescript-eslint/typescript-eslint
 │  ├─ path: node_modules/@typescript-eslint/visitor-keys
@@ -2312,7 +2312,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001451
+├─ caniuse-lite@1.0.30001452
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -2580,7 +2580,7 @@
 │  ├─ email: shtylman@gmail.com
 │  ├─ path: node_modules/cookie
 │  └─ licenseFile: node_modules/cookie/LICENSE
-├─ core-js-compat@3.27.2
+├─ core-js-compat@3.28.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2588,7 +2588,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-compat
 │  └─ licenseFile: node_modules/core-js-compat/LICENSE
-├─ core-js-pure@3.27.2
+├─ core-js-pure@3.28.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2596,7 +2596,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-pure
 │  └─ licenseFile: node_modules/core-js-pure/LICENSE
-├─ core-js@3.27.2
+├─ core-js@3.28.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -7953,7 +7953,7 @@
 │  ├─ url: http://2x.io
 │  ├─ path: node_modules/ws
 │  └─ licenseFile: node_modules/ws/LICENSE
-├─ ws@8.12.0
+├─ ws@8.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/websockets/ws
 │  ├─ publisher: Einar Otto Stangvik
