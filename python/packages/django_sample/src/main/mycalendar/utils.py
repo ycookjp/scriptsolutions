@@ -1,3 +1,10 @@
+'''Utility module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 import logging
 import sys
 

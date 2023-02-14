@@ -1,3 +1,10 @@
+'''Model module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 from django.db import models
 from django.db.models import UniqueConstraint
 

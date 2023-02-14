@@ -1,3 +1,10 @@
+'''View module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 from .models import MyCalendar
 
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -91,6 +98,13 @@ def get_daily(request:HttpRequest, user:str , year:int, month:int, day:int):
                   "note": "<note>"
                 }
     
+    Raises:
+        ValidationError
+        
+          * URLパラメータの month の値が 1 より小さい、または 12 より大きい場合
+          * URLパラメータの day の値が 1 より大きい、または month で指定された
+            月の最終日より大きい場合
+    
     '''
     # 日付の入力チェック
     _check_date(year, month, day)
@@ -139,6 +153,11 @@ def get_monthly(request:HttpRequest, user:str, year:int, month:int):
                   },
                   ...
                 ]
+    
+    Raises:
+        ValidationError
+        
+          * URLパラメータの month の値が 1 より小さい、または 12 より大きい場合
     
     '''
     # 日付の入力チェック
@@ -191,7 +210,7 @@ def save_daily(request:HttpRequest, user:str, year:int, month:int, day:int):
         day(int): 日
     
     Raises:
-        ValicationError:
+        ValidationError:
         
           * URLパラメータの user、year、month、day がリクエスト・ボディの
             JSONオブジェクトのそれぞれの同名の属性と一致しないものがある場合
@@ -316,9 +335,16 @@ def delete_monthly(request:HttpRequest, user:str, year:int, month:int):
         year (int): 年
         month (int): 月
     
+    Raises:
+        ValidationError:
+        
+          * URLパラメータのmonthの値が1より小さい、または12より大きい場合
+    
     '''
     # 日付の入力チェック
     _check_date(year, month, errmsg='Input month error.')
+    
+    # URLパラメータで指定された年月のカレンダー情報を削除する
     MyCalendar.objects.filter(user=user, year=year, month=month).delete()
     
     return HttpResponse()

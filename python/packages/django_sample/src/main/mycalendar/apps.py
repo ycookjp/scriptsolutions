@@ -1,3 +1,10 @@
+'''Application module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 from .utils import init_logging
 
 from django.apps import AppConfig

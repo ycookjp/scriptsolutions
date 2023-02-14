@@ -1,3 +1,10 @@
+'''URL declaration module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 from django.urls import path
 from . import views
 

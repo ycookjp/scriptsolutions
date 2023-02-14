@@ -1,3 +1,10 @@
+'''Test module.
+
+Copyright ycookjp
+
+https://github.com/ycookjp/
+
+'''
 from .models import MyCalendar
 from .utils import init_logging
 
@@ -29,7 +36,6 @@ class MyCalendarModelTest(TestCase):
         1. user：testuser のデータがすべて削除された状態で、
           user:testuser、year:2020、month:1、day:2 を指定して
           /get_dayly にアクセスする。
-        
             * 応答ステータスが正常であること
             * 2020年1月2日のカレンダーを取得するとその月のすべての日のデータが作成されること
             * 返却されたデータのuserはget_dailyで指定されたユーザーであること
@@ -49,7 +55,7 @@ class MyCalendarModelTest(TestCase):
           user:testuser、year:2020、month:1、day:32 を指定して /get_dayly に
           アクセスする。
             * ValidationError 例外が発生すること
-         
+        
         '''
         cals = MyCalendar.objects.filter(user='testuser', year=2020, month=1)
         # テスト実行前は2020年1月のデータは設定されていないこと
@@ -450,9 +456,9 @@ class MyCalendarModelTest(TestCase):
             * 2020年2月のカレンダー情報が削除される（件数が0件であ）ること
             * 2020年1月のカレンダー情報は削除されない（件数が月の日数）であること
         2. delete_monthly/testuser/2020/0/ にアクセスする
-          * ValidationErrorが発生すること
+            * ValidationErrorが発生すること
         3. delete_monthly/testuser/2020/13/ にアクセスする
-          * ValidationErrorが発生すること
+            * ValidationErrorが発生すること
         
         '''
         # 1. get_monthly/testuser/2020/1および2/ にアクセスして2020年1月と2月の
