@@ -49,7 +49,12 @@
 <dd>年</dd>
 <dt><strong><code>month</code></strong> :&ensp;<code>int</code></dt>
 <dd>月</dd>
-</dl></div>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>ValidationError:</p>
+<ul>
+<li>URLパラメータのmonthの値が1より小さい、または12より大きい場合</li>
+</ul></div>
 </dd>
 <dt id="mycalendar.views.get_daily"><code class="name flex">
 <span>def <span class="ident">get_daily</span></span>(<span>request: django.http.request.HttpRequest, user: str, year: int, month: int, day: int)</span>
