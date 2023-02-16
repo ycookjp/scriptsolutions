@@ -73,7 +73,4 @@ class MyPackageTest(unittest.TestCase):
         logging.debug('Tear down test.')
 
 if __name__ == '__main__':
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-             output=os.path.dirname(__file__) + '/../target/site/test-report',
-             add_timestamp=False)
-    unittest.main(testRunner=html_runner)
+    unittest.main()

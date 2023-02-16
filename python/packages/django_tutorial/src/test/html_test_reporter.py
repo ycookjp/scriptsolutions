@@ -6,7 +6,7 @@ class MyHTMLTestRunner(HTMLTestRunner):
     def __init__(self, **kwargs):
         # Pass any required options to HTMLTestRunner 
         super().__init__(
-                output=os.path.dirname(__file__) + '/..//target/site/test-report',
+                output=os.path.dirname(__file__) + '/../../target/site/test-report',
                 report_name='python-progs',
                 add_timestamp=False,
                 combine_reports=True,

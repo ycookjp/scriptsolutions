@@ -1,4 +1,3 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -11,6 +10,8 @@
   <!-- end -->
   <packaging>pom</packaging>
   <description>Django Tutorial application (polls).</description>
+<!--
+-->
   <parent>
     <groupId>ycookjp.myproject.python</groupId>
     <artifactId>packages</artifactId>
@@ -31,12 +32,13 @@
     <maven-clean.ver>3.2.0</maven-clean.ver>
     -->
     <!-- end -->
-    <PYTHONEXE>python3</PYTHONEXE>
+    <PYTHONEXE>python</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
     <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
-    <TEST_PATH>${project.build.directory}/build-tmp</TEST_PATH>
+    <TEST_PATH>${project.build.directory}/build-tmp/src/test</TEST_PATH>
     <PACKAGE_NAME>polls</PACKAGE_NAME>
     <TEST_PY>test_all.py</TEST_PY>
+    <TEST_REPORT_DIR>${project.build.directory}/site</TEST_REPORT_DIR>
   </properties>
   <!-- 
    - To generate test report, run "mvn clean test site"
@@ -72,8 +74,8 @@
               <includes>
                 <include>src/main/**/__pycache__/</include>
                 <include>src/main/**/site-packages/</include>
-                <include>tests/**/__pycache__/</include>
-                <include>tests/**/site-packages/</include>
+                <include>src/test/**/__pycache__/</include>
+                <include>src/test/**/site-packages/</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>
@@ -90,12 +92,12 @@
           <!-- copying main files -->
           <execution>
             <id>copy-main-files</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/build-tmp/src/main</outputDirectory>
+              <outputDirectory>${MAIN_PATH}</outputDirectory>
               <resources>
                 <resource>
                   <directory>${basedir}/src/main</directory>
@@ -107,15 +109,15 @@
           <!-- copying test files -->
           <execution>
             <id>copy-test-files</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/build-tmp/tests</outputDirectory>
+              <outputDirectory>${TEST_PATH}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/tests</directory>
+                  <directory>${basedir}/src/test</directory>
                 </resource>
               </resources>
             </configuration>
@@ -130,13 +132,13 @@
         <executions>
           <execution>
             <id>mkoutdir-piplicenses</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>run</goal>
             </goals>
             <configuration>
               <target>
-                <mkdir dir="${project.build.directory}/site" />
+                <mkdir dir="${TEST_REPORT_DIR}" />
               </target>
             </configuration>
           </execution>
@@ -153,7 +155,7 @@
           <!-- Installing main dependency modules -->
           <execution>
             <id>install-main-dependencies</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -167,7 +169,7 @@
           <!-- Installing pip-licenses -->
           <execution>
             <id>install-piplicenses</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -181,14 +183,14 @@
           <!-- Generating dependencies report -->
           <execution>
             <id>execute-piplicenses</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
-              <commandlineArgs>-m piplicenses --format=html --output-file ${project.build.directory}/site/python-dependencies.html</commandlineArgs>
+              <commandlineArgs>-m piplicenses --format=html --output-file ${TEST_REPORT_DIR}/python-dependencies.html</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/piplicenses-packages</PYTHONPATH>
               </environmentVariables>
@@ -198,7 +200,7 @@
           <!-- Installing test dependency modules and pdoc3 -->
           <execution>
             <id>install-test-dependencies</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -209,31 +211,17 @@
             </configuration>
           </execution>
 
-          <!-- Patching HtmlTestRunner -->
-          <execution>
-            <id>patching-htmltestrunner</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>sed</executable>
-              <workingDirectory>${TEST_PATH}</workingDirectory>
-              <commandlineArgs>-e 's/^[ \\t]*length = self._count_relevant_tb_levels(tb)$//g' -e 's/msg_lines = traceback.format_exception(exctype, value, tb, length)/msg_lines = traceback.format_exception(exctype, value, tb)/g' -i "${TEST_PATH}/site-packages/HtmlTestRunner/result.py"</commandlineArgs>
-            </configuration>
-          </execution>
-
           <!-- Generating API document -->
           <execution>
             <id>python-apidocs</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --html -o ${project.build.directory}/site/apidocs --config show_source_code=False --force  ${PACKAGE_NAME}</commandlineArgs>
+              <commandlineArgs>-m pdoc --html -o ${TEST_REPORT_DIR}/apidocs --config show_source_code=False --force ${PACKAGE_NAME}</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
@@ -243,14 +231,14 @@
           <!-- Generating test spec document -->
           <execution>
             <id>python-testspecs</id>
-            <phase>test</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
-              <commandlineArgs>-m pdoc --skip-errors --html -o ${project.build.directory}/site/testspecs --config show_source_code=False --force ${PACKAGE_NAME}.tests</commandlineArgs>
+              <commandlineArgs>-m pdoc --skip-errors --html -o ${TEST_REPORT_DIR}/testspecs --config show_source_code=False --force ${PACKAGE_NAME}.tests</commandlineArgs>
               <environmentVariables>
                 <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
@@ -277,7 +265,7 @@
                 <argument>html_test_reporter.HtmlTestReporter</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/site-packages${p.sep}${TEST_PATH}/tests</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}${p.sep}${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
                 <!-- 
@@ -301,21 +289,43 @@
               <workingDirectory>${MAIN_PATH}</workingDirectory>
               <arguments>
                 <argument>html</argument>
-                <argument>--directory=${project.build.directory}/site/htmlcov</argument>
+                <argument>--directory=${TEST_REPORT_DIR}/htmlcov</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${MAIN_PATH}${p.sep}${TEST_PATH}/site-packages${p.sep}${TEST_PATH}/tests</PYTHONPATH>
+                <PYTHONPATH>${MAIN_PATH}${p.sep}${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
-      <!-- Copying test reports from build-tmp and replacing file path -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${maven-antrun.ver}</version>
         <executions>
+          <!-- Patching HtmlTestRunner -->
+          <execution>
+            <id>patching-htmltestrunner</id>
+            <phase>process-test-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <failOnError>false</failOnError>
+              <target>
+				<!-- Patching HtmlTestReport package -->
+				<echo>Patching ${TEST_PATH}/site-packages/HtmlTestRunner/result.py</echo>
+                <replaceregexp match='^[ \t]*length = self._count_relevant_tb_levels\(tb\)$' replace="" encoding="UTF-8" byline="true" flags="g">
+                  <fileset dir="${TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
+                </replaceregexp>
+                <replaceregexp match='msg_lines = traceback.format_exception\(exctype, value, tb, length\)' replace="msg_lines = traceback.format_exception(exctype, value, tb)" encoding="UTF-8" byline="true" flags="g">
+                  <fileset dir="${TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
+                </replaceregexp>
+              </target>
+            </configuration>
+		  </execution>
+
+          <!-- Copying test reports from build-tmp and replacing file path -->
           <execution>
             <id>copy-testreports</id>
             <phase>site</phase>
@@ -326,22 +336,22 @@
               <failOnError>false</failOnError>
               <target>
                 <!-- Copying test reports from build-temp directory -->
-                <mkdir dir="${project.build.directory}/site" />
-                <copy todir="${project.build.directory}/site">
+                <mkdir dir="${TEST_REPORT_DIR}" />
+                <copy todir="${TEST_REPORT_DIR}">
                   <fileset dir="${project.build.directory}/build-tmp/target/site" includes="**/*" />
                 </copy>
 				<!-- Replacing file path in test reports -->
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{};:\/\\]*[\/\\]*target[\/\\]*build-tmp[\/\\]*' replace="" encoding="UTF-8" byline="true" flags="g">
-                  <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
-                  <fileset dir="${project.build.directory}/site/test-report" includes="**/*"/>
-                  <fileset dir="${project.build.directory}/site/apidocs" includes="**/*"/>
-                  <fileset dir="${project.build.directory}/site/testspecs" includes="**/*"/>
+                  <fileset dir="${TEST_REPORT_DIR}/htmlcov" includes="**/*"/>
+                  <fileset dir="${TEST_REPORT_DIR}/test-report" includes="**/*"/>
+                  <fileset dir="${TEST_REPORT_DIR}/apidocs" includes="**/*"/>
+                  <fileset dir="${TEST_REPORT_DIR}/testspecs" includes="**/*"/>
                 </replaceregexp>
                 <replaceregexp match='[-_#$%()+=@0-9a-zA-Z\^`\[\]{}]*_target_build-tmp_' replace="" encoding="UTF-8" byline="true" flags="g">
-                  <fileset dir="${project.build.directory}/site/htmlcov" includes="**/*"/>
+                  <fileset dir="${TEST_REPORT_DIR}/htmlcov" includes="**/*"/>
                 </replaceregexp>
-                <move todir="${project.build.directory}/site/htmlcov">
-                  <fileset dir="${project.build.directory}/site/htmlcov" />
+                <move todir="${TEST_REPORT_DIR}/htmlcov">
+                  <fileset dir="${TEST_REPORT_DIR}/htmlcov" />
                   <mapper type="regexp" from="^.*_target_build-tmp_(.*)" to="\1" />
                 </move>
               </target>
@@ -359,7 +369,7 @@
             <descriptor>src/assenbly/distribution.xml</descriptor>
           </descriptors>
           <finalName>${project.artifactId}-${project.version}</finalName>
-          <outputDirectory>${project.build.directory}/site</outputDirectory>
+          <outputDirectory>${TEST_REPORT_DIR}</outputDirectory>
           <appendAssemblyId>false</appendAssemblyId>
         </configuration>
         <executions>

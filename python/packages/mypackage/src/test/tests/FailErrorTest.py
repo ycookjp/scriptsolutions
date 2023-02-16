@@ -15,7 +15,4 @@ class FailErrorTest(unittest.TestCase):
         self.assertEqual(failerror.substring(None, 0, 1), None)
 
 if __name__ == '__main__':
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-            output=os.path.dirname(__file__) + '/../target/site/test-report',
-            add_timestamp=False)
-    unittest.main(testRunner=html_runner)
+    unittest.main()

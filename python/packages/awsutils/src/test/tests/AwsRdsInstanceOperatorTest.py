@@ -10,22 +10,14 @@ Note:
 '''
 
 import unittest
-import HtmlTestRunner
-import json
 import logging
 import os
 import shutil
 import sys
-import traceback
 
-from awsutils import aws_resource_start_stop
 from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 import aws_test_utils
-import boto3
 from moto import mock_rds
-from unittest.case import TestCase
-import time
-import yaml
 
 root = logging.getLogger()
 if root.handlers:
@@ -382,7 +374,4 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         logging.info('<<<<< test_error_start_stop_resources end')
 
 if __name__ == '__main__':
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-            output=os.path.dirname(__file__) + '/../target/site/test-report',
-            add_timestamp=False)
-    unittest.main(testRunner=html_runner)
+    unittest.main()

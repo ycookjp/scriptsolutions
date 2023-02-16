@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""test-all script summary.
+''''test-all script summary.
+
+Copyright: ycookjp
 
 This module runs unittest TestCases under this script's current directory.
 Before running this script, edit test_all.yml in this script's current
@@ -15,7 +17,7 @@ Example:
 Attributes:
     None
 
-"""
+'''
 
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -55,10 +57,10 @@ def run_test_all():
     # Getting test suites from script patterns.
     suite = TestSuite()
     for pattern in patterns:
-        suite.addTest(TestLoader().discover(os.path.dirname(__file__), pattern))
+        suite.addTest(TestLoader().discover(os.path.join(os.path.dirname(__file__), 'tests'), pattern))
 
     runner = HTMLTestRunner( \
-            output=os.path.dirname(__file__) + '/../target/site/test-report', \
+            output=os.path.dirname(__file__) + '/../../target/site/test-report', \
             report_name='python-progs', add_timestamp=False, combine_reports=True)
     
     runner.run(suite)

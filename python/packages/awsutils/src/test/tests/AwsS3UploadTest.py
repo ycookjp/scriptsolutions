@@ -6,21 +6,15 @@ Copyright: ycookjp
 '''
 
 import unittest
-import HtmlTestRunner
 import logging
 import os
 import shutil
 import sys
-import traceback
 
 from awsutils import aws_s3_upload
 import aws_test_utils
 import boto3
 from moto import mock_s3
-import importlib
-import subprocess
-from unittest.case import TestCase
-import yaml
 
 root = logging.getLogger()
 if root.handlers:
@@ -558,7 +552,4 @@ class AwsS3MoveTest(unittest.TestCase):
         logging.info('<<<<< test_move_file_err stop')
 
 if __name__ == '__main__':
-    html_runner = HtmlTestRunner.HTMLTestRunner(
-            output=os.path.dirname(__file__) + '/../target/site/test-report',
-            add_timestamp=False)
-    unittest.main(testRunner=html_runner)
+    unittest.main()
