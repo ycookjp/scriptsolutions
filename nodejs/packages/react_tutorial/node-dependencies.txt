@@ -1306,6 +1306,14 @@
 │  ├─ publisher: Kent C. Dodds
 │  ├─ email: me@kentcdodds.com
 │  ├─ url: https://kentcdodds.com
+│  ├─ path: node_modules/@testing-library/react/node_modules/@testing-library/dom
+│  └─ licenseFile: node_modules/@testing-library/react/node_modules/@testing-library/dom/LICENSE
+├─ @testing-library/dom@9.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/testing-library/dom-testing-library
+│  ├─ publisher: Kent C. Dodds
+│  ├─ email: me@kentcdodds.com
+│  ├─ url: https://kentcdodds.com
 │  ├─ path: node_modules/@testing-library/dom
 │  └─ licenseFile: node_modules/@testing-library/dom/LICENSE
 ├─ @testing-library/jest-dom@5.16.5
@@ -1478,7 +1486,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/mime
 │  └─ licenseFile: node_modules/@types/mime/LICENSE
-├─ @types/node@18.13.0
+├─ @types/node@18.14.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -2312,7 +2320,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001454
+├─ caniuse-lite@1.0.30001456
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3135,7 +3143,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.300
+├─ electron-to-chromium@1.4.302
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -7280,7 +7288,7 @@
 │  ├─ publisher: webpack Contrib Team
 │  ├─ path: node_modules/terser-webpack-plugin
 │  └─ licenseFile: node_modules/terser-webpack-plugin/LICENSE
-├─ terser@5.16.3
+├─ terser@5.16.4
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/terser/terser
 │  ├─ publisher: Mihai Bazon
