@@ -34,8 +34,10 @@
     <!-- end -->
     <PYTHONEXE>python</PYTHONEXE>
     <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
-    <MAIN_PATH>${project.build.directory}/build-tmp/src/main</MAIN_PATH>
-    <TEST_PATH>${project.build.directory}/build-tmp/src/test</TEST_PATH>
+    <SRC_MAIN_PATH>${basedir}/src/main</SRC_MAIN_PATH>
+    <SRC_TEST_PATH>${basedir}/src/test</SRC_TEST_PATH>
+    <BUILD_MAIN_PATH>${project.build.directory}/build-tmp/src/main</BUILD_MAIN_PATH>
+    <BUILD_TEST_PATH>${project.build.directory}/build-tmp/src/test</BUILD_TEST_PATH>
     <PACKAGE_NAME>mycalendar</PACKAGE_NAME>
     <TEST_PY>test_all.py</TEST_PY>
     <TEST_REPORT_DIR>${project.build.directory}/site</TEST_REPORT_DIR>
@@ -72,10 +74,10 @@
             <fileset>
               <directory>${basedir}/</directory>
               <includes>
-                <include>src/main/**/__pycache__/</include>
-                <include>src/main/**/site-packages/</include>
-                <include>src/test/**/__pycache__/</include>
-                <include>src/test/**/site-packages/</include>
+                <include>${SRC_MAIN_PATH}/**/__pycache__/</include>
+                <include>${SRC_MAIN_PATH}/**/site-packages/</include>
+                <include>${SRC_TEST_PATH}/**/__pycache__/</include>
+                <include>${SRC_TEST_PATH}/**/site-packages/</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>
@@ -89,6 +91,7 @@
         <version>${maven-resources.ver}</version>
         <executions>
 
+          <!-- *** PHASE: process-test-resources *** -->
           <!-- copying main files -->
           <execution>
             <id>copy-main-files</id>
@@ -97,10 +100,10 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${MAIN_PATH}</outputDirectory>
+              <outputDirectory>${BUILD_MAIN_PATH}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/src/main</directory>
+                  <directory>${SRC_MAIN_PATH}</directory>
                 </resource>
               </resources>
             </configuration>
@@ -114,10 +117,10 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${TEST_PATH}</outputDirectory>
+              <outputDirectory>${BUILD_TEST_PATH}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/src/test</directory>
+                  <directory>${SRC_TEST_PATH}</directory>
                 </resource>
               </resources>
             </configuration>
@@ -125,11 +128,12 @@
         </executions>
       </plugin>
 
-      <!-- Creating output directory for coverage report -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${maven-antrun.ver}</version>
         <executions>
+          <!-- *** PHASE: process-test-resources *** -->
+          <!-- Creating output directory for coverage report -->
           <execution>
             <id>mkoutdir-piplicenses</id>
             <phase>process-test-resources</phase>
@@ -152,6 +156,7 @@
         <version>1.6.0</version>
         <executions>
 
+          <!-- *** PHASE: process-test-resources *** -->
           <!-- Installing main dependency modules -->
           <execution>
             <id>install-main-dependencies</id>
@@ -161,7 +166,7 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
               <commandlineArgs>-m pip install -t site-packages -r ${PACKAGE_NAME}/requirements.txt</commandlineArgs>
             </configuration>
           </execution>
@@ -175,7 +180,7 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <workingDirectory>${BUILD_TEST_PATH}</workingDirectory>
               <commandlineArgs>-m pip install -t piplicenses-packages pip-licenses</commandlineArgs>
             </configuration>
           </execution>
@@ -189,10 +194,10 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
+              <workingDirectory>${BUILD_MAIN_PATH}/${PACKAGE_NAME}</workingDirectory>
               <commandlineArgs>-m piplicenses --format=html --output-file ${TEST_REPORT_DIR}/python-dependencies.html</commandlineArgs>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/piplicenses-packages</PYTHONPATH>
+                <PYTHONPATH>${BUILD_MAIN_PATH}/site-packages${p.sep}${BUILD_TEST_PATH}/piplicenses-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -206,7 +211,7 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${TEST_PATH}</workingDirectory>
+              <workingDirectory>${BUILD_TEST_PATH}</workingDirectory>
               <commandlineArgs>-m pip install -t site-packages -r tests/requirements.txt pdoc3</commandlineArgs>
             </configuration>
           </execution>
@@ -220,10 +225,10 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
               <commandlineArgs>-m pdoc --html -o ${TEST_REPORT_DIR}/apidocs --config show_source_code=False --force ${PACKAGE_NAME}</commandlineArgs>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${BUILD_MAIN_PATH}/site-packages${p.sep}${BUILD_TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -237,14 +242,15 @@
             </goals>
             <configuration>
               <executable>${PYTHONEXE}</executable>
-              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
               <commandlineArgs>-m pdoc --skip-errors --html -o ${TEST_REPORT_DIR}/testspecs --config show_source_code=False --force ${PACKAGE_NAME}.tests</commandlineArgs>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${BUILD_MAIN_PATH}/site-packages${p.sep}${BUILD_TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
 
+          <!-- *** PHASE: test *** -->
           <!-- Collecting coverage data and generating test result report -->
           <execution>
             <id>python-coverage</id>
@@ -253,8 +259,8 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
-              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <executable>${BUILD_TEST_PATH}/site-packages/bin/coverage</executable>
+              <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
                <arguments>
                 <argument>run</argument>
                 <argument>--source</argument>
@@ -265,7 +271,7 @@
                 <argument>html_test_reporter.HtmlTestReporter</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}${p.sep}${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${BUILD_MAIN_PATH}${p.sep}${BUILD_MAIN_PATH}/site-packages${p.sep}${BUILD_TEST_PATH}${p.sep}${BUILD_TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
               <successCodes>
                 <!-- 
@@ -285,14 +291,14 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${TEST_PATH}/site-packages/bin/coverage</executable>
-              <workingDirectory>${MAIN_PATH}</workingDirectory>
+              <executable>${BUILD_TEST_PATH}/site-packages/bin/coverage</executable>
+              <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
               <arguments>
                 <argument>html</argument>
                 <argument>--directory=${TEST_REPORT_DIR}/htmlcov</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>${MAIN_PATH}${p.sep}${MAIN_PATH}/site-packages${p.sep}${TEST_PATH}${p.sep}${TEST_PATH}/site-packages</PYTHONPATH>
+                <PYTHONPATH>${BUILD_MAIN_PATH}${p.sep}${BUILD_MAIN_PATH}/site-packages${p.sep}${BUILD_TEST_PATH}${p.sep}${BUILD_TEST_PATH}/site-packages</PYTHONPATH>
               </environmentVariables>
             </configuration>
           </execution>
@@ -303,6 +309,7 @@
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${maven-antrun.ver}</version>
         <executions>
+          <!-- *** PHASE: process-test-class *** -->
           <!-- Patching HtmlTestRunner -->
           <execution>
             <id>patching-htmltestrunner</id>
@@ -314,17 +321,18 @@
               <failOnError>false</failOnError>
               <target>
 				<!-- Patching HtmlTestReport package -->
-				<echo>Patching ${TEST_PATH}/site-packages/HtmlTestRunner/result.py</echo>
+				<echo>Patching ${BUILD_TEST_PATH}/site-packages/HtmlTestRunner/result.py</echo>
                 <replaceregexp match='^[ \t]*length = self._count_relevant_tb_levels\(tb\)$' replace="" encoding="UTF-8" byline="true" flags="g">
-                  <fileset dir="${TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
+                  <fileset dir="${BUILD_TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
                 </replaceregexp>
                 <replaceregexp match='msg_lines = traceback.format_exception\(exctype, value, tb, length\)' replace="msg_lines = traceback.format_exception(exctype, value, tb)" encoding="UTF-8" byline="true" flags="g">
-                  <fileset dir="${TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
+                  <fileset dir="${BUILD_TEST_PATH}/site-packages/HtmlTestRunner" includes="result.py"/>
                 </replaceregexp>
               </target>
             </configuration>
 		  </execution>
 
+          <!-- *** PHASE: site *** -->
           <!-- Copying test reports from build-tmp and replacing file path -->
           <execution>
             <id>copy-testreports</id>
@@ -373,6 +381,7 @@
           <appendAssemblyId>false</appendAssemblyId>
         </configuration>
         <executions>
+          <!-- *** PHASE: site *** -->
           <execution>
             <id>distribution</id>
             <phase>site</phase>
