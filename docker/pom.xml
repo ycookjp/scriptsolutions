@@ -53,10 +53,10 @@
               <outputDirectory>target/site/scripts</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/main/scripts/docker-images/fedora37</directory>
+                  <directory>src/main/scripts/docker-images/fedora38</directory>
                 </resource>
                 <resource>
-                  <directory>src/main/scripts/dockerfiles/fedora37</directory>
+                  <directory>src/main/scripts/dockerfiles/fedora38</directory>
                 </resource>
                 <resource>
                   <directory>src/main/scripts/dockerfiles/centos7</directory>

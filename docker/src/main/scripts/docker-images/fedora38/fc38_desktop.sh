@@ -2,11 +2,11 @@
 
 ################################################################################
 # Name    : fedora-<desktop_env>
-# Usage   : DESKTOP_ENV={lxde|mate|xfce} [GROUP_ID=<gid>] fedora37-desktop.sh
+# Usage   : DESKTOP_ENV={lxde|mate|xfce} [GROUP_ID=<gid>] fc38_desktop.sh
 #           * GROUP_ID: 'developers' group id
-# Depends : fedora37-container-base.sh, dnf.conf
+# Depends : fedora38-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 37 and login as root.
+#   1. Start Fedora 38 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
@@ -43,7 +43,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=37
+  export RELEASE_VER=38
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -148,7 +148,7 @@ if [ _ != _${WIN10THEME_URL} ]; then
     curl ${OPT_CURL_PROXY} --create-dirs -L ${WIN10THEME_URL} -o ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}`
   fi
   mkdir -p ${INSTALL_ROOT}/usr/share/themes
-  tar --overwrite -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}` -C ${INSTALL_ROOT}/usr/share/themes
+  tar -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10THEME_URL}` -C ${INSTALL_ROOT}/usr/share/themes --overwrite --no-same-owner --no-same-permissions
 fi
 
 ## Downloading and installing windows 10 icon
@@ -157,7 +157,7 @@ if [ _ != _${WIN10ICON_URL} ]; then
     curl ${OPT_CURL_PROXY} --create-dirs -L ${WIN10ICON_URL} -o ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}`
   fi
   mkdir -p ${INSTALL_ROOT}/usr/share/icons
-  tar --overwrite -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}` -C ${INSTALL_ROOT}/usr/share/icons
+  tar -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}` -C ${INSTALL_ROOT}/usr/share/icons --overwrite --no-same-owner --no-same-permissions
 fi
 
 ## Copying import files
@@ -171,7 +171,7 @@ if [ -d ${CONTENTS_DIR}/files ]; then
 fi
 if [ -d ${CONTENTS_DIR}/archives ]; then
   for f in `find ${CONTENTS_DIR}/archives -name '*.tar.gz'`; do \
-    tar --overwrite -xvz -f $f -C ${INSTALL_ROOT}; \
+    tar -xvz -f $f -C ${INSTALL_ROOT} --overwrite --no-same-owner --no-same-permissions; \
   done
 fi
 

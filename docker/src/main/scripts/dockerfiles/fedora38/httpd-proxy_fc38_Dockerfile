@@ -1,22 +1,25 @@
 ################################################################################
-# httpd-svn
+# httpd-proxy
 # Building :
 #   1. Place this file to working directory, and rename to "Dockerfile".
 #   2. Run following command.
 # Usage : docker build -t <image-name> \
+#         --build-arg PROXY_ALLOW_FROM=<ipaddress/<netmask> \
 #         [--build-arg PROXY_URL=<proxy_url>] .
+#   * <ipaddress> and <netmask> : "Allow from" network.
 # Running :
 #   docker run --name <container-name> --restart=always -p <host-port>:80 \
 #   -it <image-name>
 ################################################################################
-FROM fedora37-container-base
+FROM fedora38-container-base
 #FROM fedora
+ARG PROXY_ALLOW_FROM
 ARG PROXY_URL
 RUN echo "################################################################################" \
- && echo "##### Installing SVN repository service #####" \
+ && echo "##### Installing proxy service #####" \
  && echo "################################################################################" \
  && : Installation settings \
- && export BASE_PACKAGES="httpd mod_dav_svn mod_ssl subversion langpacks-ja" \
+ && export BASE_PACKAGES="httpd mod_ssl langpacks-ja" \
  && export BUILD_PACKAGES="net-tools" \
  && if [ _ != _${PROXY_URL} ]; then export http_proxy=${PROXY_URL} https_proxy=${PROXY_URL}; fi \ 
  && dnf -y install ${BASE_PACKAGES} ${BUILD_PACKAGES} \
@@ -37,16 +40,18 @@ echo /usr/sbin/httpd stopped.\n\
 exit\n'\
 > /usr/local/bin/start-httpd \
  && chmod a+x /usr/local/bin/start-httpd \
- && : Generating /etc/httpd/conf.d/svn.conf \
- && echo -en '<Location /svn>\n\
-  DAV svn\n\
-  SVNParentPath /var/www/svn\n\
-  AuthType Basic\n\
-  AuthName "Subversion repository"\n\
-  AuthUserFile /etc/httpd/conf/htpasswd.svn\n\
-  AuthGroupFile /etc/httpd/conf/htgroup.svn\n\
-</Location>\n'\
-> /etc/httpd/conf.d/svn.conf \
+ && : Generating /etc/httpd/conf.d/mod_proxy.conf \
+ &&  echo -en "<IFModule mod_proxy.c>\n\
+  ProxyRequests On\n\
+  ProxyVia On\n\
+\n\
+  <Proxy *>\n\
+    Order deny,allow\n\
+    Deny from all\n\
+    Allow from ${PROXY_ALLOW_FROM}\n\
+  </Proxy>\n\
+</IFModule>\n"\
+> /etc/httpd/conf.d/mod_proxy.conf \
  && : Removing package cache \
  && dnf clean all
 EXPOSE 80

@@ -2,10 +2,10 @@
 
 ################################################################################
 # Name    : httpd-svn
-# Usage   : fedora37-httpd-svn.sh
-# Depends : fedora37-container-base.sh, dnf.conf
+# Usage   : fc38_httpd-svn.sh
+# Depends : fedora38-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 37 and login as root.
+#   1. Start Fedora 38 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
@@ -40,7 +40,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=37
+  export RELEASE_VER=38
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64

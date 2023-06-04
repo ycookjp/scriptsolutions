@@ -10,32 +10,32 @@ docker project
 *--------------------------------------------------------------------------+------------------------------------------------------+
 | {{{./scripts/dnf.conf}dnf.conf}}                                         | configuration file for dnf                           |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora37-container-base.sh.txt}fedora37-container-base.sh}} | creating container base for Fedora                   |
+| {{{./scripts/fedora38-container-base.sh.txt}fedora38-container-base.sh}} | creating container base for Fedora                   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora37-desktop.sh.txt}fedora37-desktop.sh}}               | creating desktop environment                         |
+| {{{./scripts/fc38_desktop.sh.txt}fc38_desktop.sh}}                       | creating desktop environment                         |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora37-eclipse.sh.txt}fedora37-eclipse.sh}}               | creating Eclipse IDE with desktop environment        |
+| {{{./scripts/fc38_eclipse.sh.txt}fc38_eclipse.sh}}                       | creating Eclipse IDE with desktop environment        |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-proxy.sh.txt}fedora37-httpd-proxy.sh}}       | creating proxy service working on Apache HTTP Server |
+| {{{./scripts/fc38_httpd-proxy.sh.txt}fc38_httpd-proxy.sh}}               | creating proxy service working on Apache HTTP Server |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-svn.sh.txt}fedora37-httpd-svn.sh}}           | creating SVN service working on Apache HTTP Server   |
+| {{{./scripts/fc38_httpd-svn.sh.txt}fc38_httpd-svn.sh}}                   | creating SVN service working on Apache HTTP Server   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
 
 * Dockerfiles
 
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-desktop_Dockerfile}fedora37-desktop_Dockerfile}}                   | creating desktop environment                              |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-eclipse_Dockerfile}fedora37-eclipse_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-git_Dockerfile}fedora37-httpd-git_Dockerfile}}               | creating git repository service working on Apache httpd   |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-proxy_Dockerfile}fedora37-httpd-proxy_Dockerfile}}           | creating proxy service working on Apache httpd            |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-proxy-mdns_Dockerfile}fedora37-httpd-proxy-mdns_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/fedora37-httpd-svn_Dockerfile}fedora37-httpd-svn_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
-*------------------------------------------------------------------------------------------+-----------------------------------------------------------+
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/desktop_fc38_Dockerfile}desktop_fc38_Dockerfile}}                   | creating desktop environment                              |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/eclipse_fc38_Dockerfile}eclipse_fc38_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-git_fc38_Dockerfile}httpd-git_fc38_Dockerfile}}               | creating git repository service working on Apache httpd   |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-proxy_fc38_Dockerfile}httpd-proxy_fc38_Dockerfile}}           | creating proxy service working on Apache httpd            |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-proxy-mdns_fc38_Dockerfile}httpd-proxy-mdns_fc38_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-svn_fc38_Dockerfile}httpd-svn_fc38_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
+*----------------------------------------------------------------------------------+-----------------------------------------------------------+
 Fedora based images
 
   [Note]

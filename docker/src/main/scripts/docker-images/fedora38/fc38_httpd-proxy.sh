@@ -2,11 +2,11 @@
 
 ################################################################################
 # Name    : httpd-proxy
-# Usage   : fedora37-httpd-proxy.sh <ipaddress>/<netmask>
+# Usage   : fc38_httpd-proxy.sh <ipaddress>/<netmask>
 #   * <ipaddress> and <netmask> : "Allow from" network.
-# Depends : fedora37-container-base.sh, dnf.conf
+# Depends : fedora38-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 37 and login as root.
+#   1. Start Fedora 38 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
@@ -27,7 +27,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=37
+  export RELEASE_VER=38
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64

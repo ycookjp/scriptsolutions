@@ -1,12 +1,12 @@
 ################################################################################
 # httpd-proxy-mdns
 # Building :
-#   1. Place this file to working directory, and rename to "Dockerfile".
+#   1. Place this file to working directory.
 #   2. Run following command.
 # Usage : docker build -t <image-name> \
 #         --build-arg PROXY_ALLOW_FROM=<netaddr>/<netmask> \
 #         [--build-arg PROXY_PORT=<port>] [--build-arg PROXY_DOMAIN=<domain>] \
-#         [--build-arg PROXY_URL=<proxy_url>] .
+#         [--build-arg PROXY_URL=<proxy_url>] -f <docker-file-name> .
 #   * <netaddr>/<netmask> : Apache configuration for "Allow from" of <Proxy>.
 # Running :
 #   docker run --name <container-name> --restart=always --network host \
@@ -15,7 +15,7 @@
 #   * Allow firewall to tcp <port>.
 #   * If run this container as service, do following
 #     i) Execute "docker create --name <container-name> --network host
-#        fedora37-httpd-proxy-mdns"
+#        fedora38-httpd-proxy-mdns"
 #     ii) Create unit file as followig
 #       ----------------------------------------------------------------------
 #       [Unit]
@@ -32,7 +32,7 @@
 #       WantedBy=multi-user.target
 #       ----------------------------------------------------------------------
 ################################################################################
-FROM fedora37-container-base
+FROM fedora38-container-base
 #FROM fedora
 ARG PROXY_ALLOW_FROM
 ARG PROXY_PORT=80

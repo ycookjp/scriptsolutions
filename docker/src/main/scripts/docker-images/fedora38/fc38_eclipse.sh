@@ -2,16 +2,16 @@
 
 ################################################################################
 # Name    : eclipse-<desktop_env>
-# Usage   : DESKTOP_ENV={lxde|mate|xfce} fedora37-eclipse.sh
-# Depends : fedora37-desktop.sh, fedora37-container-base.sh, dnf.conf
+# Usage   : DESKTOP_ENV={lxde|mate|xfce} fc38_eclipse.sh
+# Depends : fc38_desktop.sh, fedora38-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 37 and login as root.
+#   1. Start Fedora 38 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
 #     --------------------------------------------------------------------------
 #     import-files
-#     |-- fedora37-eclipse
+#     |-- fc38_eclipse
 #     |   |-- archives
 #     |   |   `-- eclipse-dropins.tar.gz
 #     |   `-- files
@@ -27,7 +27,7 @@
 #     `-- download (Optional)
 #         |-- Windows.10.Dark.v0.9.9.SP1.tar.gz
 #         |-- Windows.10.Icons.v0.5.tar.gz
-#         |-- eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz
+#         |-- eclipse-jee-2022-12-R-linux-gtk-x86_64.tar.gz
 #         `-- migu-1m-20150712.zip
 #     --------------------------------------------------------------------------
 #     * eclipse-dropins.tar.gz : archiving eclipse dropins plug-in(s).
@@ -55,7 +55,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=37
+  export RELEASE_VER=38
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -74,10 +74,10 @@ if [ _ = _${DOWNLOAD_DIR} ]; then
 fi
 
 ## Installing Fedora Desktop
-`dirname $0`/fedora${RELEASE_VER}-desktop.sh
+`dirname $0`/fc${RELEASE_VER}_desktop.sh
 
 # Eclispe IDE for Enterprise Java Developers
-ECLIPSE_URL=http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/technology/epp/downloads/release/2022-06/R/eclipse-jee-2022-06-R-linux-gtk-x86_64.tar.gz
+ECLIPSE_URL=https://ftp.yz.yamagata-u.ac.jp/pub/eclipse//technology/epp/downloads/release/2022-12/R/eclipse-jee-2022-12-R-linux-gtk-x86_64.tar.gz
 
 # migu font
 MIGU_URL=https://osdn.jp/projects/mix-mplus-ipa/downloads/63545/migu-1m-20150712.zip
@@ -102,7 +102,7 @@ if [ _ != _${ECLIPSE_URL} ]; then
     curl ${OPT_CURL_PROXY} --create-dirs -L ${ECLIPSE_URL} -o ${DOWNLOAD_DIR}/`basename ${ECLIPSE_URL}`
   fi
   mkdir -p ${INSTALL_ROOT}/opt
-  tar --overwrite -xvz -f ${DOWNLOAD_DIR}/`basename ${ECLIPSE_URL}` -C ${INSTALL_ROOT}/opt
+  tar -xvz -f ${DOWNLOAD_DIR}/`basename ${ECLIPSE_URL}` -C ${INSTALL_ROOT}/opt --overwrite --no-same-owner --no-same-permissions
 
 ## Creating eclipse menu entry
   mkdir -p ${INSTALL_ROOT}/usr/share/applications
