@@ -1,0 +1,58 @@
+################################################################################
+# httpd-proxy
+# Building :
+#   1. Place this file to working directory, and rename to "Dockerfile".
+#   2. Run following command.
+# Usage : docker build -t <image-name> \
+#         --build-arg PROXY_ALLOW_FROM=<ipaddress/<netmask> \
+#         [--build-arg PROXY_URL=<proxy_url>] .
+#   * <ipaddress> and <netmask> : "Allow from" network.
+# Running :
+#   docker run --name <container-name> --restart=always -p <host-port>:80 \
+#   -it <image-name>
+################################################################################
+FROM fedora38-container-base
+#FROM fedora
+ARG PROXY_ALLOW_FROM
+ARG PROXY_URL
+RUN echo "################################################################################" \
+ && echo "##### Installing proxy service #####" \
+ && echo "################################################################################" \
+ && : Installation settings \
+ && export BASE_PACKAGES="httpd mod_ssl langpacks-ja" \
+ && export BUILD_PACKAGES="net-tools" \
+ && if [ _ != _${PROXY_URL} ]; then export http_proxy=${PROXY_URL} https_proxy=${PROXY_URL}; fi \ 
+ && dnf -y install ${BASE_PACKAGES} ${BUILD_PACKAGES} \
+ && : Generate certs \
+ && /usr/libexec/httpd-ssl-gencerts \
+ && : Japanese language settings \
+ && if [ "" != "`echo ${BASE_PACKAGES} ${DESKTOP_PACKAGES} ${BUILD_PACKAGES} | grep 'langpacks-ja'`" ]; then \
+      ln -sf ../usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
+      echo LANG="ja_JP.UTF-8" > /etc/locale.conf; \
+    fi \
+ && : Generating /usr/local/bin/start-httpd \
+ && echo -en '#!/bin/sh\n\
+\n\
+trap "/usr/sbin/httpd -k stop" SIGHUP SIGTERM\n\
+/usr/sbin/httpd\n\
+while [ `ps h -C httpd | wc -l` -gt 0 ]; do sleep 2; done\n\
+echo /usr/sbin/httpd stopped.\n\
+exit\n'\
+> /usr/local/bin/start-httpd \
+ && chmod a+x /usr/local/bin/start-httpd \
+ && : Generating /etc/httpd/conf.d/mod_proxy.conf \
+ &&  echo -en "<IFModule mod_proxy.c>\n\
+  ProxyRequests On\n\
+  ProxyVia On\n\
+\n\
+  <Proxy *>\n\
+    Order deny,allow\n\
+    Deny from all\n\
+    Allow from ${PROXY_ALLOW_FROM}\n\
+  </Proxy>\n\
+</IFModule>\n"\
+> /etc/httpd/conf.d/mod_proxy.conf \
+ && : Removing package cache \
+ && dnf clean all
+EXPOSE 80
+CMD ["/usr/local/bin/start-httpd"]
