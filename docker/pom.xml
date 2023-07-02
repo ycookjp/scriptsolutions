@@ -12,6 +12,9 @@
   	<relativePath>../pom.xml</relativePath>
   </parent>
   <name>docker</name>
+  <properties>
+    <fedora.ver>38</fedora.ver>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -53,10 +56,10 @@
               <outputDirectory>target/site/scripts</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/main/scripts/docker-images/fedora38</directory>
+                  <directory>src/main/scripts/docker-images/fedora${fedora.ver}</directory>
                 </resource>
                 <resource>
-                  <directory>src/main/scripts/dockerfiles/fedora38</directory>
+                  <directory>src/main/scripts/dockerfiles/fedora${fedora.ver}</directory>
                 </resource>
                 <resource>
                   <directory>src/main/scripts/dockerfiles/centos7</directory>
@@ -86,7 +89,10 @@
                 <!-- rename file suffix *.sh to *.sh.txt -->
                 <move todir="target/site/scripts" includeemptydirs="false">
                   <fileset dir="target/site/scripts"/>
-                  <mapper type="glob" from="*.sh" to="*.sh.txt"/>
+                    <mapper>
+                      <globmapper from="*.sh" to="*.sh.txt" />>
+                      <globmapper from="*_Dockerfile" to="*_Dockerfile.txt" />>
+					</mapper>
                 </move>
               </target>
             </configuration>

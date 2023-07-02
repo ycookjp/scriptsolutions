@@ -24,17 +24,17 @@ docker project
 * Dockerfiles
 
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/desktop_fc38_Dockerfile}desktop_fc38_Dockerfile}}                   | creating desktop environment                              |
+| {{{./scripts/desktop_fc38_Dockerfile.txt}desktop_fc38_Dockerfile}}                   | creating desktop environment                              |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/eclipse_fc38_Dockerfile}eclipse_fc38_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
+| {{{./scripts/eclipse_fc38_Dockerfile.txt}eclipse_fc38_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-git_fc38_Dockerfile}httpd-git_fc38_Dockerfile}}               | creating git repository service working on Apache httpd   |
+| {{{./scripts/httpd-git_fc38_Dockerfile.txt}httpd-git_fc38_Dockerfile}}               | creating git repository service working on Apache httpd   |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy_fc38_Dockerfile}httpd-proxy_fc38_Dockerfile}}           | creating proxy service working on Apache httpd            |
+| {{{./scripts/httpd-proxy_fc38_Dockerfile.txt}httpd-proxy_fc38_Dockerfile}}           | creating proxy service working on Apache httpd            |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy-mdns_fc38_Dockerfile}httpd-proxy-mdns_fc38_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
+| {{{./scripts/httpd-proxy-mdns_fc38_Dockerfile.txt}httpd-proxy-mdns_fc38_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-svn_fc38_Dockerfile}httpd-svn_fc38_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
+| {{{./scripts/httpd-svn_fc38_Dockerfile.txt}httpd-svn_fc38_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
 *----------------------------------------------------------------------------------+-----------------------------------------------------------+
 Fedora based images
 
