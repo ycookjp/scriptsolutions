@@ -172,33 +172,35 @@ __unzipfile () {
 
 
 ECLIPSE_URL_BASE=https://ftp.yz.yamagata-u.ac.jp/pub/eclipse
-BABEL_URL_BASE="${ECLIPSE_URL_BASE}/technology/babel/babel_language_packs/R0.20.0RC1/2022-12"
-
+BABEL_URL_BASE="${ECLIPSE_URL_BASE}/technology/babel/babel_language_packs/R0.20.0/2022-12/"
 
 # Babel
 download_babel_plugin () {
   PACKAGE_NAME=BabelLanguagePack-R0.20.0RC1-ja_v20230110065230
   URL_LIST="
-  ${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_.v20230110065230.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_.v20230110065230.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-datatools-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-mylyn-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.handly-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_4.26.0.v20230220105658.zip
   "
   for URL in $URL_LIST; do
     FILE_NAME=`basename "${URL}"`
@@ -209,11 +211,24 @@ download_babel_plugin () {
 }
 
 
+# aCute
+download_acute_plugin () {
+  URL='https://download.eclipse.org/acute/snapshots/'
+  PACKAGE_NAME=org.eclipse.acute_0.3.3.202211251846
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archived site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    dropins/${PACKAGE_NAME}/eclipse
+}
+
 # Checkstyle
 download_checkstyle_plugin () {
+#  VERSION=10.7.0.202305251706
   VERSION=10.4.0.202211151918
-  #URL=https://checkstyle.org/eclipse-cs-update-site/
-  URL=https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}
+  URL="https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}"
   PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -234,7 +249,7 @@ download_checkstyle_plugin () {
 
 # Eclipse CDT
 download_cdt_plugin () {
-  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.0/cdt-11.0.0/cdt-11.0.0.zip"
+  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.2/cdt-11.2.0/cdt-11.2.0.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -246,8 +261,8 @@ download_cdt_plugin () {
 
 # Eclipse PDT
 download_pdt_plugin () {
-  URL='https://download.eclipse.org/tools/pdt/updates/8.0'
-  PACKAGE_NAME=org.eclipse.php_8.0.0.202112011911
+  URL='https://download.eclipse.org/tools/pdt/updates/8.1/'
+  PACKAGE_NAME=org.eclipse.php_8.1.0.202306111945
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -261,7 +276,8 @@ download_pdt_plugin () {
 
 # Eclpse DLTK
 download_dltk_plugin () {
-  URL="${ECLIPSE_URL_BASE}/technology/dltk/downloads/drops/R6.2/R-6.2-202005020530/dltk-core-R-6.2-202005020530.zip"
+  #URL="${ECLIPSE_URL_BASE}/technology/dltk/downloads/drops/R6.2/R-6.2-202005020530/dltk-core-R-6.2-202005020530.zip"
+  URL="http://www.eclipse.org/downloads/download.php?file=/technology/dltk/downloads/drops/R6.3/I-I202006111431-202006111431/dltk-core-I-I202006111431-202006111431.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -283,7 +299,7 @@ download_emonic_plugin () {
 
 # Enhanced Class Decompiler
 download_enanced_class_decompiler_plugin () {
-  URL='https://github.com/ecd-plugin/ecd/releases/download/3.1.1.201811062102/enhanced-class-decompiler-3.1.1.201811062102.zip'
+  URL='https://github.com/ecd-plugin/ecd/releases/download/v3.3.0.20230501/com.github.ecd-plugin.update-3.3.0.zip'
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -295,7 +311,7 @@ download_enanced_class_decompiler_plugin () {
 
 # JGit LFS
 download_jgit_plugin () {
-  URL="${ECLIPSE_URL_BASE}/egit/updates-6.4/org.eclipse.egit.repository-6.4.0.202211300538-r.zip"
+  URL="${ECLIPSE_URL_BASE}/egit/updates-6.6/org.eclipse.egit.repository-6.6.0.202305301015-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -356,7 +372,7 @@ download_properties_editor_plugin () {
 
 # PyDev
 download_pydev_plugin () {
-  URL='https://www.pydev.org/update_sites/10.1.1'
+  URL='https://www.pydev.org/update_sites/10.2.0'
   PACKAGE_NAME=org.python.pydev_`basename "${URL}"`
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -369,8 +385,8 @@ download_pydev_plugin () {
 
 # SpotBugs
 download_spotbugs_plugin () {
-  URL=https://spotbugs.github.io/eclipse/
-  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.3
+  URL='https://spotbugs.github.io/eclipse/'
+  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.7.3.r202210170504-fa9e53a
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
@@ -382,7 +398,7 @@ download_spotbugs_plugin () {
 
 # StatET
 download_statet_plugin () {
-  URL="${ECLIPSE_URL_BASE}/statet/releases/4.6.0/statet-repository-E202206-incubation-4.6.0-202209080600-r.zip"
+  URL="${ECLIPSE_URL_BASE}/statet/releases/4.7.0/statet-repository-E202212-incubation-4.7.0-202304060600-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f dropins-archive/${FILE_NAME} \
@@ -447,7 +463,7 @@ download_svn_connector_plugin () {
 
 # UMLet
 download_umlet_plugin () {
-  URL='https://www.umlet.com/download/umlet_15_0/umlet-eclipse-p2-15.0.0.zip'
+  URL='https://www.umlet.com/download/umlet_15_1/umlet-eclipse-p2-15.1.zip'
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -483,6 +499,8 @@ download_windowsbuilder_plugin () {
 # Download eclipse plugins
 # BabelLanguagePack-Rx.x.x-ja_vYYYYMMDDHHMMSS
 download_babel_plugin
+## org.eclipse.acute.feature_0.x.x.yyyyMMDDHHMM
+#download_acute_plugin
 # net.sf.eclipsecs.checkstyle_x.x.x.YYYYMMDDHHMM
 download_checkstyle_plugin
 # cdt-x.x.x
