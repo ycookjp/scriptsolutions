@@ -22,7 +22,7 @@ installing project
 *----------------------------------------------------------------------------------------+----------------------------------------------------------------------+
 || Script                                                                               || Description                                                          |
 *----------------------------------------------------------------------------------------+----------------------------------------------------------------------+
-| {{{./scripts/eclipse202212-plugins-download.sh.txt}eclipse202212-plugins-download.sh}} | Download Eclipse Plugins and install to dropins                      |
+| {{{./scripts/eclipse202306-plugins-download.sh.txt}eclipse202306-plugins-download.sh}} | Download Eclipse Plugins and install to dropins                      |
 *----------------------------------------------------------------------------------------+----------------------------------------------------------------------+
 | {{{./scripts/eclipse-updatesitte-download.sh.txt}eclipse-updatesitte-download.sh}}     | Download Eclipse update site and archive to zip to current directory |
 *----------------------------------------------------------------------------------------+----------------------------------------------------------------------+
