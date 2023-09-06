@@ -120,6 +120,11 @@ lxde_packages='lxde-common lxpanel lxsession lxpolkit lxappearance lxrandr
 mate_packages='mate-panel mate-session-manager mate-terminal marco caja 
     mate-screensaver mate-notification-daemon'
 
+# zram-generator
+if [ $distroname == el -a $distrover -ge 9 ]; then
+    zramgen_packages="zram-generator"
+fi
+
 # VirtualBox Guest Additions
 if [ _${__VBOXGA} == _vboxga ]; then
   vboxga_packages=virtualbox-guest-additions
@@ -149,6 +154,10 @@ case "$__DESKTOP" in
     start_desktop=mate-session
     ;;
 esac
+
+if [ _$zramgen_packages != _ ]; then
+  packages="$packages $zramgen_packages"
+fi
 
 if [ _${__VBOXGA} != _ ]; then
   packages="$packages $vboxga_packages"
@@ -260,7 +269,7 @@ __EOF
 fi
 
 ## Pulse Audio
-if [ _${__AUDIO_ENABLE} ]; then
+if [ _${__AUDIO_ENABLE} != _ ]; then
   if [ $distroname == fc -a $distrover -ge 34 -o \
        $distroname == el -a $distrover -ge 9 ]; then
     $pkgcmd install -y pipewire-pulseaudio pavucontrol alsa-firmware

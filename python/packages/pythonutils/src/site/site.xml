@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.6.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
+  <body>
+    <head>
+      <![CDATA[<link rel="shortcut icon" href="images/favicon.ico" />]]>
+    </head>
+    <menu name="Contents">
+      <item name="Test Report" href="./test-report/python-progs.html" />
+      <item name="Coverage Report" href="./htmlcov/index.html" />
+      <item name="Dependencies" href="./python-dependencies.html" />
+      <item name="Download site archive" href="./${project.artifactId}-${project.version}.zip" />
+    </menu>
+    <menu name="APIs">
+      <item name="API Documents" href="./apidocs/${PACKAGE_NAME}/index.html" />
+      <item name="Test Specifications"  href="./testspecs/tests/index.html" />
+    </menu>
+<!-- 
+    <menu ref="parent" />
+ -->
+    <menu ref="modules" />
+    <menu ref="reports" />
+  </body>
+</project>

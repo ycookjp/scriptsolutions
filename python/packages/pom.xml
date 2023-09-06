@@ -16,6 +16,7 @@
   	<module>awsutils</module>
   	<module>django_tutorial</module>
   	<module>django_sample</module>
+  	<module>pythonutils</module>
   	<module>mypackage</module>
   </modules>
   <name>Python Packages</name>
