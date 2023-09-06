@@ -519,8 +519,8 @@ download_jgit_plugin
 download_markdown_editor_plugin
 # org.nodeclipse.site-x.x.x-YYYYMMDDHHMM
 download_nodeclipse_plugin
-# jp.gr.java_conf.ussiy.app.propedit_x.x.x
-download_properties_editor_plugin
+## jp.gr.java_conf.ussiy.app.propedit_x.x.x
+#download_properties_editor_plugin
 # org.python.pydev_x.x.x
 download_pydev_plugin
 # com.github.spotbugs.plugin.eclipse_x.x.x

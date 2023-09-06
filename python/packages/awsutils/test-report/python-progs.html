@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Unittest Results</h2>
-                <p class='attribute'><strong>Start Time: </strong>2023-07-06 01:32:06</p>
-                <p class='attribute'><strong>Duration: </strong>29.58 s</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 33, Pass: 33</p>
+                <p class='attribute'><strong>Start Time: </strong>2023-09-07 04:01:38</p>
+                <p class='attribute'><strong>Duration: </strong>17.07 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 33, Pass: 27, Error: 6</p>
             </div>
         </div>
         <div class="row">
@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 3.55 s
+                                Total: 4, Pass: 4 -- Duration: 2.39 s
                             </td>
                         </tr>
                     </tbody>
@@ -113,7 +113,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 3.57 s
+                                Total: 4, Pass: 4 -- Duration: 2.07 s
                             </td>
                         </tr>
                     </tbody>
@@ -139,33 +139,102 @@
                             <td class="col-xs-1">
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr class='warning'>
                             <td class="col-xs-10">test_error_start_stop_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsRdsInstanceOperatorTest.py", line 316, in test_error_start_stop_resources
+    aws_test_utils.create_db_instance(db_instance_id_ok, resource_type,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
                             <td class="col-xs-10">test_start_stop</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsRdsInstanceOperatorTest.py", line 95, in test_start_stop
+    aws_test_utils.create_db_instance(db_instance_id, resource_type,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
                             <td class="col-xs-10">test_start_stop_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsRdsInstanceOperatorTest.py", line 185, in test_start_stop_resources
+    aws_test_utils.create_db_instance(db_instance_id, resource_type,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 3.31 s
+                                Total: 4, Pass: 1, Error: 3 -- Duration: 597 ms
                             </td>
                         </tr>
                     </tbody>
@@ -201,7 +270,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 2, Pass: 2 -- Duration: 6.25 s
+                                Total: 2, Pass: 2 -- Duration: 6.26 s
                             </td>
                         </tr>
                     </tbody>
@@ -235,20 +304,72 @@
                             <td class="col-xs-1">
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr class='warning'>
                             <td class="col-xs-10">test02_ng_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 605, in test02_ng_event_start_stop_aws_resources
+    aws_test_utils.create_db_instance(db_instance_id, resource_type, engine_name,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
                             <td class="col-xs-10">test02_ok_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 503, in test02_ok_event_start_stop_aws_resources
+    aws_test_utils.create_db_instance(db_instance_id, resource_type, engine_name,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
                             </td>
                         </tr>
                         <tr class='success'>
@@ -259,12 +380,38 @@
                             <td class="col-xs-1">
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr class='warning'>
                             <td class="col-xs-10">test_event_list_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 727, in test_event_list_start_stop_aws_resources
+    aws_test_utils.create_db_instance(db_instance_id, resource_type, engine_name,
+  File "src/test/site-packages/moto/core/models.py", line 128, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/aws_test_utils.py", line 148, in create_db_instance
+    db_instance = rds.create_db_instance(DBInstanceIdentifier=db_instance_id,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/main/site-packages/botocore/client.py", line 980, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidParameterValue) when calling the CreateDBInstance operation: The parameter DBInstanceIdentifier is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+</p>
                             </td>
                         </tr>
                         <tr class='success'>
@@ -309,7 +456,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 11, Pass: 11 -- Duration: 9.32 s
+                                Total: 11, Pass: 8, Error: 3 -- Duration: 4.37 s
                             </td>
                         </tr>
                     </tbody>
@@ -393,7 +540,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 8, Pass: 8 -- Duration: 3.58 s
+                                Total: 8, Pass: 8 -- Duration: 1.38 s
                             </td>
                         </tr>
                     </tbody>
