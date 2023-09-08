@@ -49,7 +49,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/compat-data
 │  └─ licenseFile: node_modules/@babel/compat-data/LICENSE
-├─ @babel/core@7.22.15
+├─ @babel/core@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -145,7 +145,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-module-imports
 │  └─ licenseFile: node_modules/@babel/helper-module-imports/LICENSE
-├─ @babel/helper-module-transforms@7.22.15
+├─ @babel/helper-module-transforms@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -166,7 +166,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-plugin-utils
 │  └─ licenseFile: node_modules/@babel/helper-plugin-utils/LICENSE
-├─ @babel/helper-remap-async-to-generator@7.22.9
+├─ @babel/helper-remap-async-to-generator@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -222,7 +222,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-validator-option
 │  └─ licenseFile: node_modules/@babel/helper-validator-option/LICENSE
-├─ @babel/helper-wrap-function@7.22.10
+├─ @babel/helper-wrap-function@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -887,14 +887,14 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/template
 │  └─ licenseFile: node_modules/@babel/template/LICENSE
-├─ @babel/traverse@7.22.15
+├─ @babel/traverse@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/traverse
 │  └─ licenseFile: node_modules/@babel/traverse/LICENSE
-├─ @babel/types@7.22.15
+├─ @babel/types@7.22.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -2068,7 +2068,7 @@
 │  ├─ url: http://ljharb.codes
 │  ├─ path: node_modules/array.prototype.flat
 │  └─ licenseFile: node_modules/array.prototype.flat/LICENSE
-├─ array.prototype.flatmap@1.3.1
+├─ array.prototype.flatmap@1.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/Array.prototype.flatMap
 │  ├─ publisher: Jordan Harband
@@ -2083,7 +2083,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/array.prototype.reduce
 │  └─ licenseFile: node_modules/array.prototype.reduce/LICENSE
-├─ array.prototype.tosorted@1.1.1
+├─ array.prototype.tosorted@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/Array.prototype.toSorted
 │  ├─ publisher: Jordan Harband
@@ -2149,7 +2149,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/available-typed-arrays
 │  └─ licenseFile: node_modules/available-typed-arrays/LICENSE
-├─ axe-core@4.8.0
+├─ axe-core@4.8.1
 │  ├─ licenses: MPL-2.0
 │  ├─ repository: https://github.com/dequelabs/axe-core
 │  ├─ path: node_modules/axe-core
@@ -2250,7 +2250,7 @@
 │  ├─ email: tj@vision-media.ca
 │  ├─ path: node_modules/batch
 │  └─ licenseFile: node_modules/batch/LICENSE
-├─ bfj@7.0.2
+├─ bfj@7.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: git+https://gitlab.com/philbooth/bfj
 │  ├─ publisher: Phil Booth
@@ -2425,7 +2425,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001527
+├─ caniuse-lite@1.0.30001529
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -2468,7 +2468,7 @@
 │  ├─ email: richiebendall@gmail.com
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/string-length/node_modules/char-regex
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/string-length/node_modules/char-regex/license
-├─ check-types@11.2.2
+├─ check-types@11.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: git+https://gitlab.com/philbooth/check-types.js
 │  ├─ publisher: Phil Booth
@@ -2700,7 +2700,7 @@
 │  ├─ email: shtylman@gmail.com
 │  ├─ path: node_modules/cookie
 │  └─ licenseFile: node_modules/cookie/LICENSE
-├─ core-js-compat@3.32.1
+├─ core-js-compat@3.32.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2708,7 +2708,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-compat
 │  └─ licenseFile: node_modules/core-js-compat/LICENSE
-├─ core-js-pure@3.32.1
+├─ core-js-pure@3.32.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2716,7 +2716,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-pure
 │  └─ licenseFile: node_modules/core-js-pure/LICENSE
-├─ core-js@3.32.1
+├─ core-js@3.32.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -3247,7 +3247,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.508
+├─ electron-to-chromium@1.4.512
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3412,6 +3412,11 @@
 │  ├─ url: https://sindresorhus.com
 │  ├─ path: node_modules/escape-string-regexp
 │  └─ licenseFile: node_modules/escape-string-regexp/license
+├─ escodegen@1.14.3
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/estools/escodegen
+│  ├─ path: node_modules/static-eval/node_modules/escodegen
+│  └─ licenseFile: node_modules/static-eval/node_modules/escodegen/LICENSE.BSD
 ├─ escodegen@2.1.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/estools/escodegen
@@ -3530,6 +3535,13 @@
 │  ├─ email: nicholas+npm@nczconsulting.com
 │  ├─ path: node_modules/espree
 │  └─ licenseFile: node_modules/espree/LICENSE
+├─ esprima@1.2.2
+│  ├─ licenses: BSD
+│  ├─ repository: https://github.com/ariya/esprima
+│  ├─ publisher: Ariya Hidayat
+│  ├─ email: ariya.hidayat@gmail.com
+│  ├─ path: node_modules/jsonpath/node_modules/esprima
+│  └─ licenseFile: node_modules/jsonpath/node_modules/esprima/README.md
 ├─ esprima@4.0.1
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/jquery/esprima
@@ -3552,8 +3564,8 @@
 ├─ estraverse@4.3.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/estools/estraverse
-│  ├─ path: node_modules/@nicolo-ribaudo/eslint-scope-5-internals/node_modules/estraverse
-│  └─ licenseFile: node_modules/@nicolo-ribaudo/eslint-scope-5-internals/node_modules/estraverse/LICENSE.BSD
+│  ├─ path: node_modules/static-eval/node_modules/estraverse
+│  └─ licenseFile: node_modules/static-eval/node_modules/estraverse/LICENSE.BSD
 ├─ estraverse@5.3.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/estools/estraverse
@@ -4924,7 +4936,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/jest
 │  └─ licenseFile: node_modules/jest/LICENSE
-├─ jiti@1.19.3
+├─ jiti@1.20.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/unjs/jiti
 │  ├─ path: node_modules/jiti
@@ -5030,6 +5042,12 @@
 │  ├─ email: jprichardson@gmail.com
 │  ├─ path: node_modules/jsonfile
 │  └─ licenseFile: node_modules/jsonfile/LICENSE
+├─ jsonpath@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/dchester/jsonpath
+│  ├─ publisher: david@fmail.co.uk
+│  ├─ path: node_modules/jsonpath
+│  └─ licenseFile: node_modules/jsonpath/LICENSE
 ├─ jsonpointer@5.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/janl/node-jsonpointer
@@ -5099,6 +5117,13 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: node_modules/leven
 │  └─ licenseFile: node_modules/leven/license
+├─ levn@0.3.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/gkz/levn
+│  ├─ publisher: George Zahariev
+│  ├─ email: z@georgezahariev.com
+│  ├─ path: node_modules/static-eval/node_modules/levn
+│  └─ licenseFile: node_modules/static-eval/node_modules/levn/LICENSE
 ├─ levn@0.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gkz/levn
@@ -5676,6 +5701,13 @@
 │  ├─ url: https://sindresorhus.com
 │  ├─ path: node_modules/open
 │  └─ licenseFile: node_modules/open/license
+├─ optionator@0.8.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/gkz/optionator
+│  ├─ publisher: George Zahariev
+│  ├─ email: z@georgezahariev.com
+│  ├─ path: node_modules/static-eval/node_modules/optionator
+│  └─ licenseFile: node_modules/static-eval/node_modules/optionator/LICENSE
 ├─ optionator@0.9.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gkz/optionator
@@ -6399,6 +6431,13 @@
 │  ├─ email: andrey@sitnik.ru
 │  ├─ path: node_modules/postcss
 │  └─ licenseFile: node_modules/postcss/LICENSE
+├─ prelude-ls@1.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/gkz/prelude-ls
+│  ├─ publisher: George Zahariev
+│  ├─ email: z@georgezahariev.com
+│  ├─ path: node_modules/static-eval/node_modules/prelude-ls
+│  └─ licenseFile: node_modules/static-eval/node_modules/prelude-ls/LICENSE
 ├─ prelude-ls@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gkz/prelude-ls
@@ -7179,6 +7218,14 @@
 │  ├─ repository: https://github.com/stacktracejs/stackframe
 │  ├─ path: node_modules/stackframe
 │  └─ licenseFile: node_modules/stackframe/LICENSE
+├─ static-eval@2.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/substack/static-eval
+│  ├─ publisher: James Halliday
+│  ├─ email: mail@substack.net
+│  ├─ url: http://substack.net
+│  ├─ path: node_modules/static-eval
+│  └─ licenseFile: node_modules/static-eval/LICENSE
 ├─ statuses@1.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/statuses
@@ -7234,7 +7281,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/string.prototype.matchall
 │  └─ licenseFile: node_modules/string.prototype.matchall/LICENSE
-├─ string.prototype.trim@1.2.7
+├─ string.prototype.trim@1.2.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/String.prototype.trim
 │  ├─ publisher: Jordan Harband
@@ -7242,7 +7289,7 @@
 │  ├─ url: http://ljharb.codes
 │  ├─ path: node_modules/string.prototype.trim
 │  └─ licenseFile: node_modules/string.prototype.trim/LICENSE
-├─ string.prototype.trimend@1.0.6
+├─ string.prototype.trimend@1.0.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/String.prototype.trimEnd
 │  ├─ publisher: Jordan Harband
@@ -7613,6 +7660,13 @@
 │  ├─ publisher: Klaus Meinhardt
 │  ├─ path: node_modules/tsutils
 │  └─ licenseFile: node_modules/tsutils/LICENSE
+├─ type-check@0.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/gkz/type-check
+│  ├─ publisher: George Zahariev
+│  ├─ email: z@georgezahariev.com
+│  ├─ path: node_modules/static-eval/node_modules/type-check
+│  └─ licenseFile: node_modules/static-eval/node_modules/type-check/LICENSE
 ├─ type-check@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gkz/type-check
@@ -7706,6 +7760,13 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/unbox-primitive
 │  └─ licenseFile: node_modules/unbox-primitive/LICENSE
+├─ underscore@1.12.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jashkenas/underscore
+│  ├─ publisher: Jeremy Ashkenas
+│  ├─ email: jeremy@documentcloud.org
+│  ├─ path: node_modules/underscore
+│  └─ licenseFile: node_modules/underscore/LICENSE
 ├─ unicode-canonical-property-names-ecmascript@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mathiasbynens/unicode-canonical-property-names-ecmascript
@@ -8048,6 +8109,13 @@
 │  ├─ url: http://blog.izs.me
 │  ├─ path: node_modules/which
 │  └─ licenseFile: node_modules/which/LICENSE
+├─ word-wrap@1.2.5
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jonschlinkert/word-wrap
+│  ├─ publisher: Jon Schlinkert
+│  ├─ url: https://github.com/jonschlinkert
+│  ├─ path: node_modules/word-wrap
+│  └─ licenseFile: node_modules/word-wrap/LICENSE
 ├─ workbox-background-sync@6.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/googlechrome/workbox
@@ -8182,7 +8250,7 @@
 │  ├─ url: http://2x.io
 │  ├─ path: node_modules/ws
 │  └─ licenseFile: node_modules/ws/LICENSE
-├─ ws@8.14.0
+├─ ws@8.14.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/websockets/ws
 │  ├─ publisher: Einar Otto Stangvik
