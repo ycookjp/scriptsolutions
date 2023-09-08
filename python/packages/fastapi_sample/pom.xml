@@ -289,6 +289,7 @@
               <executable>${BUILD_TEST_PATH}/site-packages/bin/pytest</executable>
               <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
               <arguments>
+                <argument>--branch</argument>
                 <argument>--cov-report=html</argument>
                 <argument>--cov=${BUILD_MAIN_PATH}</argument>
               </arguments>

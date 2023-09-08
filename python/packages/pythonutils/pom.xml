@@ -263,6 +263,7 @@
               <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
                <arguments>
                 <argument>run</argument>
+                <argument>--branch</argument>
                 <argument>--source</argument>
                 <argument>${BUILD_MAIN_PATH}/${PACKAGE_NAME}</argument>
                 <argument>${BUILD_TEST_PATH}/${TEST_PY}</argument>

@@ -263,6 +263,7 @@
               <workingDirectory>${BUILD_MAIN_PATH}</workingDirectory>
                <arguments>
                 <argument>run</argument>
+                <argument>--branch</argument>
                 <argument>--source</argument>
                 <argument>${PACKAGE_NAME}.models,${PACKAGE_NAME}.views</argument>
                 <argument>manage.py</argument>

@@ -67,16 +67,16 @@ def read_csv(istream: TextIOBase) -> list:
         istream (TextIOBase): 入力ストリーム
     
     Examples:
-        ```
-        from pythonutils import csvutil
-        ...
-        with open('/path/to/sample.csv', 'r', encoding=''utf-8) as f:
-            for rowdata in csvutil.read_csv(f):
-                line = ''
-                for celldata in rowdata:
-                    line = line + (',' if len(line) > 0 else '') + celldata
-                print(line)
-        ```
+        ストリームを読み込みCSVの１行のデータを配列にして返す処理の例
+
+            from pythonutils import csvutil
+            ...
+            with open('/path/to/sample.csv', 'r', encoding=''utf-8) as f:
+                for rowdata in csvutil.read_csv(f):
+                    line = ''
+                    for celldata in rowdata:
+                        line = line + (',' if len(line) > 0 else '') + celldata
+                    print(line)
 
     '''
     in_dquote: bool = False
