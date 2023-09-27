@@ -8,6 +8,7 @@
     </head>
     <menu name="Menu">
       <item name="Download site archive" href="./${project.artifactId}-${project.version}.zip" />
+      <item name="Download files" href="./download.html" />
     </menu>
     <menu ref="parent" />
     <menu ref="modules" />

@@ -99,7 +99,7 @@ class CsvutilTest(unittest.TestCase):
                 => […, 'かきく"\\r\\n"やゆよ,']
             * カンマの後ろが「"」以外の文字があり、その後に「"」で囲まれる文字列
               があった場合は、「"」も含めてCSV項目に取り込まれること。  
-                …, "あいう", ""かきく\\r\\n
+                …, "あいう", ""かきく\\r\\n  
                 => […, ' "あいう"', ' ""かきく']
             * カンマの後ろが「"」で囲まれているが、後ろの「"」の後に「"」以外の
               文字列が存在する場合は、「"」を含めてCSV項目に取り込まれること。  
@@ -126,7 +126,7 @@ class CsvutilTest(unittest.TestCase):
         
         with StringIO(csvdata) as f:
             for rowdata in csvutil.read_csv(f):
-                logging.info(f'fowdata: {rowdata}')
+                logging.info(f'rowdata: {rowdata}')
                 if rowdata[0] == '1':
                     logging.info('test01: CSV line[1]')
                     self.assertEqual('abc', rowdata[1])

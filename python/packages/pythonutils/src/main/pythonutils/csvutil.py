@@ -108,28 +108,29 @@ def read_csv(istream: TextIOBase) -> list:
                     index = dqidx + 1
                     in_dquote = False
                 continue
-            # 次のダブルクォート、カンマの出現位置を取得
-            dqidx = line.find('"', index)
-            cmidx = line.find(',', index)
-            # ダブルクォートの前にコンマが存在しない場合
-            # ダブルクォートまでをセルの文字列に追加する
-            if dqidx >= 0 and (cmidx < 0 or dqidx < cmidx):
-                csvcol = csvcol + line[index:dqidx+1]
-                in_dquote = True
-                index = dqidx + 1
-            # コンマの前にダブルクォートが存在しない場合
-            # コンマの前までの文字列をセルの文字列に追加し、次のセルの処理を開始
-            elif cmidx >= 0:
-                csvcol = csvcol + line[index:cmidx]
-                rowdata.append(_trim_double_quote(csvcol))
-                csvcol = ''
-                index = cmidx + 1
-            # コンマもダブルクォートも存在しない場合
-            # 行末までの文字をセルの文字列に追加し、１行分のCSVデータを返す
             else:
-                csvcol = _delete_line_break(csvcol + line[index:])
-                rowdata.append(_trim_double_quote(csvcol))
-                yield rowdata
-                csvcol = ''
-                rowdata = []
-                break
+                # 次のダブルクォート、カンマの出現位置を取得
+                dqidx = line.find('"', index)
+                cmidx = line.find(',', index)
+                # ダブルクォートの前にコンマが存在しない場合
+                # ダブルクォートまでをセルの文字列に追加する
+                if dqidx >= 0 and (cmidx < 0 or dqidx < cmidx):
+                    csvcol = csvcol + line[index:dqidx+1]
+                    in_dquote = True
+                    index = dqidx + 1
+                # コンマの前にダブルクォートが存在しない場合
+                # コンマの前までの文字列をセルの文字列に追加し、次のセルの処理を開始
+                elif cmidx >= 0:
+                    csvcol = csvcol + line[index:cmidx]
+                    rowdata.append(_trim_double_quote(csvcol))
+                    csvcol = ''
+                    index = cmidx + 1
+                # コンマもダブルクォートも存在しない場合
+                # 行末までの文字をセルの文字列に追加し、１行分のCSVデータを返す
+                else:
+                    csvcol = _delete_line_break(csvcol + line[index:])
+                    rowdata.append(_trim_double_quote(csvcol))
+                    yield rowdata
+                    csvcol = ''
+                    rowdata = []
+                    break
