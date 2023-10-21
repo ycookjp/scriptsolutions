@@ -74,10 +74,10 @@
             <fileset>
               <directory>${basedir}/</directory>
               <includes>
-                <include>${SRC_MAIN_PATH}/**/__pycache__/</include>
-                <include>${SRC_MAIN_PATH}/**/site-packages/</include>
-                <include>${SRC_TEST_PATH}/**/__pycache__/</include>
-                <include>${SRC_TEST_PATH}/**/site-packages/</include>
+                <include>main/**/__pycache__/</include>
+                <include>main/**/site-packages/</include>
+                <include>test/**/__pycache__/</include>
+                <include>test/**/site-packages/</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>
