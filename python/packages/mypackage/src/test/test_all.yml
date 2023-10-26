@@ -1,3 +1,2 @@
 module_patterns:
-  - FailErrorTest.py
-  - MyPackageTest.py
+  - '*Test.py'
