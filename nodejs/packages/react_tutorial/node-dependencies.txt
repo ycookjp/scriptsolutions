@@ -1877,7 +1877,7 @@
 │  ├─ repository: https://github.com/acornjs/acorn
 │  ├─ path: node_modules/acorn-globals/node_modules/acorn
 │  └─ licenseFile: node_modules/acorn-globals/node_modules/acorn/LICENSE
-├─ acorn@8.10.0
+├─ acorn@8.11.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/acornjs/acorn
 │  ├─ path: node_modules/acorn
@@ -2436,7 +2436,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001554
+├─ caniuse-lite@1.0.30001555
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3273,7 +3273,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.567
+├─ electron-to-chromium@1.4.569
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof

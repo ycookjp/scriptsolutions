@@ -69,7 +69,7 @@ __archive_updatesite () {
 __unzipfile () {
   ##############################################################################
   # Usage : __unzipfile [-x remove-pattern [remove-pattern ...]] \
-  #         [-m pattern [pattern ...]] {-f file-name | -u url} output-path
+  #         [-m "pattern [pattern ...]]" {-f file-name | -u url} output-path
   # Options :
   #   -x remove-pattern : When unzip downloaded file, deletes files which
   #       maches <remove-pattern> .
@@ -115,7 +115,7 @@ __unzipfile () {
 
   if [ "x${__OUTPUT_PATH__}" = "x" -o  "x${__FILE_PATH__}" = "x" -a "x${__URL__}" = "x" ]; then
     echo "Usage : __unzipfile [-x remove-pattern [remove-pattern ...]]" 
-    echo "       [-m pattern [pattern ...]] {-f file-name | -u url} output-path"
+    echo "       [-m \"pattern [pattern ...]]\" {-f file-name | -u url} output-path"
     return -1
   fi
 
@@ -161,7 +161,11 @@ __unzipfile () {
         rm -rf ${__REMOVE_PATTERN__}
       fi
       if [ "x${__PATTERN__}" != "x" ]; then
-        for f in `ls -I "${__PATTERN__}"`; do
+        iflg=
+        for p in ${__PATTERN__}; do
+          iflg="$iflg -I $p"
+        done
+        for f in `ls $iflg`; do
           rm -rf $f
         done
       fi
@@ -224,6 +228,22 @@ download_acute_plugin () {
     dropins/${PACKAGE_NAME}/eclipse
 }
 
+
+# Asciidoctor Editor
+download_asciidoctoreditor_plugin () {
+  URL='https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/'
+  PACKAGE_NAME=de.jcup.asciidoctoreditor_3.1.1
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archived site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m "${PACKAGE_NAME}.* de.jcup.asciidoctor.converter_*.* de.jcup.asciidoctoreditor.css_*.* de.jcup.asciidoctoreditor.libs_*.*" \
+    dropins/${PACKAGE_NAME}/eclipse
+}
+
+
 # Checkstyle
 download_checkstyle_plugin () {
 #  VERSION=10.7.0.202305251706
@@ -237,13 +257,6 @@ download_checkstyle_plugin () {
   __unzipfile -f dropins-archive/${FILE_NAME} \
     -x '*.doc_* *.source_*' \
     dropins/${PACKAGE_NAME}/eclipse
-  # remove non target version
-  for dirpath in dropins/${PACKAGE_NAME}/eclipse/features dropins/${PACKAGE_NAME}/eclipse/plugins; do
-    mkdir ${dirpath}.bak
-    mv ${dirpath}/*_${VERSION}.* ${dirpath}.bak
-    rm -rf ${dirpath}
-    mv ${dirpath}.bak ${dirpath}
-  done
 }
 
 
@@ -501,6 +514,8 @@ download_windowsbuilder_plugin () {
 download_babel_plugin
 ## org.eclipse.acute.feature_0.x.x.yyyyMMDDHHMM
 #download_acute_plugin
+# de.jcup.asciidoctoreditor_x.x.x
+download_asciidoctoreditor_plugin
 # net.sf.eclipsecs.checkstyle_x.x.x.YYYYMMDDHHMM
 download_checkstyle_plugin
 # cdt-x.x.x
