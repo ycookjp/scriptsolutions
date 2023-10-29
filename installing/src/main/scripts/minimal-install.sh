@@ -68,10 +68,9 @@ if [ _${__DESKTOP} != _ ]; then
   fi 
 fi
 
-if [ $distroname == el -a $distrover == 8 -a _$__DESKTOP == _mate \
-     -o $distroname == el -a $distrover -ge 8 -a _$__DESKTOP == _lxde ]; then
+if [ $distroname == el -a $distrover -ge 8 -a _$__DESKTOP == _lxde ]; then
   echo "***** OPTION ERROR *****"
-  echo mate or lxde can not install to Redhat EL or CentOS ver $distrover
+  echo lxde can not install to Redhat EL or CentOS ver $distrover
   echo "************************"
   exit 1
 fi
