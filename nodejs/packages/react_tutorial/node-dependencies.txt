@@ -49,7 +49,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/compat-data
 │  └─ licenseFile: node_modules/@babel/compat-data/LICENSE
-├─ @babel/core@7.23.9
+├─ @babel/core@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -91,7 +91,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-compilation-targets
 │  └─ licenseFile: node_modules/@babel/helper-compilation-targets/LICENSE
-├─ @babel/helper-create-class-features-plugin@7.23.10
+├─ @babel/helper-create-class-features-plugin@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -159,7 +159,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-optimise-call-expression
 │  └─ licenseFile: node_modules/@babel/helper-optimise-call-expression/LICENSE
-├─ @babel/helper-plugin-utils@7.22.5
+├─ @babel/helper-plugin-utils@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -229,7 +229,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-wrap-function
 │  └─ licenseFile: node_modules/@babel/helper-wrap-function/LICENSE
-├─ @babel/helpers@7.23.9
+├─ @babel/helpers@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -243,7 +243,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/highlight
 │  └─ licenseFile: node_modules/@babel/highlight/LICENSE
-├─ @babel/parser@7.23.9
+├─ @babel/parser@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -278,7 +278,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-proposal-class-properties
 │  └─ licenseFile: node_modules/@babel/plugin-proposal-class-properties/LICENSE
-├─ @babel/plugin-proposal-decorators@7.23.9
+├─ @babel/plugin-proposal-decorators@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -342,7 +342,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-syntax-class-static-block
 │  └─ licenseFile: node_modules/@babel/plugin-syntax-class-static-block/LICENSE
-├─ @babel/plugin-syntax-decorators@7.23.3
+├─ @babel/plugin-syntax-decorators@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -665,7 +665,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-numeric-separator
 │  └─ licenseFile: node_modules/@babel/plugin-transform-numeric-separator/LICENSE
-├─ @babel/plugin-transform-object-rest-spread@7.23.4
+├─ @babel/plugin-transform-object-rest-spread@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -770,7 +770,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-reserved-words
 │  └─ licenseFile: node_modules/@babel/plugin-transform-reserved-words/LICENSE
-├─ @babel/plugin-transform-runtime@7.23.9
+├─ @babel/plugin-transform-runtime@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -847,7 +847,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-unicode-sets-regex
 │  └─ licenseFile: node_modules/@babel/plugin-transform-unicode-sets-regex/LICENSE
-├─ @babel/preset-env@7.23.9
+├─ @babel/preset-env@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -880,28 +880,28 @@
 │  ├─ url: https://ofcr.se/
 │  ├─ path: node_modules/@babel/regjsgen
 │  └─ licenseFile: node_modules/@babel/regjsgen/LICENSE-MIT.txt
-├─ @babel/runtime@7.23.9
+├─ @babel/runtime@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/runtime
 │  └─ licenseFile: node_modules/@babel/runtime/LICENSE
-├─ @babel/template@7.23.9
+├─ @babel/template@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/template
 │  └─ licenseFile: node_modules/@babel/template/LICENSE
-├─ @babel/traverse@7.23.9
+├─ @babel/traverse@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/traverse
 │  └─ licenseFile: node_modules/@babel/traverse/LICENSE
-├─ @babel/types@7.23.9
+├─ @babel/types@7.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -1032,7 +1032,7 @@
 │  ├─ publisher: Nicholas C. Zakas
 │  ├─ path: node_modules/@eslint/eslintrc
 │  └─ licenseFile: node_modules/@eslint/eslintrc/LICENSE
-├─ @eslint/js@8.56.0
+├─ @eslint/js@8.57.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/eslint/eslint
 │  ├─ path: node_modules/@eslint/js
@@ -1163,21 +1163,21 @@
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/@jest/types
 │  └─ licenseFile: node_modules/@jest/types/LICENSE
-├─ @jridgewell/gen-mapping@0.3.3
+├─ @jridgewell/gen-mapping@0.3.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/gen-mapping
 │  ├─ publisher: Justin Ridgewell
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/gen-mapping
 │  └─ licenseFile: node_modules/@jridgewell/gen-mapping/LICENSE
-├─ @jridgewell/resolve-uri@3.1.1
+├─ @jridgewell/resolve-uri@3.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/resolve-uri
 │  ├─ publisher: Justin Ridgewell
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/resolve-uri
 │  └─ licenseFile: node_modules/@jridgewell/resolve-uri/LICENSE
-├─ @jridgewell/set-array@1.1.2
+├─ @jridgewell/set-array@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/set-array
 │  ├─ publisher: Justin Ridgewell
@@ -1197,7 +1197,7 @@
 │  ├─ publisher: Rich Harris
 │  ├─ path: node_modules/@jridgewell/sourcemap-codec
 │  └─ licenseFile: node_modules/@jridgewell/sourcemap-codec/LICENSE
-├─ @jridgewell/trace-mapping@0.3.22
+├─ @jridgewell/trace-mapping@0.3.23
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/trace-mapping
 │  ├─ publisher: Justin Ridgewell
@@ -1504,7 +1504,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint-scope
 │  └─ licenseFile: node_modules/@types/eslint-scope/LICENSE
-├─ @types/eslint@8.56.2
+├─ @types/eslint@8.56.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/eslint
@@ -1591,7 +1591,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@20.11.16
+├─ @types/node@20.11.24
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -1616,7 +1616,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/q
 │  └─ licenseFile: node_modules/@types/q/LICENSE
-├─ @types/qs@6.9.11
+├─ @types/qs@6.9.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/qs
@@ -1626,12 +1626,12 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/range-parser
 │  └─ licenseFile: node_modules/@types/range-parser/LICENSE
-├─ @types/react-dom@18.2.18
+├─ @types/react-dom@18.2.19
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react-dom
 │  └─ licenseFile: node_modules/@types/react-dom/LICENSE
-├─ @types/react@18.2.55
+├─ @types/react@18.2.61
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react
@@ -1651,7 +1651,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/scheduler
 │  └─ licenseFile: node_modules/@types/scheduler/LICENSE
-├─ @types/semver@7.5.6
+├─ @types/semver@7.5.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/semver
@@ -2186,7 +2186,7 @@
 │  ├─ email: andrey@sitnik.ru
 │  ├─ path: node_modules/autoprefixer
 │  └─ licenseFile: node_modules/autoprefixer/LICENSE
-├─ available-typed-arrays@1.0.6
+├─ available-typed-arrays@1.0.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/available-typed-arrays
 │  ├─ publisher: Jordan Harband
@@ -2324,7 +2324,7 @@
 │  ├─ url: http://github.com/petkaantonov/
 │  ├─ path: node_modules/bluebird
 │  └─ licenseFile: node_modules/bluebird/LICENSE
-├─ body-parser@1.20.1
+├─ body-parser@1.20.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/body-parser
 │  ├─ path: node_modules/body-parser
@@ -2373,7 +2373,7 @@
 │  ├─ publisher: kumavis
 │  ├─ path: node_modules/browser-process-hrtime
 │  └─ licenseFile: node_modules/browser-process-hrtime/LICENSE
-├─ browserslist@4.22.3
+├─ browserslist@4.23.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/browserslist/browserslist
 │  ├─ publisher: Andrey Sitnik
@@ -2417,7 +2417,7 @@
 │  ├─ url: http://tjholowaychuk.com
 │  ├─ path: node_modules/body-parser/node_modules/bytes
 │  └─ licenseFile: node_modules/body-parser/node_modules/bytes/LICENSE
-├─ call-bind@1.0.6
+├─ call-bind@1.0.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/call-bind
 │  ├─ publisher: Jordan Harband
@@ -2469,7 +2469,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001585
+├─ caniuse-lite@1.0.30001591
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -2752,7 +2752,7 @@
 │  ├─ email: shtylman@gmail.com
 │  ├─ path: node_modules/cookie
 │  └─ licenseFile: node_modules/cookie/LICENSE
-├─ core-js-compat@3.35.1
+├─ core-js-compat@3.36.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2760,7 +2760,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-compat
 │  └─ licenseFile: node_modules/core-js-compat/LICENSE
-├─ core-js-pure@3.35.1
+├─ core-js-pure@3.36.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2768,7 +2768,7 @@
 │  ├─ url: http://zloirock.ru
 │  ├─ path: node_modules/core-js-pure
 │  └─ licenseFile: node_modules/core-js-pure/LICENSE
-├─ core-js@3.35.1
+├─ core-js@3.36.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zloirock/core-js
 │  ├─ publisher: Denis Pushkarev
@@ -2914,7 +2914,7 @@
 │  ├─ url: https://mathiasbynens.be/
 │  ├─ path: node_modules/css.escape
 │  └─ licenseFile: node_modules/css.escape/LICENSE-MIT.txt
-├─ cssdb@7.10.0
+├─ cssdb@7.11.1
 │  ├─ licenses: CC0-1.0
 │  ├─ repository: https://github.com/csstools/cssdb
 │  ├─ publisher: Jonathan Neal
@@ -3060,7 +3060,7 @@
 │  ├─ publisher: silverwind
 │  ├─ path: node_modules/default-gateway
 │  └─ licenseFile: node_modules/default-gateway/LICENSE
-├─ define-data-property@1.1.2
+├─ define-data-property@1.1.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/define-data-property
 │  ├─ publisher: Jordan Harband
@@ -3304,7 +3304,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.659
+├─ electron-to-chromium@1.4.687
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3353,7 +3353,7 @@
 │  ├─ repository: https://github.com/pillarjs/encodeurl
 │  ├─ path: node_modules/encodeurl
 │  └─ licenseFile: node_modules/encodeurl/LICENSE
-├─ enhanced-resolve@5.15.0
+├─ enhanced-resolve@5.15.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/enhanced-resolve
 │  ├─ publisher: Tobias Koppers @sokra
@@ -3376,7 +3376,7 @@
 │  ├─ repository: https://github.com/stacktracejs/error-stack-parser
 │  ├─ path: node_modules/error-stack-parser
 │  └─ licenseFile: node_modules/error-stack-parser/LICENSE
-├─ es-abstract@1.22.3
+├─ es-abstract@1.22.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/es-abstract
 │  ├─ publisher: Jordan Harband
@@ -3391,6 +3391,13 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/es-array-method-boxes-properly
 │  └─ licenseFile: node_modules/es-array-method-boxes-properly/LICENSE
+├─ es-define-property@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/es-define-property
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ path: node_modules/es-define-property
+│  └─ licenseFile: node_modules/es-define-property/LICENSE
 ├─ es-errors@1.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/es-errors
@@ -3405,7 +3412,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/es-get-iterator
 │  └─ licenseFile: node_modules/es-get-iterator/LICENSE
-├─ es-iterator-helpers@1.0.15
+├─ es-iterator-helpers@1.0.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/iterator-helpers
 │  ├─ publisher: Jordan Harband
@@ -3418,7 +3425,7 @@
 │  ├─ publisher: Guy Bedford
 │  ├─ path: node_modules/es-module-lexer
 │  └─ licenseFile: node_modules/es-module-lexer/LICENSE
-├─ es-set-tostringtag@2.0.2
+├─ es-set-tostringtag@2.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/es-set-tostringtag
 │  ├─ publisher: Jordan Harband
@@ -3498,7 +3505,7 @@
 │  ├─ url: me@benmosher.com
 │  ├─ path: node_modules/eslint-import-resolver-node
 │  └─ licenseFile: node_modules/eslint-import-resolver-node/LICENSE
-├─ eslint-module-utils@2.8.0
+├─ eslint-module-utils@2.8.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/import-js/eslint-plugin-import
 │  ├─ publisher: Ben Mosher
@@ -3585,7 +3592,7 @@
 │  ├─ email: ricardogobbosouza@yahoo.com.br
 │  ├─ path: node_modules/eslint-webpack-plugin
 │  └─ licenseFile: node_modules/eslint-webpack-plugin/LICENSE
-├─ eslint@8.56.0
+├─ eslint@8.57.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/eslint/eslint
 │  ├─ publisher: Nicholas C. Zakas
@@ -3690,7 +3697,7 @@
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/expect
 │  └─ licenseFile: node_modules/expect/LICENSE
-├─ express@4.18.2
+├─ express@4.18.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/express
 │  ├─ publisher: TJ Holowaychuk
@@ -3827,7 +3834,7 @@
 │  ├─ url: https://jaredwray.com
 │  ├─ path: node_modules/flat-cache
 │  └─ licenseFile: node_modules/flat-cache/LICENSE
-├─ flatted@3.2.9
+├─ flatted@3.3.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/WebReflection/flatted
 │  ├─ publisher: Andrea Giammarchi
@@ -3982,7 +3989,7 @@
 │  ├─ url: https://sindresorhus.com
 │  ├─ path: node_modules/get-stream
 │  └─ licenseFile: node_modules/get-stream/license
-├─ get-symbol-description@1.0.1
+├─ get-symbol-description@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/get-symbol-description
 │  ├─ publisher: Jordan Harband
@@ -4136,14 +4143,14 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: node_modules/has-flag
 │  └─ licenseFile: node_modules/has-flag/license
-├─ has-property-descriptors@1.0.1
+├─ has-property-descriptors@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/has-property-descriptors
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/has-property-descriptors
 │  └─ licenseFile: node_modules/has-property-descriptors/LICENSE
-├─ has-proto@1.0.1
+├─ has-proto@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/has-proto
 │  ├─ publisher: Jordan Harband
@@ -4166,7 +4173,7 @@
 │  ├─ url: http://ljharb.codes
 │  ├─ path: node_modules/has-tostringtag
 │  └─ licenseFile: node_modules/has-tostringtag/LICENSE
-├─ hasown@2.0.0
+├─ hasown@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/hasOwn
 │  ├─ publisher: Jordan Harband
@@ -4568,7 +4575,7 @@
 │  ├─ url: http://jongleberry.com
 │  ├─ path: node_modules/is-module
 │  └─ licenseFile: node_modules/is-module/README.md
-├─ is-negative-zero@2.0.2
+├─ is-negative-zero@2.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-negative-zero
 │  ├─ publisher: Jordan Harband
@@ -4650,7 +4657,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/is-set
 │  └─ licenseFile: node_modules/is-set/LICENSE
-├─ is-shared-array-buffer@1.0.2
+├─ is-shared-array-buffer@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-shared-array-buffer
 │  ├─ publisher: Jordan Harband
@@ -4777,7 +4784,7 @@
 │  ├─ email: kananthmail-github@yahoo.com
 │  ├─ path: node_modules/istanbul-lib-source-maps
 │  └─ licenseFile: node_modules/istanbul-lib-source-maps/LICENSE
-├─ istanbul-reports@3.1.6
+├─ istanbul-reports@3.1.7
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/istanbuljs/istanbuljs
 │  ├─ publisher: Krishnan Anantheswaran
@@ -5217,7 +5224,7 @@
 │  ├─ publisher: antonk52
 │  ├─ path: node_modules/lilconfig
 │  └─ licenseFile: node_modules/lilconfig/LICENSE
-├─ lilconfig@3.0.0
+├─ lilconfig@3.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/antonk52/lilconfig
 │  ├─ publisher: antonk52
@@ -5480,7 +5487,7 @@
 │  ├─ url: thejameskyle.com
 │  ├─ path: node_modules/min-indent
 │  └─ licenseFile: node_modules/min-indent/license
-├─ mini-css-extract-plugin@2.8.0
+├─ mini-css-extract-plugin@2.8.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack-contrib/mini-css-extract-plugin
 │  ├─ publisher: Tobias Koppers @sokra
@@ -5706,7 +5713,7 @@
 │  ├─ url: http://substack.net
 │  ├─ path: node_modules/object-inspect
 │  └─ licenseFile: node_modules/object-inspect/LICENSE
-├─ object-is@1.1.5
+├─ object-is@1.1.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/object-is
 │  ├─ publisher: Jordan Harband
@@ -6043,6 +6050,13 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: node_modules/pkg-up
 │  └─ licenseFile: node_modules/pkg-up/license
+├─ possible-typed-array-names@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/possible-typed-array-names
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ path: node_modules/possible-typed-array-names
+│  └─ licenseFile: node_modules/possible-typed-array-names/LICENSE
 ├─ postcss-attribute-case-insensitive@5.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/csstools/postcss-plugins
@@ -6690,7 +6704,7 @@
 │  ├─ url: http://tjholowaychuk.com
 │  ├─ path: node_modules/range-parser
 │  └─ licenseFile: node_modules/range-parser/LICENSE
-├─ raw-body@2.5.1
+├─ raw-body@2.5.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stream-utils/raw-body
 │  ├─ publisher: Jonathan Ong
@@ -6846,7 +6860,7 @@
 │  ├─ url: https://ionicabizau.net
 │  ├─ path: node_modules/regex-parser
 │  └─ licenseFile: node_modules/regex-parser/LICENSE
-├─ regexp.prototype.flags@1.5.1
+├─ regexp.prototype.flags@1.5.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/es-shims/RegExp.prototype.flags
 │  ├─ publisher: Jordan Harband
@@ -7169,7 +7183,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/set-function-length
 │  └─ licenseFile: node_modules/set-function-length/LICENSE
-├─ set-function-name@2.0.1
+├─ set-function-name@2.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/set-function-name
 │  ├─ publisher: Jordan Harband
@@ -7666,7 +7680,7 @@
 │  ├─ publisher: webpack Contrib Team
 │  ├─ path: node_modules/terser-webpack-plugin
 │  └─ licenseFile: node_modules/terser-webpack-plugin/LICENSE
-├─ terser@5.27.0
+├─ terser@5.28.1
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/terser/terser
 │  ├─ publisher: Mihai Bazon
@@ -7857,28 +7871,28 @@
 │  ├─ repository: https://github.com/jshttp/type-is
 │  ├─ path: node_modules/type-is
 │  └─ licenseFile: node_modules/type-is/LICENSE
-├─ typed-array-buffer@1.0.1
+├─ typed-array-buffer@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/typed-array-buffer
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/typed-array-buffer
 │  └─ licenseFile: node_modules/typed-array-buffer/LICENSE
-├─ typed-array-byte-length@1.0.0
+├─ typed-array-byte-length@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/typed-array-byte-length
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/typed-array-byte-length
 │  └─ licenseFile: node_modules/typed-array-byte-length/LICENSE
-├─ typed-array-byte-offset@1.0.0
+├─ typed-array-byte-offset@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/typed-array-byte-offset
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/typed-array-byte-offset
 │  └─ licenseFile: node_modules/typed-array-byte-offset/LICENSE
-├─ typed-array-length@1.0.4
+├─ typed-array-length@1.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/typed-array-length
 │  ├─ publisher: Jordan Harband
@@ -8158,7 +8172,7 @@
 │  ├─ publisher: Tobias Koppers @sokra
 │  ├─ path: node_modules/webpack-sources
 │  └─ licenseFile: node_modules/webpack-sources/LICENSE
-├─ webpack@5.90.1
+├─ webpack@5.90.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/webpack
 │  ├─ publisher: Tobias Koppers @sokra
@@ -8462,7 +8476,7 @@
 │  ├─ email: eemeli@gmail.com
 │  ├─ path: node_modules/yaml
 │  └─ licenseFile: node_modules/yaml/LICENSE
-├─ yaml@2.3.4
+├─ yaml@2.4.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/eemeli/yaml
 │  ├─ publisher: Eemeli Aro

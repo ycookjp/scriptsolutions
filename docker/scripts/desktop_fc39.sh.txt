@@ -2,11 +2,11 @@
 
 ################################################################################
 # Name    : fedora-<desktop_env>
-# Usage   : DESKTOP_ENV={lxde|mate|xfce} [GROUP_ID=<gid>] fc38_desktop.sh
+# Usage   : DESKTOP_ENV={xfce|mate} [GROUP_ID=<gid>] desktop_fc39.sh
 #           * GROUP_ID: 'developers' group id
-# Depends : fedora38-container-base.sh, dnf.conf
+# Depends : fedora39-container-base.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 38 and login as root.
+#   1. Start Fedora 39 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
@@ -30,9 +30,9 @@ if [ _ = _${DESKTOP_ENV} ]; then
   #DESKTOP_ENV=cinnamon
   #DESKTOP_ENV=gnome
   #DESKTOP_ENV=kde
-  DESKTOP_ENV=lxde
+  #DESKTOP_ENV=lxde
   #DESKTOP_ENV=mate
-  #DESKTOP_ENV=xfce
+  DESKTOP_ENV=xfce
 fi
 
 if [ _ = _${GROUP_ID} ]; then
@@ -43,7 +43,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=38
+  export RELEASE_VER=39
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -158,21 +158,6 @@ if [ _ != _${WIN10ICON_URL} ]; then
   fi
   mkdir -p ${INSTALL_ROOT}/usr/share/icons
   tar -xvz -f ${DOWNLOAD_DIR}/`basename ${WIN10ICON_URL}` -C ${INSTALL_ROOT}/usr/share/icons --overwrite --no-same-owner --no-same-permissions
-fi
-
-## Copying import files
-if [ -d ${CONTENTS_DIR}/files ]; then
-  mkdir -p ${INSTALL_ROOT}
-  cp -R ${CONTENTS_DIR}/files/* ${INSTALL_ROOT}
-  # Running update-ca-trust command
-  if [ -f ${INSTALL_ROOT}/usr/bin/update-ca-trust ]; then
-    chroot ${INSTALL_ROOT} /usr/bin/update-ca-trust extract
-  fi
-fi
-if [ -d ${CONTENTS_DIR}/archives ]; then
-  for f in `find ${CONTENTS_DIR}/archives -name '*.tar.gz'`; do \
-    tar -xvz -f $f -C ${INSTALL_ROOT} --overwrite --no-same-owner --no-same-permissions; \
-  done
 fi
 
 ## Creating developers group and developer user with password developer

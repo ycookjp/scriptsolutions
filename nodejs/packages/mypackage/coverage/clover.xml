@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1707325146124" clover="3.2.0">
-  <project timestamp="1707325146125" name="All files">
+<coverage generated="1709228860684" clover="3.2.0">
+  <project timestamp="1709228860684" name="All files">
     <metrics statements="61" coveredstatements="61" conditionals="33" coveredconditionals="31" methods="4" coveredmethods="4" elements="98" coveredelements="96" complexity="0" loc="61" ncloc="61" packages="1" files="2" classes="2"/>
     <file name="failerror.js" path="failerror.js">
       <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="1"/>
