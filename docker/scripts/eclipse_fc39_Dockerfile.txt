@@ -39,8 +39,8 @@
 #   * <container-workspace-path> directory owner/group shuld be specified
 #     user ID / group ID defined at container's /etc/passwd, /etc/group files.
 ################################################################################
-#FROM desktop:fc39
-FROM desktop:fc39-mate
+FROM desktop:fc39
+#FROM desktop:fc39-mate
 ARG PROXY_URL
 ENV LANG=ja_JP.UTF-8
 COPY import-files /var/tmp/import-files/
