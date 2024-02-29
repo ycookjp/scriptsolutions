@@ -3,13 +3,13 @@
 # Building :
 #   1. Place this file to working directory, and rename to "Dockerfile".
 #   2. Run following command.
-# Usage : docker build -t <image-name> \
+# Usage : docker build -t <image-name>[:<tag>] \
 #         [--build-arg PROXY_URL=<proxy_url>] .
 # Running :
 #   docker run --name <container-name> --restart=always -p <host-port>:80 \
 #   -it <image-name>
 ################################################################################
-FROM fedora38-container-base
+FROM fedora39-container-base
 #FROM fedora
 ARG PROXY_URL
 RUN echo "################################################################################" \

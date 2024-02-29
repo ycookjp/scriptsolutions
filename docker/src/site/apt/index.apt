@@ -10,32 +10,32 @@ docker project
 *--------------------------------------------------------------------------+------------------------------------------------------+
 | {{{./scripts/dnf.conf}dnf.conf}}                                         | configuration file for dnf                           |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora38-container-base.sh.txt}fedora38-container-base.sh}} | creating container base for Fedora                   |
+| {{{./scripts/fedora39-container-base.sh.txt}fedora39-container-base.sh}} | creating container base for Fedora                   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fc38_desktop.sh.txt}fc38_desktop.sh}}                       | creating desktop environment                         |
+| {{{./scripts/desktop_fc39.sh.txt}desktop_fc39.sh}}                       | creating desktop environment                         |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fc38_eclipse.sh.txt}fc38_eclipse.sh}}                       | creating Eclipse IDE with desktop environment        |
+| {{{./scripts/eclipse_fc39.sh.txt}eclipse_fc39.sh}}                       | creating Eclipse IDE with desktop environment        |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fc38_httpd-proxy.sh.txt}fc38_httpd-proxy.sh}}               | creating proxy service working on Apache HTTP Server |
+| {{{./scripts/httpd-proxy_fc39.sh.txt}httpd-proxy_fc39.sh}}               | creating proxy service working on Apache HTTP Server |
 *--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fc38_httpd-svn.sh.txt}fc38_httpd-svn.sh}}                   | creating SVN service working on Apache HTTP Server   |
+| {{{./scripts/httpd-svn_fc39.sh.txt}httpd-svn_fc39.sh}}                   | creating SVN service working on Apache HTTP Server   |
 *--------------------------------------------------------------------------+------------------------------------------------------+
 
 * Dockerfiles
 
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/desktop_fc38_Dockerfile.txt}desktop_fc38_Dockerfile}}                   | creating desktop environment                              |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/eclipse_fc38_Dockerfile.txt}eclipse_fc38_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-git_fc38_Dockerfile.txt}httpd-git_fc38_Dockerfile}}               | creating git repository service working on Apache httpd   |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy_fc38_Dockerfile.txt}httpd-proxy_fc38_Dockerfile}}           | creating proxy service working on Apache httpd            |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy-mdns_fc38_Dockerfile.txt}httpd-proxy-mdns_fc38_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-svn_fc38_Dockerfile.txt}httpd-svn_fc38_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
-*----------------------------------------------------------------------------------+-----------------------------------------------------------+
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/desktop_fc39_Dockerfile.txt}desktop_fc39_Dockerfile}}                   | creating desktop environment                              |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/eclipse_fc39_Dockerfile.txt}eclipse_fc39_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-git_fc39_Dockerfile.txt}httpd-git_fc39_Dockerfile}}               | creating git repository service working on Apache httpd   |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-proxy_fc39_Dockerfile.txt}httpd-proxy_fc39_Dockerfile}}           | creating proxy service working on Apache httpd            |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-proxy-mdns_fc39_Dockerfile.txt}httpd-proxy-mdns_fc39_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
+| {{{./scripts/httpd-svn_fc39_Dockerfile.txt}httpd-svn_fc39_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
+*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
 Fedora based images
 
   [Note]
@@ -49,13 +49,13 @@ Fedora based images
 +-------------------------------------------------------------------------------
 # wget https://github.com/fedora-cloud/docker-brew-fedora/raw/078f33bbbab02b9f1be80b1b48605c376e82fb18/x86_64/Dockerfile
 # wget https://github.com/fedora-cloud/docker-brew-fedora/raw/078f33bbbab02b9f1be80b1b48605c376e82fb18/x86_64/fedora-30-updates-candidate-x86_64-20190609.tar.xz
-# docker build -t fedora31-container-base .
+# docker build -t fedora39-container-base .
 +-------------------------------------------------------------------------------
 
   []
 
 *----------------------------------------------------------------------------+---------------------------------------------------------+
-| {{{./scripts/centos7-httpd-git_Dockerfile}centos7-httpd-git_Dockerfile}}   | creating Git repository service working on Apache httpd |
+| {{{./scripts/centos7-httpd-git_Dockerfile.txt}centos7-httpd-git_Dockerfile}}   | creating Git repository service working on Apache httpd |
 *----------------------------------------------------------------------------+---------------------------------------------------------+
 CentOS-7 baseed images
 
@@ -71,7 +71,7 @@ CentOS-7 baseed images
   []
 
 *----------------------------------------------------------------+-------------------------------+
-| {{{./scripts/build-image_Dockerfile}build-image_Dockerfile}}   | Add image(s) to scratch image |
+| {{{./scripts/build-image_Dockerfile.txt}build-image_Dockerfile}}   | Add image(s) to scratch image |
 *----------------------------------------------------------------+-------------------------------+
 Others
 

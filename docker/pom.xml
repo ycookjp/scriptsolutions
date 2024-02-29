@@ -13,7 +13,7 @@
   </parent>
   <name>docker</name>
   <properties>
-    <fedora.ver>38</fedora.ver>
+    <fedora.ver>39</fedora.ver>
   </properties>
   <build>
     <plugins>

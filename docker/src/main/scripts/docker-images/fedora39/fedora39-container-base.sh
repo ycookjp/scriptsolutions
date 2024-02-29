@@ -1,24 +1,24 @@
 #!/bin/sh
 
 ################################################################################
-# Name    : fedora38-container-base
-# Usage   : fedora38-container-base.sh
+# Name    : fedora39-container-base
+# Usage   : fedora39-container-base.sh
 # Run CMD : /bin/bash
 # Depends : dnf.conf
 # Creating image :
-#   1. Start Fedora 38 and login as root.
+#   1. Start Fedora 39 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
-#   5. Move to docker-images/fedora38-container-base directory and run
-#      "tar -c . | docker import - fedora38-container-base" command.
+#   5. Move to docker-images/fedora39-container-base directory and run
+#      "tar -c . | docker import - fedora39-container-base" command.
 ################################################################################
 
 if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=38
+  export RELEASE_VER=39
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64

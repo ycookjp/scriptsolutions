@@ -3,15 +3,15 @@
 # Building :
 #   1. Place this file to working directory, and rename to "Dockerfile".
 #   2. Run following command.
-# Usage : docker build -t <image-name> \
+# Usage : docker build -t <image-name>[:<tag>] \
 #         --build-arg PROXY_ALLOW_FROM=<ipaddress/<netmask> \
-#         [--build-arg PROXY_URL=<proxy_url>] .
+#         [--build-arg PROXY_URL=<proxy_url>] -f <dockerfile-path> .
 #   * <ipaddress> and <netmask> : "Allow from" network.
 # Running :
-#   docker run --name <container-name> --restart=always -p <host-port>:80 \
-#   -it <image-name>
+#   docker run --name=<container-name> --restart=always -p <host-port>:80 \
+#   -it <image-name>[:<tag>]
 ################################################################################
-FROM fedora38-container-base
+FROM fedora39-container-base
 #FROM fedora
 ARG PROXY_ALLOW_FROM
 ARG PROXY_URL
