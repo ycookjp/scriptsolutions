@@ -20,7 +20,7 @@
 │  ├─ url: https://sindresorhus.com
 │  ├─ path: node_modules/@alloc/quick-lru
 │  └─ licenseFile: node_modules/@alloc/quick-lru/license
-├─ @ampproject/remapping@2.2.1
+├─ @ampproject/remapping@2.3.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/ampproject/remapping
 │  ├─ publisher: Justin Ridgewell
@@ -1163,7 +1163,7 @@
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/@jest/types
 │  └─ licenseFile: node_modules/@jest/types/LICENSE
-├─ @jridgewell/gen-mapping@0.3.4
+├─ @jridgewell/gen-mapping@0.3.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/gen-mapping
 │  ├─ publisher: Justin Ridgewell
@@ -1197,7 +1197,7 @@
 │  ├─ publisher: Rich Harris
 │  ├─ path: node_modules/@jridgewell/sourcemap-codec
 │  └─ licenseFile: node_modules/@jridgewell/sourcemap-codec/LICENSE
-├─ @jridgewell/trace-mapping@0.3.23
+├─ @jridgewell/trace-mapping@0.3.25
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/trace-mapping
 │  ├─ publisher: Justin Ridgewell
@@ -2179,7 +2179,7 @@
 │  ├─ email: opensrc@ryanzim.com
 │  ├─ path: node_modules/at-least-node
 │  └─ licenseFile: node_modules/at-least-node/LICENSE
-├─ autoprefixer@10.4.17
+├─ autoprefixer@10.4.18
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/postcss/autoprefixer
 │  ├─ publisher: Andrey Sitnik
@@ -3304,7 +3304,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.687
+├─ electron-to-chromium@1.4.690
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -7226,7 +7226,7 @@
 │  ├─ url: http://substack.net
 │  ├─ path: node_modules/shell-quote
 │  └─ licenseFile: node_modules/shell-quote/LICENSE
-├─ side-channel@1.0.5
+├─ side-channel@1.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/side-channel
 │  ├─ publisher: Jordan Harband
