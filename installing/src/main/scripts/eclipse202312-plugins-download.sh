@@ -229,6 +229,22 @@ download_acute_plugin () {
 }
 
 
+# Amateras Modeler
+download_amaterasmodeler_plugin() {
+  URL='https://takezoe.github.io/amateras-update-site/'
+  VERSION=2.1.0
+  PACKAGE_NAME=net.java.amateras.modeler_${VERSION}
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archived site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m "*_${VERSION}.* jp.sf.amateras.htmleditor_*" \
+    dropins/${PACKAGE_NAME}/eclipse
+}
+
+
 # Asciidoctor Editor
 download_asciidoctoreditor_plugin () {
   URL='https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/'
@@ -525,6 +541,8 @@ download_windowsbuilder_plugin () {
 download_babel_plugin
 ## org.eclipse.acute.feature_0.x.x.yyyyMMDDHHMM
 #download_acute_plugin
+# net.java.amateras.modeler_*.*.*
+download_amaterasmodeler_plugin
 # de.jcup.asciidoctoreditor_x.x.x
 download_asciidoctoreditor_plugin
 # net.sf.eclipsecs.checkstyle_x.x.x.YYYYMMDDHHMM
