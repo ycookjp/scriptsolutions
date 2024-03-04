@@ -338,6 +338,22 @@ download_enanced_class_decompiler_plugin () {
 }
 
 
+# ER Master
+download_ermaster_plugin() {
+  URL='http://ermaster.sourceforge.net/update-site/'
+  VERSION=1.0.0.v20150619-0219
+  PACKAGE_NAME=org.insightech.er_${VERSION}
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archived site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m "*_${VERSION}.*" \
+    dropins/${PACKAGE_NAME}/eclipse
+}
+
+
 # JGit LFS
 download_jgit_plugin () {
   URL="${ECLIPSE_URL_BASE}/egit/updates-6.8/org.eclipse.egit.repository-6.8.0.202311291450-r.zip"
@@ -557,6 +573,8 @@ download_dltk_plugin
 download_emonic_plugin
 # enhanced-class-decompiler-x.x.x.YYYYMMDDHHMM
 download_enanced_class_decompiler_plugin
+# org.insightech.er - ER Master
+download_ermaster_plugin
 # org.eclipse.jgit.repository-x.x.x.YYYYMMDDHHMM-r
 download_jgit_plugin
 # markdown.editor_x.x.x
@@ -581,8 +599,8 @@ download_subversive_plugin
 download_svn_connector_plugin
 ## mylyn-x.x.x.vYYYYMMDD-HHMM
 #download_mylyn_plugin
-# umlet-eclipse-p2-x.x.x
-download_umlet_plugin
+## umlet-eclipse-p2-x.x.x
+#download_umlet_plugin
 # visualvm_launcher_u3_eclipse
 download_visualvm_plugin
 # WindowBuilder_Pro-x.x.x
