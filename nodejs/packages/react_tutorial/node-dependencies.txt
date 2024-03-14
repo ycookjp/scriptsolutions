@@ -108,6 +108,11 @@
 ├─ @babel/helper-define-polyfill-provider@0.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-polyfills
+│  ├─ path: node_modules/babel-plugin-polyfill-corejs3/node_modules/@babel/helper-define-polyfill-provider
+│  └─ licenseFile: node_modules/babel-plugin-polyfill-corejs3/node_modules/@babel/helper-define-polyfill-provider/LICENSE
+├─ @babel/helper-define-polyfill-provider@0.6.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/@babel/helper-define-polyfill-provider
 │  └─ licenseFile: node_modules/@babel/helper-define-polyfill-provider/LICENSE
 ├─ @babel/helper-environment-visitor@7.22.20
@@ -1184,7 +1189,7 @@
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/set-array
 │  └─ licenseFile: node_modules/@jridgewell/set-array/LICENSE
-├─ @jridgewell/source-map@0.3.5
+├─ @jridgewell/source-map@0.3.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jridgewell/source-map
 │  ├─ publisher: Justin Ridgewell
@@ -1591,7 +1596,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@20.11.24
+├─ @types/node@20.11.27
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -1626,12 +1631,12 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/range-parser
 │  └─ licenseFile: node_modules/@types/range-parser/LICENSE
-├─ @types/react-dom@18.2.19
+├─ @types/react-dom@18.2.22
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react-dom
 │  └─ licenseFile: node_modules/@types/react-dom/LICENSE
-├─ @types/react@18.2.62
+├─ @types/react@18.2.66
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react
@@ -1762,12 +1767,12 @@
 │  ├─ publisher: Andrea Giammarchi
 │  ├─ path: node_modules/@ungap/structured-clone
 │  └─ licenseFile: node_modules/@ungap/structured-clone/LICENSE
-├─ @webassemblyjs/ast@1.11.6
+├─ @webassemblyjs/ast@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  ├─ path: node_modules/@webassemblyjs/ast
-│  └─ licenseFile: node_modules/@webassemblyjs/ast/README.md
+│  └─ licenseFile: node_modules/@webassemblyjs/ast/LICENSE
 ├─ @webassemblyjs/floating-point-hex-parser@1.11.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
@@ -1779,11 +1784,12 @@
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  └─ path: node_modules/@webassemblyjs/helper-api-error
-├─ @webassemblyjs/helper-buffer@1.11.6
+├─ @webassemblyjs/helper-buffer@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
-│  └─ path: node_modules/@webassemblyjs/helper-buffer
+│  ├─ path: node_modules/@webassemblyjs/helper-buffer
+│  └─ licenseFile: node_modules/@webassemblyjs/helper-buffer/LICENSE
 ├─ @webassemblyjs/helper-numbers@1.11.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
@@ -1794,11 +1800,12 @@
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  └─ path: node_modules/@webassemblyjs/helper-wasm-bytecode
-├─ @webassemblyjs/helper-wasm-section@1.11.6
+├─ @webassemblyjs/helper-wasm-section@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
-│  └─ path: node_modules/@webassemblyjs/helper-wasm-section
+│  ├─ path: node_modules/@webassemblyjs/helper-wasm-section
+│  └─ licenseFile: node_modules/@webassemblyjs/helper-wasm-section/LICENSE
 ├─ @webassemblyjs/ieee754@1.11.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
@@ -1813,34 +1820,36 @@
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  └─ path: node_modules/@webassemblyjs/utf8
-├─ @webassemblyjs/wasm-edit@1.11.6
+├─ @webassemblyjs/wasm-edit@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  ├─ path: node_modules/@webassemblyjs/wasm-edit
-│  └─ licenseFile: node_modules/@webassemblyjs/wasm-edit/README.md
-├─ @webassemblyjs/wasm-gen@1.11.6
+│  └─ licenseFile: node_modules/@webassemblyjs/wasm-edit/LICENSE
+├─ @webassemblyjs/wasm-gen@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
-│  └─ path: node_modules/@webassemblyjs/wasm-gen
-├─ @webassemblyjs/wasm-opt@1.11.6
+│  ├─ path: node_modules/@webassemblyjs/wasm-gen
+│  └─ licenseFile: node_modules/@webassemblyjs/wasm-gen/LICENSE
+├─ @webassemblyjs/wasm-opt@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
-│  └─ path: node_modules/@webassemblyjs/wasm-opt
-├─ @webassemblyjs/wasm-parser@1.11.6
+│  ├─ path: node_modules/@webassemblyjs/wasm-opt
+│  └─ licenseFile: node_modules/@webassemblyjs/wasm-opt/LICENSE
+├─ @webassemblyjs/wasm-parser@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  ├─ path: node_modules/@webassemblyjs/wasm-parser
-│  └─ licenseFile: node_modules/@webassemblyjs/wasm-parser/README.md
-├─ @webassemblyjs/wast-printer@1.11.6
+│  └─ licenseFile: node_modules/@webassemblyjs/wasm-parser/LICENSE
+├─ @webassemblyjs/wast-printer@1.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/xtuc/webassemblyjs
 │  ├─ publisher: Sven Sauleau
 │  ├─ path: node_modules/@webassemblyjs/wast-printer
-│  └─ licenseFile: node_modules/@webassemblyjs/wast-printer/README.md
+│  └─ licenseFile: node_modules/@webassemblyjs/wast-printer/LICENSE
 ├─ @xtuc/ieee754@1.2.0
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/feross/ieee754
@@ -2256,7 +2265,7 @@
 │  ├─ repository: https://github.com/facebook/create-react-app
 │  ├─ path: node_modules/babel-plugin-named-asset-import
 │  └─ licenseFile: node_modules/babel-plugin-named-asset-import/LICENSE
-├─ babel-plugin-polyfill-corejs2@0.4.8
+├─ babel-plugin-polyfill-corejs2@0.4.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/babel-plugin-polyfill-corejs2
@@ -2484,7 +2493,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001593
+├─ caniuse-lite@1.0.30001597
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -2929,7 +2938,7 @@
 │  ├─ url: https://mathiasbynens.be/
 │  ├─ path: node_modules/css.escape
 │  └─ licenseFile: node_modules/css.escape/LICENSE-MIT.txt
-├─ cssdb@7.11.1
+├─ cssdb@7.11.2
 │  ├─ licenses: CC0-1.0
 │  ├─ repository: https://github.com/csstools/cssdb
 │  ├─ publisher: Jonathan Neal
@@ -3319,7 +3328,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.691
+├─ electron-to-chromium@1.4.705
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3368,7 +3377,7 @@
 │  ├─ repository: https://github.com/pillarjs/encodeurl
 │  ├─ path: node_modules/encodeurl
 │  └─ licenseFile: node_modules/encodeurl/LICENSE
-├─ enhanced-resolve@5.15.1
+├─ enhanced-resolve@5.16.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/enhanced-resolve
 │  ├─ publisher: Tobias Koppers @sokra
@@ -3855,7 +3864,7 @@
 │  ├─ publisher: Andrea Giammarchi
 │  ├─ path: node_modules/flatted
 │  └─ licenseFile: node_modules/flatted/LICENSE
-├─ follow-redirects@1.15.5
+├─ follow-redirects@1.15.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
@@ -4188,7 +4197,7 @@
 │  ├─ url: http://ljharb.codes
 │  ├─ path: node_modules/has-tostringtag
 │  └─ licenseFile: node_modules/has-tostringtag/LICENSE
-├─ hasown@2.0.1
+├─ hasown@2.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/hasOwn
 │  ├─ publisher: Jordan Harband
@@ -4575,7 +4584,7 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: node_modules/is-glob
 │  └─ licenseFile: node_modules/is-glob/LICENSE
-├─ is-map@2.0.2
+├─ is-map@2.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-map
 │  ├─ publisher: Jordan Harband
@@ -4665,7 +4674,7 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: node_modules/is-root
 │  └─ licenseFile: node_modules/is-root/license
-├─ is-set@2.0.2
+├─ is-set@2.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-set
 │  ├─ publisher: Jordan Harband
@@ -4718,7 +4727,7 @@
 │  ├─ url: http://hughsk.io/
 │  ├─ path: node_modules/is-typedarray
 │  └─ licenseFile: node_modules/is-typedarray/LICENSE.md
-├─ is-weakmap@2.0.1
+├─ is-weakmap@2.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-weakmap
 │  ├─ publisher: Jordan Harband
@@ -4732,7 +4741,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/is-weakref
 │  └─ licenseFile: node_modules/is-weakref/LICENSE
-├─ is-weakset@2.0.2
+├─ is-weakset@2.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-weakset
 │  ├─ publisher: Jordan Harband
@@ -6535,7 +6544,7 @@
 │  ├─ repository: https://github.com/csstools/postcss-plugins
 │  ├─ path: node_modules/postcss-selector-not
 │  └─ licenseFile: node_modules/postcss-selector-not/LICENSE
-├─ postcss-selector-parser@6.0.15
+├─ postcss-selector-parser@6.0.16
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/postcss/postcss-selector-parser
 │  ├─ path: node_modules/postcss-selector-parser
@@ -7030,7 +7039,7 @@
 │  ├─ url: https://feross.org
 │  ├─ path: node_modules/run-parallel
 │  └─ licenseFile: node_modules/run-parallel/LICENSE
-├─ safe-array-concat@1.1.0
+├─ safe-array-concat@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/safe-array-concat
 │  ├─ publisher: Jordan Harband
@@ -7191,7 +7200,7 @@
 │  ├─ email: doug@somethingdoug.com
 │  ├─ path: node_modules/serve-static
 │  └─ licenseFile: node_modules/serve-static/LICENSE
-├─ set-function-length@1.2.1
+├─ set-function-length@1.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/set-function-length
 │  ├─ publisher: Jordan Harband
@@ -7695,7 +7704,7 @@
 │  ├─ publisher: webpack Contrib Team
 │  ├─ path: node_modules/terser-webpack-plugin
 │  └─ licenseFile: node_modules/terser-webpack-plugin/LICENSE
-├─ terser@5.28.1
+├─ terser@5.29.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/terser/terser
 │  ├─ publisher: Mihai Bazon
@@ -8105,7 +8114,7 @@
 │  ├─ email: n@daaku.org
 │  ├─ path: node_modules/walker
 │  └─ licenseFile: node_modules/walker/LICENSE
-├─ watchpack@2.4.0
+├─ watchpack@2.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/watchpack
 │  ├─ publisher: Tobias Koppers @sokra
@@ -8258,14 +8267,14 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/which-builtin-type
 │  └─ licenseFile: node_modules/which-builtin-type/LICENSE
-├─ which-collection@1.0.1
+├─ which-collection@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/which-collection
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/which-collection
 │  └─ licenseFile: node_modules/which-collection/LICENSE
-├─ which-typed-array@1.1.14
+├─ which-typed-array@1.1.15
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/which-typed-array
 │  ├─ publisher: Jordan Harband
@@ -8491,7 +8500,7 @@
 │  ├─ email: eemeli@gmail.com
 │  ├─ path: node_modules/yaml
 │  └─ licenseFile: node_modules/yaml/LICENSE
-├─ yaml@2.4.0
+├─ yaml@2.4.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/eemeli/yaml
 │  ├─ publisher: Eemeli Aro
