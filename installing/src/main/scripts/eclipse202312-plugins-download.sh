@@ -271,7 +271,7 @@ download_checkstyle_plugin () {
     "${URL}"
   # deploy plugin files
   __unzipfile -f dropins-archive/${FILE_NAME} \
-    -x '*.doc_* *.source_*' \
+    -x 'org.eclipse.* *.doc_* *.source_*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
