@@ -12,7 +12,7 @@ import sys
 
 from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 import aws_test_utils
-from moto import mock_ec2
+from moto import mock_aws
 
 root = logging.getLogger()
 if root.handlers:
@@ -53,7 +53,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
             elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
 
-    @mock_ec2
+    @mock_aws
     def test_start_stop(self):
         '''startメソッド、stopメソッドのテストを実行します。
         
@@ -95,7 +95,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop end')
     
-    @mock_ec2
+    @mock_aws
     def test_start_stop_resources(self):
         '''startメソッド、stopメソッドのテストを実行します。
         
@@ -136,7 +136,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         # start_resourcesメソッドを実行する。
         count = operator.start_resources(instance_ids)
         # => 停止操作したインスタンスの数が2であること。
-        self.assertEquals(count, 2)
+        self.assertEqual(count, 2)
         # =>それぞれのEC2インスタンスのステータスが「running」であること。
         for instance_id in instance_ids:
             status = operator.get_status(instance_id)
@@ -144,7 +144,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop_resources end')
     
-    @mock_ec2
+    @mock_aws
     def test_error_start_stop(self):
         '''存在しないEC2インスタンスのIDを指定して、start、stopメソッドの
             テストを実行します。
@@ -177,7 +177,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_error_start_stop end')
     
-    @mock_ec2
+    @mock_aws
     def test_error_start_stop_resources(self):
         '''存在しないEC2インスタンスのIDを含むインスタンスIDの配列を指定して、
             start_resources、stop_resourcesメソッドのテストを実行します。
@@ -216,7 +216,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         # => 実行中だったEC2インスタンスのステータスが「stopped」となること。
         for instance_id in running_ids:
             status = operator.get_status(instance_id)
-            self.assertEquals(status, 'stopped')
+            self.assertEqual(status, 'stopped')
         
         # 存在しないEC2インスタンス１つと、停止中のEC2インスタンス１つの
         # インスタンスIDを指定して、start_resourcesメソッドを実行する。
@@ -227,7 +227,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         # => 停止中だったEC2インスタンスのステータスが「running」となること；
         for instance_id in running_ids:
             status = operator.get_status(instance_id)
-            self.assertEquals(status, 'running')
+            self.assertEqual(status, 'running')
         
         logging.info('<<<<< test_error_start_stop_resources end')
 

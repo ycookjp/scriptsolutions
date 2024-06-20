@@ -14,7 +14,7 @@ import sys
 from awsutils import aws_s3_upload
 import aws_test_utils
 import boto3
-from moto import mock_s3
+from moto import mock_aws
 
 root = logging.getLogger()
 if root.handlers:
@@ -264,7 +264,7 @@ class AwsS3MoveTest(unittest.TestCase):
         
         logging.info('<<<<< test_get_s3_key_win end')
     
-    @mock_s3
+    @mock_aws
     def test_upload_file(self):
         '''
         
@@ -329,7 +329,7 @@ class AwsS3MoveTest(unittest.TestCase):
 
         logging.info('<<<<< test_upload_file end')
     
-    @mock_s3
+    @mock_aws
     def test_move_file(self):
         '''
         
@@ -398,7 +398,7 @@ class AwsS3MoveTest(unittest.TestCase):
         
         logging.info('<<<<< test_move_file end')
     
-    @mock_s3
+    @mock_aws
     def test_main(self):
         '''
         
@@ -483,7 +483,7 @@ class AwsS3MoveTest(unittest.TestCase):
         
         logging.info('<<<<< test_main end')
     
-    @mock_s3
+    @mock_aws
     def test_move_file_err(self):
         '''
         

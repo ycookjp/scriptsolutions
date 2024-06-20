@@ -17,7 +17,7 @@ import sys
 
 from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 import aws_test_utils
-from moto import mock_rds
+from moto import mock_aws
 
 root = logging.getLogger()
 if root.handlers:
@@ -57,7 +57,7 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
             elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
     
-    @mock_rds
+    @mock_aws
     def test_start_stop(self):
         '''startメソッド、stopメソッドのテストを実行します。
         
@@ -142,7 +142,7 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop end')
     
-    @mock_rds
+    @mock_aws
     def test_start_stop_resources(self):
         '''start_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
         
@@ -235,7 +235,7 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop_resources end')
     
-    @mock_rds
+    @mock_aws
     def test_error_start_stop(self):
         '''存在しないRDS DB clusterのIDを指定して、startメソッド、stopメソッドのテストを実行します。
         
@@ -272,7 +272,7 @@ class AwsRdsClusterOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_error_start_stop end')
     
-    @mock_rds
+    @mock_aws
     def test_error_start_stop_resources(self):
         '''存在しないRDS DB ClusterのIDを含むRDS DB clusterの配列を指定してstart_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
         

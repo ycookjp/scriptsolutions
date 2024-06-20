@@ -8,8 +8,7 @@ Copyright: ycookjp
 import os
 import yaml
 import boto3
-from moto import mock_ec2
-from moto import mock_rds
+from moto import mock_aws
 
 def load_yaml(script_path):
     '''Loads YAML configuration file.
@@ -87,7 +86,7 @@ def list_s3keys_in_bucket(s3objects):
     
     return s3key_list
  
-@mock_ec2
+@mock_aws
 def run_instances(ami_id, region_name, count=1):
     '''EC2インスタンスを起動します。
     
@@ -106,7 +105,7 @@ def run_instances(ami_id, region_name, count=1):
     
     return instances
     
-@mock_rds
+@mock_aws
 def create_db_cluster(db_cluster_id, engine_name, username, password,
                        region_name):
     '''RDS DB クラスターのインスタンスを起動します。
@@ -127,7 +126,7 @@ def create_db_cluster(db_cluster_id, engine_name, username, password,
             Engine=engine_name, MasterUsername=username, MasterUserPassword=password)
     return db_cluster
     
-@mock_rds
+@mock_aws
 def create_db_instance(db_instance_id, resource_type, engine_name,
                         username, password, region_name):
     '''RDS DB インスタンスを起動します。

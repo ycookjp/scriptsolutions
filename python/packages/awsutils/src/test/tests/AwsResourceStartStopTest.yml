@@ -7,10 +7,10 @@ test01_ok:
       - i-xxxxxxxxxxxxxxxxx
   - type: rds.db_cluster
     ids:
-      - myrds_cluster01
+      - myrds-cluster01
 #  - type: rds.db_instance
 #    ids:
-#      - myrds_instance01
+#      - myrds-instance01
 test02_ok:
   - type: ec2.instance
     ids:
@@ -18,10 +18,10 @@ test02_ok:
       - i-yyyyyyyyyyyyyyyyy
 #  - type: rds.db_cluster
 #    ids:
-#      - myrds_cluster01
+#      - myrds-cluster01
   - type: rds.db_instance
     ids:
-      - myrds_instance01
+      - myrds-instance01
 test01_ng:
   - type: ec2.instance
     ids:
@@ -29,11 +29,11 @@ test01_ng:
       - i-xxxxxxxxxxxxxxxxx
   - type: rds.db_cluster
     ids:
-      - myrds_clusterng
-      - myrds_cluster01
+      - myrds-clusterng
+      - myrds-cluster01
 #  - type: rds.db_instance
 #    ids:
-#      - myrds_instanceng
+#      - myrds-instanceng
 test02_ng:
   - type: ec2.instance
     ids:
@@ -41,9 +41,9 @@ test02_ng:
       - i-xxxxxxxxxxxxxxxxx
   - type: rds.db_cluster
     ids:
-      - myrds_clusterng
-      - myrds_cluster01
+      - myrds-clusterng
+      - myrds-cluster01
   - type: rds.db_instance
     ids:
-      - myrds_instanceng
-      - myrds_instance01
+      - myrds-instanceng
+      - myrds-instance01

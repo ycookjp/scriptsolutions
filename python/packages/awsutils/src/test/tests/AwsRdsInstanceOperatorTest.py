@@ -17,7 +17,7 @@ import sys
 
 from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 import aws_test_utils
-from moto import mock_rds
+from moto import mock_aws
 
 root = logging.getLogger()
 if root.handlers:
@@ -57,7 +57,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
             elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
     
-    @mock_rds
+    @mock_aws
     def test_start_stop(self):
         '''startメソッド、stopメソッドのテストを実行します。
         
@@ -86,7 +86,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         operator = AwsResourceOperatorFactory.create('rds.db_instance', region_name)
         
         # RDSのDB instanceを作成する
-        db_instance_id = 'rds_instance_test01'
+        db_instance_id = 'rds-instance-test01'
         resource_type = 'db.t2.micro'
         engine_name = 'postgres'
         username = 'postgres'
@@ -143,7 +143,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop end')
     
-    @mock_rds
+    @mock_aws
     def test_start_stop_resources(self):
         '''start_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
         
@@ -176,7 +176,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         operator = AwsResourceOperatorFactory.create('rds.db_instance', region_name)
         
         # RDSのDB instanceを作成する
-        db_instance_id = 'rds_instance_test01'
+        db_instance_id = 'rds-instance-test01'
         resource_type = 'db.t2.micro'
         engine_name = 'postgres'
         username = 'postgres'
@@ -237,7 +237,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_start_stop_resources end')
     
-    @mock_rds
+    @mock_aws
     def test_error_start_stop(self):
         '''存在しないRDS DB instanceのIDを指定して、startメソッド、stopメソッドのテストを実行します。
         
@@ -274,7 +274,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_error_start_stop end')
     
-    @mock_rds
+    @mock_aws
     def test_error_start_stop_resources(self):
         '''存在しないRDS DB InstanceのIDを含むRDS DB instanceの配列を指定してstart_resourcesメソッド、stop_resourcesメソッドのテストを実行します。
         
@@ -307,7 +307,7 @@ class AwsRdsInstanceOperatorTest(unittest.TestCase):
         operator = AwsResourceOperatorFactory.create('rds.db_instance', region_name)
         
         # RDSのDB instanceを作成する
-        db_instance_id_ok = 'rds_instance_test01'
+        db_instance_id_ok = 'rds-instance-test01'
         resource_type = 'db.t2.micro'
         engine_name = 'postgres'
         username = 'postgres'

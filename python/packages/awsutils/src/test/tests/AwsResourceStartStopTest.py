@@ -17,8 +17,7 @@ import sys
 
 from awsutils import aws_resource_start_stop
 import aws_test_utils
-from moto import mock_ec2
-from moto import mock_rds
+from moto import mock_aws
 from awsutils.aws_resource_operator import AwsResourceOperatorFactory
 
 root = logging.getLogger()
@@ -148,10 +147,10 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         self.assertEqual(resource_types[0].get('ids'), ['i-ngngngngngngngng_', 'i-xxxxxxxxxxxxxxxxx'])
         ## rds.db_cluster
         self.assertEqual(resource_types[1].get('type'), 'rds.db_cluster')
-        self.assertEqual(resource_types[1].get('ids'), ['myrds_clusterng', 'myrds_cluster01'])
+        self.assertEqual(resource_types[1].get('ids'), ['myrds-clusterng', 'myrds-cluster01'])
         ## rds.db_instance
         self.assertEqual(resource_types[2].get('type'), 'rds.db_instance')
-        self.assertEqual(resource_types[2].get('ids'), ['myrds_instanceng', 'myrds_instance01'])
+        self.assertEqual(resource_types[2].get('ids'), ['myrds-instanceng', 'myrds-instance01'])
         
         logging.info('<<<<< test_load_config end')
     
@@ -269,8 +268,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test_get_configkey_from_event end')
     
-    @mock_ec2
-    @mock_rds
+    @mock_aws
     def test01_ok_event_start_stop_aws_resources(self):
         '''configKeyにtest01_okを設定して、start_stop_aws_resources関数のテストを実行します。
         
@@ -353,8 +351,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test01_ok_event_start_stop_aws_resources end')
     
-    @mock_ec2
-    @mock_rds
+    @mock_aws
     def test01_ng_event_start_stop_aws_resources(self):
         '''configKeyにtest01_ngを設定して、start_stop_aws_resources関数のテストを実行します。
         
@@ -451,8 +448,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test01_ng_event_start_stop_aws_resources end')
     
-    @mock_ec2
-    @mock_rds
+    @mock_aws
     def test02_ok_event_start_stop_aws_resources(self):
         '''configKeyにtest02_okを設定して、start_stop_aws_resources関数のテストを実行します。
         
@@ -551,8 +547,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test02_ok_event_start_stop_aws_resources end')
     
-    @mock_ec2
-    @mock_rds
+    @mock_aws
     def test02_ng_event_start_stop_aws_resources(self):
         '''configKeyにtest02_okを設定して、start_stop_aws_resources関数のテストを実行します。
         
@@ -656,8 +651,7 @@ class AwsEc2InstanceOperatorTest(unittest.TestCase):
         
         logging.info('<<<<< test02_ng_event_start_stop_aws_resources end')
     
-    @mock_ec2
-    @mock_rds
+    @mock_aws
     def test_event_list_start_stop_aws_resources(self):
         '''start_stop_aws_resources関数にconfigKeyのリストを渡して関数を実行します。
         
