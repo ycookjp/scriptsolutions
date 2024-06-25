@@ -176,35 +176,35 @@ __unzipfile () {
 
 
 ECLIPSE_URL_BASE=https://ftp.yz.yamagata-u.ac.jp/pub/eclipse
-BABEL_URL_BASE="${ECLIPSE_URL_BASE}/technology/babel/babel_language_packs/R0.20.0/2022-03"
+BABEL_URL_BASE="${ECLIPSE_URL_BASE}/technology/babel/babel_language_packs/R0.20.0RC4/2022-12"
 
 # Babel
 download_babel_plugin () {
-  PACKAGE_NAME=BabelLanguagePack-R0.20.0-ja_v20230221055001
+  PACKAGE_NAME=BabelLanguagePack-R0.20.0RC4_v20230220105658
   URL_LIST="
-  ${BABEL_URL_BASE}/BabelLanguagePack-datatools-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-mylyn-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.handly-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_4.23.0.v20230221055001.zip
-  ${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_4.23.0.v20230221055001.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-datatools-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-eclipse-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.emf-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.graphiti-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.mdt.bpmn2-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-modeling.tmf.xtext-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-mylyn-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-rt.rap-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-soa.bpmn2-modeler-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.egit-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.handly-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.jgit-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.lsp4e-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.packaging.mpc-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.passage-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-technology.tm4e-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.cdt-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.gef-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.mat-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tm-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-tools.tracecompass-ja_4.26.0.v20230220105658.zip
+  ${BABEL_URL_BASE}/BabelLanguagePack-webtools-ja_4.26.0.v20230220105658.zip
   "
   for URL in $URL_LIST; do
     FILE_NAME=`basename "${URL}"`
@@ -262,8 +262,7 @@ download_asciidoctoreditor_plugin () {
 
 # Checkstyle
 download_checkstyle_plugin () {
-#  VERSION=10.4.0.202211151918
-  VERSION=10.12.6.202402022218
+  VERSION=10.14.2.202403262245
   URL="https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}"
   PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
@@ -278,7 +277,7 @@ download_checkstyle_plugin () {
 
 # Eclipse CDT
 download_cdt_plugin () {
-  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.4/cdt-11.4.0/cdt-11.4.0.zip"
+  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.6/cdt-11.6.0/cdt-11.6.0.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -328,7 +327,7 @@ download_emonic_plugin () {
 
 # Enhanced Class Decompiler
 download_enanced_class_decompiler_plugin () {
-  URL='https://github.com/ecd-plugin/ecd/releases/download/v3.4.0.20231105/com.github.ecd-plugin.update-3.4.0.zip'
+  URL='https://github.com/ecd-plugin/ecd/releases/download/v3.5.1.20240613/com.github.ecd-plugin.update-3.5.1.zip'
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -356,7 +355,7 @@ download_ermaster_plugin() {
 
 # JGit LFS
 download_jgit_plugin () {
-  URL="${ECLIPSE_URL_BASE}/egit/updates-6.8/org.eclipse.egit.repository-6.8.0.202311291450-r.zip"
+  URL="${ECLIPSE_URL_BASE}/egit/updates-6.10/org.eclipse.egit.repository-6.10.0.202406032230-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
@@ -370,25 +369,17 @@ download_jgit_plugin () {
 # Markdown Text Editor
 download_markdown_editor_plugin () {
   # https://www.winterwell.com/software/markdown-editor.php
-  PACKAGE_NAME=markdown.editor_0.2.3
-  # features
-  URL='https://www.winterwell.com/software/updatesite/features/markdown.editor.feature_0.2.3.jar'
-  FILE_NAME=`basename "${URL}"`
-  curl ${CURL_OPTS} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
-  if [ x != x${DL_INTERVAL} ]; then
-    sleep ${DL_INTERVAL};
-  fi
-  mkdir -p "dropins/${PACKAGE_NAME}/eclipse/features"
-  cp "dropins-archive/${FILE_NAME}" "dropins/${PACKAGE_NAME}/eclipse/features"
-  # plugins
-  URL='https://www.winterwell.com/software/updatesite/plugins/winterwell.markdown_0.2.3.jar'
-  FILE_NAME=`basename "${URL}"`
-  curl ${CURL_OPTS} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
-  if [ x != x${DL_INTERVAL} ]; then
-    sleep ${DL_INTERVAL};
-  fi
-  mkdir -p "dropins/${PACKAGE_NAME}/eclipse/plugins"
-  cp "dropins-archive/${FILE_NAME}" "dropins/${PACKAGE_NAME}/eclipse/plugins"
+  URL='https://www.winterwell.com/software/updatesite/'
+  VERSION=0.2.3
+  PACKAGE_NAME=winterwell.markdown_${VERSION}
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archived site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m "*_${VERSION}.*" \
+    dropins/${PACKAGE_NAME}/eclipse
 }
 
 
@@ -396,7 +387,8 @@ download_markdown_editor_plugin () {
 download_nodeclipse_plugin () {
   # https://nodeclipse.github.io/updates/
   URL='https://sourceforge.net/projects/nodeclipse/files/latest/download'
-  PACKAGE_NAME=org.nodeclipse.site-1.0.2-201509250223
+  VERSION=1.0.2-201509250223
+  PACKAGE_NAME=org.nodeclipse-${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
     -u "${URL}" \
@@ -418,7 +410,8 @@ download_nodeclipse_plugin () {
 # Kantan Properties Editor
 download_kantan_properties_editor_plugin () {
   URL='https://tyatsumi.gitlab.io/proped/'
-  PACKAGE_NAME=org.kareha.proped_1.0.7
+  VERSION=1.0.7
+  PACKAGE_NAME=org.kareha.proped_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
@@ -428,7 +421,7 @@ download_kantan_properties_editor_plugin () {
 
 # PyDev
 download_pydev_plugin () {
-  URL='https://www.pydev.org/update_sites/12.0.0'
+  URL='https://www.pydev.org/update_sites/12.1.0'
   PACKAGE_NAME=org.python.pydev_`basename "${URL}"`
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -442,7 +435,7 @@ download_pydev_plugin () {
 # SpotBugs
 download_spotbugs_plugin () {
   URL='https://spotbugs.github.io/eclipse/'
-  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.8.3.r202312121044-1e42fc9
+  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.8.6.r202406180231-6cf7b2c
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
@@ -454,7 +447,7 @@ download_spotbugs_plugin () {
 
 # StatET
 download_statet_plugin () {
-  URL="${ECLIPSE_URL_BASE}/statet/releases/4.8.0/statet-repository-E202306-incubation-4.8.0-202308171800-r.zip"
+  URL="${ECLIPSE_URL_BASE}/statet/releases/4.9.0/statet-repository-E202312-incubation-4.9.0-202402220600-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f dropins-archive/${FILE_NAME} \
@@ -480,8 +473,9 @@ download_stepcounter_plugin () {
 
 # Subversive
 download_subversive_plugin () {
-  URL='https://download.eclipse.org/technology/subversive/4.8/release/latest/'
-  PACKAGE_NAME='org.eclipse.team.svn_4.8.0.v20220904-1901'
+  URL='https://download.eclipse.org/technology/subversive/updates/nightly/N202402101540/'
+  VERSION=5.0.0.v20240210-1540
+  PACKAGE_NAME="org.eclipse.team.svn_${VERSION}"
   FILE_NAME="${PACKAGE_NAME}.zip"
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
