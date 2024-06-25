@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Unittest Results</h2>
-                <p class='attribute'><strong>Start Time: </strong>2024-06-26 03:27:23</p>
-                <p class='attribute'><strong>Duration: </strong>9 ms</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 8, Pass: 7, Fail: 1</p>
+                <p class='attribute'><strong>Start Time: </strong>2024-06-26 03:26:59</p>
+                <p class='attribute'><strong>Duration: </strong>45 ms</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 10, Pass: 10</p>
             </div>
         </div>
         <div class="row">
@@ -21,14 +21,14 @@
                 <table class='table table-hover table-responsive'>
                     <thead>
                         <tr>
-                            <th>MockTest.TestMyClass</th>
+                            <th>polls.tests.QuestionDetailViewTests</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class='success'>
-                            <td class="col-xs-10">testAccess</td>
+                            <td class="col-xs-10">test_future_question</td>
                             <td class="col-xs-1">
                                 <span class="label label-success" style="display:block;width:40px;">Pass</span>
                             </td>
@@ -36,31 +36,7 @@
                             </td>
                         </tr>
                         <tr class='success'>
-                            <td class="col-xs-10">testMethodA</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">testMethodAMultiple</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">testMethodBException</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">testMethodReplace</td>
+                            <td class="col-xs-10">test_past_question</td>
                             <td class="col-xs-1">
                                 <span class="label label-success" style="display:block;width:40px;">Pass</span>
                             </td>
@@ -69,7 +45,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 5, Pass: 5 -- Duration: 6 ms
+                                Total: 2, Pass: 2 -- Duration: 28 ms
                             </td>
                         </tr>
                     </tbody>
@@ -81,45 +57,55 @@
                 <table class='table table-hover table-responsive'>
                     <thead>
                         <tr>
-                            <th>MyPackageTest.MyPackageTest</th>
+                            <th>polls.tests.QuestionIndexViewTests</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class='success'>
-                            <td class="col-xs-10">test_find_repeat</td>
+                            <td class="col-xs-10">test_future_question</td>
                             <td class="col-xs-1">
                                 <span class="label label-success" style="display:block;width:40px;">Pass</span>
                             </td>
                             <td class="col-xs-1">
-                                <button class="btn btn-default btn-xs">View</button>
-                            </td>
-                        </tr>
-                        <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>DEBUG:root:Set up test.
-DEBUG:root:Tear down test.
-</p>
                             </td>
                         </tr>
                         <tr class='success'>
-                            <td class="col-xs-10">test_format_date</td>
+                            <td class="col-xs-10">test_future_question_and_past_question</td>
                             <td class="col-xs-1">
                                 <span class="label label-success" style="display:block;width:40px;">Pass</span>
                             </td>
                             <td class="col-xs-1">
-                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>DEBUG:root:Set up test.
-DEBUG:root:Tear down test.
-</p>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_no_questions</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_past_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_two_past_questions</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 2, Pass: 2 -- Duration: 1 ms
+                                Total: 5, Pass: 5 -- Duration: 17 ms
                             </td>
                         </tr>
                     </tbody>
@@ -131,46 +117,39 @@ DEBUG:root:Tear down test.
                 <table class='table table-hover table-responsive'>
                     <thead>
                         <tr>
-                            <th>FailErrorTest.FailErrorTest</th>
+                            <th>polls.tests.QuestionModelTests</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class='danger'>
-                            <td class="col-xs-10">test_substring</td>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_was_published_recently_with_future_question</td>
                             <td class="col-xs-1">
-                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
                             </td>
                             <td class="col-xs-1">
-                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: 'hel' != 'he'
-- hel
-?   -
-+ he
-</p><p style="color:maroon;">Traceback (most recent call last):
-  File "src/test/tests/FailErrorTest.py", line 13, in test_substring
-    self.assertEqual(failerror.substring('hello world !', 0, 2), 'he')
-  File "/opt/python3/lib/python3.11/unittest/case.py", line 873, in assertEqual
-    assertion_func(first, second, msg=msg)
-  File "/opt/python3/lib/python3.11/unittest/case.py", line 1253, in assertMultiLineEqual
-    self.fail(self._formatMessage(msg, standardMsg))
-  File "/opt/python3/lib/python3.11/unittest/case.py", line 703, in fail
-    raise self.failureException(msg)
-AssertionError: 'hel' != 'he'
-- hel
-?   -
-+ he
-
-</p>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_was_published_recently_with_old_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_was_published_recently_with_recent_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 1, Pass: 0, Fail: 1 -- Duration: 2 ms
+                                Total: 3, Pass: 3 -- Duration: 0 ms
                             </td>
                         </tr>
                     </tbody>

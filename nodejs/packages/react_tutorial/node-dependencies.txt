@@ -1400,7 +1400,7 @@
 │  ├─ email: berge.greg@gmail.com
 │  ├─ path: node_modules/@svgr/webpack
 │  └─ licenseFile: node_modules/@svgr/webpack/LICENSE
-├─ @testing-library/dom@10.1.0
+├─ @testing-library/dom@10.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/testing-library/dom-testing-library
 │  ├─ publisher: Kent C. Dodds
@@ -1591,7 +1591,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@20.14.6
+├─ @types/node@20.14.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -3324,7 +3324,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.807
+├─ electron-to-chromium@1.4.811
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3439,7 +3439,7 @@
 │  ├─ email: ljharb@gmail.com
 │  ├─ path: node_modules/es-iterator-helpers
 │  └─ licenseFile: node_modules/es-iterator-helpers/LICENSE
-├─ es-module-lexer@1.5.3
+├─ es-module-lexer@1.5.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/guybedford/es-module-lexer
 │  ├─ publisher: Guy Bedford
@@ -4522,7 +4522,7 @@
 │  ├─ url: http://ljharb.codes
 │  ├─ path: node_modules/is-callable
 │  └─ licenseFile: node_modules/is-callable/LICENSE
-├─ is-core-module@2.13.1
+├─ is-core-module@2.14.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-core-module
 │  ├─ publisher: Jordan Harband
@@ -5732,7 +5732,7 @@
 │  ├─ email: puleos@gmail.com
 │  ├─ path: node_modules/object-hash
 │  └─ licenseFile: node_modules/object-hash/LICENSE
-├─ object-inspect@1.13.1
+├─ object-inspect@1.13.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/object-inspect
 │  ├─ publisher: James Halliday
