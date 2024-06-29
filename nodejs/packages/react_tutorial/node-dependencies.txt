@@ -1020,7 +1020,7 @@
 │  ├─ publisher: Toru Nagashima
 │  ├─ path: node_modules/@eslint-community/eslint-utils
 │  └─ licenseFile: node_modules/@eslint-community/eslint-utils/LICENSE
-├─ @eslint-community/regexpp@4.10.1
+├─ @eslint-community/regexpp@4.11.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/eslint-community/regexpp
 │  ├─ publisher: Toru Nagashima
@@ -1591,7 +1591,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@20.14.8
+├─ @types/node@20.14.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -2475,7 +2475,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001636
+├─ caniuse-lite@1.0.30001638
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3324,7 +3324,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.811
+├─ electron-to-chromium@1.4.815
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -5374,7 +5374,7 @@
 │  ├─ url: http://blakeembrey.me
 │  ├─ path: node_modules/lower-case
 │  └─ licenseFile: node_modules/lower-case/LICENSE
-├─ lru-cache@10.2.2
+├─ lru-cache@10.3.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-lru-cache
 │  ├─ publisher: Isaac Z. Schlueter
@@ -5541,7 +5541,7 @@
 │  ├─ url: http://blog.izs.me
 │  ├─ path: node_modules/filelist/node_modules/minimatch
 │  └─ licenseFile: node_modules/filelist/node_modules/minimatch/LICENSE
-├─ minimatch@9.0.4
+├─ minimatch@9.0.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/minimatch
 │  ├─ publisher: Isaac Z. Schlueter
@@ -6590,7 +6590,7 @@
 │  ├─ email: andrey@sitnik.ru
 │  ├─ path: node_modules/resolve-url-loader/node_modules/postcss
 │  └─ licenseFile: node_modules/resolve-url-loader/node_modules/postcss/LICENSE
-├─ postcss@8.4.38
+├─ postcss@8.4.39
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/postcss/postcss
 │  ├─ publisher: Andrey Sitnik

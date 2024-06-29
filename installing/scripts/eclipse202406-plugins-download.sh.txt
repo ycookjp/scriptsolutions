@@ -1,5 +1,19 @@
 #! /bin/sh
 
+################################################################################
+# Script for downloading Eclipse plugins.
+#
+# To use this script on Windows, do following steps.
+# 1. Download 64-bit Git for Windows Portable from https://git-scm.com and
+#   unzip downloaded file.
+# 2. Download zip-3.0-bin.zip and bzip2-1.0.5-bin.zip from
+#   https://sourceforge.net/projects/gnuwin32/files/ .
+# 3. Get bin/zip.exe from zip-3.0-bin.zip and bin/bzip2.dll
+#   from bzip2-1.0.5-bin.zip, and copy them to PortableGit/mingw64/bin
+#   directory.
+# 4. Execute PortableGit/git-bash.exe to run Git Bash and run this script.
+################################################################################
+
 # Eclipse command to download update site archive.
 ECLIPSE_COMMAND=/opt/eclipse/eclipse
 
@@ -54,7 +68,7 @@ __archive_updatesite () {
 
   mkdir -p "`dirname ${__OUTPUT_FILE__}`"
   mkdir -p "${__TEMP_DIR__}"
-  ${ECLIPSE_COMMAND} -verbose \
+  ${ECLIPSE_COMMAND} -verbose -nosplash \
     -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication \
     -source "${__URL__}" -destination "${__TEMP_DIR__}"
   (
@@ -262,7 +276,8 @@ download_asciidoctoreditor_plugin () {
 
 # Checkstyle
 download_checkstyle_plugin () {
-  VERSION=10.14.2.202403262245
+  #VERSION=10.12.6.202402022218
+  VERSION=10.14.2.202403271810
   URL="https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}"
   PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
