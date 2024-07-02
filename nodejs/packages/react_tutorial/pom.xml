@@ -173,7 +173,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc</executable>
+              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc${cmd_suffix}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
               <commandlineArgs>src -d ${project.build.directory}/site/apidocs</commandlineArgs>
             </configuration>
@@ -187,7 +187,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc</executable>
+              <executable>${MAIN_PATH}/node_modules/.bin/jsdoc${cmd_suffix}</executable>
               <workingDirectory>${TEMP_PATH}</workingDirectory>
               <commandlineArgs>. -d ${project.build.directory}/site/testspecs</commandlineArgs>
             </configuration>
@@ -201,7 +201,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${MAIN_PATH}/node_modules/.bin/license-checker</executable>
+              <executable>${MAIN_PATH}/node_modules/.bin/license-checker${cmd_suffix}</executable>
               <workingDirectory>${MAIN_PATH}</workingDirectory>
               <commandlineArgs>--production --out ${project.build.directory}/site/node-dependencies.txt</commandlineArgs>
             </configuration>
@@ -323,6 +323,35 @@
       </plugin>
     </plugins>
   </reporting>
+  -->
+  <!-- end -->
+  <!-- Inheritated from parent project.
+  <profiles>
+    <profile>
+      <id>profile-unix</id>
+      <activation>
+        <property>
+          <name>file.separator</name>
+          <value>/</value>
+        </property>
+      </activation>
+      <properties>
+        <cmd_suffix></cmd_suffix>
+      </properties>
+    </profile>
+    <profile>
+      <id>profile-win</id>
+      <activation>
+        <property>
+          <name>file.separator</name>
+          <value>!/</value>
+        </property>
+      </activation>
+      <properties>
+        <cmd_suffix>.cmd</cmd_suffix>
+      </properties>
+    </profile>
+  </profiles>
   -->
   <!-- end -->
 </project>

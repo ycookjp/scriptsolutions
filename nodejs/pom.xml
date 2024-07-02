@@ -44,4 +44,30 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>profile-unix</id>
+      <activation>
+        <property>
+          <name>file.separator</name>
+          <value>/</value>
+        </property>
+      </activation>
+      <properties>
+        <cmd_suffix></cmd_suffix>
+      </properties>
+    </profile>
+    <profile>
+      <id>profile-win</id>
+      <activation>
+        <property>
+          <name>file.separator</name>
+          <value>!/</value>
+        </property>
+      </activation>
+      <properties>
+        <cmd_suffix>.cmd</cmd_suffix>
+      </properties>
+    </profile>
+  </profiles>
 </project>
