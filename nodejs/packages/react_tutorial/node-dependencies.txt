@@ -1400,7 +1400,7 @@
 │  ├─ email: berge.greg@gmail.com
 │  ├─ path: node_modules/@svgr/webpack
 │  └─ licenseFile: node_modules/@svgr/webpack/LICENSE
-├─ @testing-library/dom@10.2.0
+├─ @testing-library/dom@10.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/testing-library/dom-testing-library
 │  ├─ publisher: Kent C. Dodds
@@ -2475,7 +2475,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001638
+├─ caniuse-lite@1.0.30001639
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3324,7 +3324,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.4.815
+├─ electron-to-chromium@1.4.816
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
