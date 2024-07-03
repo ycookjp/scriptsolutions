@@ -295,9 +295,8 @@ download_cdt_plugin () {
   URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.6/cdt-11.6.0/cdt-11.6.0.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     -x '*.sdk_* *.source_* *.gz' \
-    -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -323,8 +322,7 @@ download_dltk_plugin () {
   URL="http://www.eclipse.org/downloads/download.php?file=/technology/dltk/downloads/drops/R6.3/I-I202006111431-202006111431/dltk-core-I-I202006111431-202006111431.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -u "${URL}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -334,8 +332,7 @@ download_emonic_plugin () {
   URL='https://sourceforge.net/projects/emonic/files/latest/download'
   PACKAGE_NAME=emonic_0.4.0
   FILE_NAME=${PACKAGE_NAME}.zip
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -u "${URL}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -345,9 +342,8 @@ download_enanced_class_decompiler_plugin () {
   URL='https://github.com/ecd-plugin/ecd/releases/download/v3.5.1.20240613/com.github.ecd-plugin.update-3.5.1.zip'
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     -x '*.source_* *.source.*' \
-    -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -373,10 +369,9 @@ download_jgit_plugin () {
   URL="${ECLIPSE_URL_BASE}/egit/updates-6.10/org.eclipse.egit.repository-6.10.0.202406032230-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     -x '*.source_* *.gz' \
     -m 'org.eclipse.jgit*' \
-    -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -405,8 +400,7 @@ download_nodeclipse_plugin () {
   VERSION=1.0.2-201509250223
   PACKAGE_NAME=org.nodeclipse-${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -u "${URL}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -416,8 +410,7 @@ download_nodeclipse_plugin () {
 #  URL='https://ja.osdn.net/projects/propedit/downloads/68691/jp.gr.java_conf.ussiy.app.propedit_6.0.5.zip/'
 #  PACKAGE_NAME=jp.gr.java_conf.ussiy.app.propedit_6.0.5
 #  FILE_NAME=${PACKAGE_NAME}.zip
-#  __unzipfile -f dropins-archive/${FILE_NAME} \
-#    -u "${URL}" \
+#  __unzipfile -f dropins-archive/${FILE_NAME} -u "${URL}" \
 #    dropins/${PACKAGE_NAME}
 #}
 
@@ -465,8 +458,7 @@ download_statet_plugin () {
   URL="${ECLIPSE_URL_BASE}/statet/releases/4.9.0/statet-repository-E202312-incubation-4.9.0-202402220600-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f dropins-archive/${FILE_NAME} \
-    -u "${URL}" \
+  __unzipfile -f dropins-archive/${FILE_NAME} -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -488,8 +480,8 @@ download_stepcounter_plugin () {
 
 # Subversive
 download_subversive_plugin () {
-  URL='https://download.eclipse.org/technology/subversive/updates/nightly/N202402101540/'
-  VERSION=5.0.0.v20240210-1540
+  URL='https://download.eclipse.org/technology/subversive/4.8/release/latest/'
+  VERSION=4.8.0.v20220904-1901
   PACKAGE_NAME="org.eclipse.team.svn_${VERSION}"
   FILE_NAME="${PACKAGE_NAME}.zip"
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -504,7 +496,8 @@ download_subversive_plugin () {
 # Subversive SVN Connector
 download_svn_connector_plugin () {
   URL='https://osspit.org/eclipse/subversive-connectors/'
-  PACKAGE_NAME=org.polarion.eclipse.team.svn.connector.svnkit1_10_6.1.0
+  VERSION=6.0.4.I20161211-1700
+  PACKAGE_NAME=org.polarion.eclipse.team.svn.connector_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
     "${URL}"
@@ -519,9 +512,8 @@ download_svn_connector_plugin () {
 #  URL="${ECLIPSE_URL_BASE}/mylyn/drops/3.26.0/v20200731-0526/mylyn-3.26.0.v20200731-0526.zip"
 #  PACKAGE_NAME=`basename "${URL}" .zip`
 #  FILE_NAME=`basename "${URL}"`
-#  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+#  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
 #    -x '*.source_* *.tests_*' \
-#    -u "${URL}" \
 #    dropins/${PACKAGE_NAME}/eclipse
 #}
 
@@ -531,8 +523,7 @@ download_umlet_plugin () {
   URL='https://www.umlet.com/download/umlet_15_1/umlet-eclipse-p2-15.1.zip'
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -u "${URL}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     dropins/${PACKAGE_NAME}
   mv dropins/${PACKAGE_NAME}/repository dropins/${PACKAGE_NAME}/eclipse
 }
@@ -543,8 +534,7 @@ download_visualvm_plugin () {
   URL='https://github.com/oracle/visualvm/releases/download/2.1.2/visualvm_launcher_u3_eclipse_sig.zip'
   PACKAGE_NAME=`basename "${URL}" _sig.zip`
   FILE_NAME=`basename "${URL}"`
-  __unzipfile -f dropins-archive/${FILE_NAME} \
-    -u "${URL}" \
+  __unzipfile -f dropins-archive/${FILE_NAME} -u "${URL}" \
     dropins/${PACKAGE_NAME}
   mv dropins/${PACKAGE_NAME}/${PACKAGE_NAME} dropins/${PACKAGE_NAME}/eclipse
 }
@@ -555,8 +545,7 @@ download_windowsbuilder_plugin () {
   URL="${ECLIPSE_URL_BASE}/windowbuilder/1.11.0/repository.zip"
   PACKAGE_NAME=WindowBuilder_Pro-1.11.0
   FILE_NAME=${PACKAGE_NAME}.zip
-  __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -u "${URL}" \
+  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
