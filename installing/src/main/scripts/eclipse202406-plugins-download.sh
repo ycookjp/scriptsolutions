@@ -350,7 +350,7 @@ download_enanced_class_decompiler_plugin () {
 
 # ER Master
 download_ermaster_plugin() {
-  URL='http://ermaster.sourceforge.net/update-site/'
+  URL='https://sourceforge.net/projects/ermaster/files/ermaster/'
   VERSION=1.0.0.v20150619-0219
   PACKAGE_NAME=org.insightech.er_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
