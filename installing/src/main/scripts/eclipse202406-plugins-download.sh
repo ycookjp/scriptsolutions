@@ -14,7 +14,7 @@
 # 4. Execute PortableGit/git-bash.exe to run Git Bash and run this script.
 ################################################################################
 
-# Eclipse command to download update site archive.
+# Eclipse command to download update site archiv
 ECLIPSE_COMMAND=/opt/eclipse/eclipse
 
 # Download interval. Ex. 1, 2s, 3m, 4h
@@ -24,7 +24,7 @@ DL_INTERVAL=1s
 PROXY_URL=
 
 # curl options
-#CURL_OPTS="-k"
+#CURL_OPTS="-k --http1.1"
 
 ################################################################################
 
@@ -137,9 +137,9 @@ __unzipfile () {
     __FILE_PATH__="`pwd`/`basename ${__URL__}`"
   fi
 
-  __CURL_OPTS__=
+  __CURL_OPTS__=${CURL_OPTS}
   if [ "x${PROXY_URL}" != "x" ]; then
-    __CURL_OPTS__="-x ${PROXY_URL}"
+    __CURL_OPTS__="-x ${PROXY_URL} ${__CURL_OPTS__}"
   fi
 
   # download file
@@ -301,6 +301,28 @@ download_cdt_plugin () {
 }
 
 
+# Eclipse Color Theme
+download_eclipse_color_theme_plugin () {
+  URL=http://eclipse-color-theme.github.io/update
+  PACKAGE_NAME=eclipse-color-theme_1.0.0
+  FILE_NAME=${PACKAGE_NAME}.zip
+  # download archive site
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    dropins/${PACKAGE_NAME}/eclipse
+  # download MoonRise UI Theme
+  URL=https://github.com/guari/eclipse-ui-theme/blob/master/com.github.eclipseuitheme.themes.plugin/bin/com.github.eclipseuitheme.moonrise_0.8.9.jar?raw=true
+  FILE_NAME=`basename "${URL}" | sed 's/?raw=true//g'`
+  curl ${__CURL_OPTS__} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
+  if [ x != x${DL_INTERVAL} ]; then
+    sleep ${DL_INTERVAL};
+  fi
+  mkdir -p "dropins/${PACKAGE_NAME}/eclipse/plugins"
+  cp "dropins-archive/${FILE_NAME}" "dropins/${PACKAGE_NAME}/eclipse/plugins"
+}
+
 # Eclipse PDT
 download_pdt_plugin () {
   URL='https://download.eclipse.org/tools/pdt/updates/8.3/'
@@ -350,7 +372,8 @@ download_enanced_class_decompiler_plugin () {
 
 # ER Master
 download_ermaster_plugin() {
-  URL='https://sourceforge.net/projects/ermaster/files/ermaster/'
+  URL='http://ermaster.sourceforge.net/update-site/'
+  #URL='https://sourceforge.net/projects/ermaster/files/ermaster/'
   VERSION=1.0.0.v20150619-0219
   PACKAGE_NAME=org.insightech.er_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
@@ -379,16 +402,16 @@ download_jgit_plugin () {
 # Markdown Text Editor
 download_markdown_editor_plugin () {
   # https://www.winterwell.com/software/markdown-editor.php
-  URL='https://www.winterwell.com/software/updatesite/'
-  VERSION=0.2.3
-  PACKAGE_NAME=winterwell.markdown_${VERSION}
+  # https://github.com/winterstein/Eclipse-Markdown-Editor-Plugin/releases
+  URL='https://nodeclipse.github.io/updates/markdown/'
+  VERSION=1.2.0-201501260515
+  PACKAGE_NAME=markdown.editor-${VERSION} 
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
   # deploy plugin files
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -m "*_${VERSION}.*" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -401,6 +424,7 @@ download_nodeclipse_plugin () {
   PACKAGE_NAME=org.nodeclipse-${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
+    -x "com.github.eclipsecolortheme* com.github.eclipseuitheme.themes.* winterwell.markdown_*" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -468,7 +492,7 @@ download_stepcounter_plugin () {
   URL='https://github.com/takezoe/stepcounter/releases/download/3.0.4/jp.sf.amateras.stepcounter_3.0.4.201805262142.jar'
   PACKAGE_NAME="`basename "${URL}" .jar`"
   FILE_NAME=`basename "${URL}"`
-  curl ${CURL_OPTS} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
+  curl ${__CURL_OPTS__} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
   if [ x != x${DL_INTERVAL} ]; then
     sleep ${DL_INTERVAL};
   fi
@@ -563,6 +587,8 @@ download_asciidoctoreditor_plugin
 download_checkstyle_plugin
 # cdt-x.x.x
 download_cdt_plugin
+# eclipse-color-theme_x.x.x
+download_eclipse_color_theme_plugin
 # org.eclipse.php_x.x.x.YYYYMMDDHHMM
 download_pdt_plugin
 # dltk-core-R-x.x-YYYYMMDDHHMM
