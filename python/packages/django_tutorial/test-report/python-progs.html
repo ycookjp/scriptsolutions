@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Unittest Results</h2>
-                <p class='attribute'><strong>Start Time: </strong>2024-07-31 02:08:38</p>
+                <p class='attribute'><strong>Start Time: </strong>2024-08-26 02:33:30</p>
                 <p class='attribute'><strong>Duration: </strong>49 ms</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 10, Pass: 10</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 10, Pass: 5, Error: 5</p>
             </div>
         </div>
         <div class="row">
@@ -45,67 +45,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 2, Pass: 2 -- Duration: 30 ms
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-md-10">
-                <table class='table table-hover table-responsive'>
-                    <thead>
-                        <tr>
-                            <th>polls.tests.QuestionIndexViewTests</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class='success'>
-                            <td class="col-xs-10">test_future_question</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">test_future_question_and_past_question</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">test_no_questions</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">test_past_question</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr class='success'>
-                            <td class="col-xs-10">test_two_past_questions</td>
-                            <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
-                            </td>
-                            <td class="col-xs-1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                Total: 5, Pass: 5 -- Duration: 19 ms
+                                Total: 2, Pass: 2 -- Duration: 31 ms
                             </td>
                         </tr>
                     </tbody>
@@ -150,6 +90,116 @@
                         <tr>
                             <td colspan="3">
                                 Total: 3, Pass: 3 -- Duration: 0 ms
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>polls.tests.QuestionIndexViewTests</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_future_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/main/polls/tests.py", line 75, in test_future_question
+    self.assertQuerysetEqual(response.context['latest_question_list'], [])
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_future_question_and_past_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/main/polls/tests.py", line 85, in test_future_question_and_past_question
+    self.assertQuerysetEqual(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_no_questions</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/main/polls/tests.py", line 54, in test_no_questions
+    self.assertQuerysetEqual(response.context['latest_question_list'], [])
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_past_question</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/main/polls/tests.py", line 62, in test_past_question
+    self.assertQuerysetEqual(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_two_past_questions</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/main/polls/tests.py", line 97, in test_two_past_questions
+    self.assertQuerysetEqual(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuestionIndexViewTests' object has no attribute 'assertQuerysetEqual'
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 5, Pass: 0, Error: 5 -- Duration: 17 ms
                             </td>
                         </tr>
                     </tbody>
