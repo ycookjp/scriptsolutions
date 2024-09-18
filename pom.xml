@@ -27,7 +27,7 @@
   <properties>
     <p.sep>${path.separator}</p.sep>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven-site.ver>3.12.1</maven-site.ver>
+    <maven-site.ver>3.20.0</maven-site.ver>
     <maven-project-info-reports.ver>3.4.1</maven-project-info-reports.ver>
     <maven-assembly.var>3.4.2</maven-assembly.var>
     <maven-resources.ver>3.3.0</maven-resources.ver>
