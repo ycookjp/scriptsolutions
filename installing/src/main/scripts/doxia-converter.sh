@@ -2,8 +2,14 @@
 proxy_url=
 ################################################################################
 # Doxia Converter Tool Wrapper
-# Usage: doxia-converter.sh <input-file>
-#
+# Usage: doxia-converter.sh <options> <input-file>
+# Options
+#   * --inEncoding: Inut file encoding (default: UTF-8)
+#   * --outEncoding : Output file encoding (default: UTF-8)
+#   Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP
+# Description
+#   Convert <input-file> to xtml5 format. Output file name is "base name of
+#   <input-file>" + ".html".
 # Requirements
 # * java command
 #   Install java-<version>-openjdk-headless package.
@@ -22,17 +28,35 @@ proxy_url=
 #   Set proxy_url environment value to proxy url.
 ################################################################################
 
-if [ x$PROXY_URL != x ]; then
-  __curlxopt="-x $PROXY_URL"
+# options
+__inEncoding=UTF-8
+__outEncoding=UTF-8
+for p in $*; do
+  if [ ${1:0:2} == -- ]; then
+    __optName=${1%%=*}
+    __optName=${__optName/--/__}
+    __optValue=${1#*=}
+    eval "${__optName}=${__optValue}"
+    shift
+  fi
+done
+
+if [ x$proxy_url != x ]; then
+  __curlxopt="-x $proxy_url"
 fi
 __inputdir=$(dirname $0)
 __doxiajar=${__inputdir}/doxia-converter-1.3-jar-with-dependencies.jar
 
 if [ $# -eq 0 ]; then
-  echo Usage `basename $0` \<input-file\>
+  echo "Usage $(basename $0) <options> <input-file>"
+  echo "Options:"
+  echo "  * --inEncoding: Input file encoding."
+  echo "  * --outencoding: Output file encoding."
+  echo "  Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP"
   exit
 fi
 
+# input file format
 __inputfile=$1
 __inputsuffix=${__inputfile##*.}
 __inputfmt=$(if [ x$__inputsuffix == xmd ]; then echo markdown; else echo $__inputsuffix; fi)
@@ -42,16 +66,51 @@ for __opt in apt confluence docbook fml markdown twiki xdoc xhtml xhtml5 autodet
     __infmtopt="-from $__opt"
   fi
 done
+
+# output file
 __outputfile=$(basename $__inputfile .$__inputsuffix).html
 
-echo "java -jar $__doxiajar -in $__inputfile $__infmtopt -out . -to xhtml5"
-java -jar $__doxiajar -in $__inputfile $__infmtopt -out . -to xhtml5
+# doxia-converter/nkf options
+__doxiaOptions=
+__nkfOption=
+if [ x$__inEncoding != x ]; then
+  __doxiaOptions="$__doxiaOptions -inEncoding $__inEncoding"
+fi
+if [ x$__outEncoding != x ]; then
+  __doxiaOptions="$__doxiaOptions -outEncoding $__outEncoding"
+  case $__outEncoding in
+    UTF-8)
+      __nkfOption="$__nkfOption -W -w"
+      ;;
+    Shift_JIS)
+      __nkfOption="$__nkfOption -S -s"
+      ;;
+    ISO-2022-JP)
+      __nkfOption="$__nkfOption -J -j"
+      ;;
+    EUC-JP)
+      __nkfOption="$__nkfOption -E -e"
+  esac
+fi
+
+# java command and options
+__javaCommand=java
+if [ "x$JAVA_HOME" != "x" ]; then
+  __javaCommand="${JAVA_HOME}/bin/java"
+fi
+if [ "x$JAVA_OPTS" != "x" ]; then
+  __javaCommand="$__javaCommand $JAVA_OPTS"
+fi
+
+echo "$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile $__infmtopt -out . -to xhtml5"
+$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile $__infmtopt -out . -to xhtml5
 __exitcode=$?
 if [ $__exitcode != 0 ]; then
   echo Error: Fail to convert $__inputfile
   exit 1
 fi
-nkf --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__outputfile
+echo "nkf $__nkfOption --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__outputfile"
+nkf $__nkfOption --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__outputfile
 rm ./$(basename $__inputfile).xhtml5
 
 ### Apply skin ###
