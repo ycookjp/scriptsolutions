@@ -1577,7 +1577,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@22.5.5
+├─ @types/node@22.7.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -1617,7 +1617,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react-dom
 │  └─ licenseFile: node_modules/@types/react-dom/LICENSE
-├─ @types/react@18.3.8
+├─ @types/react@18.3.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/react
@@ -2358,7 +2358,7 @@
 │  ├─ publisher: kumavis
 │  ├─ path: node_modules/browser-process-hrtime
 │  └─ licenseFile: node_modules/browser-process-hrtime/LICENSE
-├─ browserslist@4.23.3
+├─ browserslist@4.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/browserslist/browserslist
 │  ├─ publisher: Andrey Sitnik
@@ -2454,7 +2454,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001662
+├─ caniuse-lite@1.0.30001663
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -3303,7 +3303,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.5.27
+├─ electron-to-chromium@1.5.28
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3516,7 +3516,7 @@
 │  ├─ url: me@benmosher.com
 │  ├─ path: node_modules/eslint-import-resolver-node
 │  └─ licenseFile: node_modules/eslint-import-resolver-node/LICENSE
-├─ eslint-module-utils@2.11.0
+├─ eslint-module-utils@2.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/import-js/eslint-plugin-import
 │  ├─ publisher: Ben Mosher
@@ -7662,7 +7662,7 @@
 │  ├─ email: joris@jorisvanderwel.com
 │  ├─ path: node_modules/symbol-tree
 │  └─ licenseFile: node_modules/symbol-tree/LICENSE
-├─ tailwindcss@3.4.12
+├─ tailwindcss@3.4.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/tailwindlabs/tailwindcss
 │  ├─ path: node_modules/tailwindcss
@@ -8201,7 +8201,7 @@
 │  ├─ publisher: Tobias Koppers @sokra
 │  ├─ path: node_modules/webpack-sources
 │  └─ licenseFile: node_modules/webpack-sources/LICENSE
-├─ webpack@5.94.0
+├─ webpack@5.95.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/webpack
 │  ├─ publisher: Tobias Koppers @sokra

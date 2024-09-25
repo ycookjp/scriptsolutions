@@ -4,8 +4,9 @@ proxy_url=
 # Doxia Converter Tool Wrapper
 # Usage: doxia-converter.sh <options> <input-file>
 # Options
-#   * --inEncoding: Inut file encoding (default: UTF-8)
-#   * --outEncoding : Output file encoding (default: UTF-8)
+#   * --inEncoding=<encoding>: Inut file encoding (default: UTF-8)
+#   * --outEncoding=<encoding> : Output file encoding (default: UTF-8)
+#   * --noLinenum: No line number in the code block
 #   Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP
 # Description
 #   Convert <input-file> to xtml5 format. Output file name is "base name of
@@ -31,11 +32,17 @@ proxy_url=
 # options
 __inEncoding=UTF-8
 __outEncoding=UTF-8
+__noLinenum=
 for p in $*; do
   if [ ${1:0:2} == -- ]; then
     __optName=${1%%=*}
-    __optName=${__optName/--/__}
     __optValue=${1#*=}
+    # if options's value is not specified, value shuld be '1'
+    if [ x$__optName == x$__optValue ]; then
+      __optValue=1
+    fi
+    __optName=${__optName/--/__}
+    echo "${__optName}=${__optValue}"
     eval "${__optName}=${__optValue}"
     shift
   fi
@@ -50,8 +57,9 @@ __doxiajar=${__inputdir}/doxia-converter-1.3-jar-with-dependencies.jar
 if [ $# -eq 0 ]; then
   echo "Usage $(basename $0) <options> <input-file>"
   echo "Options:"
-  echo "  * --inEncoding: Input file encoding."
-  echo "  * --outencoding: Output file encoding."
+  echo "  * --inEncoding=<encoding>: Input file encoding."
+  echo "  * --outencoding=<encoding>: Output file encoding."
+  echo "  * --noLinenum: No line number in the code block" 
   echo "  Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP"
   exit
 fi
@@ -114,7 +122,10 @@ nkf $__nkfOption --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__ou
 rm ./$(basename $__inputfile).xhtml5
 
 ### Apply skin ###
-sed -e 's/<meta /\n<meta /g' -e 's/<\/head>/\n<\/head>/g' -e 's/<body>/\n<body>/g' -e 's/<pre>/<pre class="prettyprint linenums">/g' -i ./$__outputfile
+sed -e 's/<meta /\n<meta /g' -e 's/<\/head>/\n<\/head>/g' -e 's/<body>/\n<body>/g' -i ./$__outputfile
+if [ x$__noLinenum == x ]; then
+  sed -z -e 's/\(<div class="source">[ \t\n]*<pre[^>]*\)>/\1 class="prettyprint linenums">/g' -i ./$__outputfile
+fi
 
 sed 's/\(^<meta charset=.*\/>$\)/<meta name="viewport" content="width=device-width, initial-scale=1" \/>\n\1\n<link rel="shortcut icon" href="images\/favicon.ico"\/>\n<link rel="stylesheet" href=".\/css\/apache-maven-fluido-2.0.0-M6.min.css" \/>\n<link rel="stylesheet" href=".\/css\/site.css" \/>\n<link rel="stylesheet" href=".\/css\/print.css" media="print" \/>\n<script src=".\/js\/apache-maven-fluido-2.0.0-M6.min.js"><\/script>/g' -i ./$__outputfile
 
