@@ -33,8 +33,9 @@ proxy_url=
 __inEncoding=UTF-8
 __outEncoding=UTF-8
 __noLinenum=
-for p in $*; do
-  if [ ${1:0:2} == -- ]; then
+while [ $# -gt 0 ]; do
+  case $1 in
+  --*)
     __optName=${1%%=*}
     __optValue=${1#*=}
     # if options's value is not specified, value shuld be '1'
@@ -45,16 +46,28 @@ for p in $*; do
     echo "${__optName}=${__optValue}"
     eval "${__optName}=${__optValue}"
     shift
-  fi
+    ;;
+  -h)
+    echo "__help=1"
+    __help=1
+    shift
+    ;;
+  -*)
+    shift
+    ;;
+  *)
+    break
+    ;;
+  esac
 done
 
 if [ x$proxy_url != x ]; then
   __curlxopt="-x $proxy_url"
 fi
-__inputdir=$(dirname $0)
-__doxiajar=${__inputdir}/doxia-converter-1.3-jar-with-dependencies.jar
+__commanddir=$(dirname $0)
+__doxiajar=${__commanddir}/doxia-converter-1.3-jar-with-dependencies.jar
 
-if [ $# -eq 0 ]; then
+if [ $# -eq 0 -o x$__help != x ]; then
   echo "Usage $(basename $0) <options> <input-file>"
   echo "Options:"
   echo "  * --inEncoding=<encoding>: Input file encoding."
@@ -115,16 +128,19 @@ $__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile $__infmtopt -ou
 __exitcode=$?
 if [ $__exitcode != 0 ]; then
   echo Error: Fail to convert $__inputfile
+  if [ -f ./$(basename $__inputfile).xhtml5 ]; then
+    rm -f ./$(basename $__inputfile).xhtml5
+  fi
   exit 1
 fi
 echo "nkf $__nkfOption --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__outputfile"
 nkf $__nkfOption --numchar-input ./$(basename $__inputfile).xhtml5 | tee ./$__outputfile
-rm ./$(basename $__inputfile).xhtml5
+rm -f ./$(basename $__inputfile).xhtml5
 
 ### Apply skin ###
 sed -e 's/<meta /\n<meta /g' -e 's/<\/head>/\n<\/head>/g' -e 's/<body>/\n<body>/g' -i ./$__outputfile
 if [ x$__noLinenum == x ]; then
-  sed -z -e 's/\(<div class="source">[ \t\n]*<pre[^>]*\)>/\1 class="prettyprint linenums">/g' -i ./$__outputfile
+  sed -e '/<div class="source">[ \t]*$/N;s/\(<div class="source">[ \t\n]*<pre[^>]*\)>/\1 class="prettyprint linenums">/g' -i ./$__outputfile
 fi
 
 sed 's/\(^<meta charset=.*\/>$\)/<meta name="viewport" content="width=device-width, initial-scale=1" \/>\n\1\n<link rel="shortcut icon" href="images\/favicon.ico"\/>\n<link rel="stylesheet" href=".\/css\/apache-maven-fluido-2.0.0-M6.min.css" \/>\n<link rel="stylesheet" href=".\/css\/site.css" \/>\n<link rel="stylesheet" href=".\/css\/print.css" media="print" \/>\n<script src=".\/js\/apache-maven-fluido-2.0.0-M6.min.js"><\/script>/g' -i ./$__outputfile
@@ -145,4 +161,3 @@ if [ ! -d ./js ]; then mkdir -p ./js; fi
 if [ ! -f ./js/apache-maven-fluido-2.0.0-M6.min.js ]; then
   curl $__curlxopt -LO --output-dir ./js https://maven.apache.org/js/apache-maven-fluido-2.0.0-M6.min.js
 fi
-
