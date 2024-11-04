@@ -6,6 +6,7 @@ proxy_url=
 # Options
 #   * --inEncoding=<encoding>: Inut file encoding (default: UTF-8)
 #   * --outEncoding=<encoding> : Output file encoding (default: UTF-8)
+#   * --from=<format>: Input format
 #   * --noLinenum: No line number in the code block
 #   Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP
 # Description
@@ -32,6 +33,7 @@ proxy_url=
 # options
 __inEncoding=UTF-8
 __outEncoding=UTF-8
+__from=
 __noLinenum=
 while [ $# -gt 0 ]; do
   case $1 in
@@ -72,6 +74,7 @@ if [ $# -eq 0 -o x$__help != x ]; then
   echo "Options:"
   echo "  * --inEncoding=<encoding>: Input file encoding."
   echo "  * --outencoding=<encoding>: Output file encoding."
+  echo "  * --from=<format>: Input format."
   echo "  * --noLinenum: No line number in the code block" 
   echo "  Supported encoding: UTF-8, Shift_JIS, ISO-2022-JP, EUC-JP"
   exit
@@ -81,18 +84,22 @@ fi
 __inputfile=$1
 __inputsuffix=${__inputfile##*.}
 __inputfmt=$(if [ x$__inputsuffix == xmd ]; then echo markdown; else echo $__inputsuffix; fi)
-__infmtopt=
-for __opt in apt confluence docbook fml markdown twiki xdoc xhtml xhtml5 autodetect; do
-  if [ x$__inputfmt == x$__opt ]; then
-    __infmtopt="-from $__opt"
-  fi
-done
+if [ x$__from == x ]; then
+  for __opt in apt confluence docbook fml markdown twiki xdoc xhtml xhtml5 autodetect; do
+    if [ x$__inputfmt == x$__opt ]; then
+      __from=$__opt
+    fi
+  done
+fi
+if [ x$__from == x ]; then
+  __from=apt
+fi
 
 # output file
 __outputfile=$(basename $__inputfile .$__inputsuffix).html
 
 # doxia-converter/nkf options
-__doxiaOptions=
+__doxiaOptions="-from $__from"
 __nkfOption=
 if [ x$__inEncoding != x ]; then
   __doxiaOptions="$__doxiaOptions -inEncoding $__inEncoding"
@@ -123,8 +130,8 @@ if [ "x$JAVA_OPTS" != "x" ]; then
   __javaCommand="$__javaCommand $JAVA_OPTS"
 fi
 
-echo "$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile $__infmtopt -out . -to xhtml5"
-$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile $__infmtopt -out . -to xhtml5
+echo "$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile -out . -to xhtml5"
+$__javaCommand -jar $__doxiajar $__doxiaOptions -in $__inputfile -out . -to xhtml5
 __exitcode=$?
 if [ $__exitcode != 0 ]; then
   echo Error: Fail to convert $__inputfile
