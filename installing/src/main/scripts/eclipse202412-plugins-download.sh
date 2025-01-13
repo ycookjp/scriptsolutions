@@ -232,7 +232,7 @@ download_babel_plugin () {
 # aCute
 download_acute_plugin () {
   URL='https://download.eclipse.org/acute/snapshots/'
-  PACKAGE_NAME=org.eclipse.acute_0.3.3.202211251846
+  PACKAGE_NAME=org.eclipse.acute_0.3.3.202409141118
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -246,7 +246,7 @@ download_acute_plugin () {
 # Amateras Modeler
 download_amaterasmodeler_plugin() {
   URL='https://takezoe.github.io/amateras-update-site/'
-  VERSION=2.1.0
+  VERSION=2.2.0
   PACKAGE_NAME=net.java.amateras.modeler_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
@@ -260,6 +260,7 @@ download_amaterasmodeler_plugin() {
 
 
 # Asciidoctor Editor
+# https://github.com/de-jcup/eclipse-asciidoctor-editor
 download_asciidoctoreditor_plugin () {
   URL='https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/'
   PACKAGE_NAME=de.jcup.asciidoctoreditor_3.1.1
@@ -276,8 +277,7 @@ download_asciidoctoreditor_plugin () {
 
 # Checkstyle
 download_checkstyle_plugin () {
-  #VERSION=10.12.6.202402022218
-  VERSION=10.14.2.202403271810
+  VERSION=10.21.1.202501092007
   URL="https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}"
   PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
@@ -292,7 +292,7 @@ download_checkstyle_plugin () {
 
 # Eclipse CDT
 download_cdt_plugin () {
-  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.6/cdt-11.6.0/cdt-11.6.0.zip"
+  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.6/cdt-11.6.1/cdt-11.6.1.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
@@ -326,7 +326,7 @@ download_eclipse_color_theme_plugin () {
 # Eclipse PDT
 download_pdt_plugin () {
   URL='https://download.eclipse.org/tools/pdt/updates/8.3/'
-  PACKAGE_NAME=org.eclipse.php_8.1.0.202306111945
+  PACKAGE_NAME=org.eclipse.php_8.3.0.202405251527
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -340,11 +340,14 @@ download_pdt_plugin () {
 
 # Eclpse DLTK
 download_dltk_plugin () {
-  #URL="${ECLIPSE_URL_BASE}/technology/dltk/downloads/drops/R6.2/R-6.2-202005020530/dltk-core-R-6.2-202005020530.zip"
-  URL="http://www.eclipse.org/downloads/download.php?file=/technology/dltk/downloads/drops/R6.3/I-I202006111431-202006111431/dltk-core-I-I202006111431-202006111431.zip"
-  PACKAGE_NAME=`basename "${URL}" .zip`
-  FILE_NAME=`basename "${URL}"`
-  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
+  URL="https://download.eclipse.org/technology/dltk/updates-nightly/"
+  PACKAGE_NAME=org.eclipse.dltk_6.4.1.202405291003
+  FILE_NAME=${PACKAGE_NAME}.zip
+  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+    "${URL}"
+  # deploy plugin files
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -x '*.sdk_* *.source_* *.tests_*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -373,7 +376,6 @@ download_enanced_class_decompiler_plugin () {
 # ER Master
 download_ermaster_plugin() {
   URL='http://ermaster.sourceforge.net/update-site/'
-  #URL='https://sourceforge.net/projects/ermaster/files/ermaster/'
   VERSION=1.0.0.v20150619-0219
   PACKAGE_NAME=org.insightech.er_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
@@ -389,7 +391,7 @@ download_ermaster_plugin() {
 
 # JGit LFS
 download_jgit_plugin () {
-  URL="${ECLIPSE_URL_BASE}/egit/updates-6.10/org.eclipse.egit.repository-6.10.0.202406032230-r.zip"
+  URL="${ECLIPSE_URL_BASE}/egit/updates-7.1/org.eclipse.egit.repository-7.1.0.202411261347-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
@@ -399,10 +401,23 @@ download_jgit_plugin () {
 }
 
 
+# Kantan Properties Editor
+#download_kantan_properties_editor_plugin () {
+#  URL='https://tyatsumi.gitlab.io/proped/'
+#  VERSION=1.0.7
+#  PACKAGE_NAME=org.kareha.proped_${VERSION}
+#  FILE_NAME=${PACKAGE_NAME}.zip
+#  __archive_updatesite -o dropins-archive/${FILE_NAME} \
+#    "${URL}"
+#  __unzipfile -f dropins-archive/${FILE_NAME} \
+#    dropins/${PACKAGE_NAME}/eclipse
+#}
+
+
 # Markdown Text Editor
+# https://www.winterwell.com/software/markdown-editor.php
+# https://github.com/winterstein/Eclipse-Markdown-Editor-Plugin/releases
 download_markdown_editor_plugin () {
-  # https://www.winterwell.com/software/markdown-editor.php
-  # https://github.com/winterstein/Eclipse-Markdown-Editor-Plugin/releases
   URL='https://nodeclipse.github.io/updates/markdown/'
   VERSION=1.2.0-201501260515
   PACKAGE_NAME=markdown.editor-${VERSION} 
@@ -439,21 +454,9 @@ download_nodeclipse_plugin () {
 #}
 
 
-# Kantan Properties Editor
-download_kantan_properties_editor_plugin () {
-  URL='https://tyatsumi.gitlab.io/proped/'
-  VERSION=1.0.7
-  PACKAGE_NAME=org.kareha.proped_${VERSION}
-  FILE_NAME=${PACKAGE_NAME}.zip
-  __archive_updatesite -o dropins-archive/${FILE_NAME} \
-    "${URL}"
-  __unzipfile -f dropins-archive/${FILE_NAME} \
-    dropins/${PACKAGE_NAME}/eclipse
-}
-
 # PyDev
 download_pydev_plugin () {
-  URL='https://www.pydev.org/update_sites/12.1.0'
+  URL='https://www.pydev.org/update_sites/12.2.0'
   PACKAGE_NAME=org.python.pydev_`basename "${URL}"`
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -479,7 +482,7 @@ download_spotbugs_plugin () {
 
 # StatET
 download_statet_plugin () {
-  URL="${ECLIPSE_URL_BASE}/statet/releases/4.9.0/statet-repository-E202312-incubation-4.9.0-202402220600-r.zip"
+  URL="${ECLIPSE_URL_BASE}/statet/releases/4.10.0/statet-repository-E202409-incubation-4.10.0-202411211400-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f dropins-archive/${FILE_NAME} -u "${URL}" \
@@ -503,9 +506,10 @@ download_stepcounter_plugin () {
 
 
 # Subversive
+# https://projects.eclipse.org/projects/technology.subversive
 download_subversive_plugin () {
-  URL='https://download.eclipse.org/technology/subversive/4.8/release/latest/'
-  VERSION=4.8.0.v20220904-1901
+  URL='https://download.eclipse.org/technology/subversive/updates/release/5.0.0/'
+  VERSION=5.0.0.v20250112-1244
   PACKAGE_NAME="org.eclipse.team.svn_${VERSION}"
   FILE_NAME="${PACKAGE_NAME}.zip"
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -517,15 +521,35 @@ download_subversive_plugin () {
 }
 
 
-# Subversive SVN Connector
-download_svn_connector_plugin () {
-  URL='https://osspit.org/eclipse/subversive-connectors/'
-  VERSION=6.0.4.I20161211-1700
-  PACKAGE_NAME=org.polarion.eclipse.team.svn.connector_${VERSION}
+# Subversive SVNKit
+# https://svnkit.com/download.php # SVNKit Only
+download_svnkit_plugin () {
+  URL='http://eclipse.svnkit.com/1.10.x'
+  VERSION=1.10.6.r10830
+  PACKAGE_NAME=org.tmatesoft.svnkit_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
     "${URL}"
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    dropins/${PACKAGE_NAME}/eclipse
+}
+
+
+# Subversive SVN Connector
+# https://osspit.org/eclipse/subversive-connectors/ # svnkit < 1.10.6 + SVNKit
+# https://arsysop.github.io/svn/ # SVN Connector only
+download_svn_connector_plugin () {
+  #URL='https://osspit.org/eclipse/subversive-connectors/'
+  #VERSION=6.0.4.I20161211-1700
+  #PACKAGE_NAME=org.polarion.eclipse.team.svn.connector_${VERSION}
+  URL='https://arsysop.github.io/svn/release/'
+  VERSION=1.0.0.v20250112-1200
+  PACKAGE_NAME=ru.arsysop.svn.connector.svnkit1_10_${VERSION}
+  FILE_NAME=${PACKAGE_NAME}.zip
+  __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
+    "${URL}"
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m 'ru.arsysop.svn.connector* org.antlr.runtime* org.tmatesoft.*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -564,12 +588,16 @@ download_visualvm_plugin () {
 }
 
 
-# WindowBuilder Pro
+# WindowBuilder
 download_windowsbuilder_plugin () {
-  URL="${ECLIPSE_URL_BASE}/windowbuilder/1.11.0/repository.zip"
-  PACKAGE_NAME=WindowBuilder_Pro-1.11.0
+  URL='https://download.eclipse.org/windowbuilder/updates/release/1.18.0/'
+  VERSION=1.18.0
+  PACKAGE_NAME=WindowBuilder-${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
-  __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
+  __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
+    "${URL}"
+  __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -x '*.doc_* *.source_*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
@@ -607,8 +635,8 @@ download_markdown_editor_plugin
 download_nodeclipse_plugin
 ## jp.gr.java_conf.ussiy.app.propedit_x.x.x
 #download_properties_editor_plugin
-# org.kareha.proped_1.0.7
-download_kantan_properties_editor_plugin
+## org.kareha.proped_1.0.7
+#download_kantan_properties_editor_plugin
 # org.python.pydev_x.x.x
 download_pydev_plugin
 # com.github.spotbugs.plugin.eclipse_x.x.x
@@ -619,6 +647,8 @@ download_statet_plugin
 download_stepcounter_plugin
 # org.eclipse.team.svn_x.x.x.vYYYYMMDD-HHMM
 download_subversive_plugin
+# org.tmatesoft.svnkit_*.*.*
+download_svnkit_plugin
 # org.polarion.eclipse.team.svn.connector.svnkitx_x_x.x.x
 download_svn_connector_plugin
 ## mylyn-x.x.x.vYYYYMMDD-HHMM
@@ -634,52 +664,3 @@ download_windowsbuilder_plugin
 # file/directory permission
 chmod -R a+r dropins
 chmod a+x `find dropins -type d`
-
-################################################################################
-# Amateras UML / Amateras Modeler
-# Amateras UML dose'nt work recent Eclipse and not updated recently.
-################################################################################
-## Eclipse GMF Runtime
-#URL='https://download.eclipse.org/modeling/gmp/gmf-runtime/updates/releases/R202204130739'
-#PACKAGE_NAME=org.eclipse.gmf.runtime_1.7.0.202204130739
-#FILE_NAME=${PACKAGE_NAME}.zip
-## download archived site
-#__archive_updatesite -o dropins-archive/${FILE_NAME} \
-#  "${URL}"
-## deploy plugin files
-#__unzipfile -f "dropins-archive/${FILE_NAME}" \
-#  -x '*.examples_* *.source_* *.tests_*' \
-#  dropins/${PACKAGE_NAME}/eclipse
-
-## Amateras UML
-#URL='https://osdn.net/projects/amateras/downloads/56447/AmaterasUML_1.3.4.zip'
-#PACKAGE_NAME=`basename "${URL}" .zip`
-#FILE_NAME=`basename "${URL}"`
-#__unzipfile -f dropins-archive/${FILE_NAME} \
-#  -u "${URL}" \
-#  dropins/${PACKAGE_NAME}/eclipse/plugins
-#mv dropins/${PACKAGE_NAME}/eclipse/plugins/${PACKAGE_NAME}/*.jar dropins/${PACKAGE_NAME}/eclipse/plugins
-#rm -rf "dropins/${PACKAGE_NAME}/eclipse/plugins/${PACKAGE_NAME}"
-
-## Eclipse GEF
-## GEF is required for installing Aamaters UML included Amateras Modeler.
-#URL="${ECLIPSE_URL_BASE}/tools/gef/downloads/drops//5.3.8/R202206070201/GEF-Update-5.3.8.zip"
-#PACKAGE_NAME=`basename "${URL}" .zip`
-#FILE_NAME=`basename "${URL}"`
-#__unzipfile -f "dropins-archive/${FILE_NAME}" \
-#  -x '*.doc_* *.source_* *.gz' \
-#  -u "${URL}" \
-#  dropins/${PACKAGE_NAME}/eclipse
-
-## Amateras Modeler
-## homepage: https://github.com/takezoe/amateras-modeler
-#URL='https://takezoe.github.io/amateras-update-site/'
-#PACKAGE_NAME=AmaterasModelar-2.1.0
-#FILE_NAME=${PACKAGE_NAME}.zip
-## download archived site
-#__archive_updatesite -o dropins-archive/${FILE_NAME} \
-#  "${URL}"
-## deploy plugin files
-#__unzipfile -f "dropins-archive/${FILE_NAME}" \
-#  -x '*.sdk_* *.source_* *.gz' \
-#  dropins/${PACKAGE_NAME}/eclipse
