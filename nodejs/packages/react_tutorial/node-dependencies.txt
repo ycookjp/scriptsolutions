@@ -3554,7 +3554,7 @@
 │  ├─ repository: https://github.com/facebook/react
 │  ├─ path: node_modules/eslint-plugin-react-hooks
 │  └─ licenseFile: node_modules/eslint-plugin-react-hooks/LICENSE
-├─ eslint-plugin-react@7.37.3
+├─ eslint-plugin-react@7.37.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsx-eslint/eslint-plugin-react
 │  ├─ publisher: Yannick Croissant
