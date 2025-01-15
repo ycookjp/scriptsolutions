@@ -606,7 +606,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-new-target
 │  └─ licenseFile: node_modules/@babel/plugin-transform-new-target/LICENSE
-├─ @babel/plugin-transform-nullish-coalescing-operator@7.26.5
+├─ @babel/plugin-transform-nullish-coalescing-operator@7.26.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -1484,7 +1484,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/express/node_modules/@types/express-serve-static-core
 │  └─ licenseFile: node_modules/@types/express/node_modules/@types/express-serve-static-core/LICENSE
-├─ @types/express-serve-static-core@5.0.4
+├─ @types/express-serve-static-core@5.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/express-serve-static-core
@@ -1556,7 +1556,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@22.10.5
+├─ @types/node@22.10.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -1581,7 +1581,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/q
 │  └─ licenseFile: node_modules/@types/q/LICENSE
-├─ @types/qs@6.9.17
+├─ @types/qs@6.9.18
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/qs
@@ -3300,7 +3300,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.5.80
+├─ electron-to-chromium@1.5.82
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3426,7 +3426,7 @@
 │  ├─ publisher: Guy Bedford
 │  ├─ path: node_modules/es-module-lexer
 │  └─ licenseFile: node_modules/es-module-lexer/LICENSE
-├─ es-object-atoms@1.0.0
+├─ es-object-atoms@1.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/es-object-atoms
 │  ├─ publisher: Jordan Harband
@@ -6591,7 +6591,7 @@
 │  ├─ email: andrey@sitnik.ru
 │  ├─ path: node_modules/resolve-url-loader/node_modules/postcss
 │  └─ licenseFile: node_modules/resolve-url-loader/node_modules/postcss/LICENSE
-├─ postcss@8.4.49
+├─ postcss@8.5.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/postcss/postcss
 │  ├─ publisher: Andrey Sitnik

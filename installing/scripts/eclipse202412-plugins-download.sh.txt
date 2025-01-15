@@ -13,6 +13,29 @@
 #   directory.
 # 4. Execute PortableGit/git-bash.exe to run Git Bash and run this script.
 ################################################################################
+################################################################################
+# This script downloads following Eclipse plugins.
+#
+#   [x] Amateras Modeler
+#   [x] Asciidoctor Editor - AsciiDoc & PlantUML plugin
+#   [x] Babel Language Packs
+#   [x] Checkstyle Plug-in
+#   [x] Eclipse CDT - Eclipse C/C++ Development Tooling
+#   [x] Eclipse Color Theme
+#   [x] Eclipse PHP Development Tools
+#   [x] Enhanced Class Decompiler
+#   [x] JGit LFS
+#   [x] Markdown Text Editor
+#   [x] Nodeclipse
+#   [x] Profiler Plugin (VisualVM Eclipse Launcher Plugin)
+#   [x] PyDev for Eclipse
+#   [x] SpotBugs Eclipse plugin
+#   [x] StepCounter
+#   [x] Subversive SVN Team Provider
+#   [x] Subversive SVNKit
+#   [x] Subversive SVN Connector
+#   [x] WindowBuilder (fc41)
+################################################################################
 
 # Eclipse command to download update site archiv
 ECLIPSE_COMMAND=/opt/eclipse/eclipse
@@ -347,6 +370,7 @@ download_dltk_plugin () {
     "${URL}"
   # deploy plugin files
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m 'org.eclipse.dltk.*' \
     -x '*.sdk_* *.source_* *.tests_*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
@@ -597,6 +621,7 @@ download_windowsbuilder_plugin () {
   __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
     "${URL}"
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
+    -m 'org.eclipse.wb.* com.evolvedbinary.thirdparty.* com.jgoodies.* com.miglayout.* com.sun.xml.bind.jaxb-osgi_* io.github.toolfactory.* javax.xml_* net.bytebuddy.byte-buddy_* org.apache.commons.logging_* org.burningwave.* org.mvel2_*' \
     -x '*.doc_* *.source_*' \
     dropins/${PACKAGE_NAME}/eclipse
 }
@@ -621,12 +646,12 @@ download_eclipse_color_theme_plugin
 download_pdt_plugin
 # dltk-core-R-x.x-YYYYMMDDHHMM
 download_dltk_plugin
-# emonic_x.x.x
-download_emonic_plugin
+## emonic_x.x.x
+#download_emonic_plugin
 # enhanced-class-decompiler-x.x.x.YYYYMMDDHHMM
 download_enanced_class_decompiler_plugin
-# org.insightech.er - ER Master
-download_ermaster_plugin
+## org.insightech.er - ER Master
+#download_ermaster_plugin
 # org.eclipse.jgit.repository-x.x.x.YYYYMMDDHHMM-r
 download_jgit_plugin
 # markdown.editor_x.x.x
@@ -641,8 +666,8 @@ download_nodeclipse_plugin
 download_pydev_plugin
 # com.github.spotbugs.plugin.eclipse_x.x.x
 download_spotbugs_plugin
-# statet-repository-EYYYYMM-incubation-x.x.x-YYYYMMDDHHMM-r
-download_statet_plugin
+## statet-repository-EYYYYMM-incubation-x.x.x-YYYYMMDDHHMM-r
+#download_statet_plugin
 # jp.sf.amateras.stepcounter_x.x.x.YYYYMMDDHHMM
 download_stepcounter_plugin
 # org.eclipse.team.svn_x.x.x.vYYYYMMDD-HHMM
