@@ -286,14 +286,14 @@ download_amaterasmodeler_plugin() {
 # https://github.com/de-jcup/eclipse-asciidoctor-editor
 download_asciidoctoreditor_plugin () {
   URL='https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/'
-  PACKAGE_NAME=de.jcup.asciidoctoreditor_3.1.1
+  VERSION=3.1.2
+  PACKAGE_NAME=de.jcup.asciidoctoreditor_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   # download archived site
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
   # deploy plugin files
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
-    -m "${PACKAGE_NAME}.* de.jcup.asciidoctor.converter_*.* de.jcup.asciidoctoreditor.css_*.* de.jcup.asciidoctoreditor.libs_*.*" \
     dropins/${PACKAGE_NAME}/eclipse
 }
 
