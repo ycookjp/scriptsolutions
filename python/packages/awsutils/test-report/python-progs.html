@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Unittest Results</h2>
-                <p class='attribute'><strong>Start Time: </strong>2025-01-17 01:59:07</p>
-                <p class='attribute'><strong>Duration: </strong>24.15 s</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 33, Pass: 33</p>
+                <p class='attribute'><strong>Start Time: </strong>2025-06-24 03:28:59</p>
+                <p class='attribute'><strong>Duration: </strong>30.78 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 33, Pass: 25, Fail: 8</p>
             </div>
         </div>
         <div class="row">
@@ -35,33 +35,81 @@
                             <td class="col-xs-1">
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr class='danger'>
                             <td class="col-xs-10">test_error_start_stop_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsEc2InstanceOperatorTest.py", line 219, in test_error_start_stop_resources
+    self.assertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 873, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
                             <td class="col-xs-10">test_start_stop</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsEc2InstanceOperatorTest.py", line 86, in test_start_stop
+    self.assertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 873, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
                             <td class="col-xs-10">test_start_stop_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsEc2InstanceOperatorTest.py", line 133, in test_start_stop_resources
+    self.assertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 873, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 3.86 s
+                                Total: 4, Pass: 1, Fail: 3 -- Duration: 7.16 s
                             </td>
                         </tr>
                     </tbody>
@@ -113,7 +161,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 2.38 s
+                                Total: 4, Pass: 4 -- Duration: 2.03 s
                             </td>
                         </tr>
                     </tbody>
@@ -165,7 +213,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 4, Pass: 4 -- Duration: 3.05 s
+                                Total: 4, Pass: 4 -- Duration: 3.58 s
                             </td>
                         </tr>
                     </tbody>
@@ -201,7 +249,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 2, Pass: 2 -- Duration: 6.41 s
+                                Total: 2, Pass: 2 -- Duration: 6.53 s
                             </td>
                         </tr>
                     </tbody>
@@ -219,36 +267,92 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class='success'>
+                        <tr class='danger'>
                             <td class="col-xs-10">test01_ng_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 426, in test01_ng_event_start_stop_aws_resources
+    self._baseAssertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
                             <td class="col-xs-10">test01_ok_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 334, in test01_ok_event_start_stop_aws_resources
+    self._baseAssertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
                             <td class="col-xs-10">test02_ng_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 627, in test02_ng_event_start_stop_aws_resources
+    self._baseAssertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
                             <td class="col-xs-10">test02_ok_event_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 523, in test02_ok_event_start_stop_aws_resources
+    self._baseAssertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
                             </td>
                         </tr>
                         <tr class='success'>
@@ -259,12 +363,26 @@
                             <td class="col-xs-1">
                             </td>
                         </tr>
-                        <tr class='success'>
+                        <tr class='danger'>
                             <td class="col-xs-10">test_event_list_start_stop_aws_resources</td>
                             <td class="col-xs-1">
-                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
                             </td>
                             <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: None != 'stopped'</p><p style="color:maroon;">Traceback (most recent call last):
+  File "src/test/site-packages/moto/core/models.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "src/test/tests/AwsResourceStartStopTest.py", line 747, in test_event_list_start_stop_aws_resources
+    self._baseAssertEqual(status, 'stopped')
+  File "/opt/python3/lib/python3.11/unittest/case.py", line 866, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: None != 'stopped'
+</p>
                             </td>
                         </tr>
                         <tr class='success'>
@@ -309,7 +427,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 11, Pass: 11 -- Duration: 6.79 s
+                                Total: 11, Pass: 6, Fail: 5 -- Duration: 8.87 s
                             </td>
                         </tr>
                     </tbody>
@@ -393,7 +511,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 8, Pass: 8 -- Duration: 1.66 s
+                                Total: 8, Pass: 8 -- Duration: 2.60 s
                             </td>
                         </tr>
                     </tbody>
