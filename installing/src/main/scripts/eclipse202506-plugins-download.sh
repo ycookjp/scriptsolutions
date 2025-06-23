@@ -22,6 +22,8 @@
 #   [x] Checkstyle Plug-in
 #   [x] Eclipse CDT - Eclipse C/C++ Development Tooling
 #   [x] Eclipse Color Theme
+#   [x] Eclipse DLTK
+#   [x] Eclipse UI Theme (MoonRize)
 #   [x] Eclipse PHP Development Tools
 #   [x] Enhanced Class Decompiler
 #   [x] JGit LFS
@@ -300,7 +302,7 @@ download_asciidoctoreditor_plugin () {
 
 # Checkstyle
 download_checkstyle_plugin () {
-  VERSION=10.21.1.202501092007
+  VERSION=10.23.0.202506030314
   URL="https://checkstyle.org/eclipse-cs-update-site/releases/${VERSION}"
   PACKAGE_NAME=net.sf.eclipsecs.checkstyle_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
@@ -315,7 +317,7 @@ download_checkstyle_plugin () {
 
 # Eclipse CDT
 download_cdt_plugin () {
-  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/11.6/cdt-11.6.1/cdt-11.6.1.zip"
+  URL="${ECLIPSE_URL_BASE}/tools/cdt/releases/12.1/cdt-12.1.0/cdt-12.1.0.zip"
   PACKAGE_NAME=`basename "${URL}" .zip`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
@@ -336,7 +338,7 @@ download_eclipse_color_theme_plugin () {
   __unzipfile -f "dropins-archive/${FILE_NAME}" \
     dropins/${PACKAGE_NAME}/eclipse
   # download MoonRise UI Theme
-  URL=https://github.com/guari/eclipse-ui-theme/blob/master/com.github.eclipseuitheme.themes.plugin/bin/com.github.eclipseuitheme.moonrise_0.8.9.jar?raw=true
+  URL=https://github.com/guari/eclipse-ui-theme/raw/refs/heads/master/com.github.eclipseuitheme.themes.plugin/bin/com.github.eclipseuitheme.moonrise_0.8.9.jar
   FILE_NAME=`basename "${URL}" | sed 's/?raw=true//g'`
   curl ${__CURL_OPTS__} -v -L --create-dirs -o dropins-archive/${FILE_NAME} "${URL}"
   if [ x != x${DL_INTERVAL} ]; then
@@ -415,7 +417,7 @@ download_ermaster_plugin() {
 
 # JGit LFS
 download_jgit_plugin () {
-  URL="${ECLIPSE_URL_BASE}/egit/updates-7.1/org.eclipse.egit.repository-7.1.0.202411261347-r.zip"
+  URL="${ECLIPSE_URL_BASE}/egit/updates-7.3/org.eclipse.egit.repository-7.3.0.202506031305-r.zip"
   PACKAGE_NAME=`basename "${URL}" .zip | sed 's/\.egit\./.jgit./g'`
   FILE_NAME=`basename "${URL}"`
   __unzipfile -f "dropins-archive/${FILE_NAME}" -u "${URL}" \
@@ -480,7 +482,8 @@ download_nodeclipse_plugin () {
 
 # PyDev
 download_pydev_plugin () {
-  URL='https://www.pydev.org/update_sites/12.2.0'
+  URL='https://www.pydev.org/update_sites/13.0.2'
+  #https://www.pydev.org/update_sites/13.0.2
   PACKAGE_NAME=org.python.pydev_`basename "${URL}"`
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
@@ -494,7 +497,7 @@ download_pydev_plugin () {
 # SpotBugs
 download_spotbugs_plugin () {
   URL='https://spotbugs.github.io/eclipse/'
-  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.8.6.r202406180231-6cf7b2c
+  PACKAGE_NAME=com.github.spotbugs.plugin.eclipse_4.9.3.r202503151914-1f6a719
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o dropins-archive/${FILE_NAME} \
     "${URL}"
@@ -532,7 +535,7 @@ download_stepcounter_plugin () {
 # Subversive
 # https://projects.eclipse.org/projects/technology.subversive
 download_subversive_plugin () {
-  URL='https://download.eclipse.org/technology/subversive/updates/release/5.0.0/'
+  URL='https://download.eclipse.org/technology/subversive/updates/release/5.1.0/'
   VERSION=5.0.0.v20250112-1244
   PACKAGE_NAME="org.eclipse.team.svn_${VERSION}"
   FILE_NAME="${PACKAGE_NAME}.zip"
@@ -549,7 +552,7 @@ download_subversive_plugin () {
 # https://svnkit.com/download.php # SVNKit Only
 download_svnkit_plugin () {
   URL='http://eclipse.svnkit.com/1.10.x'
-  VERSION=1.10.6.r10830
+  VERSION=1.10.12
   PACKAGE_NAME=org.tmatesoft.svnkit_${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
   __archive_updatesite -o "dropins-archive/${FILE_NAME}" \
@@ -560,12 +563,8 @@ download_svnkit_plugin () {
 
 
 # Subversive SVN Connector
-# https://osspit.org/eclipse/subversive-connectors/ # svnkit < 1.10.6 + SVNKit
 # https://arsysop.github.io/svn/ # SVN Connector only
 download_svn_connector_plugin () {
-  #URL='https://osspit.org/eclipse/subversive-connectors/'
-  #VERSION=6.0.4.I20161211-1700
-  #PACKAGE_NAME=org.polarion.eclipse.team.svn.connector_${VERSION}
   URL='https://arsysop.github.io/svn/release/'
   VERSION=1.0.0.v20250112-1200
   PACKAGE_NAME=ru.arsysop.svn.connector.svnkit1_10_${VERSION}
@@ -614,7 +613,7 @@ download_visualvm_plugin () {
 
 # WindowBuilder
 download_windowsbuilder_plugin () {
-  URL='https://download.eclipse.org/windowbuilder/updates/release/1.18.0/'
+  URL='https://download.eclipse.org/windowbuilder/updates/release/1.20.0'
   VERSION=1.18.0
   PACKAGE_NAME=WindowBuilder-${VERSION}
   FILE_NAME=${PACKAGE_NAME}.zip
