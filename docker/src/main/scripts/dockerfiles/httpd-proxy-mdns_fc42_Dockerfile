@@ -15,7 +15,7 @@
 #   * Allow firewall to tcp <port>.
 #   * If run this container as service, do following
 #     i) Execute "docker create --name=<container-name> --restart=always
-         --network=host httpd-proxy-mdns:<tag>"
+#        --network=host httpd-proxy-mdns:<tag>"
 #     ii) Create unit file as followig
 #       ----------------------------------------------------------------------
 #       [Unit]
@@ -32,7 +32,7 @@
 #       WantedBy=multi-user.target
 #       ----------------------------------------------------------------------
 ################################################################################
-FROM fedora39-container-base
+FROM localhost/fedora-container-base:fc42
 #FROM fedora
 ARG PROXY_ALLOW_FROM
 ARG PROXY_PORT=80

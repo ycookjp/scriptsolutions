@@ -13,7 +13,6 @@
   </parent>
   <name>docker</name>
   <properties>
-    <fedora.ver>39</fedora.ver>
   </properties>
   <build>
     <plugins>
@@ -56,13 +55,10 @@
               <outputDirectory>target/site/scripts</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/main/scripts/docker-images/fedora${fedora.ver}</directory>
-                </resource>
-                <resource>
-                  <directory>src/main/scripts/dockerfiles/fedora${fedora.ver}</directory>
-                </resource>
-                <resource>
-                  <directory>src/main/scripts/dockerfiles/centos7</directory>
+                  <directory>src/main/scripts/docker-images</directory>
+                  <includes>
+                    <include>*</include>
+                  </includes>
                 </resource>
                 <resource>
                   <directory>src/main/scripts/dockerfiles</directory>

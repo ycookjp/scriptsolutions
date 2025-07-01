@@ -19,11 +19,11 @@
 #
 # Remote Desktop login: developer (password: developer)
 ################################################################################
-FROM fedora39-container-base
+FROM localhost/fedora-container-base:fc42
 #FROM fedora
 ARG DESKTOP_ENV=xfce
 ARG GROUP_ID=1000
-ARG PROXY_URL
+ARG PROXY_URL=
 ENV LANG=ja_JP.UTF-8
 COPY import-files /var/tmp/import-files/
 RUN echo "################################################################################" \

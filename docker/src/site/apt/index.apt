@@ -7,68 +7,92 @@ docker project
 
 * Shell scripts for building image
 
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/dnf.conf}dnf.conf}}                                         | configuration file for dnf                           |
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/fedora39-container-base.sh.txt}fedora39-container-base.sh}} | creating container base for Fedora                   |
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/desktop_fc39.sh.txt}desktop_fc39.sh}}                       | creating desktop environment                         |
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/eclipse_fc39.sh.txt}eclipse_fc39.sh}}                       | creating Eclipse IDE with desktop environment        |
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/httpd-proxy_fc39.sh.txt}httpd-proxy_fc39.sh}}               | creating proxy service working on Apache HTTP Server |
-*--------------------------------------------------------------------------+------------------------------------------------------+
-| {{{./scripts/httpd-svn_fc39.sh.txt}httpd-svn_fc39.sh}}                   | creating SVN service working on Apache HTTP Server   |
-*--------------------------------------------------------------------------+------------------------------------------------------+
+*--------------------------------------------------------------------------------+------------------------------------------------------+
+| {{{./scripts/dnf.conf}dnf.conf}}                                               | configuration file for dnf                           |
+*--------------------------------------------------------------------------------+------------------------------------------------------+
+| {{{./scripts/fedora-container-base_fc42.sh.txt}fedora-container-base_fc42.sh}} | creating container base for Fedora                   |
+*--------------------------------------------------------------------------------+------------------------------------------------------+
+| {{{./scripts/desktop_fc42.sh.txt}desktop_fc42.sh}}                             | creating desktop environment                         |
+*--------------------------------------------------------------------------------+------------------------------------------------------+
+| {{{./scripts/httpd-proxy_fc42.sh.txt}hhttpd-proxy_fc42.sh}}                    | creating proxy service working on Apache HTTP Server |
+*--------------------------------------------------------------------------------+------------------------------------------------------+
+Shell scripts for buildin image
 
 * Dockerfiles
 
+** Fedora based images
+
 *--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/desktop_fc39_Dockerfile.txt}desktop_fc39_Dockerfile}}                   | creating desktop environment                              |
+| {{{./scripts/build-image_Dockerfile.txt}build-image_Dockerfile}}                     | creating image from local file(s)                         |
 *--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/eclipse_fc39_Dockerfile.txt}eclipse_fc39_Dockerfile}}                   | creating Eclipse IDE with desktop environment             |
+| {{{./scripts/desktop_fc42_Dockerfile.txt}desktop_fc42_Dockerfile}}                   | creating desktop environment                              |
 *--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-git_fc39_Dockerfile.txt}httpd-git_fc39_Dockerfile}}               | creating git repository service working on Apache httpd   |
-*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy_fc39_Dockerfile.txt}httpd-proxy_fc39_Dockerfile}}           | creating proxy service working on Apache httpd            |
-*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-proxy-mdns_fc39_Dockerfile.txt}httpd-proxy-mdns_fc39_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
-*--------------------------------------------------------------------------------------+-----------------------------------------------------------+
-| {{{./scripts/httpd-svn_fc39_Dockerfile.txt}httpd-svn_fc39_Dockerfile}}               | creating SVN repository service working on Apache httpd   |
+| {{{./scripts/httpd-proxy-mdns_fc42_Dockerfile.txt}httpd-proxy-mdns_fc42_Dockerfile}} | creating proxy service with mDNS working on Apache httpd  |
 *--------------------------------------------------------------------------------------+-----------------------------------------------------------+
 Fedora based images
 
-  [Note]
+*** Creating Fedora based docker image
 
-    Before building docker image, you must create and import "fedora-container-base" image by
-    executing {{{./scripts/fedora31-container-base.sh.txt}fedora31-container-base.sh}} .
+  [[1]] Creating Fedora container file.
 
-    Or download Dockerfile from {{{https://hub.docker.com/_/fedora}Fedora Official Image}}
-    page and build image.
+    [[i]] Copy dnf.conf and fedora-container-base_fc<ver>.sh to working
+      directory.
 
-+-------------------------------------------------------------------------------
-# wget https://github.com/fedora-cloud/docker-brew-fedora/raw/078f33bbbab02b9f1be80b1b48605c376e82fb18/x86_64/Dockerfile
-# wget https://github.com/fedora-cloud/docker-brew-fedora/raw/078f33bbbab02b9f1be80b1b48605c376e82fb18/x86_64/fedora-30-updates-candidate-x86_64-20190609.tar.xz
-# docker build -t fedora39-container-base .
-+-------------------------------------------------------------------------------
+    [[ii]] Run fedora-container-base_fc<ver>.sh as super user to create Fedora
+      container image.
+
++------------------------------------------------------------------------------+
+$ sudo ./fedora-container-base_fc<ver>.sh
++------------------------------------------------------------------------------+
+
+    [[iii]] Change directory placed Fedora container image and save container
+      image to container image file.
+
++------------------------------------------------------------------------------+
+$ cd docker-images/fedora-container-base_fc<ver>
+$ sudo tar cvfz <working-dir>/fedora-container-base_fc<ver>-container.tar.gz *
++------------------------------------------------------------------------------+
+
+  [[2]] Creating Fedora docker image file.
+
+    [[i]] Import Fedora docker image from Fedora container image file.
+
++------------------------------------------------------------------------------+
+$ cd <working-dir>
+$ docker import fedora-container-base_fc<ver>-container.tar.gz \
+  fedora-container-base:fc<ver>
++------------------------------------------------------------------------------+
+
+    [[ii]] Save Fedora docker image to docker image file.
+
++------------------------------------------------------------------------------+
+$ docker save --output=fedora-container-base_fc<ver>-image.tar \
+  fedora-container-base:fc<ver>
++------------------------------------------------------------------------------+
+
+  [[3]] Loading Fedora docker image from docker image file if not exits.
+
++------------------------------------------------------------------------------+
+$ docker load --input=fedora-container-base_fc<ver>-image.tar
++------------------------------------------------------------------------------+
+
+  [[4]] Building Fedora based docker image.
+
++------------------------------------------------------------------------------+
+$ docker build -t <image-name>:<tag> [--build-arg <env-name>=<value> ...] \
+  -f <docker-file> <context-dir>
++------------------------------------------------------------------------------+
+
+    [Note]
+
+      You must spefify "FROM localhost/fedora-container-base:fc<ver>" to
+      <docker-file>.
+
+    []
 
   []
 
-*----------------------------------------------------------------------------+---------------------------------------------------------+
-| {{{./scripts/centos7-httpd-git_Dockerfile.txt}centos7-httpd-git_Dockerfile}}   | creating Git repository service working on Apache httpd |
-*----------------------------------------------------------------------------+---------------------------------------------------------+
-CentOS-7 baseed images
-
-  [Note]
-
-    To building image at closed network, download Dockerfile and official docker image for CentOS 7
-    from {{{https://hub.docker.com/_/centos/}Docker registry}} page, and build image as following.
-
-+-------------------------------------------------------------------------------
-# docker build -t centos:7 .
-+-------------------------------------------------------------------------------
-
-  []
+** Other docker files
 
 *----------------------------------------------------------------+-------------------------------+
 | {{{./scripts/build-image_Dockerfile.txt}build-image_Dockerfile}}   | Add image(s) to scratch image |

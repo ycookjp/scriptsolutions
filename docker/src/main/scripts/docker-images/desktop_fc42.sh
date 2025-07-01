@@ -2,11 +2,11 @@
 
 ################################################################################
 # Name    : fedora-<desktop_env>
-# Usage   : DESKTOP_ENV={xfce|mate} [GROUP_ID=<gid>] desktop_fc39.sh
+# Usage   : DESKTOP_ENV={xfce|mate} [GROUP_ID=<gid>] desktop_fc42.sh
 #           * GROUP_ID: 'developers' group id
-# Depends : fedora39-container-base.sh, dnf.conf
+# Depends : fedora-container-base_fc42.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 39 and login as root.
+#   1. Start Fedora 42 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Place following files imported to image.
@@ -43,7 +43,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`-${DESKTOP_ENV}
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=39
+  export RELEASE_VER=42
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -83,7 +83,7 @@ if [ "" != "`echo ${BASE_PACKAGES} ${DESKTOP_PACKAGES} ${BUILD_PACKAGES} | grep 
 fi
 
 ## Installing Fedora Minimal Install
-`dirname $0`/fedora${RELEASE_VER}-container-base.sh
+`dirname $0`/fedora-container-base_fc${RELEASE_VER}.sh
 
 # Windows 10 Theme
 WIN10THEME_URL=https://github.com/B00merang-Project/Windows-10/releases/download/v0.9.9-AU/Windows.10.Dark.v0.9.9.SP1.tar.gz

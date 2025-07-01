@@ -10,8 +10,8 @@
       <directory>${basedir}/src/main/scripts</directory>
       <outputDirectory>scripts</outputDirectory>
       <includes>
-        <include>*/fedora38/**</include>
-        <include>*/centos7/**</include>
+        <include>docker-images/*.sh</include>
+        <include>docker-images/*.conf</include>
         <include>dockerfiles/*_Dockerfile</include>
       </includes>
       <lineEnding>unix</lineEnding>
