@@ -35,14 +35,14 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/code-frame
 │  └─ licenseFile: node_modules/@babel/code-frame/LICENSE
-├─ @babel/compat-data@7.27.5
+├─ @babel/compat-data@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/compat-data
 │  └─ licenseFile: node_modules/@babel/compat-data/LICENSE
-├─ @babel/core@7.27.4
+├─ @babel/core@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -91,7 +91,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helper-create-regexp-features-plugin
 │  └─ licenseFile: node_modules/@babel/helper-create-regexp-features-plugin/LICENSE
-├─ @babel/helper-define-polyfill-provider@0.6.4
+├─ @babel/helper-define-polyfill-provider@0.6.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/@babel/helper-define-polyfill-provider
@@ -187,7 +187,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/helpers
 │  └─ licenseFile: node_modules/@babel/helpers/LICENSE
-├─ @babel/parser@7.27.5
+├─ @babel/parser@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -459,7 +459,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-class-static-block
 │  └─ licenseFile: node_modules/@babel/plugin-transform-class-static-block/LICENSE
-├─ @babel/plugin-transform-classes@7.27.1
+├─ @babel/plugin-transform-classes@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -473,7 +473,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-computed-properties
 │  └─ licenseFile: node_modules/@babel/plugin-transform-computed-properties/LICENSE
-├─ @babel/plugin-transform-destructuring@7.27.3
+├─ @babel/plugin-transform-destructuring@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -627,7 +627,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-numeric-separator
 │  └─ licenseFile: node_modules/@babel/plugin-transform-numeric-separator/LICENSE
-├─ @babel/plugin-transform-object-rest-spread@7.27.3
+├─ @babel/plugin-transform-object-rest-spread@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -655,7 +655,7 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/plugin-transform-optional-chaining
 │  └─ licenseFile: node_modules/@babel/plugin-transform-optional-chaining/LICENSE
-├─ @babel/plugin-transform-parameters@7.27.1
+├─ @babel/plugin-transform-parameters@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -856,14 +856,14 @@
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/template
 │  └─ licenseFile: node_modules/@babel/template/LICENSE
-├─ @babel/traverse@7.27.4
+├─ @babel/traverse@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  ├─ path: node_modules/@babel/traverse
 │  └─ licenseFile: node_modules/@babel/traverse/LICENSE
-├─ @babel/types@7.27.6
+├─ @babel/types@7.27.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -1060,7 +1060,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/environment
 │  └─ licenseFile: node_modules/@jest/environment/LICENSE
-├─ @jest/expect-utils@30.0.2
+├─ @jest/expect-utils@30.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/@jest/expect-utils
@@ -1140,9 +1140,9 @@
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/@jest/types
 │  └─ licenseFile: node_modules/@jest/types/LICENSE
-├─ @jridgewell/gen-mapping@0.3.8
+├─ @jridgewell/gen-mapping@0.3.11
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jridgewell/gen-mapping
+│  ├─ repository: https://github.com/jridgewell/sourcemaps
 │  ├─ publisher: Justin Ridgewell
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/gen-mapping
@@ -1154,29 +1154,23 @@
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/resolve-uri
 │  └─ licenseFile: node_modules/@jridgewell/resolve-uri/LICENSE
-├─ @jridgewell/set-array@1.2.1
+├─ @jridgewell/source-map@0.3.9
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jridgewell/set-array
-│  ├─ publisher: Justin Ridgewell
-│  ├─ email: justin@ridgewell.name
-│  ├─ path: node_modules/@jridgewell/set-array
-│  └─ licenseFile: node_modules/@jridgewell/set-array/LICENSE
-├─ @jridgewell/source-map@0.3.6
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jridgewell/source-map
+│  ├─ repository: https://github.com/jridgewell/sourcemaps
 │  ├─ publisher: Justin Ridgewell
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/source-map
 │  └─ licenseFile: node_modules/@jridgewell/source-map/LICENSE
-├─ @jridgewell/sourcemap-codec@1.5.0
+├─ @jridgewell/sourcemap-codec@1.5.3
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jridgewell/sourcemap-codec
-│  ├─ publisher: Rich Harris
+│  ├─ repository: https://github.com/jridgewell/sourcemaps
+│  ├─ publisher: Justin Ridgewell
+│  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/sourcemap-codec
 │  └─ licenseFile: node_modules/@jridgewell/sourcemap-codec/LICENSE
-├─ @jridgewell/trace-mapping@0.3.25
+├─ @jridgewell/trace-mapping@0.3.28
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jridgewell/trace-mapping
+│  ├─ repository: https://github.com/jridgewell/sourcemaps
 │  ├─ publisher: Justin Ridgewell
 │  ├─ email: justin@ridgewell.name
 │  ├─ path: node_modules/@jridgewell/trace-mapping
@@ -1211,7 +1205,7 @@
 │  ├─ repository: https://github.com/pkgjs/parseargs
 │  ├─ path: node_modules/@pkgjs/parseargs
 │  └─ licenseFile: node_modules/@pkgjs/parseargs/LICENSE
-├─ @pmmmwh/react-refresh-webpack-plugin@0.5.16
+├─ @pmmmwh/react-refresh-webpack-plugin@0.5.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pmmmwh/react-refresh-webpack-plugin
 │  ├─ publisher: Michael Mok
@@ -1249,7 +1243,7 @@
 │  ├─ repository: https://github.com/rtsao/scc
 │  ├─ path: node_modules/@rtsao/scc
 │  └─ licenseFile: node_modules/@rtsao/scc/LICENSE
-├─ @rushstack/eslint-patch@1.11.0
+├─ @rushstack/eslint-patch@1.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/microsoft/rushstack
 │  ├─ path: node_modules/@rushstack/eslint-patch
@@ -1260,7 +1254,7 @@
 │  ├─ publisher: sinclairzx81
 │  ├─ path: node_modules/jest-watch-typeahead/node_modules/@sinclair/typebox
 │  └─ licenseFile: node_modules/jest-watch-typeahead/node_modules/@sinclair/typebox/license
-├─ @sinclair/typebox@0.34.36
+├─ @sinclair/typebox@0.34.37
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sinclairzx81/typebox
 │  ├─ publisher: sinclairzx81
@@ -1578,7 +1572,7 @@
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node-forge
 │  └─ licenseFile: node_modules/@types/node-forge/LICENSE
-├─ @types/node@24.0.3
+├─ @types/node@24.0.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  ├─ path: node_modules/@types/node
@@ -2239,7 +2233,7 @@
 │  ├─ repository: https://github.com/facebook/create-react-app
 │  ├─ path: node_modules/babel-plugin-named-asset-import
 │  └─ licenseFile: node_modules/babel-plugin-named-asset-import/LICENSE
-├─ babel-plugin-polyfill-corejs2@0.4.13
+├─ babel-plugin-polyfill-corejs2@0.4.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/babel-plugin-polyfill-corejs2
@@ -2249,7 +2243,7 @@
 │  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/babel-plugin-polyfill-corejs3
 │  └─ licenseFile: node_modules/babel-plugin-polyfill-corejs3/LICENSE
-├─ babel-plugin-polyfill-regenerator@0.6.4
+├─ babel-plugin-polyfill-regenerator@0.6.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-polyfills
 │  ├─ path: node_modules/babel-plugin-polyfill-regenerator
@@ -2371,7 +2365,7 @@
 │  ├─ publisher: kumavis
 │  ├─ path: node_modules/browser-process-hrtime
 │  └─ licenseFile: node_modules/browser-process-hrtime/LICENSE
-├─ browserslist@4.25.0
+├─ browserslist@4.25.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/browserslist/browserslist
 │  ├─ publisher: Andrey Sitnik
@@ -2473,7 +2467,7 @@
 │  ├─ repository: https://github.com/nyalab/caniuse-api
 │  ├─ path: node_modules/caniuse-api
 │  └─ licenseFile: node_modules/caniuse-api/LICENSE
-├─ caniuse-lite@1.0.30001724
+├─ caniuse-lite@1.0.30001726
 │  ├─ licenses: CC-BY-4.0
 │  ├─ repository: https://github.com/browserslist/caniuse-lite
 │  ├─ publisher: Ben Briggs
@@ -2904,7 +2898,7 @@
 │  ├─ url: http://feedic.com
 │  ├─ path: node_modules/svgo/node_modules/css-what
 │  └─ licenseFile: node_modules/svgo/node_modules/css-what/LICENSE
-├─ css-what@6.1.0
+├─ css-what@6.2.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/fb55/css-what
 │  ├─ publisher: Felix Böhm
@@ -3332,7 +3326,7 @@
 │  ├─ url: http://fleegix.org
 │  ├─ path: node_modules/ejs
 │  └─ licenseFile: node_modules/ejs/LICENSE
-├─ electron-to-chromium@1.5.172
+├─ electron-to-chromium@1.5.178
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/kilian/electron-to-chromium
 │  ├─ publisher: Kilian Valkhof
@@ -3386,7 +3380,7 @@
 │  ├─ repository: https://github.com/pillarjs/encodeurl
 │  ├─ path: node_modules/encodeurl
 │  └─ licenseFile: node_modules/encodeurl/LICENSE
-├─ enhanced-resolve@5.18.1
+├─ enhanced-resolve@5.18.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/webpack/enhanced-resolve
 │  ├─ publisher: Tobias Koppers @sokra
@@ -3732,7 +3726,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/expect
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/expect/LICENSE
-├─ expect@30.0.2
+├─ expect@30.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/expect
@@ -4900,7 +4894,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/jest-diff
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/jest-diff/LICENSE
-├─ jest-diff@30.0.2
+├─ jest-diff@30.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/jest-diff
@@ -4952,7 +4946,7 @@
 │  ├─ repository: https://github.com/facebook/jest
 │  ├─ path: node_modules/@jest/globals/node_modules/jest-matcher-utils
 │  └─ licenseFile: node_modules/@jest/globals/node_modules/jest-matcher-utils/LICENSE
-├─ jest-matcher-utils@30.0.2
+├─ jest-matcher-utils@30.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jestjs/jest
 │  ├─ path: node_modules/jest-matcher-utils
@@ -8544,7 +8538,7 @@
 │  ├─ url: http://2x.io
 │  ├─ path: node_modules/ws
 │  └─ licenseFile: node_modules/ws/LICENSE
-├─ ws@8.18.2
+├─ ws@8.18.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/websockets/ws
 │  ├─ publisher: Einar Otto Stangvik

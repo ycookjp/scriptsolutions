@@ -2,11 +2,11 @@
 
 ################################################################################
 # Name    : httpd-proxy
-# Usage   : httpd-proxy_fc39.sh <ipaddress>/<netmask>
+# Usage   : httpd-proxy_fc42.sh <ipaddress>/<netmask>
 #   * <ipaddress> and <netmask> : "Allow from" network.
-# Depends : fedora39-container-base.sh, dnf.conf
+# Depends : fedora-container-base_fc42.sh, dnf.conf
 # Creating image :
-#   1. Start Fedora 39 and login as root.
+#   1. Start Fedora 42 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
@@ -27,7 +27,7 @@ if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=39
+  export RELEASE_VER=42
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -47,7 +47,7 @@ BUILD_PACKAGES=""
 PROXY_ALLOW_FROM=$1
 
 ## Installing Fedora Minimal Install
-`dirname $0`/fedora${RELEASE_VER}-container-base.sh
+`dirname $0`/fedora-container-base_fc${RELEASE_VER}.sh
 
 ## Setting Proxy URL
 if [ _ != _${PROXY_URL} ]; then

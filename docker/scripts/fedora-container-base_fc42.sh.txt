@@ -1,24 +1,24 @@
-#!/bin/sh
+
 
 ################################################################################
-# Name    : fedora39-container-base
-# Usage   : fedora39-container-base.sh
+# Name    : fedora-container-base_fc42
+# Usage   : fedora-container-base_fc42.sh
 # Run CMD : /bin/bash
 # Depends : dnf.conf
 # Creating image :
-#   1. Start Fedora 39 and login as root.
+#   1. Start Fedora 42 and login as root.
 #   2. Place this file and dependencies at same directory.
 #   3. Edit dnf.conf to configure proxy setting.
 #   4. Run this script.
-#   5. Move to docker-images/fedora39-container-base directory and run
-#      "tar -c . | docker import - fedora39-container-base" command.
+#   5. Move to docker-images/fedora-container-base_fc42 directory and run
+#      "tar -c . | docker import - fedora-container-base:fc42" command.
 ################################################################################
 
 if [ _ = _${DOCKER_IMAGE} ]; then
   export DOCKER_IMAGE=`basename -s .sh $0`
 fi
 if [ _ = _${RELEASE_VER} ]; then
-  export RELEASE_VER=39
+  export RELEASE_VER=42
 fi
 if [ _ = _${BASE_ARCH} ]; then
   export BASE_ARCH=x86_64
@@ -33,9 +33,12 @@ PROXY_URL=`grep -e '^proxy=' ${DNF_CONFIG} | sed 's/^proxy=//g'`
 # Additional packages
 ADDITIONAL_PACKAGES=""
 
+# dnf command
+DNF_COMMAND=dnf4
+
 ## Installing Fedora Minimal Install
 mkdir -p ${INSTALL_ROOT}/etc/yum.repos.d
-dnf --installroot=${INSTALL_ROOT} --config=${DNF_CONFIG} \
+${DNF_COMMAND} --installroot=${INSTALL_ROOT} --config=${DNF_CONFIG} \
     --setopt=reposdir=${INSTALL_ROOT}/etc/yum.repos.d \
     --releasever ${RELEASE_VER} --forcearch=${BASE_ARCH} \
     install -y \
@@ -69,8 +72,8 @@ fi
 
 ## Installing additional packages
 if [ "" != "${ADDITIONAL_PACKAGES}" ]; then
-  dnf --installroot=${INSTALL_ROOT} install -y ${ADDITIONAL_PACKAGES}
+  ${DNF_COMMAND} --installroot=${INSTALL_ROOT} install -y ${ADDITIONAL_PACKAGES}
 fi
 
 ## Removing package cache
-dnf --installroot=${INSTALL_ROOT} --releasever ${RELEASE_VER} clean all
+${DNF_COMMAND} --installroot=${INSTALL_ROOT} --releasever ${RELEASE_VER} clean all
