@@ -67,9 +67,13 @@ el.replaceWith(d);
 <dd>
 <div class="desc"><p>The query returned multiple objects when only one was expected.</p></div>
 </dd>
+<dt id="polls.models.Choice.NotUpdated"><code class="name">var <span class="ident">NotUpdated</span></code></dt>
+<dd>
+<div class="desc"><p>The updated object no longer exists.</p></div>
+</dd>
 <dt id="polls.models.Choice.objects"><code class="name">var <span class="ident">objects</span></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>The type of the None singleton.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -118,9 +122,13 @@ object the first time, the query is executed.</p></div>
 <dd>
 <div class="desc"><p>The query returned multiple objects when only one was expected.</p></div>
 </dd>
+<dt id="polls.models.Question.NotUpdated"><code class="name">var <span class="ident">NotUpdated</span></code></dt>
+<dd>
+<div class="desc"><p>The updated object no longer exists.</p></div>
+</dd>
 <dt id="polls.models.Question.objects"><code class="name">var <span class="ident">objects</span></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>The type of the None singleton.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -135,7 +143,7 @@ many-to-one relation.</p>
 </code></pre>
 <p><code>Parent.children</code> is a <code>ReverseManyToOneDescriptor</code> instance.</p>
 <p>Most of the implementation is delegated to a dynamically defined manager
-class built by <code>create_forward_many_to_many_manager()</code> defined below.</p></div>
+class built by <code>create_reverse_many_to_one_manager()</code> defined below.</p></div>
 </dd>
 <dt id="polls.models.Question.id"><code class="name">var <span class="ident">id</span></code></dt>
 <dd>
@@ -199,6 +207,7 @@ object the first time, the query is executed.</p></div>
 <ul class="">
 <li><code><a title="polls.models.Choice.DoesNotExist" href="#polls.models.Choice.DoesNotExist">DoesNotExist</a></code></li>
 <li><code><a title="polls.models.Choice.MultipleObjectsReturned" href="#polls.models.Choice.MultipleObjectsReturned">MultipleObjectsReturned</a></code></li>
+<li><code><a title="polls.models.Choice.NotUpdated" href="#polls.models.Choice.NotUpdated">NotUpdated</a></code></li>
 <li><code><a title="polls.models.Choice.choice_text" href="#polls.models.Choice.choice_text">choice_text</a></code></li>
 <li><code><a title="polls.models.Choice.id" href="#polls.models.Choice.id">id</a></code></li>
 <li><code><a title="polls.models.Choice.objects" href="#polls.models.Choice.objects">objects</a></code></li>
@@ -212,6 +221,7 @@ object the first time, the query is executed.</p></div>
 <ul class="">
 <li><code><a title="polls.models.Question.DoesNotExist" href="#polls.models.Question.DoesNotExist">DoesNotExist</a></code></li>
 <li><code><a title="polls.models.Question.MultipleObjectsReturned" href="#polls.models.Question.MultipleObjectsReturned">MultipleObjectsReturned</a></code></li>
+<li><code><a title="polls.models.Question.NotUpdated" href="#polls.models.Question.NotUpdated">NotUpdated</a></code></li>
 <li><code><a title="polls.models.Question.choice_set" href="#polls.models.Question.choice_set">choice_set</a></code></li>
 <li><code><a title="polls.models.Question.get_next_by_pub_date" href="#polls.models.Question.get_next_by_pub_date">get_next_by_pub_date</a></code></li>
 <li><code><a title="polls.models.Question.get_previous_by_pub_date" href="#polls.models.Question.get_previous_by_pub_date">get_previous_by_pub_date</a></code></li>
